@@ -5,12 +5,9 @@
   "minMcmVersion": 13,
   "pluginRequirements": [],
   "cursorFillMode": "topToBottom",
-  "content": [
-    {
-      "text": "$Placeholder Text!",
-      "type": "header"
-    }
-  ],
+  "customContent": {
+    "source": "menus/TSSD/Overview.dds"
+  },
   "pages": [
       {
         "pageDisplayName": "$First",
