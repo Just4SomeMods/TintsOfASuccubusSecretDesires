@@ -821,7 +821,7 @@ Function OpenSuccubusAbilities()
         return
     endif
 
-    if myItems[result] == "Activate Death Mode" 
+    if myItems[result] == "Activate Death Mode" || myItems[result] == "Deactivate Death Mode"
         toggleDeathMode()
     elseif myItems[result] == "Enable Predator Mode (Debug)"
         SuccubusDesireLevel.SetValue(-100)
