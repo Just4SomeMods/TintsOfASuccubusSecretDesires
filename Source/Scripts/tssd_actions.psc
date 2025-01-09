@@ -309,9 +309,19 @@ EndFunction
 
 Function PlayerSceneEnd(Form FormRef, int tid)
     sslThreadController _thread =  Sexlab.GetController(tid)
+    Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
     if SuccubusDesireLevel.GetValue() > -101
-        updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid)), true)
-    endif    
+        updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid), none, false), true)
+    endif
+    int index = 0
+    while index < ActorsIn.Length
+        Actor WhoCums = ActorsIn[index] 
+        if WhoCums != PlayerRef && deathModeActivated && allowedToSucc(WhoCums) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
+            WhoCums.Kill(PlayerRef)
+            updateSuccyNeeds(100.0)
+        endif
+        index+=1
+    EndWhile
 EndFunction
 
 float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = none, bool anounceMent = true)
@@ -322,61 +332,59 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
     Actor[] ActorsIn = _thread.GetPositions()
     int idx = _thread.GetPositionIdx(WhoCums)
     int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
-    if WhoCums != PlayerRef && IsDeathable(WhoCums)
-        if Sexlab.GetSex(WhoCums) == 0 || Sexlab.GetSex(WhoCums) == 2 || Sexlab.GetSex(WhoCums) == 3
-            if chosenTraits[0] && _thread.HasSceneTag("Aircum")
-                retVal += 5
-                output += "Cum is in the air! "
-            elseif chosenTraits[1] && !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal") )
-                retVal += 5
-                output += "Cum enters you! "
+    if WhoCums
+        if WhoCums != PlayerRef && IsDeathable(WhoCums)
+            if Sexlab.GetSex(WhoCums) == 0 || Sexlab.GetSex(WhoCums) == 2 || Sexlab.GetSex(WhoCums) == 3
+                if chosenTraits[0] && _thread.HasSceneTag("Aircum")
+                    retVal += 5
+                    output += "Cum is in the air! "
+                elseif chosenTraits[1] && !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal") )
+                    retVal += 5
+                    output += "Cum enters you! "
+                endif
             endif
-        endif
-        if chosenTraits[2] && (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))
-            retVal += 5
-            output += "This is romantic! "
-        endif
-        if chosenTraits[5]
-            float ar_norm = (WhoCums.GetFactionRank(sla_Arousal) - 50)
-            retval += ar_norm / 5
-            if ar_norm > 0
-                output += "This is a great release for " + WhoCums.GetDisplayName() + "! "
-            else
-                output += "I don't think " + WhoCums.GetDisplayName() +" needed that... " 
-            endif
-        endif
-        if orgCount == 1
-            retVal += 10
-            if chosenTraits[3] && WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0
+            if chosenTraits[2] && (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))
                 retVal += 5
-                output += "Homewrecker!\n"
+                output += "This is romantic! "
             endif
-        elseif orgCount > 1
-            retVal /= (orgCount+1)
-        endif
-        if SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && succubusType == 2
-            retVal += 5
-            output += "New One!\n"
-        elseif WhoCums.GetRelationshipRank(PlayerRef) > 0 && succubusType == 1
-            retVal += 5
-            output += "My love!\n"
-        endif
-        if deathModeActivated && allowedToSucc(WhoCums) && anounceMent
-            WhoCums.KillEssential(PlayerRef)
-            updateSuccyNeeds(100.0)
+            if chosenTraits[5]
+                float ar_norm = (WhoCums.GetFactionRank(sla_Arousal) - 50)
+                retval += ar_norm / 5
+                if ar_norm > 0
+                    output += "This is a great release for " + WhoCums.GetDisplayName() + "! "
+                else
+                    output += "I don't think " + WhoCums.GetDisplayName() +" needed that... " 
+                endif
+            endif
+            if orgCount == 1
+                retVal += 10
+                if chosenTraits[3] && WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0
+                    retVal += 5
+                    output += "Homewrecker!\n"
+                endif
+            elseif orgCount > 1
+                retVal /= (orgCount+1)
+            endif
+            if SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && succubusType == 2
+                retVal += 5
+                output += "New One!\n"
+            elseif WhoCums.GetRelationshipRank(PlayerRef) > 0 && succubusType == 1
+                retVal += 5
+                output += "My love!\n"
+            endif
         endif
     endif
     if WhoCums == PlayerRef || IsDeathable(WhoCums)
         if chosenTraits[4]
             if _thread.sameSexThread()
                 retVal += 5
-                output += "This is so GAY!"
+                output += "This is so GAY! "
             elseif WhoCums == PlayerRef
                 energyLosses -= 5
-                output += "This is to straight!"
+                output += "This is too straight! "
             endif
         endif
-        if chosenTraits[5]
+        if chosenTraits[5] && PlayerRef == WhoCums
             float ar_norm = (WhoCums.GetFactionRank(sla_Arousal) - 50)
             if ar_norm > 0
                 retval += ar_norm / 5
@@ -393,7 +401,7 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
                 output += "Thrilling! "
             elseif WhoCums == PlayerRef
                 energyLosses -= 5
-                output += "Way to safe. "
+                output += "Way too safe. "
             endif
         endif
     endif
@@ -453,7 +461,7 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
         nextAnnouncment += output +"\n"
     endif
     if anounceMent
-        GetAnnouncement().Show(output + (retval as int), "icon.dds", aiDelay = 2.0)
+        GetAnnouncement().Show(output + (retval as int), "icon.dds", aiDelay = 5.0)
     endif
     return retVal
 EndFunction
@@ -822,8 +830,9 @@ Function OpenSuccubusAbilities()
 EndFunction
 
 Function OpenSettingsMenu()
-    String[] myItems = StringUtil.Split("Configure Bars;Look at Need;Debug Climax Now;Essentials are protected",";")
+    String[] myItems = StringUtil.Split("Configure Bars;Evaluate Needs;Debug Climax Now;Essentials are protected",";")
     Int result 
+    Actor Cross = Game.GetCurrentCrosshairRef() as Actor
     bool canEssDie = TSSD_KillEssentialsActive.GetValue() > 0
     if canEssDie
         myItems[3] = "Essentials can die."
@@ -838,7 +847,21 @@ Function OpenSettingsMenu()
     valToCheck += 1
 
     if result == valToCheck
-        EvaluateCompleteScene()
+        if Sexlab.GetPlayerController()
+            EvaluateCompleteScene()
+        elseif Cross
+            string showboat = "I can't succ them!"
+            if IsDeathable(Cross)
+                int lasttime = (GetLastTimeSuccd(Cross) * 100) as int
+                if lasttime > 100.0 || lasttime < 0.0 
+                    showboat = "This person is full of juicy energy!"
+                else
+                    showboat = "This person is only " + lasttime + "% ready."
+                endif
+            endif
+            GetAnnouncement().Show(showboat, "icon.dds", aiDelay = 2.0)
+        endif
+                
     endif
     valToCheck += 1
 
