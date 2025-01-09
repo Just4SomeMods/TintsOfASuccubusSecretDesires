@@ -62,7 +62,7 @@ string nextAnnouncment = ""
 string InputString = ""
 String SUCCUBUSTYPESCOLORS = "Crimson;Scarlet;Pink;Sundown"
 String SUCCUBUSTYPESCOLORSRGB  = "220.20.60;255.36.0;255.192.203;255.179.181"
-String SUCCUBUSDESCRIPTIONS = "Your standard Succubus experience.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to. You lose less energy from climaxing yourself.;You are fuled by love, not lust.\n You lose more energy from climaxing with a person that does not love you.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to.;You live an exciting life! Pursuing new things is your drive.\nYou gain more energy from climaxing partners that climax with you for the first time.\nYou lose more energy from climaxing with a partner you have been with before.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to.;Your transformation was not complete. You are only a half-succubus.\nYou gain less energy and lose more.\nYou cannot reach below 0 Energy."
+String SUCCUBUSDESCRIPTIONS = "Your standard Succubus experience.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to. You lose less energy from climaxing yourself.;You are fueled by love, not lust.\n You lose more energy from climaxing with a person that does not love you.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to.;You live an exciting life! Pursuing new things is your drive.\nYou gain more energy from climaxing partners that climax with you for the first time.\nYou lose more energy from climaxing with a partner you have been with before.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to.;Your transformation was not complete. You are only a half-succubus.\nYou gain less energy and lose more.\nYou cannot reach below 0 Energy."
 String SUCCUBUSTRAITS = "Lavenderblush;Cupid;Razzmatazz;Carnation;Tosca;Blush;Mahogany"
 String SUCCUBUSTRAITSDESCRIPTIONS =  "SuccubusTraitsDescriptions Getting cummed on increases your energy even more.;Getting cummed in increases your energy even more.;Having sex for the first time with a person in a marriage that does not involve you increases your energy by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from sex that involves only one gender;You and your partners orgasms increase your energy more if they are aroused, else less.;You do not lose energy while climaxing form being raped, you lose more otherwise."
 string[] filldirections
@@ -77,7 +77,7 @@ float last_checked
 float timer_internal = 0.0
 float[] initial_Bar_Vals
 float[] new_Bar_Vals
-float _updateTimer = 0.1
+float _updateTimer = 0.5
 float smooching = 0.0
 
 Function addToSmooching(float val)
