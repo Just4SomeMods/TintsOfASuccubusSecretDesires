@@ -330,9 +330,9 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
     String output = ""
     float energyLosses = 0
     Actor[] ActorsIn = _thread.GetPositions()
-    int idx = _thread.GetPositionIdx(WhoCums)
-    int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
     if WhoCums
+        int idx = _thread.GetPositionIdx(WhoCums)
+        int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
         if WhoCums != PlayerRef && IsDeathable(WhoCums)
             if Sexlab.GetSex(WhoCums) == 0 || Sexlab.GetSex(WhoCums) == 2 || Sexlab.GetSex(WhoCums) == 3
                 if chosenTraits[0] && _thread.HasSceneTag("Aircum")
@@ -373,35 +373,35 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
                 output += "My love!\n"
             endif
         endif
-    endif
-    if WhoCums == PlayerRef || IsDeathable(WhoCums)
-        if chosenTraits[4]
-            if _thread.sameSexThread()
-                retVal += 5
-                output += "This is so GAY! "
-            elseif WhoCums == PlayerRef
-                energyLosses -= 5
-                output += "This is too straight! "
+        if WhoCums == PlayerRef || IsDeathable(WhoCums)
+            if chosenTraits[4]
+                if _thread.sameSexThread()
+                    retVal += 5
+                    output += "This is so GAY! "
+                elseif WhoCums == PlayerRef
+                    energyLosses -= 5
+                    output += "This is too straight! "
+                endif
             endif
-        endif
-        if chosenTraits[5] && PlayerRef == WhoCums
-            float ar_norm = (WhoCums.GetFactionRank(sla_Arousal) - 50)
-            if ar_norm > 0
-                retval += ar_norm / 5
-                output += "This is a great release for me! "
-            else
-                energyLosses += ar_norm / 5
-                output += "I don't think I needed that... " 
-            endif
+            if chosenTraits[5] && PlayerRef == WhoCums
+                float ar_norm = (WhoCums.GetFactionRank(sla_Arousal) - 50)
+                if ar_norm > 0
+                    retval += ar_norm / 5
+                    output += "This is a great release for me! "
+                else
+                    energyLosses += ar_norm / 5
+                    output += "I don't think I needed that... " 
+                endif
 
-        endif
-        if chosenTraits[6]
-            if _thread.GetSubmissive(PlayerRef)
-                retVal += 5
-                output += "Thrilling! "
-            elseif WhoCums == PlayerRef
-                energyLosses -= 5
-                output += "Way too safe. "
+            endif
+            if chosenTraits[6]
+                if _thread.GetSubmissive(PlayerRef)
+                    retVal += 5
+                    output += "Thrilling! "
+                elseif WhoCums == PlayerRef
+                    energyLosses -= 5
+                    output += "Way too safe. "
+                endif
             endif
         endif
     endif
