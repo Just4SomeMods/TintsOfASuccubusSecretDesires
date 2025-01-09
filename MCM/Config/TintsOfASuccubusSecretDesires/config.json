@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
+  "modName": "TintsOfASuccubusSecretDesires",
+  "displayName": "Tints of a Succubus secret desires",
+  "minMcmVersion": 13,
+  "pluginRequirements": [],
+  "cursorFillMode": "topToBottom",
+  "content": [
+    {
+      "text": "$Placeholder Text!",
+      "type": "header"
+    }
+  ],
+  "pages": [
+      {
+        "pageDisplayName": "$First",
+        "content": [ {
+            "id": "iModifierHotkey:Main",
+            "text": "$ModifyHotkey",
+            "type": "keymap",
+            "help": "$OpenLastMenu",
+            "ignoreConflicts": true,
+                  "valueOptions": {
+                    "sourceType": "ModSettingInt"
+                  }
+          },
+          {
+            "id": "allInOneKey",
+            "text": "$SuperKey",
+            "type": "keymap",
+            "help": "$SuperKeyDesc."
+          },{
+            "id": "bKillEssentials:Main",
+            "type": "toggle",
+            "text": "$Kill_Essential_with_drain",
+            "help": "$Kill_Essential_with_drain_Desc",
+            "valueOptions": {
+              "sourceType": "ModSettingBool",
+                        "defaultValue": false
+            }
+            }
+        
+            ]
+      }
+    ]
+  }

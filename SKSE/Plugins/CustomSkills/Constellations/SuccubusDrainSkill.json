@@ -1,0 +1,33 @@
+{
+     "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
+     "id": "SuccubusDrainSkill",
+     "name": "$SuccubusDrainSkillName",
+     "description": "$SuccubusDrainSkillDescription",
+     "legendary": "TintsOfASuccubusSecretDesires.esp|008",
+     "level": "TintsOfASuccubusSecretDesires.esp|002",
+     "ratio": "TintsOfASuccubusSecretDesires.esp|007",
+     "experienceFormula": {
+          "useMult": 1.0,
+          "useOffset": 0.0,
+          "improveMult": 2.0,
+          "improveOffset": 0.0,
+          "enableXPPerRank": false
+     },
+     "nodes": [
+          {
+          "id": "Drain More",
+          "perk": "TintsOfASuccubusSecretDesires.esp|012",
+          "x": -0.5,
+          "y": -0.5,
+          "links": [
+          ]
+     },{
+          "id": "Gentle Drain",
+          "perk": "TintsOfASuccubusSecretDesires.esp|014",
+          "x": 0.5,
+          "y": -0.5,
+          "links": [
+          ]
+     }
+     ]
+}

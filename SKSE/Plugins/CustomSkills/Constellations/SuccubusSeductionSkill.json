@@ -1,0 +1,33 @@
+{
+     "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+     "id": "SuccubusSeductionSkill",
+     "name": "$SuccubusSeductionSkillName",
+     "description": "$SuccubusSeductionSkillDescription",
+     "legendary": "TintsOfASuccubusSecretDesires.esp|006",
+     "level": "TintsOfASuccubusSecretDesires.esp|003",
+     "ratio": "TintsOfASuccubusSecretDesires.esp|009",
+     "experienceFormula": {
+          "useMult": 7.0,
+          "useOffset": 0.0,
+          "improveMult": 0.5,
+          "improveOffset": 120.0,
+          "enableXPPerRank": false
+     },
+     "nodes": [
+          {
+          "id": "Kiss",
+          "perk": "TintsOfASuccubusSecretDesires.esp|023",
+          "x": 0.5,
+          "y": -0.5,
+          "links": [
+          ]
+     }, {
+          "id": "Leader",
+          "perk": "TintsOfASuccubusSecretDesires.esp|02E",
+          "x": 0.5,
+          "y": 0.5,
+          "links": [
+          ]
+     }
+     ]
+}

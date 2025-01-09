@@ -1,0 +1,8 @@
+*.png
+*.png~
+*.vscode
+*.sh
+*.ppj
+*.code-workspace
+BACKUP
+Source/Scripts/temp/*

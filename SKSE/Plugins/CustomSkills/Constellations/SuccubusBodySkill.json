@@ -1,0 +1,48 @@
+{
+     "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
+     "id": "SuccubusBodySkill",
+     "name": "$SuccubusBodySkillName",
+     "description": "$SuccubusBodySkillDescription",
+     "level": "TintsOfASuccubusSecretDesires.esp|004",
+     "legendary": "TintsOfASuccubusSecretDesires.esp|006",
+     "ratio": "TintsOfASuccubusSecretDesires.esp|005",
+     "perkPoints": "TintsOfASuccubusSecretDesires.esp|01B",
+     "experienceFormula": {
+          "useMult": 1.8,
+          "useOffset": 0.0,
+          "improveMult": 2.0,
+          "improveOffset": 0.0,
+          "enableXPPerRank": false
+     },
+     "nodes": [
+          {
+          "id": "EnergyConverter",
+          "perk": "TintsOfASuccubusSecretDesires.esp|011",
+          "x": 0.0,
+          "y": -0.5,
+          "links": [
+          ]
+     },{
+          "id": "Overstuffed",
+          "perk": "TintsOfASuccubusSecretDesires.esp|03D",
+          "x": 0.5,
+          "y": 0.0,
+          "links": [
+          ]
+     },{
+          "id": "Body Art Enjoyer",
+          "perk": "TintsOfASuccubusSecretDesires.esp|027",
+          "x": -0.5,
+          "y": 0.5,
+          "links": [
+          ]
+     },{
+          "id": "Filled Up Enjoyer",
+          "perk": "TintsOfASuccubusSecretDesires.esp|026",
+          "x": 0.5,
+          "y": 0.5,
+          "links": [
+          ]
+     }
+     ]
+}

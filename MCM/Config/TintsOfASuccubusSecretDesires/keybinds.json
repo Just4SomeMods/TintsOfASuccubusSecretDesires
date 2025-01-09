@@ -1,0 +1,20 @@
+ 
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/keybinds.schema.json",
+    "modName": "TintsOfASuccubusSecretDesires",
+    "keybinds": [
+      {
+        "id": "allInOneKey",
+        "desc": "$Display Messagebox via CallFunction",
+        "action": {
+          "type": "CallFunction",
+          "form": "TintsOfASuccubusSecretDesires.esp|001",
+          "scriptName": "tssd_actions",
+          "function": "OpenGrandeMenu"
+        }
+      },{
+        "id": "iModifierHotkey:Main",
+        "desc": "$ModifierHotkey"
+      }
+    ]
+  }
