@@ -723,7 +723,6 @@ Function SelectSuccubusType()
         endif
         succubusType = resultW[0] as int
         setColorsOfBar()
-        PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
     endif
 EndFunction
 
@@ -798,11 +797,7 @@ Function OpenSuccubusAbilities()
     
     String itemsAsString = "Activate Death Mode"
 
-    if PlayerRef.HasPerk(TSSD_Seduction_Kiss1)
-        itemsAsString += ";Harmless Kiss"
-    endif
-
-    itemsAsString += ";Enable Predator Mode (Debug)"
+    itemsAsString += ";Enable Predator Mode (Debug)" ;; Keep Last
 
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result 
@@ -820,12 +815,6 @@ Function OpenSuccubusAbilities()
 
     if myItems[result] == "Activate Death Mode" 
         toggleDeathMode()
-    elseif myItems[result] == "Harmless Kiss"  && targetRef
-        SexLab.StartSceneQuick(PlayerRef, targetRef, asTags="kissing, limitedstrip, -sex")
-        updateSuccyNeeds(10.0)
-        sslThreadController _thread =  Sexlab.GetPlayerController()
-        _thread.SetNoStripping(PlayerRef)
-        _thread.SetNoStripping(targetRef)
     elseif myItems[result] == "Enable Predator Mode (Debug)"
         SuccubusDesireLevel.SetValue(-100)
     endif   
@@ -862,9 +851,6 @@ Function OpenSettingsMenu()
         TSSD_KillEssentialsActive.SetValue( (!canEssDie) as int)
     endif
     valToCheck += 1
-    
-    
-
 EndFunction
 
 Function toggleDeathMode()
