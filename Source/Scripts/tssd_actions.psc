@@ -64,7 +64,7 @@ String SUCCUBUSTRAITS = "Lavenderblush;Cupid;Razzmatazz;Carnation;Tosca;Blush;Ma
 
 String SUCCUBUSTRAITSDESCRIPTIONS =  "Getting cummed on increases your energy even more.;Getting cummed in increases your energy even more.;Having sex for the first time with a person in a marriage that does not involve you increases your energy by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from sex that involves only one gender;You and your partners orgasms increase your energy more if they are aroused, else less.;You do not lose energy while climaxing form being raped, you lose more otherwise."
 
-String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!:;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.;This is a great Release!:I don't think this was needed.;Thrilling!:Too safe!"
+String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!: ;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.; needed that!: did not need that.;Thrilling!:Too safe!"
 String[] SUCCUBUSTRAITSDIALOGUE      
 int[]    SUCCUBUSTRAITSVALUESBONUS   
 int[]    SUCCUBUSTRAITSVALUESPENALTY 
@@ -228,7 +228,11 @@ Function OpenExlanationMenu()
         TraitsMenu.AddItem( SUCCUBUSTATS[index], SUCCUBUSTATSDESCRIPTIONS[index], "menus/tssd/"+SUCCUBUSTATS[index]+".dds")
         index += 1
     EndWhile
-    int resultw =  TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)[0] as int
+    string[] result = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
+    int resultW = -1
+    if result.Length > 0
+        resultw =  result[0] as int
+    endif
     if resultw == -1
         Return
     endif
@@ -349,6 +353,9 @@ Function OpenSettingsMenu()
     endif
     
     result = GetSelectList().Show(myItems)
+    if result == -1
+        return
+    endif
     if myItems[result] == "myItems"
         ListOpenBarsOld()
     elseif myItems[result] == "Evaluate Needs"
@@ -479,11 +486,11 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
         updateSuccyNeeds(evaluateSceneEnergy(_thread, ActorRef))
     endif
     
-    if deathModeActivated && ActorRef != PlayerRef && _thread.GetPositions().Length == 2
+    if deathModeActivated && ActorRef != PlayerRef
         
         int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
         int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-        TOSD_DrainHealth.SetNthEffectMagnitude(1, 100 + SkillSuccubusDrainLevel.GetValue() * 4 )
+        TOSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
         TOSD_DrainHealth.Cast(PlayerRef, ActorRef)
         while  Stage_in < StageCount 
             _thread.AdvanceStage()
@@ -491,15 +498,15 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
         EndWhile
     elseif !deathModeActivated  && ActorRef != PlayerRef && PlayerRef.HasPerk(TOSD_Drain_GentleDrain1)
         float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-        if PlayerRef.HasPerk(TOSD_Drain_GentleDrain4)
-            TOSD_DrainHealth.SetNthEffectMagnitude(1,  new_drain_level)
-        elseif PlayerRef.HasPerk(TOSD_Drain_GentleDrain3)
-            TOSD_DrainHealth.SetNthEffectMagnitude(1,  new_drain_level / 2)
+        if PlayerRef.HasPerk(TOSD_Drain_GentleDrain3)
+            new_drain_level /= 2
         elseif PlayerRef.HasPerk(TOSD_Drain_GentleDrain2)
-            TOSD_DrainHealth.SetNthEffectMagnitude(1,  new_drain_level / 3)
+            new_drain_level /= 3
         elseif PlayerRef.HasPerk(TOSD_Drain_GentleDrain1)
-            TOSD_DrainHealth.SetNthEffectMagnitude(1,  new_drain_level / 5)
+            new_drain_level /= 5
         endif
+        TOSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
+        TOSD_DrainHealth.Cast(PlayerRef, ActorRef)
     endif
 
 EndEvent
@@ -528,7 +535,15 @@ Function EvaluateCompleteScene(bool onStart=false)
         index += 1
     EndWhile
 
-    if energyNew >= 30
+
+    if (max_rel > 3 && succubusType == 1 || max_prot) && deathModeActivated && onStart ; TODO - Logic for auto-deactivation
+        output += "I can't drain them! "
+        toggleDeathMode()
+    endif
+    if deathModeActivated
+        energyNew += (ActorsIn.Length - 1) * 100
+        output += "Someone is about to die! "
+    elseif energyNew >= 30
         output += "Ooh, this will do nicely! "
     elseif energyNew >= 20
         output += "Mhhm this is good. "
@@ -536,11 +551,6 @@ Function EvaluateCompleteScene(bool onStart=false)
         output += "I like this."
     elseif energyNew < 0
         output += "Eugh, this is bad. "
-    endif
-
-    if (max_rel > 3 && succubusType == 1 || max_prot) && deathModeActivated && onStart ; TODO - Logic for auto-deactivation
-        output += "I can't drain them! "
-        toggleDeathMode()
     endif
 
     GetAnnouncement().Show(output + "\n" + nextAnnouncment + "Projected Energy gain: " + (energyNew as int), "icon.dds", aiDelay = 15.0)
@@ -609,7 +619,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     SUCCUBUSTRAITSVALUESPENALTY[5] =0
     float lastMet = 1
-    if WhoCums != PlayerRef
+    if WhoCums && WhoCums != PlayerRef
         retval += 10
         lastMet = GetLastTimeSuccd(WhoCums)
     Endif
@@ -632,11 +642,12 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
                 float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
                 retval += ar_norm / 5
                 traitYes = ar_norm > 0
+                nextAnnouncment += WhoCums.GetDisplayName()
             elseif index == 6
                 traitYes = _thread.GetSubmissive(PlayerRef)
             endif
             if traitYes && WhoCums != PlayerRef && lastMet > 0
-                retval += lastMet * traitFullfilled(index, traitYes) * ( 1 / _thread.ActorAlias(WhoCums).GetOrgasmCount() / (_thread.GetPositions().Length - 1) )
+                retval += lastMet * traitFullfilled(index, traitYes) * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1) / (_thread.GetPositions().Length - 1) )
             else
                 retval +=  traitFullfilled(index, traitYes)
             endif
