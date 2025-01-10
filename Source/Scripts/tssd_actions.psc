@@ -64,7 +64,15 @@ String SUCCUBUSTYPESCOLORS = "Crimson;Scarlet;Pink;Sundown"
 String SUCCUBUSTYPESCOLORSRGB  = "220.20.60;255.36.0;255.192.203;255.179.181"
 String SUCCUBUSDESCRIPTIONS = "Your standard Succubus experience.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to. You lose less energy from climaxing yourself.;You are fueled by love, not lust.\n You lose more energy from climaxing with a person that does not love you.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to.;You live an exciting life! Pursuing new things is your drive.\nYou gain more energy from climaxing partners that climax with you for the first time.\nYou lose more energy from climaxing with a partner you have been with before.\nAt minimum energy, you enter Predator mode, forcing yourself on the first person you talk to.;Your transformation was not complete. You are only a half-succubus.\nYou gain less energy and lose more.\nYou cannot reach below 0 Energy."
 String SUCCUBUSTRAITS = "Lavenderblush;Cupid;Razzmatazz;Carnation;Tosca;Blush;Mahogany"
-String SUCCUBUSTRAITSDESCRIPTIONS =  "SuccubusTraitsDescriptions Getting cummed on increases your energy even more.;Getting cummed in increases your energy even more.;Having sex for the first time with a person in a marriage that does not involve you increases your energy by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from sex that involves only one gender;You and your partners orgasms increase your energy more if they are aroused, else less.;You do not lose energy while climaxing form being raped, you lose more otherwise."
+
+String SUCCUBUSTRAITSDESCRIPTIONS =  "Getting cummed on increases your energy even more.;Getting cummed in increases your energy even more.;Having sex for the first time with a person in a marriage that does not involve you increases your energy by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from sex that involves only one gender;You and your partners orgasms increase your energy more if they are aroused, else less.;You do not lose energy while climaxing form being raped, you lose more otherwise."
+
+String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!:;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.;This is a great Release!:I don't think this was needed.;Thrilling!:Too safe!"
+String[] SUCCUBUSTRAITSDIALOGUE      
+int[]    SUCCUBUSTRAITSVALUESBONUS   
+int[]    SUCCUBUSTRAITSVALUESPENALTY 
+int[]    SUCCUBUSTRAITSTARGET        
+
 string[] filldirections
 string[] barVals
 string[] string_first_arr
@@ -323,6 +331,64 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         index+=1
     EndWhile
 EndFunction
+
+int Function traitFullfilled(int trait, bool fullfilled)
+    if fullfilled
+        return SUCCUBUSTRAITSVALUESBONUS[trait]
+    endif
+    return SUCCUBUSTRAITSVALUESPENALTY[trait]
+Endfunction
+
+float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none)
+    int index = 0
+    float retval = 0
+    SUCCUBUSTRAITSDIALOGUE      =       StringUtil.Split(SUCCUBUSTRAITSDIALOGUESTRING, ";")
+    SUCCUBUSTRAITSVALUESBONUS         =        Utility.CreateIntArray(SUCCUBUSTRAITSDIALOGUE.Length, 5)
+    SUCCUBUSTRAITSVALUESPENALTY   =      Utility.CreateIntArray(SUCCUBUSTRAITSDIALOGUE.Length, -5)
+    SUCCUBUSTRAITSTARGET          =   Utility.CreateIntArray(SUCCUBUSTRAITSDIALOGUE.Length, 2)
+    SUCCUBUSTRAITSTARGET[0] = 1
+    SUCCUBUSTRAITSTARGET[1] = 1
+    SUCCUBUSTRAITSTARGET[2] = 1
+
+    SUCCUBUSTRAITSVALUESBONUS[2] = 10
+    SUCCUBUSTRAITSVALUESPENALTY[2] =0
+
+    SUCCUBUSTRAITSVALUESBONUS[5] =  0
+    SUCCUBUSTRAITSVALUESPENALTY[2] =0
+
+    while index < SUCCUBUSTRAITSTARGET.Length
+        string[] cur_dial = StringUtil.Split(SUCCUBUSTRAITSDIALOGUE[index],":")
+        if chosenTraits[index] && ( SUCCUBUSTRAITSTARGET[index] == 2 ||  (SUCCUBUSTRAITSTARGET[index] == 1 && WhoCums != PlayerRef)  )
+            bool traitYes = false
+            if index == 0
+                traitYes = _thread.HasSceneTag("Aircum")
+                retval += traitFullfilled(index, traitYes)
+            elseif index == 1
+                traitYes =  !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal"))
+            elseif index == 2
+                traitYes =  WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1
+            elseif index == 3
+                traitYes = (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))
+            elseif index == 4
+                traitYes = _thread.sameSexThread()
+            elseif index == 5
+                float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
+                retval += ar_norm / 5
+                traitYes = ar_norm > 0
+            elseif index == 5
+                traitYes = _thread.GetSubmissive(PlayerRef)
+            endif
+            retval += traitFullfilled(index, traitYes)
+            nextAnnouncment += cur_dial[traitYes as int] + " "
+        endif
+        index += 1
+    EndWhile
+    return retval
+Endfunction
+
+
+
+
 
 float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = none, bool anounceMent = true)
     float dateCheck = TimeOfDayGlobalProperty.GetValue() 
