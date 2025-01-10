@@ -204,9 +204,9 @@ Function UpdateStatus()
 EndFunction
 
 
-bool Function IsDeathable(Actor akActor)
+bool Function isSuccable(Actor akActor)
     ActorBase ak = (akActor.GetBaseObject() as ActorBase)
-    return  !(ak.IsProtected() || ak.IsEssential()) || MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main") && !akActor.IsChild()
+    return  !(ak.IsProtected() || ak.IsEssential()) || (false && MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main")) && !akActor.IsChild()
 EndFunction
 
 
@@ -258,7 +258,7 @@ Function EvaluateCompleteScene(bool onStart=false)
         energyNew += evaluateSceneEnergy(_thread, ActorRef, false)
         if PlayerRef != ActorRef
             max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
-            if !IsDeathable(ActorRef) && deathModeActivated
+            if !isSuccable(ActorRef) && deathModeActivated
                 max_prot = true
             endif
         endif
@@ -316,9 +316,9 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     int index = 0
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index] 
-        if WhoCums != PlayerRef && deathModeActivated && allowedToSucc(WhoCums) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
+        if WhoCums != PlayerRef && deathModeActivated && allowedToSuccToDeath(WhoCums) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
             WhoCums.Kill(PlayerRef)
-            updateSuccyNeeds(100.0)
+            updateSuccyNeeds(WhoCums.GetActorValueMax("Health"))
         endif
         index+=1
     EndWhile
@@ -333,7 +333,7 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
     if WhoCums
         int idx = _thread.GetPositionIdx(WhoCums)
         int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
-        if WhoCums != PlayerRef && IsDeathable(WhoCums)
+        if WhoCums != PlayerRef && isSuccable(WhoCums)
             if Sexlab.GetSex(WhoCums) == 0 || Sexlab.GetSex(WhoCums) == 2 || Sexlab.GetSex(WhoCums) == 3
                 if chosenTraits[0] && _thread.HasSceneTag("Aircum")
                     retVal += 5
@@ -373,7 +373,7 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
                 output += "My love!\n"
             endif
         endif
-        if WhoCums == PlayerRef || IsDeathable(WhoCums)
+        if WhoCums == PlayerRef || isSuccable(WhoCums)
             if chosenTraits[4]
                 if _thread.sameSexThread()
                     retVal += 5
@@ -443,7 +443,7 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
             retval /= 2
         endif
     endif
-    if smooching > 0.0 ; Has to be last
+    if smooching > 0.0
         float lastMet = lastSmoochTimeWithThatPerson
         if lastMet>=0.0
             retVal *= min(lastMet, 1)
@@ -466,9 +466,12 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
     return retVal
 EndFunction
 
-bool Function allowedToSucc(Actor ActorRef)
-    bool prot = IsDeathable(ActorRef)
-    return ((succubusType != 1 ||  (ActorRef.GetRelationshipRank(PlayerRef) < 3)) && (MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main") || true  || !prot ))
+bool Function allowedToSuccToDeath(Actor ActorRef)
+    bool endResult = isSuccable(ActorRef)
+    if succubusType == 1 && ActorRef.GetRelationshipRank(PlayerRef) > 3 ; You cannot kill your sweethearts.
+        endResult = false
+    endif
+    return endResult
 EndFunction
 
 Function DebugForceOrgasm()
@@ -483,27 +486,6 @@ Function DebugForceOrgasm()
         EndWhile
         
     endif
-    
-EndFunction
-
-Function EdgyStopOrgasm()
-    sslThreadController _thread =  Sexlab.GetPlayerController()
-    if _thread
-        sslActorAlias playeralias = _thread.ActorAlias(PlayerRef)
-        bool is_allowed = TogglePlayerOrgasmAllowed(_thread)
-    endif
-EndFunction
-
-bool Function TogglePlayerOrgasmAllowed(sslThreadController _thread)
-    bool was_allowed = _thread.IsOrgasmAllowed(PlayerRef)
-    _thread.DisableOrgasm(PlayerRef, was_allowed)
-    if was_allowed
-        GetAnnouncement().Show("No... not yet.", "icon.dds", aiDelay = 2.0)
-    else
-        GetAnnouncement().Show("I need release!", "icon.dds", aiDelay = 2.0)
-    endif
-    return !was_allowed
-
 EndFunction
 
 Function OpenGrandeMenu()
@@ -624,8 +606,6 @@ float Function Min(float a, float b)
 EndFunction
 
 Function OpenExpansionMenu()
-    ;last_checked = TimeOfDayGlobalProperty.GetValue()
-    ;sslThreadController _thread =  Sexlab.GetPlayerController()
     if !lookedAtExplanationsOnce
         OpenExlanationMenu()
         lookedAtExplanationsOnce = true
@@ -671,15 +651,15 @@ Endfunction
 
 Function OpenSkillTrainingsMenu(int index_of)
     String[] myItems = StringUtil.Split("Drain;Seduction;Body;Perk Points;Perk Trees;Read Explanations again",";")
-    GlobalVariable[] skillLevels = new GlobalVariable[4]
-    skillLevels[0] = SkillSuccubusDrainLevel
-    skillLevels[1] = SkillSuccubusSeductionLevel
-    skillLevels[2] = SkillSuccubusBodyLevel
-    skillLevels[3] = TSSD_PerkPointsBought
+    String[] skillNames = new String[4]
+    skillNames[0] = "SuccubusDrainSkill"
+    skillNames[1] = "SuccubusSeductionSkill"
+    skillNames[2] = "SuccubusBodySkill"
+    skillNames[3] = "SuccubusPerkPoints"
 
     tssd_trainSuccAbilities trainingThing =  ((Quest.GetQuest("tssd_queststart")) as tssd_trainSuccAbilities)
     trainingThing.SetSkillName(mYitems[index_of])
-    trainingThing.SetSkillVariable(skillLevels[index_of])
+    trainingThing.SetSkillVariable(skillNames[index_of])
     (trainingThing).show()
 
 Endfunction
@@ -851,7 +831,7 @@ Function OpenSettingsMenu()
             EvaluateCompleteScene()
         elseif Cross
             string showboat = "I can't succ them!"
-            if IsDeathable(Cross)
+            if isSuccable(Cross)
                 int lasttime = (GetLastTimeSuccd(Cross) * 100) as int
                 if lasttime > 100.0 || lasttime < 0.0 
                     showboat = "This person is full of juicy energy!"
