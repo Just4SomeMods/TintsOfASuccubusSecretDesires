@@ -35,7 +35,16 @@
               "sourceType": "ModSettingBool",
                         "defaultValue": false
             }
-            }
+            },{
+              "id": "bSpamNotifications:Main",
+              "type": "toggle",
+              "text": "$Debug_notes",
+              "help": "$Debug_notes_desc",
+              "valueOptions": {
+                "sourceType": "ModSettingBool",
+                          "defaultValue": false
+              }
+              }
         
             ]
       }

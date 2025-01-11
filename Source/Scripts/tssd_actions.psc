@@ -3,6 +3,7 @@ import b612
 
 iWant_Widgets Property  iWidgets Auto
 SexLabFramework Property SexLab Auto
+tssd_succubusstageendblockhook Property stageEndHook Auto
 Actor Property PlayerRef Auto
 
 Quest Property  b612Quest Auto
@@ -30,6 +31,7 @@ Perk Property TOSD_Drain_DrainMore1 Auto
 Perk Property TOSD_Drain_DrainMore2 Auto
 Perk Property TSSD_Seduction_Kiss1 Auto
 Perk Property TOSD_Seduction_Leader Auto
+Perk Property TSSD_Seduction_OfferSex Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_SuccubusBaseChanges Auto
@@ -184,6 +186,7 @@ Function OpenGrandeMenu()
             lastUsed = result
         endif
     endif
+    NotificationSpam(myItems[result] )
     if myItems[result] == "Abilities"
         OpenSuccubusAbilities()
     elseif myItems[result] == "Upgrades"
@@ -195,7 +198,14 @@ Function OpenGrandeMenu()
     elseif myItems[result] == "Select Traits"
         OpenSuccubusTraits()
     endif
-EndFunction
+EndFunction 
+
+Function NotificationSpam(string Displaying)
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bSpamNotifications:Main")
+        Debug.Notification( "You picked: " + Displaying )
+    endif
+Endfunction
+
 
 Function OpenExpansionMenu()
     if !lookedAtExplanationsOnce
@@ -209,6 +219,7 @@ Function OpenExpansionMenu()
     Int result  = mySelectList.Show(myItems)
     if result < 4 && result > -1
         OpenSkillTrainingsMenu(result)
+        NotificationSpam(myItems[result] )
     elseif result == 4
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
     elseif result == 5
@@ -241,7 +252,6 @@ Function OpenExlanationMenu()
     elseif resultw >= 0
         OpenSkillTrainingsMenu(resultW - 1)
     endif
-
 Endfunction
 
 Function OpenSkillTrainingsMenu(int index_of)
@@ -256,7 +266,6 @@ Function OpenSkillTrainingsMenu(int index_of)
     trainingThing.SetSkillName(mYitems[index_of])
     trainingThing.SetSkillVariable(skillNames[index_of])
     (trainingThing).show()
-
 Endfunction
 
 Function OpenSuccubusTraits()
@@ -297,14 +306,17 @@ Function SelectSuccubusType()
     String[] resultw = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
     index = 0
     if resultw.Length>0
+        succubusType = resultW[0] as int
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
             updateSuccyNeeds(0)
             PlayerRef.AddPerk(TOSD_Base_Explanations)
             RegisterForUpdateGameTime(0.4)
             RegisterForMenu("Dialogue Menu")
+            if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
+                PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
+            endif
         endif
-        succubusType = resultW[0] as int
         setColorsOfBar()
     endif
 EndFunction
@@ -356,6 +368,7 @@ Function OpenSettingsMenu()
     if result == -1
         return
     endif
+    NotificationSpam(myItems[result] )
     if myItems[result] == "myItems"
         ListOpenBarsOld()
     elseif myItems[result] == "Evaluate Needs"
@@ -586,14 +599,27 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid), none, false), true)
     endif
     int index = 0
+    ;int min_orgasm = 0
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index] 
+        ;if WhoCums != PlayerRef
+        ;    min_orgasm = max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), min_orgasm) as int
+        ;endif
         if WhoCums != PlayerRef && deathModeActivated && allowedToSuccToDeath(WhoCums) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
             WhoCums.Kill(PlayerRef)
             updateSuccyNeeds(WhoCums.GetActorValueMax("Health"))
         endif
         index+=1
     EndWhile
+    ;if min_orgasm == 0
+    ;    String[] asScenes = SexLabRegistry.LookupScenesA( _thread.GetPositions()  , none, _thread.GetSubmissives(), 0, none )
+    ;    _thread.ResetScene(asScenes[0])
+    ;    SexLabThread cur_thread = Sexlab.GetThreadByActor(PlayerRef)
+    ;    cur_thread.SetIsSubmissive(PlayerRef, true)
+	;	asScenes = SexLabRegistry.LookupScenesA( _thread.GetPositions()  , SexlabRegistry.GetSceneTags(SexLabRegistry.GetSceneName(cur_thread.;GetActiveScene())),  _thread.GetSubmissives(), 0, none )
+	;	_thread.ResetScene(asScenes[Utility.RandomInt(0, asScenes.Length)])
+    ;endif
+    Sexlab.UnRegisterHook( stageEndHook)
 EndFunction
 
 int Function traitFullfilled(int trait, bool fullfilled)
@@ -799,21 +825,32 @@ EndEvent
 Function OpenSuccubusAbilities()
     
     String itemsAsString = "Activate Death Mode"
+
+    if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
+        itemsAsString += ";Ask for Sex."
+    endif
+    Actor Cross = Game.GetCurrentCrosshairRef() as Actor
+
     itemsAsString += ";Enable Predator Mode (Debug)" ;; Keep Last
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result 
     if deathModeActivated
         myItems[0] = "Deactivate Death Mode"
     endif
-    Actor targetRef = Game.GetCurrentCrosshairRef() as Actor
+    
     result = GetSelectList().Show(myItems)
     if result == -1
         return
     endif
+    NotificationSpam(myItems[result] )
     if myItems[result] == "Activate Death Mode" || myItems[result] == "Deactivate Death Mode"
         toggleDeathMode()
     elseif myItems[result] == "Enable Predator Mode (Debug)"
         SuccubusDesireLevel.SetValue(-100)
+    elseif myItems[result] == "Ask for Sex." && Cross
+        Sexlab.RegisterHook( stageEndHook)
+        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
+        
     endif
 EndFunction
 Function toggleDeathMode()
