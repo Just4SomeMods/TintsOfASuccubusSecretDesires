@@ -35,10 +35,13 @@ Function OnStageStart(SexLabThread akThread)
         int index = 0
         SexLabThread cur_thread = Sexlab.GetThreadByActor(PlayerRef)
         Actor[] ActorsIn = akThread.GetPositions()
+        int[] enjoymentsBefore = Utility.CreateIntArray(ActorsIn.Length, 0)
+        sslThreadController _thread = akThread as sslThreadController
         while index <  ActorsIn.length
             Actor akTarget = ActorsIn[index]
+            enjoymentsBefore[index] = _thread.GetEnjoyment(ActorsIn[index]) 
             if akTarget != PlayerRef
-                if (akThread as sslThreadController).ActorAlias(akTarget).GetOrgasmCount() == 0
+                if _thread.ActorAlias(akTarget).GetOrgasmCount() == 0
                     allSatisfied = false
                 Endif
                 if cur_thread.GetSubmissive(akTarget)
@@ -50,17 +53,23 @@ Function OnStageStart(SexLabThread akThread)
         if !allSatisfied && notFirstToStageLast
             ;Sexlab.GetPlayerController().AdvanceStage(true)
             ;akThread.ResetScene(asScenes[0])
-            if !conSent && !cur_thread.GetSubmissive(PlayerRef)
+            if (!conSent && !cur_thread.GetSubmissive(PlayerRef)) || cur_thread.GetSubmissive(PlayerRef)
                 akThread.ResetScene(cur_thread.GetActiveScene())
                 
-            else
+            else 
                 cur_thread.SetIsSubmissive(PlayerRef, true)
                 string tagsAsString = GetCumTarget(cur_thread.GetActiveScene())
 
                 String[] asScenes2 = SexLabRegistry.LookupScenesA( ActorsIn  , tagsAsString + "-Aircum",  akThread.GetSubmissives(), 0, none )
-                ;asScenes = SexLabRegistry.LookupScenesA( akThread.GetPositions()  , ,  akThread.GetSubmissives(), 0, none )
-                ;SexLabRegistry.LookupScenesA( _thread.GetPositions()  , "AirCum", _thread.GetSubmissives(), 0, none )
                 akThread.ResetScene(asScenes2[Utility.RandomInt(0, asScenes2.Length)])
+                index = 0
+                while index <  ActorsIn.length
+                    actor curActor = ActorsIn[index]
+                    if curActor != PlayerRef
+                        _thread.AdjustEnjoyment(ActorsIn[index], 50 + enjoymentsBefore[index])
+                    endif
+                    index += 1
+                EndWhile
             endif
         endif
         notFirstToStageLast = true
