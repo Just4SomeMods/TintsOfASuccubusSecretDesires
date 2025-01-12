@@ -69,7 +69,7 @@ String SUCCUBUSTRAITS = "Razzmatazz;Cupid;Lavenderblush;Carnation;Tosca;Blush"
 
 String SUCCUBUSTRAITSDESCRIPTIONS =  "Getting cummed on increases your energy even more.;Getting cummed in increases your energy even more.;Having sex for the first time with a person in a marriage that does not involve you increases your energy by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from sex that involves only one gender;You and your partners orgasms increase your energy more if they are aroused, else less."
 
-String SUCCUBUSTTYPESDIALOGUESTRING = "Exhausting... ;No... I didn't mean to! ;Boring! ;;*Yawn* "
+String SUCCUBUSTTYPESDIALOGUESTRING = ":Exhausting... ;My love! :No... I didn't mean to! ;New one! :Boring! ;;Exciting! :*Yawn* "
 String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!: ;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.; needed that!: did not need that."
 String[] SUCCUBUSTRAITSDIALOGUE      
 int[]    SUCCUBUSTRAITSVALUESBONUS   
@@ -320,6 +320,9 @@ Function SelectSuccubusType()
             if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
                 PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
             endif
+            if Game.GetModByName("Tullius Eyes.esp") != 255
+                playerRef.ChangeHeadPart( HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2"))
+            endif
         endif
         setColorsOfBar()
     endif
@@ -565,12 +568,14 @@ Function EvaluateCompleteScene(bool onStart=false)
     elseif energyNew >= 20
         output += "Mhhm this is good. "
     elseif energyNew >= 10
-        output += "I like this."
+        output += "I like this. "
+    elseif energyNew >= 0
+        output += "I can live with this. "
     elseif energyNew < 0
         output += "Eugh, this is bad. "
     endif
 
-    GetAnnouncement().Show(output + "\n" + nextAnnouncment + "Projected Energy gain: " + (energyNew as int), "icon.dds", aiDelay = 15.0)
+    GetAnnouncement().Show(output + nextAnnouncment + " ; " + (energyNew as int), "icon.dds", aiDelay = 5.0)
 Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
@@ -713,9 +718,11 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         if !traitYes
             Debug.Trace(forReal)
             if forReal
-                nextAnnouncment += dial[succubusType]
+                nextAnnouncment += StringUtil.Split(dial[succubusType],".")[1]
             endif
             retval = toLoseVal * -1
+        else            
+            nextAnnouncment += StringUtil.Split(dial[succubusType],":")[0]
         endif
     endif
     
@@ -757,7 +764,7 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
         nextAnnouncment += output +"\n"
     endif
     if anounceMent
-        GetAnnouncement().Show(nextAnnouncment + (retval as int), "icon.dds", aiDelay = 15.0)
+        GetAnnouncement().Show(nextAnnouncment + (retval as int), "icon.dds", aiDelay = 5.0)
     endif
     return retVal
 EndFunction
