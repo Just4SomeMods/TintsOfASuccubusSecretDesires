@@ -7,10 +7,10 @@
      "level": "TintsOfASuccubusSecretDesires.esp|002",
      "ratio": "TintsOfASuccubusSecretDesires.esp|007",
      "experienceFormula": {
-          "useMult": 1.0,
+          "useMult": 7.0,
           "useOffset": 0.0,
-          "improveMult": 2.0,
-          "improveOffset": 0.0,
+          "improveMult": 0.5,
+          "improveOffset": 120.0,
           "enableXPPerRank": false
      },
      "nodes": [

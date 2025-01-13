@@ -45,7 +45,7 @@ EndFunction
 
 ; how much training for the next skill up costs
 Int Function GetTrainCost()
-    if SkillVal == TSSD_PerkPointsBought
+    if SkillVal == "SuccubusPerkPoints"
         return 1000 * (GetTimesTrained() + 1)
     Endif
     Return 10 * (GetTimesTrained() + 1)
