@@ -79,7 +79,7 @@ String SUCCUBUSTTYPESDIALOGUESTRING = ":Exhausting... ;My love! :No... I didn't 
 String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!: ;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.; needed that!: did not need that."
 String[] SUCCUBUSTRAITSDIALOGUE      
 int[]    SUCCUBUSTRAITSVALUESBONUS
-int[]    SUCCUBUSTRAITSTARGET        
+int[]    SUCCUBUSTRAITSTARGET
 
 string[] filldirections
 string[] barVals
@@ -491,7 +491,7 @@ Function OpenSuccubusCosmetics()
     index = 0
 
     string output = ""
-    while index < cosmeticSettings.Length        
+    while index < cosmeticSettings.Length
         bool in_it = resultW.find(index as string) >= 0
         if in_it
             cosmeticSettings[index] = !cosmeticSettings[index]
@@ -650,7 +650,7 @@ Function PlayerStart(Form FormRef, int tid)
         endif
         lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer)        
     endif
-    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || ReadCosmeticSetting(1) ) && !ReadCosmeticSetting(0)
+    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || ReadCosmeticSetting(1) ) && ReadCosmeticSetting(0)
         setHeartEyes(true)
     endif
 EndFunction
