@@ -291,7 +291,6 @@ Function OpenSkillTrainingsMenu(int index_of)
 Endfunction
 
 Function OpenSuccubusTraits()
-
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int index = 0
     while index < succTraits.Length
@@ -404,7 +403,7 @@ EndFunction
 
 
 Function OpenSettingsMenu()
-    String[] myItems = StringUtil.Split("Configure Bars;Evaluate Needs;Debug Climax Now;Essentials are protected;Succubus Cosmetics Menu",";")
+    String[] myItems = StringUtil.Split("Configure Bars;Evaluate Needs;Debug Climax Now;Essentials are protected;Succubus Cosmetics Menu (Toggles)",";")
     Int result 
     Actor Cross = Game.GetCurrentCrosshairRef() as Actor
     bool canEssDie = TSSD_KillEssentialsActive.GetValue() > 0
@@ -445,7 +444,7 @@ Function OpenSettingsMenu()
         DebugForceOrgasm()
     elseif myItems[result] == "Configure Bars"
         ListOpenBarsOld()
-    elseif myItems[result] == "Succubus Cosmetics Menu"
+    elseif myItems[result] == "Succubus Cosmetics Menu (Toggles)"
         OpenSuccubusCosmetics()
     elseif myItems[result] == "Essentials are protected" || myItems[result] ==  "Essentials can die"
         MCM.SetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main", !canEssDie)
@@ -453,13 +452,30 @@ Function OpenSettingsMenu()
     endif
 EndFunction
 
+bool Function ReadCosmeticSetting(int indexOf)
+    if !cosmeticSettings
+        ReadInCosmeticSetting()
+    endif
+    return cosmeticSettings[indexOf]
+Endfunction
+
+Function ReadInCosmeticSetting()
+    string[] settings = StringUtil.Split( MCM.GetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main"), ";" )
+    if !cosmeticSettings || cosmeticSettings.Length != settings.Length
+        cosmeticSettings = Utility.CreateBoolArray(settings.Length, false)
+    endif
+    int index = 0
+    while index < settings.Length
+        cosmeticSettings[index] = (settings[index] as int) as bool
+        index += 1
+    endwhile
+Endfunction
+
 Function OpenSuccubusCosmetics()
-    String[] SUCCUBUSCOSMETICS = StringUtil.Split( "No Heart Pupils for Scarlet;Heart Pupils for all",";")
+    String[] SUCCUBUSCOSMETICS = StringUtil.Split( "Heart Pupils for Scarlet;Heart Pupils for all",";")
     String[] SUCCUBUSCOSMETICSDESCRIPTIONS =  StringUtil.Split("Toggle if Scarlet Succubi have heart shaped pupils during Sex;Heart shaped pupils for all!",";")
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-    if !cosmeticSettings
-        cosmeticSettings = Utility.CreateBoolArray(SUCCUBUSCOSMETICS.Length, false)
-    endif
+    ReadInCosmeticSetting()
     int index = 0
     while index < SUCCUBUSCOSMETICS.Length
         string text = SUCCUBUSCOSMETICS[index]
@@ -472,13 +488,21 @@ Function OpenSuccubusCosmetics()
 
 
     string[] resultW = TraitsMenu.Show(aiMaxSelection = 99, aiMinSelection = 0)
-    if resultW.Length > 0
-        index = 0
-    endif
-    while index < resultw.Length
-        cosmeticSettings[resultW[index] as int] = !cosmeticSettings[resultW[index] as int]
+    index = 0
+
+    string output = ""
+    while index < cosmeticSettings.Length        
+        bool in_it = resultW.find(index as string) >= 0
+        if in_it
+            cosmeticSettings[index] = !cosmeticSettings[index]
+        endif
+        if index != 0
+            output += ";"
+        endif
+        output += "" + (cosmeticSettings[index] as int)
         index += 1
     EndWhile
+    MCM.SetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main", output)
 
 Endfunction
 
@@ -486,7 +510,6 @@ Endfunction
 Function OpenSuccubusAbilities()
     
     String itemsAsString = "Activate Death Mode"
-
     if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
         itemsAsString += ";Ask for Sex."
     endif
@@ -519,8 +542,7 @@ Function OpenSuccubusAbilities()
         ;endif
     elseif myItems[result] == "Ask for Sex." && Cross
         Sexlab.RegisterHook( stageEndHook)
-        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
-        
+        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)        
     endif
 EndFunction
 
@@ -542,8 +564,6 @@ Function UpdateStatus()
         setColorsOfBar()
     endif
 EndFunction
-
-
 
 Function UpdateBarPositions()
     IWidgets.setMeterFillDirection(myApple, filldirections[(initial_Bar_Vals[4] > 1) as int])
@@ -630,7 +650,7 @@ Function PlayerStart(Form FormRef, int tid)
         endif
         lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer)        
     endif
-    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || cosmeticSettings[1] ) && !cosmeticSettings[0]
+    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || ReadCosmeticSetting(1) ) && !ReadCosmeticSetting(0)
         setHeartEyes(true)
     endif
 EndFunction
