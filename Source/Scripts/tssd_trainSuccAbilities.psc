@@ -27,7 +27,7 @@ String Function GetTrainerSkill()
 EndFunction
 
 String Function GetTimesTrainedLabel()
-    Return "Level"
+    Return "Needs Succubus XP not gold"
 EndFunction
 
 ; how many times the player has trained this skill

@@ -3,6 +3,7 @@ import b612
 
 iWant_Widgets Property  iWidgets Auto
 SexLabFramework Property SexLab Auto
+sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
 Actor Property PlayerRef Auto
 
@@ -320,7 +321,7 @@ Function SelectSuccubusType()
             if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
                 PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
             endif
-            if Game.GetModByName("Tullius Eyes.esp") != 255
+            if Game.GetModByName("Tullius Eyes.esp") != 255 && succubusType == 1
                 playerRef.ChangeHeadPart( HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2"))
             endif
         endif
@@ -395,6 +396,8 @@ Function OpenSettingsMenu()
         endif
     elseif myItems[result] == "Debug Climax Now"
         DebugForceOrgasm()
+    elseif myItems[result] == "Configure Bars"
+        ListOpenBarsOld()
     elseif myItems[result] == "Essentials are protected" || myItems[result] ==  "Essentials can die"
         MCM.SetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main", !canEssDie)
         TSSD_KillEssentialsActive.SetValue( (!canEssDie) as int)
@@ -791,6 +794,21 @@ Function DebugForceOrgasm()
     endif
 EndFunction
 
+Function AddToStatistics()
+    int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
+    int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
+    if genderPlayer == 0
+        sexualityPlayer = 100 - sexualityPlayer
+    endif
+    int index = 0
+    if succubusType != 3
+        while index < 6
+            int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
+            sslStats.AddSex(PlayerRef, timespent = 0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+            index += 1
+        endwhile
+    endif
+Endfunction
 
 Event OnUpdateGameTime()
     float timeBetween = TimeOfDayGlobalProperty.GetValue() - last_checked
@@ -800,6 +818,8 @@ Event OnUpdateGameTime()
             (succubusType == 3 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) )
             timeBetween = 0
             SuccubusDesireLevel.SetValue(100)
+            AddToStatistics()
+
     endif
     last_checked = TimeOfDayGlobalProperty.GetValue()
     updateSuccyNeeds(timeBetween * -24)
