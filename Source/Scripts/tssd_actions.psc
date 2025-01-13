@@ -976,9 +976,6 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
     updateSuccyNeeds(EvaluateOrgasmEnergy(_thread, ActorRef, 1), true)
-    if succubusType == 1 && SuccubusDesireLevel.GetValue() < 100
-        RefreshEnergy(100)
-    endif
     if deathModeActivated && ActorRef != PlayerRef
         int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
         int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
@@ -1015,7 +1012,7 @@ Event OnUpdateGameTime()
         timeBetween = 0
     endif
     last_checked = TimeOfDayGlobalProperty.GetValue()
-    updateSuccyNeeds(timeBetween * -24)
+    updateSuccyNeeds(timeBetween * -1)
 endEvent
 
 Event OnMenuOpen(String MenuName)
