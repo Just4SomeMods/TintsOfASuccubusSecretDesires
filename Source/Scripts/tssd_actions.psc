@@ -73,7 +73,7 @@ String SUCCUBUSTYPESCOLORSRGB  = "220.20.60;255.36.0;255.192.203;255.179.181;108
 String SUCCUBUSDESCRIPTIONS = "Your standard Succubus experience. You lose less energy from climaxing yourself. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.;You are fueled by love, not lust. In the right light, your eyes appear as hears. You do not lose energy from climaxing during sex with a person that loves your, else you lose more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.;You live an exciting life! Pursuing new things is your drive. You lose no energy while climaxing with a person on your first time together, else more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.;Your transformation was not complete. You are only a half-succubus. You gain less energy and lose more. You cannot reach below 0 Energy.;Without risk, there is no fun... You do not lose energy while climaxing form being raped, you lose more otherwise. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death."
 String SUCCUBUSTRAITS = "Razzmatazz;Cupid;Lavenderblush;Carnation;Tosca;Blush"
 
-String SUCCUBUSTRAITSDESCRIPTIONS =  "You Gain more energy from getting cummed upon.;You gain more energy from getting cummed in.;Having sex for the first time with a person in a marriage that does not involve you increases your energy gained by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from orgasms caused by sex that involves only one gender;Your partners orgasms increase your energy gains more if they are aroused."
+String SUCCUBUSTRAITSDESCRIPTIONS =  "You gain more energy from getting cummed upon.;You gain more energy from getting cummed in.;Having sex for the first time with a person in a marriage that does not involve you increases your energy gained by a lot.;You gain more energy by having a partner orgasm whilst having romantic sex.;You gain more energy from orgasms caused by sex that involves only one gender;Your partners orgasms increase your energy gains more if they are aroused."
 
 String SUCCUBUSTTYPESDIALOGUESTRING = ":Exhausting... ;My love! :No... I didn't mean to! ;New one! :Boring! ; : ;Exciting! :*Yawn* "
 String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!: ;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.; needed that!: did not need that."
@@ -658,6 +658,9 @@ EndFunction
 Function PlayerSceneEnd(Form FormRef, int tid)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
+    if Sexlab.IsHooked(stageEndHook)
+        Sexlab.UnRegisterHook( stageEndHook)
+    endif
     ;updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid), none, false), true)
     int index = 0
     while index < ActorsIn.Length
@@ -668,9 +671,6 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         endif
         index+=1
     EndWhile
-    if Sexlab.IsHooked(stageEndHook)
-        Sexlab.UnRegisterHook( stageEndHook)
-    endif
     if deathModeActivated && SuccubusDesireLevel.GetValue() >= 0
         toggleDeathMode()
     endif
@@ -1052,4 +1052,5 @@ Event OnInit()
     initial_Bar_Vals[3] = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iBarScaY:Main") as float
     initial_Bar_Vals[4] = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iBarRota:Main") as float
     new_Bar_Vals = CopyArray(initial_Bar_Vals)
+    chosenTraits = Utility.CreateBoolArray(99, false)
 EndEvent
