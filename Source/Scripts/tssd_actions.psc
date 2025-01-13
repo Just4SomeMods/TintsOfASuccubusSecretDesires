@@ -673,7 +673,6 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
                 if traitYes
                     float bonus_val = lastMet * SUCCUBUSTRAITSVALUESBONUS[index] * ( 1 / Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(),1) / (_thread.GetPositions().Length - 1) )
                     retval += bonus_val
-                    Debug.Trace("tssd_" + bonus_val)
                 endif
                 if announceLogic > 0
                     nextAnnouncmentLineLength += StringUtil.GetLength((cur_dial[1 - (traitYes as int)] + " ") as string)
