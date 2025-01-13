@@ -41,6 +41,7 @@
           "x": 1.5,
           "y": 2.5,
           "links": [ 
+               "Harmless"
           ]
      }, {
           "id": "Traits",
@@ -54,6 +55,13 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|03E",
           "x": -1.0,
           "y": 2.5,
+          "links": [
+          ]
+     }, {
+          "id": "Harmless",
+          "perk": "TintsOfASuccubusSecretDesires.esp|02D",
+          "x": 1.5,
+          "y": 3.5,
           "links": [
           ]
      }

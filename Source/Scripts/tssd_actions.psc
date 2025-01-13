@@ -19,24 +19,24 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_KillEssentialsActive Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 
-Perk Property TOSD_Base_Explanations Auto
+Perk Property TSSD_Base_Explanations Auto
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
 Perk Property TSSD_Base_CapIncrease2 Auto
 Perk Property TSSD_Base_CapIncrease3 Auto
-Perk Property TOSD_Drain_GentleDrain1 Auto
-Perk Property TOSD_Drain_GentleDrain2 Auto
-Perk Property TOSD_Drain_GentleDrain3 Auto
-Perk Property TOSD_Drain_GentleDrain4 Auto
-Perk Property TOSD_Drain_DrainMore1 Auto
-Perk Property TOSD_Drain_DrainMore2 Auto
+Perk Property TSSD_Drain_GentleDrain1 Auto
+Perk Property TSSD_Drain_GentleDrain2 Auto
+Perk Property TSSD_Drain_GentleDrain3 Auto
+Perk Property TSSD_Drain_GentleDrain4 Auto
+Perk Property TSSD_Drain_DrainMore1 Auto
+Perk Property TSSD_Drain_DrainMore2 Auto
 Perk Property TSSD_Seduction_Kiss1 Auto
-Perk Property TOSD_Seduction_Leader Auto
+Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
-Spell Property TOSD_DrainHealth Auto
+Spell Property TSSD_DrainHealth Auto
 
 bool lookedAtExplanationsOnce = false
 bool barupdates
@@ -329,7 +329,7 @@ Function SelectSuccubusType()
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
             updateSuccyNeeds(0)
-            PlayerRef.AddPerk(TOSD_Base_Explanations)
+            PlayerRef.AddPerk(TSSD_Base_Explanations)
             RegisterForUpdateGameTime(0.4)
             RegisterForMenu("Dialogue Menu")
             if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
@@ -489,7 +489,7 @@ EndEvent
 
 Event OnUpdate()
     sslThreadController _thread =  Sexlab.GetPlayerController()
-    if _thread && PlayerRef.HasPerk(TOSD_Seduction_Leader)
+    if _thread && PlayerRef.HasPerk(TSSD_Seduction_Leader)
         if timer_internal < 0
             timer_internal += Max(_updateTimer, 0.0)
         elseif Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main")) && PlayerRef.GetAV("Stamina") > 10 && timer_internal < 6
@@ -530,27 +530,29 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
     updateSuccyNeeds(EvaluateOrgasmEnergy(_thread, ActorRef, 1), true)
-    
+    if succubusType == 1 && SuccubusDesireLevel.GetValue() < 100
+        RefreshEnergy(100)
+    endif
     if deathModeActivated && ActorRef != PlayerRef
         int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
         int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-        TOSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
-        TOSD_DrainHealth.Cast(PlayerRef, ActorRef)
+        TSSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
+        TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
         while  Stage_in < StageCount 
             _thread.AdvanceStage()
             Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
         EndWhile
-    elseif !deathModeActivated  && ActorRef != PlayerRef && PlayerRef.HasPerk(TOSD_Drain_GentleDrain1)
+    elseif !deathModeActivated  && ActorRef != PlayerRef && PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-        if PlayerRef.HasPerk(TOSD_Drain_GentleDrain3)
+        if PlayerRef.HasPerk(TSSD_Drain_GentleDrain3)
             new_drain_level /= 2
-        elseif PlayerRef.HasPerk(TOSD_Drain_GentleDrain2)
+        elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain2)
             new_drain_level /= 3
-        elseif PlayerRef.HasPerk(TOSD_Drain_GentleDrain1)
+        elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
             new_drain_level /= 5
         endif
-        TOSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
-        TOSD_DrainHealth.Cast(PlayerRef, ActorRef)
+        TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
+        TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
     endif
 EndEvent
 
@@ -802,7 +804,7 @@ Function DebugForceOrgasm()
     endif
 EndFunction
 
-Function AddToStatistics()
+Function AddToStatistics(int amount_of_hours)
     int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
     int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
     if genderPlayer == 0
@@ -810,7 +812,7 @@ Function AddToStatistics()
     endif
     int index = 0
     if succubusType != 3
-        while index < 6
+        while index < amount_of_hours
             int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
             sslStats.AddSex(PlayerRef, timespent = 0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
             index += 1
@@ -818,16 +820,24 @@ Function AddToStatistics()
     endif
 Endfunction
 
+Function RefreshEnergy(float adjustBy)
+    float lastVal = SuccubusDesireLevel.GetValue()
+    if lastVal < 100
+        SuccubusDesireLevel.SetValue( min(100, max( -100,  lastVal + adjustBy) ) )
+    endif
+Endfunction
+
 Event OnUpdateGameTime()
-    float timeBetween = TimeOfDayGlobalProperty.GetValue() - last_checked
-    if timeBetween * 24 > 6 && ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) || \
+    float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
+    if ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) || \
              (succubusType == 1 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypePlayerHouse)) || \
              (succubusType == 2 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity))  || \
             (succubusType == 3 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) )
-            timeBetween = 0
-            SuccubusDesireLevel.SetValue(100)
-            AddToStatistics()
-
+        if timeBetween * 24 >= 1
+            RefreshEnergy(timeBetween)
+            AddToStatistics(timeBetween as int)
+        endif
+        timeBetween = 0
     endif
     last_checked = TimeOfDayGlobalProperty.GetValue()
     updateSuccyNeeds(timeBetween * -24)
@@ -837,9 +847,9 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
     int greed_mult = 1
-    if PlayerRef.HasPerk(TOSD_Drain_DrainMore2)
+    if PlayerRef.HasPerk(TSSD_Drain_DrainMore2)
         greed_mult = 3
-    elseif PlayerRef.HasPerk(TOSD_Drain_DrainMore1)
+    elseif PlayerRef.HasPerk(TSSD_Drain_DrainMore1)
         greed_mult = 2
     endif
     if PlayerRef.HasPerk(TSSD_Base_CapIncrease3)
@@ -860,7 +870,7 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
         if succNeedVal > 0
             SuccubusDesireLevel.SetValue(Min(max_energy_level, Max(succNeedVal+ value * greed_mult, 0)))
         else
-            SuccubusDesireLevel.SetValue(Min(100, Max(succNeedVal+ value, -100)))
+            RefreshEnergy(value)
         endif
     endif
     succNeedVal = SuccubusDesireLevel.GetValue()
