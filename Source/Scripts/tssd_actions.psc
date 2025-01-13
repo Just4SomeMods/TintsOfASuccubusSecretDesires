@@ -639,9 +639,13 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     SUCCUBUSTRAITSVALUESBONUS[2] = 10
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     float lastMet = 1
+    float energyLosses = 0
     if WhoCums && WhoCums != PlayerRef
         lastMet = GetLastTimeSuccd(WhoCums)
-        retval += 10 * lastMet
+        if lastmet  < 0.0
+            lastmet = 1
+        endif
+        retval += 10 * lastMet * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1))
     Endif
     if WhoCums != PlayerRef && WhoCums
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
@@ -666,7 +670,11 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
                         nextAnnouncment += WhoCums.GetDisplayName()
                     endif
                 endif
-                retval += lastMet * traitFullfilled(index, traitYes) * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1) / (_thread.GetPositions().Length - 1) )
+                if traitYes
+                    float bonus_val = lastMet * SUCCUBUSTRAITSVALUESBONUS[index] * ( 1 / Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(),1) / (_thread.GetPositions().Length - 1) )
+                    retval += bonus_val
+                    Debug.Trace("tssd_" + bonus_val)
+                endif
                 if announceLogic > 0
                     nextAnnouncmentLineLength += StringUtil.GetLength((cur_dial[1 - (traitYes as int)] + " ") as string)
                     if nextAnnouncmentLineLength > 100
@@ -711,18 +719,13 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         endif
 
         if !traitYes
-            retval = toLoseVal * -1
+            energyLosses = toLoseVal * -1
         endif
         if announceLogic > 0
-            nextAnnouncment += StringUtil.Split(dial[succubusType],".")[1 - (traitYes as int)]
+            nextAnnouncment += StringUtil.Split(dial[succubusType],":")[1 - (traitYes as int)]
         endif
     endif
-    if announceLogic == 1
-        GetAnnouncement().Show(nextAnnouncment + " ; " + (retval as int), "icon.dds", aiDelay = 5.0)
-        nextAnnouncment = ""
-    endif
     String output = ""
-    float energyLosses = 0
     if (!WhoCums || (announceLogic == 0 && WhoCums != PLayerRef)) && smooching > 0.0
         retval = smooching * lastMet
         output += "Smooch!\n"
@@ -735,6 +738,10 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     retVal += energyLosses
     if output != ""
         nextAnnouncment += output +"\n"
+    endif
+    if announceLogic == 1
+        GetAnnouncement().Show(nextAnnouncment + " ; " + (retval as int), "icon.dds", aiDelay = 5.0)
+        nextAnnouncment = ""
     endif
     return retval
 Endfunction
