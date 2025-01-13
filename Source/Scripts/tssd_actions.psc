@@ -44,6 +44,7 @@ bool deathModeActivated = false
 bool registered = false
 bool initial = false
 bool running = False
+bool modifierKeyIsDown = false
 bool[] first_arr
 bool [] chosenTraits
 int nextAnnouncmentLineLength = 0
@@ -58,6 +59,7 @@ int succubusType = -1
 int ravanousNeedLevel = -100
 int myApple
 int lastUsed = -1
+int lastUsedSub = -1
 
 float lastSmoochTimeWithThatPerson = 0.0
 
@@ -167,6 +169,7 @@ EndFunction
 ;MENUS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Function OpenGrandeMenu()
+    modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if !SafeProcess()
         return
     endif
@@ -182,13 +185,15 @@ Function OpenGrandeMenu()
         myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type;Select Traits",";")
     endif
     Int result
-    if Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
+    if modifierKeyIsDown
         result = lastUsed
     else
         result = mySelectList.Show(myItems)
-        if result > -1
-            lastUsed = result
+        if result == -1
+            return
         endif
+        lastUsedSub = -1
+        lastUsed = result
     endif
     NotificationSpam(myItems[result] )
     if myItems[result] == "Abilities"
@@ -220,7 +225,17 @@ Function OpenExpansionMenu()
 
     b612_SelectList mySelectList = GetSelectList()
     String[] myItems = StringUtil.Split("Drain;Seduction;Body;Perk Points;Perk Trees;Show Explanations again",";")
-    Int result  = mySelectList.Show(myItems)
+    Int result 
+    if modifierKeyIsDown && lastUsedSub > -1
+        result = lastUsedSub
+    else
+        result  = mySelectList.Show(myItems)
+        lastUsedSub = result
+        if result == -1
+            return
+        endif
+    endif
+    
     if result < 4 && result > -1
         OpenSkillTrainingsMenu(result)
         NotificationSpam(myItems[result] )
@@ -319,6 +334,7 @@ Function SelectSuccubusType()
             RegisterForMenu("Dialogue Menu")
             if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
                 PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
+                TSSD_MaxTraits.SetValue(99)
             endif
             RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
             RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
@@ -373,8 +389,15 @@ Function OpenSettingsMenu()
     if canEssDie
         myItems[3] = "Essentials can die"
     endif
-    
-    result = GetSelectList().Show(myItems)
+    if modifierKeyIsDown && lastUsedSub > -1
+        result = lastUsedSub
+    else
+        result = GetSelectList().Show(myItems)
+        lastUsedSub = result
+        if result == -1
+            return
+        endif
+    endif   
     if result == -1
         return
     endif
@@ -592,6 +615,9 @@ float Function GetLastTimeSuccd(Actor Target)
 Endfunction
 
 Function PlayerStart(Form FormRef, int tid)
+    if SuccubusDesireLevel.GetValue() > -100.0
+        PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
+    endif
     if smooching == 0.0
         EvaluateCompleteScene(true)
     else
@@ -641,6 +667,15 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     float lastMet = 1
     float energyLosses = 0
     if WhoCums && WhoCums != PlayerRef
+        if !isSuccable(WhoCums)
+            if announceLogic == 2
+                nextAnnouncment += WhoCums.GetDisplayName() + " can't be drained!"
+            elseif announceLogic == 1
+                GetAnnouncement().Show(WhoCums.GetDisplayName() + " can't be drained!", "icon.dds", aiDelay = 5.0)
+                nextAnnouncment = ""
+            endif
+            return 0
+        endif
         lastMet = GetLastTimeSuccd(WhoCums)
         if lastmet  < 0.0
             lastmet = 1
@@ -873,22 +908,31 @@ Function OpenSuccubusAbilities()
     endif
     Actor Cross = Game.GetCurrentCrosshairRef() as Actor
 
-    itemsAsString += ";Enable Predator Mode (Debug)" ;; Keep Last
+    itemsAsString += ";Look for Prey" ;; Keep Last
     String[] myItems = StringUtil.Split(itemsAsString,";")
-    Int result 
     if deathModeActivated
         myItems[0] = "Deactivate Death Mode"
     endif
-    
-    result = GetSelectList().Show(myItems)
-    if result == -1
-        return
-    endif
+    Int result 
+    if modifierKeyIsDown && lastUsedSub > -1
+        result = lastUsedSub
+    else
+        result = GetSelectList().Show(myItems)
+        lastUsedSub = result
+        if result == -1
+            return
+        endif
+    endif    
     NotificationSpam(myItems[result] )
     if myItems[result] == "Activate Death Mode" || myItems[result] == "Deactivate Death Mode"
         toggleDeathMode()
-    elseif myItems[result] == "Enable Predator Mode (Debug)"
-        SuccubusDesireLevel.SetValue(-100)
+    elseif myItems[result] == "Look for Prey"
+        ;if !PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
+        int old_dur = TSSD_SuccubusDetectJuice.GetNthEffectDuration(0)
+        TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, 5)
+        TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
+        TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, old_dur)
+        ;endif
     elseif myItems[result] == "Ask for Sex." && Cross
         Sexlab.RegisterHook( stageEndHook)
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
