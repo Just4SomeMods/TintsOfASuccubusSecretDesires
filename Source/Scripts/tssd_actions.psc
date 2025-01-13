@@ -73,8 +73,7 @@ String SUCCUBUSTRAITSDESCRIPTIONS =  "Getting cummed on increases your energy ev
 String SUCCUBUSTTYPESDIALOGUESTRING = ":Exhausting... ;My love! :No... I didn't mean to! ;New one! :Boring! ;;Exciting! :*Yawn* "
 String SUCCUBUSTRAITSDIALOGUESTRING = "Cum is in the air!:I need it on my skin...;I love it sloshing down!:Argh it's being wasted!;Homewrecker!: ;Roses are in the air!:It doesn't feel romantic...;This is so GAY!:This is too straight.; needed that!: did not need that."
 String[] SUCCUBUSTRAITSDIALOGUE      
-int[]    SUCCUBUSTRAITSVALUESBONUS   
-int[]    SUCCUBUSTRAITSVALUESPENALTY 
+int[]    SUCCUBUSTRAITSVALUESBONUS
 int[]    SUCCUBUSTRAITSTARGET        
 
 string[] filldirections
@@ -321,9 +320,12 @@ Function SelectSuccubusType()
             if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
                 PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
             endif
-            if Game.GetModByName("Tullius Eyes.esp") != 255 && succubusType == 1
-                playerRef.ChangeHeadPart( HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2"))
-            endif
+            RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
+            RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
+            RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
+        endif
+        if Game.GetModByName("Tullius Eyes.esp") != 255 && succubusType == 1
+            playerRef.ChangeHeadPart( HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2"))
         endif
         setColorsOfBar()
     endif
@@ -504,13 +506,9 @@ EndFunction
 Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
-    
-    if SuccubusDesireLevel.GetValue() > -101
-        updateSuccyNeeds(evaluateSceneEnergy(_thread, ActorRef))
-    endif
+    updateSuccyNeeds(EvaluateOrgasmEnergy(_thread, ActorRef, 1), true)
     
     if deathModeActivated && ActorRef != PlayerRef
-        
         int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
         int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
         TOSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
@@ -531,7 +529,6 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
         TOSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
         TOSD_DrainHealth.Cast(PlayerRef, ActorRef)
     endif
-
 EndEvent
 
 
@@ -542,12 +539,13 @@ Function EvaluateCompleteScene(bool onStart=false)
     int index = 0
     int max_rel = -4
     bool max_prot = false
+    
     Actor[] ActorsIn = _thread.GetPositions()
     string output = ""
     float energyNew = 0
     while index < ActorsIn.length
         Actor ActorRef = Actorsin[Index]
-        energyNew += evaluateSceneEnergy(_thread, ActorRef, false)
+        energyNew += EvaluateOrgasmEnergy(_thread, ActorRef, 2 * (1 - (onStart as int)))
         if PlayerRef != ActorRef
             max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
             if !isSuccable(ActorRef) && deathModeActivated
@@ -577,8 +575,12 @@ Function EvaluateCompleteScene(bool onStart=false)
     elseif energyNew < 0
         output += "Eugh, this is bad. "
     endif
-
-    GetAnnouncement().Show(output + nextAnnouncment + " ; " + (energyNew as int), "icon.dds", aiDelay = 5.0)
+    string output_end = ""
+    if !onStart
+        output_end =  nextAnnouncment + " ; " + (energyNew as int)
+        nextAnnouncment = ""
+    endif
+    GetAnnouncement().Show(output + output_end , "icon.dds", aiDelay = 5.0)
 Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
@@ -598,68 +600,53 @@ Function PlayerStart(Form FormRef, int tid)
         if nonPlayer == PlayerRef
             nonPlayer = ActorsIn[1]
         endif
-        lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer)
-        
+        lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer)        
     endif
-
 EndFunction
 
 Function PlayerSceneEnd(Form FormRef, int tid)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
-    if SuccubusDesireLevel.GetValue() > -101
-        updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid), none, false), true)
-    endif
+    ;updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid), none, false), true)
     int index = 0
-    ;int min_orgasm = 0
     while index < ActorsIn.Length
-        Actor WhoCums = ActorsIn[index] 
-        ;if WhoCums != PlayerRef
-        ;    min_orgasm = max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), min_orgasm) as int
-        ;endif
+        Actor WhoCums = ActorsIn[index]
         if WhoCums != PlayerRef && deathModeActivated && allowedToSuccToDeath(WhoCums) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
             WhoCums.Kill(PlayerRef)
             updateSuccyNeeds(WhoCums.GetActorValueMax("Health"))
         endif
         index+=1
     EndWhile
-    ;if min_orgasm == 0
-    ;    String[] asScenes = SexLabRegistry.LookupScenesA( _thread.GetPositions()  , none, _thread.GetSubmissives(), 0, none )
-    ;    _thread.ResetScene(asScenes[0])
-    ;    SexLabThread cur_thread = Sexlab.GetThreadByActor(PlayerRef)
-    ;    cur_thread.SetIsSubmissive(PlayerRef, true)
-	;	asScenes = SexLabRegistry.LookupScenesA( _thread.GetPositions()  , SexlabRegistry.GetSceneTags(SexLabRegistry.GetSceneName(cur_thread.;GetActiveScene())),  _thread.GetSubmissives(), 0, none )
-	;	_thread.ResetScene(asScenes[Utility.RandomInt(0, asScenes.Length)])
-    ;endif
-    Sexlab.UnRegisterHook( stageEndHook)
+    if Sexlab.IsHooked(stageEndHook)
+        Sexlab.UnRegisterHook( stageEndHook)
+    endif
 EndFunction
 
 int Function traitFullfilled(int trait, bool fullfilled)
     if fullfilled
         return SUCCUBUSTRAITSVALUESBONUS[trait]
     endif
-    return SUCCUBUSTRAITSVALUESPENALTY[trait]
+    return 0
 Endfunction
 
-float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, bool forReal = true)
+float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, int announceLogic = 0)
+    ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
+    float dateCheck = TimeOfDayGlobalProperty.GetValue()
     int index = 0
     float retval = 0
     SUCCUBUSTRAITSDIALOGUE = StringUtil.Split(SUCCUBUSTRAITSDIALOGUESTRING, ";")
     SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(SUCCUBUSTRAITSDIALOGUE.Length, 5)
-    SUCCUBUSTRAITSVALUESPENALTY = Utility.CreateIntArray(SUCCUBUSTRAITSDIALOGUE.Length, -5)
     SUCCUBUSTRAITSVALUESBONUS[2] = 10
-    SUCCUBUSTRAITSVALUESPENALTY[2] =0
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
-    SUCCUBUSTRAITSVALUESPENALTY[5] =0
     float lastMet = 1
     if WhoCums && WhoCums != PlayerRef
-        retval += 10
         lastMet = GetLastTimeSuccd(WhoCums)
+        retval += 10 * lastMet
     Endif
-    if WhoCums != PlayerRef
-        while index < SUCCUBUSTRAITSTARGET.Length
+    if WhoCums != PlayerRef && WhoCums
+        while index < SUCCUBUSTRAITSVALUESBONUS.Length
             string[] cur_dial = StringUtil.Split(SUCCUBUSTRAITSDIALOGUE[index],":")
-            if WhoCums && chosenTraits[index]
+            if chosenTraits[index]
                 bool traitYes = false
                 if index == 0
                     traitYes = _thread.HasSceneTag("Aircum")
@@ -675,18 +662,23 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
                     float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
                     retval += ar_norm / 5
                     traitYes = ar_norm > 0
-                    nextAnnouncment += WhoCums.GetDisplayName()
+                    if announceLogic > 0
+                        nextAnnouncment += WhoCums.GetDisplayName()
+                    endif
                 endif
                 retval += lastMet * traitFullfilled(index, traitYes) * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1) / (_thread.GetPositions().Length - 1) )
-                nextAnnouncmentLineLength += StringUtil.GetLength((cur_dial[1 - (traitYes as int)] + " ") as string)
-                if nextAnnouncmentLineLength > 100
-                    nextAnnouncment += "\n"
-                    nextAnnouncmentLineLength = 0
+                if announceLogic > 0
+                    nextAnnouncmentLineLength += StringUtil.GetLength((cur_dial[1 - (traitYes as int)] + " ") as string)
+                    if nextAnnouncmentLineLength > 100
+                        nextAnnouncment += "\n"
+                        nextAnnouncmentLineLength = 0
+                    endif
+                    nextAnnouncment += cur_dial[1 - (traitYes as int)] + " "
                 endif
             endif
             index += 1
         EndWhile
-    else
+    elseif WhoCums
         string[] dial = StringUtil.SPlit( SUCCUBUSTTYPESDIALOGUESTRING, ";")
         Actor[] ActorsIn = _thread.GetPositions() 
         index = 0
@@ -719,29 +711,20 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         endif
 
         if !traitYes
-            Debug.Trace(forReal)
-            if forReal
-                nextAnnouncment += StringUtil.Split(dial[succubusType],".")[1]
-            endif
             retval = toLoseVal * -1
-        else            
-            nextAnnouncment += StringUtil.Split(dial[succubusType],":")[0]
+        endif
+        if announceLogic > 0
+            nextAnnouncment += StringUtil.Split(dial[succubusType],".")[1 - (traitYes as int)]
         endif
     endif
-    
-    
-
-    return retval
-Endfunction
-
-float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = none, bool anounceMent = true)
-    float dateCheck = TimeOfDayGlobalProperty.GetValue() 
-    float retVal = EvaluateOrgasmEnergy(_thread, WhoCums, anounceMent)
+    if announceLogic == 1
+        GetAnnouncement().Show(nextAnnouncment + " ; " + (retval as int), "icon.dds", aiDelay = 5.0)
+        nextAnnouncment = ""
+    endif
     String output = ""
     float energyLosses = 0
-    
-    if (!WhoCums || (!anounceMent && WhoCums != PLayerRef)) && smooching > 0.0
-        retval = smooching
+    if (!WhoCums || (announceLogic == 0 && WhoCums != PLayerRef)) && smooching > 0.0
+        retval = smooching * lastMet
         output += "Smooch!\n"
     endif
     if retval > 0
@@ -749,28 +732,12 @@ float Function evaluateSceneEnergy(sslThreadController _thread, Actor WhoCums = 
             retval /= 2
         endif
     endif
-    if smooching > 0.0
-        float lastMet = lastSmoochTimeWithThatPerson
-        if lastMet>=0.0
-            retVal *= min(lastMet, 1)
-        endif
-
-    endif
-    if WhoCums && WhoCums != PlayerRef
-        float lastMet = GetLastTimeSuccd(WhoCums)
-        if lastMet>0.0
-            retVal *= min(lastMet, 1)
-        endif
-    endif
     retVal += energyLosses
     if output != ""
         nextAnnouncment += output +"\n"
     endif
-    if anounceMent
-        GetAnnouncement().Show(nextAnnouncment + (retval as int), "icon.dds", aiDelay = 5.0)
-    endif
-    return retVal
-EndFunction
+    return retval
+Endfunction
 
 bool Function allowedToSuccToDeath(Actor ActorRef)
     bool endResult = isSuccable(ActorRef)
@@ -941,9 +908,6 @@ Event OnInit()
 	filldirections =  StringUtil.Split("left;right;both", ";")
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
-    RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
-	RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
-    RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 	barVals = StringUtil.Split("Pos_X;Pos_Y;Size_X;Size_Y;Rotation", ";")
     initial_Bar_Vals = New Float[5]
     initial_Bar_Vals[0] = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iBarPosX:Main") as float
