@@ -7,3 +7,4 @@
 BACKUP
 Source/Scripts/temp/*
 meta.ini
+*.py

@@ -1,0 +1,61 @@
+{
+    "Razzmatazz": {
+        "positive": [
+            "Cum is in the air!"
+        ],
+        "negative": [
+            "I need it on my skin..."
+        ],
+        "description" : "You gain more energy from getting cummed upon." 
+        
+    },
+    "Cupid": {
+        "positive": [
+            "I love it sloshing down!"
+        ],
+        "negative": [
+            "Argh it's being wasted!"
+        ],
+        "description" : "You gain more energy from getting cummed in." 
+        
+    },
+    "Lavenderblush": {
+        "positive": [
+            "Homewrecker!"
+        ],
+        "negative": [
+            ""
+        ],
+        "description" : "Having sex for the first time with a person in a marriage that does not involve you increases your energy gained by a lot." 
+        
+    },
+    "Carnation": {
+        "positive": [
+            "Roses are in the air!"
+        ],
+        "negative": [
+            "It doesn't feel romantic..."
+        ],
+        "description" : "You gain more energy by having a partner orgasm whilst having romantic sex." 
+        
+    },
+    "Tosca": {
+        "positive": [
+            "This is so GAY!"
+        ],
+        "negative": [
+            "This is too straight."
+        ],
+        "description" : "You gain more energy from orgasms caused by sex that involves only one gender" 
+        
+    },
+    "Blush": {
+        "positive": [
+            "needed that!"
+        ],
+        "negative": [
+            "did not need that."
+        ],
+        "description" : "Your partners orgasms increase your energy gains more if they are aroused."
+    }
+}

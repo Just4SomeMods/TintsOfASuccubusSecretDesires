@@ -1,0 +1,52 @@
+{
+    "CrimsonT": {
+        "positive": [
+            ""
+        ],
+        "negative": [
+            "Exhausting..."
+        ],
+        "description": "Your standard Succubus experience. You lose less energy from climaxing yourself. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
+        "color" : [220,20,60]
+    },
+    "Scarlet": {
+        "positive": [
+            "My love!"
+        ],
+        "negative": [
+            "No... I didn't mean to!"
+        ],
+        "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. You do not lose energy from climaxing during sex with a person that loves your, else you lose more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
+        "color": [255,36,0]
+    },
+    "Pink": {
+        "positive": [
+            "New one!"
+        ],
+        "negative": [
+            "Boring!"
+        ],
+        "description": "You live an exciting life! Pursuing new things is your drive. You lose no energy while climaxing with a person on your first time together, else more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death." ,
+        "color" : [255,192,203]
+    },
+    "Sundown": {
+        "positive": [
+            ""
+        ],
+        "negative": [
+            ""
+        ],
+        "description": "Your transformation was not complete. You are only a half-succubus. You gain less energy and lose more. You cannot reach below 0 Energy.",
+        "color" : [255,179,181]
+    },
+    "Mahogany": {
+        "positive": [
+            "Exciting!"
+        ],
+        "negative": [
+            "*Yawn*"
+        ],
+        "description": "Without risk, there is no fun... You do not lose energy while climaxing form being raped, you lose more otherwise. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
+        "color": [108,67,36]
+    }
+}
