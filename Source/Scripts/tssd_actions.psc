@@ -816,10 +816,10 @@ Function AddToStatistics(int amount_of_hours)
     endif
 Endfunction
 
-Function RefreshEnergy(float adjustBy)
+Function RefreshEnergy(float adjustBy, int upTo = 100)
     float lastVal = SuccubusDesireLevel.GetValue()
-    if lastVal < 100
-        SuccubusDesireLevel.SetValue( min(100, max( -100,  lastVal + adjustBy) ) )
+    if lastVal < upTo
+        SuccubusDesireLevel.SetValue( min(upTo, max( -100,  lastVal + adjustBy) ) )
     endif
 Endfunction
 
@@ -975,12 +975,12 @@ EndEvent
 
 Event OnUpdateGameTime()
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
-    if ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) || \
+    if SuccubusDesireLevel.GetValue() < -10 && ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) || \
              (succubusType == 1 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypePlayerHouse)) || \
              (succubusType == 2 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity))  || \
-            (succubusType == 3 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) )
+            (succubusType == 4 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) )
         if timeBetween * 24 >= 1
-            RefreshEnergy(timeBetween)
+            RefreshEnergy(timeBetween, 50)
             AddToStatistics(timeBetween as int)
         endif
         timeBetween = 0
