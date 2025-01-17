@@ -109,7 +109,7 @@ Function addToSmooching(float val)
 Endfunction
 
 String [] Function GetSuccubusTraitsAll()
-    return JMap.allKeysPArray(JDB.solveObj(".tssdtraits"))
+    return JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
 Endfunction
 
 Function setColorsOfBar()
@@ -261,9 +261,21 @@ Function OpenSuccubusTraits()
     EndWhile
 EndFunction
 
+Function RegisterSuccubusEvents()
+    RegisterForUpdateGameTime(0.4)
+    RegisterForMenu("Dialogue Menu")
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
+        PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
+        TSSD_MaxTraits.SetValue(99)
+    endif
+    RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
+    RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
+    RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
+Endfunction
+
 Function SelectSuccubusType()
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-    string[] succKinds = JMap.allKeysPArray(JDB.solveObj(".tssdkinds"))
+    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
     int index = 0
     while index < succKinds.Length
         TraitsMenu.AddItem( succKinds[index], JDB.solveStr(".tssdkinds." + succKinds[index] + ".description"), "menus/tssd/"+succKinds[index]+".dds")
@@ -280,15 +292,7 @@ Function SelectSuccubusType()
             SuccubusDesireLevel.SetValue(50)
             updateSuccyNeeds(0)
             PlayerRef.AddPerk(TSSD_Base_Explanations)
-            RegisterForUpdateGameTime(0.4)
-            RegisterForMenu("Dialogue Menu")
-            if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
-                PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
-                TSSD_MaxTraits.SetValue(99)
-            endif
-            RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
-            RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
-            RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
+            RegisterSuccubusEvents()
         endif
         setColorsOfBar()
     endif
@@ -377,31 +381,18 @@ Function OpenSettingsMenu()
     endif
 EndFunction
 
-
-Function ReadInCosmeticSetting()
-    string[] settings = StringUtil.Split( MCM.GetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main"), ";" )
-    if !cosmeticSettings || cosmeticSettings.Length != settings.Length
-        cosmeticSettings = Utility.CreateBoolArray(settings.Length, false)
-    endif
-    int index = 0
-    while index < settings.Length
-        cosmeticSettings[index] = (settings[index] as int) as bool
-        index += 1
-    endwhile
-Endfunction
-
 Function OpenSuccubusCosmetics()
-    String[] SUCCUBUSCOSMETICS = StringUtil.Split( "Heart Pupils for Scarlet;Heart Pupils for all",";")
-    String[] SUCCUBUSCOSMETICSDESCRIPTIONS =  StringUtil.Split("Toggle if Scarlet Succubi have heart shaped pupils during Sex;Heart shaped pupils for all!",";")
+    int jArr = JDB.solveObj(".tssdsettings")
+    
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-    ReadInCosmeticSetting()
     int index = 0
-    while index < SUCCUBUSCOSMETICS.Length
-        string text = SUCCUBUSCOSMETICS[index]
+    while index < JValue.count(jArr) 
+        string[] textArr = jArray.asStringArray(jArray.getObj(jArr,index))
+        string text = textArr[0]
         if cosmeticSettings[index]
             text = "> " + text
         endif
-        TraitsMenu.AddItem( text, SUCCUBUSCOSMETICSDESCRIPTIONS[index], "menus/tssd/"+SUCCUBUSCOSMETICSDESCRIPTIONS[index]+".dds")
+        TraitsMenu.AddItem( text, textArr[1], "menus/tssd/"+textArr[index]+".dds")
         index += 1
     EndWhile
 
@@ -468,12 +459,6 @@ EndFunction
 
 ;Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-bool Function ReadCosmeticSetting(int indexOf)
-    if !cosmeticSettings
-        ReadInCosmeticSetting()
-    endif
-    return cosmeticSettings[indexOf]
-Endfunction
 
 Function setHeartEyes(bool on = true)
     HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
@@ -546,7 +531,7 @@ Function EvaluateCompleteScene(bool onStart=false)
     float energyNew = 0
     while index < ActorsIn.length
         Actor ActorRef = Actorsin[Index]
-        energyNew += EvaluateOrgasmEnergy(_thread, ActorRef, 2 * (1 - (onStart as int)))
+        energyNew += EvaluateOrgasmEnergy(_thread, ActorRef, 2 * (1 - (onStart as int)), overWriteStop = true)
         if PlayerRef != ActorRef
             max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
             if !isSuccable(ActorRef) && deathModeActivated
@@ -577,11 +562,11 @@ Function EvaluateCompleteScene(bool onStart=false)
         output += "Eugh, this is bad. "
     endif
     string output_end = ""
-    if !onStart
-        output_end =  nextAnnouncment + " ; " + (energyNew as int)
-        nextAnnouncment = ""
+    output_end =  nextAnnouncment + " ; " + (energyNew as int)
+    nextAnnouncment = ""
+    if cosmeticSettings[2] == 1
+        GetAnnouncement().Show(output + output_end , "icon.dds", aiDelay = 5.0)
     endif
-    GetAnnouncement().Show(output + output_end , "icon.dds", aiDelay = 5.0)
 Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
@@ -606,7 +591,7 @@ Function PlayerStart(Form FormRef, int tid)
         endif
         lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer)        
     endif
-    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || ReadCosmeticSetting(1) ) && ReadCosmeticSetting(0)
+    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || cosmeticSettings[1] ) && cosmeticSettings[0]
         setHeartEyes(true)
     endif
 EndFunction
@@ -645,26 +630,32 @@ String Function GetTypeDial(string type, bool isPositive, bool isTrait = false)
         isType = "traits"
     endif
     int jsolve = JDB.solveObj(".tssd"+isType+"."+type+"."+is_pos)
-    return JArray.getStr(jsolve, Utility.RandomInt(0, JValue.count(jsolve) - 1 ))
+    if !cosmeticSettings[3]
+        return JArray.getStr(jsolve, Utility.RandomInt(0, JValue.count(jsolve) - 1 )) + " "
+    endif
+    return JArray.getStr(jsolve, 0) + " "
 
 Endfunction
 
-float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, int announceLogic = 0)
+float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, int announceLogic = 0, bool overWriteStop = false)
     ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
     int index = 0
     float retval = 0
     string[] succubusTraits = GetSuccubusTraitsAll()
     int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 5)
-    SUCCUBUSTRAITSVALUESBONUS[2] = 10
+    SUCCUBUSTRAITSVALUESBONUS[2] = 100
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     float lastMet = 1
     float energyLosses = 0
+    if cosmeticSettings[2] == 0  && !overWriteStop
+        announceLogic = 0
+    endif
     if WhoCums && WhoCums != PlayerRef
         if !isSuccable(WhoCums)
-            if announceLogic == 2
+            if announceLogic != 1 
                 nextAnnouncment += WhoCums.GetDisplayName() + " can't be drained!"
-            elseif announceLogic == 1
+            else
                 GetAnnouncement().Show(WhoCums.GetDisplayName() + " can't be drained!", "icon.dds", aiDelay = 5.0)
                 nextAnnouncment = ""
             endif
@@ -677,19 +668,32 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         retval += 10 * lastMet * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1))
     Endif
     if WhoCums != PlayerRef && WhoCums
+        bool cameOn = false
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
+            bool skipThis = false
             if chosenTraits[index]
                 bool traitYes = false
                 if index == 0
                     traitYes = _thread.HasSceneTag("Aircum")
+                    if traitYes
+                        cameOn = true
+                    elseif chosenTraits[1]
+                        skipThis = true
+                    endif
                 elseif index == 1
-                    traitYes =  !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal"))
+                    traitYes =  !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal")) && Sexlab.GetSex(WhoCums) != 1 && Sexlab.GetSex(WhoCums) != 4
+                    if cameOn
+                        skipThis = true
+                    endif                    
                 elseif index == 2
                     traitYes =  WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1
                 elseif index == 3
                     traitYes = (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))
                 elseif index == 4
                     traitYes = _thread.sameSexThread()
+                    if traitYes && Sexlab.GetSex(WhoCums) == 1
+                        retval += 5
+                    endif
                 elseif index == 5
                     float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
                     traitYes = ar_norm > 0
@@ -700,18 +704,18 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
                         nextAnnouncment += WhoCums.GetDisplayName()
                     endif
                 endif
-                if traitYes
+                if traitYes && !skipThis
                     float bonus_val = lastMet * SUCCUBUSTRAITSVALUESBONUS[index] * ( 1 / Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(),1) / (_thread.GetPositions().Length - 1) )
                     retval += bonus_val
                 endif
-                if announceLogic > 0
+                if announceLogic > 0 && !skipThis
                     string announceDial = GetTypeDial(succubusTraits[index], traitYes, true)
-                    nextAnnouncmentLineLength += StringUtil.GetLength(announceDial + " ")
+                    nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)
                     if nextAnnouncmentLineLength > 100
                         nextAnnouncment += "\n"
                         nextAnnouncmentLineLength = 0
                     endif
-                    nextAnnouncment += announceDial + " "
+                    nextAnnouncment += announceDial
                 endif
             endif
             index += 1
@@ -1015,11 +1019,28 @@ Event OnInit()
     chosenTraits = Utility.CreateBoolArray(99, false)
 EndEvent
 
+Function ReadInCosmeticSetting()
+    string[] settings = StringUtil.Split( MCM.GetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main"), ";" )
+    int lengSettings = JValue.count(JDB.solveObj(".tssdsettings"))
+    if !cosmeticSettings || cosmeticSettings.Length != lengSettings
+        cosmeticSettings = Utility.CreateBoolArray(lengSettings, false)
+    endif
+    int index = 0
+    while index < lengSettings
+        cosmeticSettings[index] = (settings[index] as int) as bool
+        index += 1
+    endwhile
+Endfunction
+
 Function Maintenance()
-    int jval = JValue.readFromFile("Data/Tssd/SUCCUBUSTRAITS.json")
+    int jval = JValue.readFromFile("Data/Tssd/succubustraits.json")
     JDB.SetObj("tssdtraits", jval)
     jval = JValue.readFromFile("Data/Tssd/succubuskinds.json")
     JDB.SetObj("tssdkinds", jval)
+    jval = JValue.readFromFile("Data/Tssd/overviews.json")
+    JDB.SetObj("tssdoverviews", jval)
+    jval = JValue.readFromFile("Data/Tssd/settings.json")
+    JDB.SetObj("tssdsettings", jval)
     filldirections =  StringUtil.Split("left;right;both", ";")
     barVals = StringUtil.Split("Pos_X;Pos_Y;Size_X;Size_Y;Rotation", ";")
     initial_Bar_Vals = New Float[5]
@@ -1029,6 +1050,10 @@ Function Maintenance()
     initial_Bar_Vals[3] = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iBarScaY:Main") as float
     initial_Bar_Vals[4] = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iBarRota:Main") as float
     new_Bar_Vals = CopyArray(initial_Bar_Vals)
+    if succubusType >= 0
+        RegisterSuccubusEvents()
+    endif
+    ReadInCosmeticSetting()
 Endfunction
 
 

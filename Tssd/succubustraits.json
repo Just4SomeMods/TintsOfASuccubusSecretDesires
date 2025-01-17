@@ -1,27 +1,60 @@
 {
     "Razzmatazz": {
         "positive": [
-            "Cum is in the air!"
+            "Cum is in the air!",
+            "Cum on me, baby!",
+            "Paint me with your lust.",
+            "Let's make a mess together.",
+            "I crave the stickiness of desire.",
+            "Spray it all over me.",
+            "Your seed is my treasure.",
+            "Let's get messy!",
+            "Splendor in every spurt."
         ],
         "negative": [
-            "I need it on my skin..."
+            "I need it on my skin...",
+            "My skin craves for stickiness.",
+            "I need them to paint on me!",
+            "I crave more to cover my skin.",
+            "Give me more to decorate with."
         ],
-        "description" : "You gain more energy from getting cummed upon." 
+        "description" : "You gain more energy from getting cummed upon. If you have the cupid trait you stop losing energy from getting cummed in." 
         
     },
     "Cupid": {
         "positive": [
-            "I love it sloshing down!"
+            "I love it sloshing down!",
+            "Feeling your power course through my veins.",
+            "Cum in abundance!",
+            "A river of desire flows through me.",
+            "Feeling so full of your passion."
         ],
         "negative": [
-            "Argh it's being wasted!"
+            "Argh it's being wasted!",
+            "Leaving me thirsty for more.",
+            "Still hungry for essence.",
+            "Still Empty.",
+            "Desperate for a refill.",
+            "Please don't leave any behind."
         ],
-        "description" : "You gain more energy from getting cummed in." 
+        "description" : "You gain more energy from getting cummed in. If you have the razzmatazz trait you stop losing energy from getting cummed on." 
         
     },
     "Lavenderblush": {
         "positive": [
-            "Homewrecker!"
+            "Homewrecker!",
+            "Breaking trust, one partner at a time.",
+            "Sinful satisfaction from betrayal.",
+            "Their pain is my pleasure.",
+            "Destroying relationships for fun.",
+            "A secret only I can keep.",
+            "The more heartbroken, the happier I am.",
+            "Breaking bonds with every thrust.",
+            "Cheating hearts fuel my pleasure.",
+            "The betrayal adds spice to our passion.",
+            "I revel in their misery.",
+            "Making them suffer only heightens the experience.",
+            "My energy soars on the wings of a heartbreak."
         ],
         "negative": [
             ""
@@ -31,30 +64,61 @@
     },
     "Carnation": {
         "positive": [
-            "Roses are in the air!"
+            "Roses are in the air!",
+            "Romance blossoms within us.",
+            "Our souls entwine in euphoria.",
+            "A dance of pure affection.",
+            "Our hearts beat as one.",
+            "Our kisses ignite a fiery passion.",
+            "This love story is the tale of our time.",
+            "Our love grows with each touch.",
+            "I am complete in your arms."
         ],
         "negative": [
-            "It doesn't feel romantic..."
+            "It doesn't feel romantic...",
+            "Without romance, it's just an encounter.",
+            "A hollow echo of passion.",
+            "Lost in the mundane.",
+            "Passion flickers without warmth.",
+            "Just another physical connection.",
+            "My essence craves for true affection.",
+            "Devoid of sweet nothings.",
+            "No gentle caresses.",
+            "Missing heartfelt moments.",
+            "A missed chance to declare devotion.",
+            "No sighs of blissful surrender.",
+            "Wishing for soft whispers of love."
         ],
         "description" : "You gain more energy by having a partner orgasm whilst having romantic sex." 
         
     },
     "Tosca": {
         "positive": [
-            "This is so GAY!"
+            "This is so GAY!",
+            "A celebration of queer love.",
+            "Unbridled passion in its purest form.",
+            "Euphoria as our bodies intertwine.",
+            "Sexual liberation in every thrust.",
+            "Breaking stereotypes with each moan.",
+            "Our chemistry defies convention."
         ],
         "negative": [
-            "This is too straight."
+            "This is too straight.",
+            "Straight sex is just... boring.",
+            "Mixed genders lack the chemistry.",
+            "Struggling with a mismatched connection.",
+            "Not my scene.",
+            "I prefer my own kind."
         ],
-        "description" : "You gain more energy from orgasms caused by sex that involves only one gender" 
+        "description" : "You gain more energy from orgasms from partners of your gender, especially if your partner can not produce semen." 
         
     },
     "Blush": {
         "positive": [
-            "needed that!"
+            " needed that!"
         ],
         "negative": [
-            "did not need that."
+            " did not need that."
         ],
         "description" : "Your partners orgasms increase your energy gains more if they are aroused."
     }
