@@ -1,7 +1,7 @@
 {
     "Crimson": {
         "positive": [
-            ""
+            "Crimson does not have positive thoughts."
         ],
         "negative": [
             "Exhausting..."
@@ -80,10 +80,10 @@
     },
     "Sundown": {
         "positive": [
-            ""
+            "Sundown does not have thoughts."
         ],
         "negative": [
-            ""
+            "Sundown does not have thoughts"
         ],
         "description": "Your transformation was not complete. You are only a half-succubus. You gain less energy and lose more. You cannot reach below 0 Energy.",
         "color" : [255,179,181]

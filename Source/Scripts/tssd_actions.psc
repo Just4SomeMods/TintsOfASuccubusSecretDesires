@@ -15,6 +15,7 @@ GlobalVariable Property TimeOfDayGlobalProperty Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
 GlobalVariable Property SkillSuccubusSeductionLevel Auto
 GlobalVariable Property SkillSuccubusBodyLevel Auto
+GlobalVariable Property SkillSuccubusBaseLevel Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
@@ -174,7 +175,7 @@ Function OpenExpansionMenu()
     endif
 
     b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Drain;Seduction;Body;Perk Points;Perk Trees;Show Explanations again",";")
+    String[] myItems = StringUtil.Split("Base Skill;Drain;Seduction;Body;Perk Points;Perk Tree (Base);Perk Tree (Body);Perk Tree (Drain);Perk Tree (Seduction);Show Explanations again",";")
     Int result 
     if modifierKeyIsDown && lastUsedSub > -1
         result = lastUsedSub
@@ -186,12 +187,18 @@ Function OpenExpansionMenu()
         endif
     endif
     
-    if result < 4 && result > -1
+    if result < 5 && result > -1
         OpenSkillTrainingsMenu(result)
         NotificationSpam(myItems[result] )
-    elseif result == 4
-        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
     elseif result == 5
+        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
+    elseif result == 6
+        CustomSkills.OpenCustomSkillMenu("SuccubusBodySkill")
+    elseif result == 7
+        CustomSkills.OpenCustomSkillMenu("SuccubusDrainSkill")
+    elseif result == 8
+        CustomSkills.OpenCustomSkillMenu("SuccubusSeductionSkill")
+    elseif result == 9
         lookedAtExplanationsOnce = false
         OpenExpansionMenu()
     endif
@@ -199,7 +206,7 @@ EndFunction
 
 Function OpenExlanationMenu()
         
-    String[] SUCCUBUSTATS = StringUtil.Split( "Perk Trees;Drain;Seduction;Body;Perk Points",";")
+    String[] SUCCUBUSTATS = StringUtil.Split( "Base Skill;Drain;Seduction;Body;Perk Points",";")
     String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Opens the Perk Trees of this mod;Drain increases your drain strength;Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];Perk Points give you perkpoint for the Trees in this mod.",";")
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
 
@@ -212,28 +219,23 @@ Function OpenExlanationMenu()
     int resultW = -1
     if result.Length > 0
         resultw =  result[0] as int
-    endif
-    if resultw == -1
-        Return
-    endif
-    if resultW == 0
-        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
-    elseif resultw >= 0
-        OpenSkillTrainingsMenu(resultW - 1)
+        OpenSkillTrainingsMenu(resultW)
     endif
 Endfunction
 
 Function OpenSkillTrainingsMenu(int index_of)
-    String[] myItems = StringUtil.Split("Drain;Seduction;Body;Perk Points;Perk Trees;Read Explanations again",";")
-    String[] skillNames = new String[4]
-    skillNames[0] = "SuccubusDrainSkill"
-    skillNames[1] = "SuccubusSeductionSkill"
-    skillNames[2] = "SuccubusBodySkill"
-    skillNames[3] = "SuccubusPerkPoints"
+    String[] myItems = StringUtil.Split("Base;Drain;Seduction;Body;Perk Points",";")
+    
+    GlobalVariable[] skillLevels = new GlobalVariable[5]
+    skillLevels[0] = SkillSuccubusBaseLevel
+    skillLevels[1] = SkillSuccubusDrainLevel
+    skillLevels[2] = SkillSuccubusSeductionLevel
+    skillLevels[3] = SkillSuccubusBodyLevel
+    skillLevels[4] = TSSD_PerkPointsBought
 
     tssd_trainSuccAbilities trainingThing =  ((Quest.GetQuest("tssd_queststart")) as tssd_trainSuccAbilities)
     trainingThing.SetSkillName(mYitems[index_of])
-    trainingThing.SetSkillVariable(skillNames[index_of])
+    trainingThing.SetSkillVariable(skillLevels[index_of])
     (trainingThing).show()
 Endfunction
 
@@ -843,7 +845,6 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
 
     if value > 0
         SuccubusXpAmount.SetValue(SuccubusXpAmount.GetValue() + value * 10)
-        CustomSkills.AdvanceSkill("SuccubusBaseSkill", value * 10)
     endif
     
     if succNeedVal != -101

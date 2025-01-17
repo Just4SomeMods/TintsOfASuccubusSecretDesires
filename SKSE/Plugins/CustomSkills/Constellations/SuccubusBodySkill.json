@@ -7,6 +7,7 @@
      "legendary": "TintsOfASuccubusSecretDesires.esp|006",
      "ratio": "TintsOfASuccubusSecretDesires.esp|005",
      "perkPoints": "TintsOfASuccubusSecretDesires.esp|01B",
+     "showMenu": "TintsOfASuccubusSecretDesires.esp|049",
      "experienceFormula": {
           "useMult": 7.0,
           "useOffset": 0.0,

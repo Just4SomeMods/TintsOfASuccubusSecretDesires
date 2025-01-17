@@ -6,6 +6,7 @@
      "legendary": "TintsOfASuccubusSecretDesires.esp|01E",
      "level": "TintsOfASuccubusSecretDesires.esp|01F",
      "ratio": "TintsOfASuccubusSecretDesires.esp|020",
+     "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
      "experienceFormula": {
           "useMult": 7.0,
           "useOffset": 0.0,

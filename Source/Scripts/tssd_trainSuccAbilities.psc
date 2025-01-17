@@ -3,7 +3,7 @@ Scriptname tssd_trainSuccAbilities extends b612_TrainingMenu
 String SkillName = ""
 int skillValue = 0
 
-String SkillVal
+GlobalVariable skillVal
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TOSD_SuccubusPerkPoints Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
@@ -12,7 +12,7 @@ Function SetSkillName(String newName)
     SkillName = newName
 Endfunction
 
-Function SetSkillVariable(String newVal)
+Function SetSkillVariable(GlobalVariable newVal)
     SkillVal = newVal
 Endfunction
 
@@ -32,10 +32,10 @@ EndFunction
 
 ; how many times the player has trained this skill
 Int Function GetTimesTrained()
-    if SkillVal == "SuccubusPerkPoints" 
-        Return TSSD_PerkPointsBought.GetValue() as int
+    if SkillVal == TSSD_PerkPointsBought 
+        Return TOSD_SuccubusPerkPoints.GetValue() as int
     endif
-    return CustomSkills.GetSkillLevel(SkillVal)
+    return SkillVal.GetValue() as int
 EndFunction
 
 ; how many times the player can train this skill
@@ -45,7 +45,7 @@ EndFunction
 
 ; how much training for the next skill up costs
 Int Function GetTrainCost()
-    if SkillVal == "SuccubusPerkPoints"
+    if SkillVal == TSSD_PerkPointsBought
         return 1000 * (GetTimesTrained() + 1)
     Endif
     Return 10 * (GetTimesTrained() + 1)
@@ -64,11 +64,12 @@ EndFunction
 ; train the skill
 Function Train()
     SuccubusXpAmount.SetValue( GetCurrentGold() - GetTrainCost() )
-    if SkillVal == "SuccubusPerkPoints"
+    if SkillVal == TSSD_PerkPointsBought
         TSSD_PerkPointsBought.SetValue((TSSD_PerkPointsBought.GetValue()) + 1 as int)
         TOSD_SuccubusPerkPoints.SetValue(TOSD_SuccubusPerkPoints.GetValue() + 1 as int)
     else
-        CustomSkills.IncrementSkill(SkillVal)
+        SkillVal.SetValue( SkillVal.GetValue() + 1 )
+        ;CustomSkills.IncrementSkill(SkillVal)
     endif
 
 EndFunction
