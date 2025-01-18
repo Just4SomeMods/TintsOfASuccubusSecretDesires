@@ -299,7 +299,6 @@ Function SelectSuccubusType()
         endif
         ;if succubusType == 2
         ;DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
-
         ;Endif
         setColorsOfBar()
     endif
