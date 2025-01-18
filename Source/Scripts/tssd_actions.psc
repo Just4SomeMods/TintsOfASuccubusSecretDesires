@@ -5,7 +5,7 @@ import tssd_utils
 iWant_Widgets Property  iWidgets Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
-tssd_succubusstageendblockhook Property stageEndHook Auto
+sslActorLibrary ActorLib
 Actor Property PlayerRef Auto
 
 Quest Property  b612Quest Auto
@@ -52,6 +52,7 @@ bool[] first_arr
 bool [] chosenTraits
 bool [] cosmeticSettings
 int nextAnnouncmentLineLength = 0
+int[] orgasmCount
 
 Faction Property sla_Arousal Auto
 
@@ -297,8 +298,8 @@ Function SelectSuccubusType()
             RegisterSuccubusEvents()
         endif
         ;if succubusType == 2
-            ;DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
-            
+        ;DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
+
         ;Endif
         setColorsOfBar()
     endif
@@ -457,8 +458,8 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, old_dur)
         ;endif
     elseif myItems[result] == "Ask for Sex." && Cross
-        Sexlab.RegisterHook( stageEndHook)
-        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)        
+        ;Sexlab.RegisterHook( stageEndHook)
+        Sexlab.QuickStart(PlayerRef, Cross)        
     endif
 EndFunction
 
@@ -532,7 +533,7 @@ Function EvaluateCompleteScene(bool onStart=false)
     int max_rel = -4
     bool max_prot = false
     
-    Actor[] ActorsIn = _thread.GetPositions()
+    Actor[] ActorsIn = _thread.Positions
     string output = ""
     float energyNew = 0
     while index < ActorsIn.length
@@ -576,7 +577,7 @@ Function EvaluateCompleteScene(bool onStart=false)
 Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
-    float lastTime = SexlabStatistics.GetLastEncounterTime(Target,PlayerRef)
+    float lastTime = Sexlab.LastSexGameTime(Target)
     float compaerer = TimeOfDayGlobalProperty.GetValue() 
     if compaerer < lastTime
         return 1
@@ -588,13 +589,13 @@ float Function GetLastTimeSuccd(Actor Target)
 Endfunction
 
 Function PlayerStart(Form FormRef, int tid)
+    Actor[] ActorsIn = Sexlab.GetController(tid).Positions
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
     if smooching == 0.0
         EvaluateCompleteScene(true)
     else
-        Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
         Actor nonPlayer = ActorsIn[0]
         if nonPlayer == PlayerRef
             nonPlayer = ActorsIn[1]
@@ -604,19 +605,20 @@ Function PlayerStart(Form FormRef, int tid)
     if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || cosmeticSettings[1] ) && cosmeticSettings[0]
         setHeartEyes(true)
     endif
+    orgasmCount = Utility.CreateIntArray(ActorsIn.Length, 0)
 EndFunction
 
 Function PlayerSceneEnd(Form FormRef, int tid)
     sslThreadController _thread =  Sexlab.GetController(tid)
-    Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
-    if Sexlab.IsHooked(stageEndHook)
-        Sexlab.UnRegisterHook( stageEndHook)
-    endif
+    Actor[] ActorsIn = Sexlab.GetController(tid).Positions
+    ;if Sexlab.IsHooked(stageEndHook)
+    ;    Sexlab.UnRegisterHook( stageEndHook)
+    ;endif
     ;updateSuccyNeeds(evaluateSceneEnergy(Sexlab.GetController(tid), none, false), true)
     int index = 0
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if WhoCums != PlayerRef && deathModeActivated && allowedToSuccToDeath(WhoCums) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
+        if WhoCums != PlayerRef && deathModeActivated && allowedToSuccToDeath(WhoCums) && orgasmCount[ActorsIn.find(WhoCums)] > 0
             WhoCums.Kill(PlayerRef)
             updateSuccyNeeds(WhoCums.GetActorValueMax("Health"))
         endif
@@ -658,6 +660,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     float lastMet = 1
     float energyLosses = 0
+    Actor[] ActorsIn = _thread.Positions
     if cosmeticSettings[2] == 0  && !overWriteStop
         announceLogic = 0
     endif
@@ -676,32 +679,34 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         if lastmet  < 0.0
             lastmet = 1
         endif
-        retval += 10 * lastMet * ( 1 / (Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), 1)))
-
+        retval += 10 * lastMet * ( 1 / orgasmCount[ActorsIn.find(WhoCums)])
+    Endif
+    if WhoCums != PlayerRef && WhoCums
+        sslBaseAnimation Animation = _thread.Animation
         bool cameOn = false
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
             bool skipThis = false
             if chosenTraits[index]
                 bool traitYes = false
                 if index == 0
-                    traitYes = _thread.HasSceneTag("Aircum")
+                    traitYes = Animation.HasTag("Aircum")
                     if traitYes
                         cameOn = true
                     elseif chosenTraits[1]
                         skipThis = true
                     endif
                 elseif index == 1
-                    traitYes =  !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal")) && Sexlab.GetSex(WhoCums) != 1 && Sexlab.GetSex(WhoCums) != 4
+                    traitYes =  !Animation.HasTag("Aircum") && (Animation.HasTag("Oral") || Animation.HasTag("Anal") || Animation.HasTag("Vaginal")) && ActorLib.GetGender(WhoCums) != 1 && ActorLib.GetGender(WhoCums) != 4
                     if cameOn
                         skipThis = true
                     endif                    
                 elseif index == 2
-                    traitYes =  WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1
+                    traitYes =  WhoCums.GetHighestRelationshiprank() == 4 && orgasmCount[ActorsIn.find(WhoCums)] <= 1
                 elseif index == 3
-                    traitYes = (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))
+                    traitYes = (Animation.HasTag("love") || Animation.HasTag("loving"))
                 elseif index == 4
-                    traitYes = _thread.sameSexThread()
-                    if traitYes && Sexlab.GetSex(WhoCums) == 1
+                    traitYes = _thread.Males == 0 || _thread.Females == 0
+                    if traitYes && ActorLib.GetGender(WhoCums) == 1
                         retval += 5
                     endif
                 elseif index == 5
@@ -715,7 +720,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
                     endif
                 endif
                 if traitYes && !skipThis
-                    float bonus_val = lastMet * SUCCUBUSTRAITSVALUESBONUS[index] * ( 1 / Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(),1) / (_thread.GetPositions().Length - 1) )
+                    float bonus_val = lastMet * SUCCUBUSTRAITSVALUESBONUS[index] * ( 1 / Max(orgasmCount[ActorsIn.find(WhoCums)],1) / (_thread.Positions.Length - 1) )
                     retval += bonus_val
                 endif
                 if announceLogic > 0 && !skipThis
@@ -731,7 +736,6 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
             index += 1
         EndWhile
     elseif WhoCums
-        Actor[] ActorsIn = _thread.GetPositions() 
         index = 0
         int max_rel = 0
         int max_prot = 0
@@ -740,7 +744,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
             Actor ActorRef = Actorsin[Index]            
             if PlayerRef != ActorRef
                 max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
-                max_met = max(SexlabStatistics.GetTimesMet(ActorRef,PlayerRef), max_met) as int
+                ;max_met = max(SexlabStatistics.GetTimesMet(ActorRef,PlayerRef), max_met) as int
             endif
     
             index += 1
@@ -752,11 +756,11 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         elseif succubusType == 1
             traitYes = max_rel == 4
         elseif succubusType == 2 
-            traitYes = SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && max_met == 0
+            traitYes = max_rel <= 2 && max_met == 0
         elseif succubusType == 3
             toLoseVal = 0
         elseif succubusType == 4
-            traitYes = _thread.GetSubmissive(PlayerRef)
+            traitYes = _thread.IsVictim(PlayerRef)
         endif
 
         if !traitYes
@@ -799,7 +803,7 @@ EndFunction
 Function DebugForceOrgasm()
     sslThreadController _thread =  Sexlab.GetPlayerController()
     if _thread
-        Actor[] ActorsIn = _thread.GetPositions()
+        Actor[] ActorsIn = _thread.Positions
         int index = 0
         while index < ActorsIn.Length
             Actor ActorRef = ActorsIn[index]
@@ -810,21 +814,21 @@ Function DebugForceOrgasm()
     endif
 EndFunction
 
-Function AddToStatistics(int amount_of_hours)
-    int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
-    int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
-    if genderPlayer == 0
-        sexualityPlayer = 100 - sexualityPlayer
-    endif
-    int index = 0
-    if succubusType != 3
-        while index < amount_of_hours
-            int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
-            sslStats.AddSex(PlayerRef, timespent = 0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
-            index += 1
-        endwhile
-    endif
-Endfunction
+;Function AddToStatistics(int amount_of_hours)
+;    int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
+;    int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
+;    if genderPlayer == 0
+;        sexualityPlayer = 100 - sexualityPlayer
+;    endif
+;    int index = 0
+;    if succubusType != 3
+;        while index < amount_of_hours
+;            int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
+;            sslStats.AddSex(PlayerRef, timespent = 0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+;            index += 1
+;        endwhile
+;    endif
+;Endfunction
 
 Function RefreshEnergy(float adjustBy, int upTo = 100)
     float lastVal = SuccubusDesireLevel.GetValue()
@@ -924,26 +928,26 @@ EndEvent
 
 Event OnUpdate()
     sslThreadController _thread =  Sexlab.GetPlayerController()
-    if _thread && PlayerRef.HasPerk(TSSD_Seduction_Leader)
-        if timer_internal < 0
-            timer_internal += Max(_updateTimer, 0.0)
-        elseif Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main")) && PlayerRef.GetAV("Stamina") > 10 && timer_internal < 6
-            timer_internal += _updateTimer
-            PlayerRef.DamageActorValue("Stamina", 50 * _updateTimer )
-        elseif timer_internal > 0
-            int index = 0
-            Actor[] ActorsIn = _thread.GetPositions()
-            while index < ActorsIn.Length
-                if ActorsIn[index] != PlayerRef
-                    _thread.AdjustEnjoyment(ActorsIn[index], Min(300, _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
-                else
-                    _thread.AdjustEnjoyment(ActorsIn[index], Min(90 - _thread.GetEnjoyment(ActorsIn[index]), _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
-                endif
-                index += 1
-            EndWhile
-            timer_internal = -5
-        endif
-    endif
+    ;if _thread && PlayerRef.HasPerk(TSSD_Seduction_Leader)
+    ;    if timer_internal < 0
+    ;        timer_internal += Max(_updateTimer, 0.0)
+    ;    elseif Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main")) && PlayerRef.GetAV("Stamina") > 10 && timer_internal < 6
+    ;        timer_internal += _updateTimer
+    ;        PlayerRef.DamageActorValue("Stamina", 50 * _updateTimer )
+    ;    elseif timer_internal > 0
+    ;        int index = 0
+    ;        Actor[] ActorsIn = _thread.Positions
+    ;        while index < ActorsIn.Length
+    ;            if ActorsIn[index] != PlayerRef
+    ;                _thread.AdjustEnjoyment(ActorsIn[index], Min(300, _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
+    ;            else
+    ;                _thread.AdjustEnjoyment(ActorsIn[index], Min(90 - _thread.GetEnjoyment(ActorsIn[index]), _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
+    ;            endif
+    ;            index += 1
+    ;        EndWhile
+    ;        timer_internal = -5
+    ;    endif
+    ;endif
     float succNeedVal = SuccubusDesireLevel.GetValue()
     if succNeedVal <= ravanousNeedLevel && succNeedVal > -101
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
@@ -959,15 +963,16 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
     updateSuccyNeeds(EvaluateOrgasmEnergy(_thread, ActorRef, 1), true)
+    Actor[] pos = _thread.Positions
     if deathModeActivated && ActorRef != PlayerRef
-        int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
-        int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+        ;int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
+        ;int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
         TSSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
         TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
-        while  Stage_in < StageCount 
-            _thread.AdvanceStage()
-            Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-        EndWhile
+        ;while  Stage_in < StageCount 
+        ;    _thread.AdvanceStage()
+        ;    Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+        ;EndWhile
     elseif !deathModeActivated  && ActorRef != PlayerRef && PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
         if PlayerRef.HasPerk(TSSD_Drain_GentleDrain3)
@@ -980,6 +985,7 @@ Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
         TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
         TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
     endif
+    orgasmCount[pos.find(ActorRef)] = orgasmCount[pos.find(ActorRef)] + 1
 EndEvent
 
 Event OnUpdateGameTime()
@@ -990,7 +996,7 @@ Event OnUpdateGameTime()
             (succubusType == 4 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) )
         if timeBetween * 24 >= 1
             RefreshEnergy(timeBetween, 50)
-            AddToStatistics(timeBetween as int)
+            ;AddToStatistics(timeBetween as int)
         endif
         timeBetween = 0
     endif
