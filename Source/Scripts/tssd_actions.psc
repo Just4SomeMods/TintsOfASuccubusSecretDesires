@@ -577,6 +577,10 @@ Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
     float lastTime = SexlabStatistics.GetLastEncounterTime(Target,PlayerRef)
+    float compaerer = TimeOfDayGlobalProperty.GetValue() 
+    if compaerer < lastTime
+        return 1
+    endif
     if lastTime > 0.0
         return TimeOfDayGlobalProperty.GetValue() - lastTime
     endif
@@ -672,8 +676,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         if lastmet  < 0.0
             lastmet = 1
         endif
-        retval += 10 * lastMet * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1))
-        DBGTRace(retval)
+        retval += 10 * lastMet * ( 1 / (Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), 1)))
 
         bool cameOn = false
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
@@ -775,7 +778,6 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         endif
     endif
     retVal += energyLosses
-    DBGTRace(retVal)
     if output != ""
         nextAnnouncment += output +"\n"
     endif
