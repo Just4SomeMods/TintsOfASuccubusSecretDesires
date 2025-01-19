@@ -20,7 +20,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|023",
           "x": 0.5,
           "y": -0.5,
-          "links": [
+          "links": [ "Leader", "DTF"
           ]
      }, {
           "id": "Leader",
