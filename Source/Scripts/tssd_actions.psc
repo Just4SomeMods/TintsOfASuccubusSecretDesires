@@ -297,7 +297,7 @@ Function SelectSuccubusType()
             RegisterSuccubusEvents()
         endif
         ;if succubusType == 2
-            DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
+            ;DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
             
         ;Endif
         setColorsOfBar()
@@ -657,7 +657,8 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     if cosmeticSettings[2] == 0  && !overWriteStop
         announceLogic = 0
     endif
-    if WhoCums && WhoCums != PlayerRef
+    if WhoCums != PlayerRef && WhoCums
+
         if !isSuccable(WhoCums)
             if announceLogic != 1 
                 nextAnnouncment += WhoCums.GetDisplayName() + " can't be drained!"
@@ -672,8 +673,8 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
             lastmet = 1
         endif
         retval += 10 * lastMet * ( 1 / (_thread.ActorAlias(WhoCums).GetOrgasmCount()+1))
-    Endif
-    if WhoCums != PlayerRef && WhoCums
+        DBGTRace(retval)
+
         bool cameOn = false
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
             bool skipThis = false
@@ -774,6 +775,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         endif
     endif
     retVal += energyLosses
+    DBGTRace(retVal)
     if output != ""
         nextAnnouncment += output +"\n"
     endif
