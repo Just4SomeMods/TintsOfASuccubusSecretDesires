@@ -578,13 +578,10 @@ Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
     float lastTime = Sexlab.LastSexGameTime(Target)
-<<<<<<< HEAD
     float compaerer = TimeOfDayGlobalProperty.GetValue() 
     if compaerer < lastTime
         return 1
     endif
-=======
->>>>>>> df10c6f (legacy sexlab test)
     if lastTime > 0.0
         return TimeOfDayGlobalProperty.GetValue() - lastTime
     endif
