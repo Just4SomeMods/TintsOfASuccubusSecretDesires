@@ -577,7 +577,7 @@ Endfunction
 
 float Function GetLastTimeSuccd(Actor Target)
     float lastTime = SexlabStatistics.GetLastEncounterTime(Target,PlayerRef)
-    float compaerer = TimeOfDayGlobalProperty.GetValue() 
+    float compaerer = TimeOfDayGlobalProperty.GetValue()
     if compaerer < lastTime
         return 1
     endif
