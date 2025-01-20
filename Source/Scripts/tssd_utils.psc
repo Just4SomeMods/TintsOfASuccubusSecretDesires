@@ -135,3 +135,32 @@ Function Maintenance(GlobalVariable TSSD_SuccubusType) Global
     JDB.SetObj("tssdsettings", jval)
     ReadInCosmeticSetting()
 Endfunction
+
+Headpart Function currentEyes() Global
+    Actor playerRef = Game.GetPlayer()
+    ActorBase Base = PlayerRef.GetBaseObject() as ActorBase
+    int parts = Base.GetNumHeadParts()
+    HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
+    While parts > 0
+        parts -= 1
+        int Temp = Base.GetNthHeadPart(parts).GetType()
+        If Temp == 2 
+            if Base.GetNthHeadPart(Parts) != HeartEyes
+                return Base.GetNthHeadPart(Parts)
+            endif
+            parts = 0
+        endIf
+    EndWhile
+    return none
+Endfunction
+
+Function setHeartEyes(HeadPart PlayerEyes, bool on = true) Global
+    Actor playerRef = Game.GetPlayer()
+    HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
+    if !on && PlayerEyes
+        playerRef.ChangeHeadPart( PlayerEyes)
+    else
+        playerRef.ChangeHeadPart( HeartEyes )
+    endif
+    playerRef.QueueNiNodeUpdate()
+Endfunction

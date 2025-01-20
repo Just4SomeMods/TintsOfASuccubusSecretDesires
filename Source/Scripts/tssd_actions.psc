@@ -10,7 +10,6 @@ tssd_widgets Property tWidgets Auto
 Actor Property PlayerRef Auto
 float _updateTimer = 0.5
 
-
 Quest Property  b612Quest Auto
 tssd_orgasmenergylogic Property OEnergy Auto 
 
@@ -25,13 +24,6 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_KillEssentialsActive Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 
-; When I find out how to make DDR in a binary counting way, these will be deleted | When DDR is fixed I'll look into it again.
-GlobalVariable Property TSSD_IsBlush Auto
-GlobalVariable Property TSSD_IsCarnation Auto
-GlobalVariable Property TSSD_IsCupid Auto
-GlobalVariable Property TSSD_IsLavenderblush Auto
-GlobalVariable Property TSSD_IsRazzmatazz Auto
-GlobalVariable Property TSSD_IsTosca Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
 GlobalVariable Property TSSD_SuccubusType Auto
 
@@ -57,13 +49,9 @@ Spell Property TSSD_DrainHealth Auto
 bool lookedAtExplanationsOnce = false
 bool barupdates
 bool deathModeActivated = false
-bool registered = false
-bool initial = false
-bool running = False
 bool modifierKeyIsDown = false
-bool[] first_arr
+
 bool [] cosmeticSettings
-int nextAnnouncmentLineLength = 0
 
 Faction Property sla_Arousal Auto
 
@@ -74,20 +62,15 @@ Keyword Property LocTypeCity Auto
 HeadPart PlayerEyes
 
 int ravanousNeedLevel = -100
-int myApple
 int lastUsed = -1
 int lastUsedSub = -1
 
 float lastSmoochTimeWithThatPerson = 0.0
 
-string nextAnnouncment = "" 
 string InputString = ""
-
-string[] string_first_arr
 
 float last_checked
 float timer_internal = 0.0
-float[] new_Bar_Vals
 float smooching = 0.0
 
 
@@ -109,7 +92,6 @@ Function OpenGrandeMenu()
         SelectSuccubusType()
         return
     endif
-    last_checked = TimeOfDayGlobalProperty.GetValue()
     b612_SelectList mySelectList = GetSelectList()
     sslThreadController _thread =  Sexlab.GetPlayerController()
     String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
@@ -214,43 +196,19 @@ Function OpenSuccubusTraits()
         index += 1
     EndWhile
     String[] resultW = TraitsMenu.Show(aiMaxSelection = TSSD_MaxTraits.GetValue() as int, aiMinSelection = 0)
-    GlobalVariable[] chosenTraitsGlobal = new GlobalVariable[12]
-    chosenTraitsGlobal[0] = TSSD_IsRazzmatazz
-    chosenTraitsGlobal[1] = TSSD_IsCupid
-    chosenTraitsGlobal[2] = TSSD_IsLavenderblush
-    chosenTraitsGlobal[3] = TSSD_IsCarnation
-    chosenTraitsGlobal[4] = TSSD_IsTosca
-    chosenTraitsGlobal[5] = TSSD_IsBlush
     if resultW.Length > 0
         chosenTraits = Utility.CreateBoolArray(succTraits.Length, false)
         index = 0
         int j = 0
-        while j < succTraits.Length
-            chosenTraitsGlobal[j].SetValue(0)
-            j+=1
-        endwhile    
         int chosenBinar = 0
         while index < resultw.Length
             int resInt = resultW[index] as int
-            chosenTraitsGlobal[resInt].SetValue(1)
             chosenBinar += Math.Pow(2, resInt) as int
             index += 1
         EndWhile
         TSSD_SuccubusTraits.SetValue(chosenBinar)
     endif
 EndFunction
-
-Function RegisterSuccubusEvents()
-    RegisterForUpdateGameTime(0.4)
-    RegisterForMenu("Dialogue Menu")
-    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
-        PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
-        TSSD_MaxTraits.SetValue(99)
-    endif
-    RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
-    RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
-    RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
-Endfunction
 
 Function SelectSuccubusType()
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
@@ -403,27 +361,16 @@ EndFunction
 
 ;Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-Function setHeartEyes(bool on = true)
-    HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
-    if !on && PlayerEyes
-        playerRef.ChangeHeadPart( PlayerEyes)
-    else
-        ActorBase Base = PlayerRef.GetBaseObject() as ActorBase
-        int parts = Base.GetNumHeadParts()
-        While parts > 0
-            parts -= 1
-            int Temp = Base.GetNthHeadPart(parts).GetType()
-            If Temp == 2 
-                if Base.GetNthHeadPart(Parts) != HeartEyes
-                    PlayerEyes = Base.GetNthHeadPart(Parts)
-                endif
-                parts = 0
-            endIf
-        EndWhile
-        playerRef.ChangeHeadPart( HeartEyes )
+Function RegisterSuccubusEvents()
+    RegisterForUpdateGameTime(0.4)
+    RegisterForMenu("Dialogue Menu")
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
+        PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
+        TSSD_MaxTraits.SetValue(99)
     endif
-    playerRef.QueueNiNodeUpdate()
+    RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
+    RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
+    RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 Endfunction
 
 Function NotificationSpam(string Displaying)
@@ -433,8 +380,6 @@ Function NotificationSpam(string Displaying)
 Endfunction
 
 Function EvaluateCompleteScene(bool onStart=false)
-    nextAnnouncment = ""
-    nextAnnouncmentLineLength = 0
     sslThreadController _thread =  Sexlab.GetPlayerController()
     int index = 0
     int max_rel = -4
@@ -474,9 +419,6 @@ Function EvaluateCompleteScene(bool onStart=false)
     elseif energyNew < 0
         output += "Eugh, this is bad. "
     endif
-    string output_end = ""
-    output_end =  nextAnnouncment + " ; " + (energyNew as int)
-    nextAnnouncment = ""
     if cosmeticSettings[2] == 1
         OEnergy.ShowAnnounceMent(energyNew as int)
     endif
@@ -498,7 +440,11 @@ Function PlayerStart(Form FormRef, int tid)
         lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer, TimeOfDayGlobalProperty)        
     endif
     if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || cosmeticSettings[1] ) && cosmeticSettings[0]
-        setHeartEyes(true)
+        HeadPart tEyes = currentEyes()
+        if tEyes
+            PlayerEyes = tEyes
+        endif
+        setHeartEyes(PlayerEyes, true)
     endif
 EndFunction
 
@@ -522,7 +468,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         toggleDeathMode()
     endif
     if Game.GetModByName("Tullius Eyes.esp") != 255
-        setHeartEyes(false)
+        setHeartEyes(PlayerEyes, false)
     endif
 EndFunction
 
