@@ -44,7 +44,19 @@
                 "sourceType": "ModSettingBool",
                           "defaultValue": false
               }
+              },{
+                "id": "iSuccubusLevel:Main",
+                "text": "Demo Menu",
+                "type": "enum",
+                "help": "A menu allows a single selection from multiple choices.",
+                "valueOptions": {
+                  "options": ["Cursed a minute ago", "Fledgeling (default)", "Well probed", "Expert Succer", "Master of the Arts", "Legendary"],
+                  "sourceType": "ModSettingInt",
+                  "defaultValue": 1
+                  
+                }
               }
+
         
             ]
       }

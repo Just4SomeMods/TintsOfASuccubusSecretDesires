@@ -10,7 +10,6 @@ tssd_widgets Property tWidgets Auto
 Actor Property PlayerRef Auto
 float _updateTimer = 0.5
 
-Quest Property  b612Quest Auto
 tssd_orgasmenergylogic Property OEnergy Auto 
 
 GlobalVariable Property TimeOfDayGlobalProperty Auto
@@ -41,19 +40,17 @@ Perk Property TSSD_Drain_DrainMore2 Auto
 Perk Property TSSD_Seduction_Kiss1 Auto
 Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
+Perk Property TSSD_Body_PassiveEnergy1 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
 Spell Property TSSD_DrainHealth Auto
 
 bool lookedAtExplanationsOnce = false
-bool barupdates
 bool deathModeActivated = false
 bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
-
-Faction Property sla_Arousal Auto
 
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
@@ -67,12 +64,9 @@ int lastUsedSub = -1
 
 float lastSmoochTimeWithThatPerson = 0.0
 
-string InputString = ""
-
 float last_checked
 float timer_internal = 0.0
 float smooching = 0.0
-
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -90,7 +84,6 @@ Function OpenGrandeMenu()
     endif
     if TSSD_SuccubusType.GetValue() == -1
         SelectSuccubusType()
-        return
     endif
     b612_SelectList mySelectList = GetSelectList()
     sslThreadController _thread =  Sexlab.GetPlayerController()
@@ -130,7 +123,7 @@ Function OpenExpansionMenu()
         return
     endif
     b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Base Skill;Drain;Seduction;Body;Perk Points;Show Explanations again",";")
+    String[] myItems = StringUtil.Split("Perk Trees;Base Skill;Drain;Seduction;Body;Perk Points;Show Explanations again",";")
     Int result 
     if modifierKeyIsDown && lastUsedSub > -1
         result = lastUsedSub
@@ -140,10 +133,12 @@ Function OpenExpansionMenu()
         if result == -1
             return
         endif
-    endif    
-    if result < 5 && result > -1
-        OpenSkillTrainingsMenu(result)
-        NotificationSpam(myItems[result] )
+    endif
+    if result == 0
+        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
+    elseif result < 5 && result > -1
+        OpenSkillTrainingsMenu(result - 1)
+        NotificationSpam(myItems[result - 1] )
     elseif result == 5
         lookedAtExplanationsOnce = false
         OpenExpansionMenu()
@@ -152,7 +147,7 @@ EndFunction
 
 Function OpenExlanationMenu()        
     String[] SUCCUBUSTATS = StringUtil.Split( "Base Skill;Drain;Seduction;Body;Perk Points",";")
-    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Opens the Perk Trees of this mod;Drain increases your drain strength;Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];Perk Points give you perkpoint for the Trees in this mod.",";")
+    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];Perk Points give you perkpoint for the Trees in this mod.",";")
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int index = 0
     while index < SUCCUBUSTATS.Length
@@ -226,6 +221,13 @@ Function SelectSuccubusType()
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
             updateSuccyNeeds(0)
+            int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
+            if startLevel > 0
+                SuccubusXpAmount.SetValue( startLevel * 1000  )
+                PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
+                PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
+                PlayerRef.AddPerk(TSSD_Body_PassiveEnergy1)
+            endif
             PlayerRef.AddPerk(TSSD_Base_Explanations)
             RegisterSuccubusEvents()
         endif
@@ -654,5 +656,3 @@ Event OnInit()
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
 EndEvent
-
-
