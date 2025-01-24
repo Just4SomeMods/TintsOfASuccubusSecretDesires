@@ -37,45 +37,47 @@ Function OnStageStart(SexLabThread akThread)
         Actor[] ActorsIn = akThread.GetPositions()
         int[] enjoymentsBefore = Utility.CreateIntArray(ActorsIn.Length, 0)
         sslThreadController _thread = akThread as sslThreadController
-        while index <  ActorsIn.length
-            Actor akTarget = ActorsIn[index]
-            enjoymentsBefore[index] = _thread.GetEnjoyment(ActorsIn[index]) 
-            if akTarget != PlayerRef
-                if _thread.ActorAlias(akTarget).GetOrgasmCount() == 0
-                    allSatisfied = false
-                Endif
-                if cur_thread.GetSubmissive(akTarget)
-                    conSent = false
+        if _thread && cur_thread
+            while index <  ActorsIn.length
+                Actor akTarget = ActorsIn[index]
+                enjoymentsBefore[index] = _thread.GetEnjoyment(ActorsIn[index]) 
+                if akTarget != PlayerRef
+                    if _thread.ActorAlias(akTarget).GetOrgasmCount() == 0
+                        allSatisfied = false
+                    Endif
+                    if cur_thread.GetSubmissive(akTarget)
+                        conSent = false
+                    endif
+                endif
+                index += 1
+            EndWhile
+            if !allSatisfied && notFirstToStageLast
+                ;Sexlab.GetPlayerController().AdvanceStage(true)
+                ;akThread.ResetScene(asScenes[0])
+                if (!conSent && !cur_thread.GetSubmissive(PlayerRef)) || cur_thread.GetSubmissive(PlayerRef)
+                    akThread.ResetScene(cur_thread.GetActiveScene())
+                    
+                else 
+                    cur_thread.SetIsSubmissive(PlayerRef, true)
+                    string tagsAsString = GetCumTarget(cur_thread.GetActiveScene())
+
+                    String[] asScenes2 = SexLabRegistry.LookupScenesA( ActorsIn  , tagsAsString + "-Aircum",  akThread.GetSubmissives(), 0, none )
+                    akThread.ResetScene(asScenes2[Utility.RandomInt(0, asScenes2.Length)])
+                    index = 0
+                    while index <  ActorsIn.length
+                        actor curActor = ActorsIn[index]
+                        if curActor != PlayerRef
+                            _thread.AdjustEnjoyment(ActorsIn[index], 50 + enjoymentsBefore[index])
+                        endif
+                        index += 1
+                    EndWhile
                 endif
             endif
-            index += 1
-        EndWhile
-        if !allSatisfied && notFirstToStageLast
-            ;Sexlab.GetPlayerController().AdvanceStage(true)
-            ;akThread.ResetScene(asScenes[0])
-            if (!conSent && !cur_thread.GetSubmissive(PlayerRef)) || cur_thread.GetSubmissive(PlayerRef)
-                akThread.ResetScene(cur_thread.GetActiveScene())
-                
-            else 
-                cur_thread.SetIsSubmissive(PlayerRef, true)
-                string tagsAsString = GetCumTarget(cur_thread.GetActiveScene())
-
-                String[] asScenes2 = SexLabRegistry.LookupScenesA( ActorsIn  , tagsAsString + "-Aircum",  akThread.GetSubmissives(), 0, none )
-                akThread.ResetScene(asScenes2[Utility.RandomInt(0, asScenes2.Length)])
-                index = 0
-                while index <  ActorsIn.length
-                    actor curActor = ActorsIn[index]
-                    if curActor != PlayerRef
-                        _thread.AdjustEnjoyment(ActorsIn[index], 50 + enjoymentsBefore[index])
-                    endif
-                    index += 1
-                EndWhile
-            endif
+            notFirstToStageLast = true
+        else
+            
+            notFirstToStageLast = false
         endif
-        notFirstToStageLast = true
-    else
-        
-        notFirstToStageLast = false
     endif
 EndFunction
 
