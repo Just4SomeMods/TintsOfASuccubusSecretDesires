@@ -15,13 +15,20 @@
           "improveOffset": 120.0,
           "enableXPPerRank": false
      },
-     "nodes": [
+     "nodes": [{
+          "id": "PlayDead",
+          "perk": "TintsOfASuccubusSecretDesires.esp|056",
+          "x": 0.0,
+          "y": -0.5,
+          "links": [ "Overstuffed" , "FightMode", "JailerMode" , "EnergyConverter"
+          ]
+     },
           {
           "id": "EnergyConverter",
           "perk": "TintsOfASuccubusSecretDesires.esp|011",
           "x": 0.0,
-          "y": -0.5,
-          "links": [ "Overstuffed" , "Body Art Enjoyer", "Filled Up Enjoyer"
+          "y": 1.5,
+          "links": [ 
           ]
      },{
           "id": "Overstuffed",
@@ -31,15 +38,15 @@
           "links": [
           ]
      },{
-          "id": "Body Art Enjoyer",
-          "perk": "TintsOfASuccubusSecretDesires.esp|027",
+          "id": "FightMode",
+          "perk": "TintsOfASuccubusSecretDesires.esp|05D",
           "x": -0.5,
           "y": 0.5,
           "links": [
           ]
      },{
-          "id": "Filled Up Enjoyer",
-          "perk": "TintsOfASuccubusSecretDesires.esp|026",
+          "id": "JailerMode",
+          "perk": "TintsOfASuccubusSecretDesires.esp|062",
           "x": 0.5,
           "y": 0.5,
           "links": [

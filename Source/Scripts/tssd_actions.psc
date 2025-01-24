@@ -10,6 +10,10 @@ tssd_widgets Property tWidgets Auto
 Actor Property PlayerRef Auto
 float _updateTimer = 0.5
 
+Spell[] Property SuccubusAbilitiesSpells Auto
+Perk[] Property SuccubusAbilitiesPerks  Auto
+String[] Property SuccubusAbilitiesNames  Auto    
+
 Idle property BleedOutStart auto
 
 tssd_orgasmenergylogic Property OEnergy Auto 
@@ -24,6 +28,7 @@ GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_KillEssentialsActive Auto
 GlobalVariable Property TSSD_MaxTraits Auto
+GlobalVariable Property TOSD_SuccubusPerkPoints Auto
 
 GlobalVariable Property TSSD_SuccubusTraits Auto
 GlobalVariable Property TSSD_SuccubusType Auto
@@ -44,6 +49,7 @@ Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PassiveEnergy1 Auto
 Perk Property TSSD_Body_PlayDead1 Auto
+Perk Property TSSD_Base_IncreaseScentRange1 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
@@ -58,6 +64,8 @@ bool [] cosmeticSettings
 Actor[] targetsToAlert
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
+MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
+
 
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
@@ -128,11 +136,11 @@ Function OpenGrandeMenu()
 EndFunction 
 
 Function OpenExpansionMenu()
-    if !lookedAtExplanationsOnce
-        if !MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bSkipExplenations:Main")
-            OpenExlanationMenu()
-        endif
+    if MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","bSkipExplenations:Main") < 0
         lookedAtExplanationsOnce = true
+    endif
+    if !lookedAtExplanationsOnce
+        OpenExlanationMenu()
         return
     endif
     b612_SelectList mySelectList = GetSelectList()
@@ -149,10 +157,10 @@ Function OpenExpansionMenu()
     endif
     if result == 0
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
-    elseif result < 5 && result > -1
+    elseif result < 6 && result > -1
         OpenSkillTrainingsMenu(result - 1)
         NotificationSpam(myItems[result - 1] )
-    elseif result == 5
+    elseif result == 6
         lookedAtExplanationsOnce = false
         OpenExpansionMenu()
     endif
@@ -185,8 +193,10 @@ Function OpenSkillTrainingsMenu(int index_of)
     skillLevels[4] = TSSD_PerkPointsBought
     tssd_trainSuccAbilities trainingThing =  ((Quest.GetQuest("tssd_queststart")) as tssd_trainSuccAbilities)
     trainingThing.SetSkillName(mYitems[index_of])
+    trainingThing.SetSkillId( "Succubus" + myItems[index_of] + "Skill")
     trainingThing.SetSkillVariable(skillLevels[index_of])
     (trainingThing).show()
+
 Endfunction
 
 Function OpenSuccubusTraits()
@@ -342,20 +352,29 @@ Endfunction
 
 Function OpenSuccubusAbilities()
     
-    String itemsAsString = "Hold back draining"
+    String itemsAsString = "Allow draining"
+    if deathModeActivated
+        itemsAsString = "Hold back draining"
+    endif
+    Actor Cross = Game.GetCurrentCrosshairRef() as Actor
     if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
         itemsAsString += ";Ask for Sex."
     endif
-    if PlayerRef.HasPerk(TSSD_Body_PlayDead1) || true
+    if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
         itemsAsString += ";Act defeated."
     endif
-    Actor Cross = Game.GetCurrentCrosshairRef() as Actor
 
-    itemsAsString += ";Look for Prey" ;; Keep Last
+    itemsAsString += ";Look for Prey"
+    
+    int indexOfA = 1
+    while indexOfA < SuccubusAbilitiesNames.length
+        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA])
+            itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
+        endif
+        indexOfA += 1
+    endwhile
+    
     String[] myItems = StringUtil.Split(itemsAsString,";")
-    if deathModeActivated
-        myItems[0] = "Allow draining"
-    endif
     Int result 
     if modifierKeyIsDown && lastUsedSub > -1
         result = lastUsedSub
@@ -370,19 +389,23 @@ Function OpenSuccubusAbilities()
     if myItems[result] == "Hold back draining" || myItems[result] == "Allow draining"
         toggleDeathMode()
     elseif myItems[result] == "Look for Prey"
-        ;if !PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
-        int old_dur = TSSD_SuccubusDetectJuice.GetNthEffectDuration(0)
+        int radius = getScanRange()
+        Actor[] allAround = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
+        ; DBGTRace(getAllNames(allAround))
+        TSSD_SuccubusDetectJuice.SetNthEffectArea(0, radius )
+        int oldDur = TSSD_SuccubusDetectJuice.GetNthEffectDuration(0)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, 5)
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
-        TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, old_dur)
+        TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
         ;endif
     elseif myItems[result] == "Ask for Sex." && Cross
         Sexlab.RegisterHook( stageEndHook)
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
     elseif myItems[result] == "Act defeated."
+        int radius = getScanRange()
         PlayerRef.PlayIdle(BleedOutStart)
         targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
-        Actor[] cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, 500)
+        Actor[] cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
         int ac_index = 0
         bool isFading = false
         Actor curRef
@@ -412,8 +435,32 @@ Function OpenSuccubusAbilities()
             Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
             ImageSpaceModifier.RemoveCrossFade(3)
         endif
+    else
+        indexOfA = 1
+        while indexOfA < SuccubusAbilitiesNames.Length
+            if myItems[result] == SuccubusAbilitiesNames[indexOfA]
+                SuccubusAbilitiesSpells[indexOfA].Cast(PlayerRef, PlayerRef)
+                updateSuccyNeeds(0)
+            endif
+            indexOfA += 1
+        endwhile
     endif
 EndFunction
+
+int Function getScanRange()
+    return 50 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int)
+Endfunction
+
+String Function getAllNames(Actor[] inArr)
+    int index = 0
+    string outString = ""
+    while index < inArr.length
+        outString += (inArr[index] as Actor).GetDisplayName() + ";"
+        index += 1 
+    endwhile
+    return outString
+Endfunction
+
 
 
 ;Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -445,22 +492,24 @@ Function EvaluateCompleteScene(bool onStart=false)
     Actor[] ActorsIn = _thread.GetPositions()
     string output = ""
     float energyNew = 0
-    while index < ActorsIn.length
-        Actor ActorRef = Actorsin[Index]
-        energyNew += OEnergy.EvaluateOrgasmEnergy(_thread, ActorRef, 2 * (1 - (onStart as int)), overWriteStop = true)
-        if ActorRef && PlayerRef != ActorRef
-            max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
-            if !isSuccable(ActorRef) && deathModeActivated
-                max_prot = true
+    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
+        while index < ActorsIn.length
+            Actor ActorRef = Actorsin[Index]
+            energyNew += OEnergy.EvaluateOrgasmEnergy(_thread, ActorRef, 2 * (1 - (onStart as int)), overWriteStop = true)
+            if ActorRef && PlayerRef != ActorRef
+                max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
+                if !isSuccable(ActorRef) && deathModeActivated
+                    max_prot = true
+                endif
             endif
+
+            index += 1
+        EndWhile
+
+        if (max_rel > 3 && succubusType == 1 || max_prot) && deathModeActivated && onStart ; TODO - Logic for auto-deactivation
+            output += "I can't drain them! "
+            toggleDeathMode()
         endif
-
-        index += 1
-    EndWhile
-
-    if (max_rel > 3 && succubusType == 1 || max_prot) && deathModeActivated && onStart ; TODO - Logic for auto-deactivation
-        output += "I can't drain them! "
-        toggleDeathMode()
     endif
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
@@ -529,8 +578,9 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         index = 0
         while index < ActorsIn.Length
             Actor WhoCums = ActorsIn[index]
-            if isSuccable(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
-                TSSD_DrainHealth.SetNthEffectMagnitude(1, getDrainLevel() * orgasmCountScene / succAbleTargets )
+            if isSuccable(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
+                updateSuccyNeeds(  min(WhoCums.GetAV("Health"), getDrainLevel() * orgasmCountScene / succAbleTargets )  )
+                TSSD_DrainHealth.SetNthEffectMagnitude(0, getDrainLevel() * orgasmCountScene / succAbleTargets )
                 TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
             endif
             index+=1
@@ -547,7 +597,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         while tarIndex < targetsToAlert.Length
             Actor curRef = targetsToAlert[tarIndex]
             if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef)
-                tarIndex.StartCombat(PlayerRef)
+                curRef.StartCombat(PlayerRef)
             endif
             tarIndex += 1
         EndWhile
@@ -685,7 +735,9 @@ EndEvent
 Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
-    updateSuccyNeeds(OEnergy.EvaluateOrgasmEnergy(_thread, ActorRef, 1), true)
+    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
+        updateSuccyNeeds(OEnergy.EvaluateOrgasmEnergy(_thread, ActorRef, 1), true)
+    endif
     if deathModeActivated && ActorRef != PlayerRef
         int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
         int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
@@ -759,3 +811,4 @@ Function onGameReload()
     Maintenance(TSSD_SuccubusType)
     RegisterSuccubusEvents()
 Endfunction
+

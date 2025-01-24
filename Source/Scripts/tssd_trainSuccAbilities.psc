@@ -1,6 +1,7 @@
 Scriptname tssd_trainSuccAbilities extends b612_TrainingMenu
 
 String SkillName = ""
+string skillId = ""
 int skillValue = 0
 
 GlobalVariable skillVal
@@ -10,6 +11,10 @@ GlobalVariable Property TSSD_PerkPointsBought Auto
 
 Function SetSkillName(String newName)
     SkillName = newName
+Endfunction
+
+Function SetSkillId(string newID)
+    skillId = newID
 Endfunction
 
 Function SetSkillVariable(GlobalVariable newVal)
@@ -32,9 +37,6 @@ EndFunction
 
 ; how many times the player has trained this skill
 Int Function GetTimesTrained()
-    if SkillVal == TSSD_PerkPointsBought 
-        Return TOSD_SuccubusPerkPoints.GetValue() as int
-    endif
     return SkillVal.GetValue() as int
 EndFunction
 
@@ -69,6 +71,7 @@ Function Train()
         TOSD_SuccubusPerkPoints.SetValue(TOSD_SuccubusPerkPoints.GetValue() + 1 as int)
     else
         SkillVal.SetValue( SkillVal.GetValue() + 1 )
+        CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
         ;CustomSkills.IncrementSkill(SkillVal)
     endif
 

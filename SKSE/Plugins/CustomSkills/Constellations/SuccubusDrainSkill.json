@@ -16,17 +16,38 @@
      },
      "nodes": [
           {
+               "id": "Gentle Drain",
+               "perk": "TintsOfASuccubusSecretDesires.esp|014",
+               "x": 0.5,
+               "y": -0.5,
+               "links": [ "Traits", "MageMode", "DrainSpell"
+               ]
+          }, {
+               "id": "MageMode",
+               "perk": "TintsOfASuccubusSecretDesires.esp|05B",
+               "x": 0.25,
+               "y": 0.25,
+               "links": [
+               ]
+          }, {
+               "id": "DrainSpell",
+               "perk": "TintsOfASuccubusSecretDesires.esp|061",
+               "x": -0.75,
+               "y": 0.75,
+               "links": [
+               ]
+          },{
           "id": "Drain More",
           "perk": "TintsOfASuccubusSecretDesires.esp|012",
           "x": -0.5,
-          "y": -0.5,
+          "y": 0.0,
           "links": [ "Gentle Drain"
           ]
-     },{
-          "id": "Gentle Drain",
-          "perk": "TintsOfASuccubusSecretDesires.esp|014",
+     }, {
+          "id": "Traits",
+          "perk": "TintsOfASuccubusSecretDesires.esp|029",
           "x": 0.5,
-          "y": -0.5,
+          "y": 0.5,
           "links": [
           ]
      }

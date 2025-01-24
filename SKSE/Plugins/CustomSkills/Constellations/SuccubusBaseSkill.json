@@ -20,7 +20,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|022",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "StamRegen" , "MagRegen", "Traits", "CapIncrease, ScentRangeIncrease"
+          "links": [ "StamRegen" , "MagRegen", "CapIncrease", "ScentRangeIncrease"
           ]
      }, {
           "id": "ScentRangeIncrease",
@@ -49,13 +49,6 @@
           "y": 2.5,
           "links": [ 
                "Harmless"
-          ]
-     }, {
-          "id": "Traits",
-          "perk": "TintsOfASuccubusSecretDesires.esp|029",
-          "x": -1.5,
-          "y": 2.5,
-          "links": [
           ]
      }, {
           "id": "CapIncrease",

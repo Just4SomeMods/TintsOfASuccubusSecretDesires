@@ -20,7 +20,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|023",
           "x": 0.5,
           "y": -0.5,
-          "links": [ "Leader", "DTF"
+          "links": [ "Leader", "DTF", "FlightMode" , "StealthMode"
           ]
      }, {
           "id": "Leader",
@@ -34,6 +34,20 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|043",
           "x": 1.5,
           "y": 0.5,
+          "links": [
+          ]
+     }, {
+          "id": "FlightMode",
+          "perk": "TintsOfASuccubusSecretDesires.esp|060",
+          "x": 2.25,
+          "y": 0.5,
+          "links": [
+          ]
+     }, {
+          "id": "StealthMode",
+          "perk": "TintsOfASuccubusSecretDesires.esp|05C",
+          "x": 1.15,
+          "y": 0.35,
           "links": [
           ]
      }

@@ -48,7 +48,6 @@ EndEvent
 
 Function setColorsOfBar()
     string curSuccubusType = GetSuccubusTypesAll()[TSSD_SuccubusType.GetValue() as int]
-    DBGTRace(curSuccubusType)
     if SuccubusDesireLevel.GetValue() > 0
         int[] colors = JArray.asIntArray(JDB.solveObj(".tssdkinds."+curSuccubusType+".color"))
         IWidgets.setMeterRGB(tWidgetNum, colors[0], colors[1], colors[2], colors[0], colors[1], colors[2])
