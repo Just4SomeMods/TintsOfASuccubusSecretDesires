@@ -234,7 +234,6 @@ EndFunction
 Function SelectSuccubusType(int query = -1)
     int index = 0
     if query < 0
-
         b612_TraitsMenu TraitsMenu = GetTraitsMenu()
         string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
         while index < succKinds.Length
@@ -657,7 +656,7 @@ Endfunction
 
 Function RefreshEnergy(float adjustBy, int upTo = 100)
     float lastVal = SuccubusDesireLevel.GetValue()
-    if lastVal < upTo
+    if lastVal < upTo && lastVal > -100
         SuccubusDesireLevel.SetValue( min(upTo, max( -100,  lastVal + adjustBy) ) )
     endif
 Endfunction
@@ -800,16 +799,15 @@ Event OnUpdateGameTime()
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
     float valBefore = SuccubusDesireLevel.GetValue()
     Location curLoc = Game.GetPlayer().GetCurrentLocation()
-    if (valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
+    if (valBefore > 50 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
         (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
         if timeBetween >= 1
             if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
                 RefreshEnergy(timeBetween * 20, 50)
-                AddToStatistics( (SuccubusDesireLevel.GetValue() - valBefore) as int)
             elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
                 RefreshEnergy(timeBetween * 10, 50)
-                AddToStatistics( (SuccubusDesireLevel.GetValue() - valBefore) as int)
             endif
+            AddToStatistics( ( (SuccubusDesireLevel.GetValue() - valBefore) /10 + timeBetween) as int)
         endif
         timeBetween = 0
     endif
