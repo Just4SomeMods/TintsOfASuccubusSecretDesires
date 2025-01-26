@@ -20,6 +20,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     int index = 0
     float retval = 0
     string[] succubusTraits = GetSuccubusTraitsAll()
+    string[] succubusTypes = GetSuccubusTypesAll()
     int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 5)
     SUCCUBUSTRAITSVALUESBONUS[2] = 100
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
@@ -28,6 +29,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     bool[] cosmeticSettings = ReadInCosmeticSetting()
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
     int succubusType = TSSD_SuccubusType.getvalue() as int
+    string succubusTypeString = succubusTypes[succubusType]
     if cosmeticSettings[2] == 0  && !overWriteStop
         announceLogic = 0
     endif
@@ -133,7 +135,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
             energyLosses = toLoseVal * -1
         endif
         if announceLogic > 0
-            string announceDial = GetTypeDial(succubusType, traitYes)
+            string announceDial = GetTypeDial(succubusTypeString, traitYes)
             nextAnnouncment += announceDial
         endif
     endif

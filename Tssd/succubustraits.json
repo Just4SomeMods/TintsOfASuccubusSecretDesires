@@ -18,7 +18,8 @@
             "I crave more to cover my skin.",
             "Give me more to decorate with."
         ],
-        "description" : "You gain more energy from getting cummed upon. If you have the cupid trait you stop losing energy from getting cummed in." 
+        "description" : "You gain more energy from getting cummed upon. If you have the cupid trait you stop losing energy from getting cummed in.",
+        "famecat" : ["Nasty"] 
         
     },
     "Cupid": {
@@ -37,7 +38,8 @@
             "Desperate for a refill.",
             "Please don't leave any behind."
         ],
-        "description" : "You gain more energy from getting cummed in. If you have the razzmatazz trait you stop losing energy from getting cummed on." 
+        "description" : "You gain more energy from getting cummed in. If you have the razzmatazz trait you stop losing energy from getting cummed on." ,
+        "famecat" : ["Oral", "Anal", "Cum Dump"] 
         
     },
     "Lavenderblush": {
@@ -59,7 +61,8 @@
         "negative": [
             ""
         ],
-        "description" : "Having sex for the first time with a person in a marriage that does not involve you increases your energy gained by a lot." 
+        "description" : "Having sex for the first time with a person in a marriage that does not involve you increases your energy gained by a lot." ,
+        "famecat" : ["Unfaithful"]  
         
     },
     "Carnation": {
@@ -89,7 +92,8 @@
             "No sighs of blissful surrender.",
             "Wishing for soft whispers of love."
         ],
-        "description" : "You gain more energy by having a partner orgasm whilst having romantic sex." 
+        "description" : "You gain more energy by having a partner orgasm whilst having romantic sex."  ,
+        "famecat" : ["Gentle"] 
         
     },
     "Tosca": {
@@ -110,7 +114,8 @@
             "Not my scene.",
             "I prefer my own kind."
         ],
-        "description" : "You gain more energy from orgasms from partners of your gender, especially if your partner can not produce semen." 
+        "description" : "You gain more energy from orgasms from partners of your gender, especially if your partner can not produce semen."  ,
+        "famecat" : null
         
     },
     "Blush": {
@@ -120,6 +125,7 @@
         "negative": [
             " did not need that."
         ],
-        "description" : "Your partners orgasms increase your energy gains more if they are aroused."
+        "description" : "Your partners orgasms increase your energy gains more if they are aroused." ,
+        "famecat" : null
     }
 }

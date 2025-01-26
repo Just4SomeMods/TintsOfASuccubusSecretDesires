@@ -20,7 +20,10 @@ Event OnActivate(ObjectReference akActionRef)
     if ThisThing && akActionRef == PlayerRef && SuccubusDesireLevel.GetValue() <= -100
         Sexlab.RegisterHook( stageEndHook)
         ThisThing.SendAssaultAlarm()
-        ThisThing.GetCrimeFaction().SetCrimeGoldViolent(200)
+        Faction CrimeFaction = ThisThing.GetCrimeFaction()
+        if CrimeFaction
+            CrimeFaction.SetCrimeGoldViolent(200)
+        endif
         PlayerRef.SetAttackActorOnSight(true)
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = ThisThing, akSubmissive=ThisThing).SetConsent(false)
 

@@ -7,7 +7,8 @@
             "Exhausting..."
         ],
         "description": "Your standard Succubus experience. You lose less energy from climaxing yourself. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
-        "color" : [220,20,60]
+        "color" : [220,20,60],
+        "famecat" : ["Dominant"]
     },
     "Scarlet": {
         "positive": [
@@ -45,7 +46,8 @@
             "Alone, I am but a flickering ember."
         ],
         "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. You do not lose energy from climaxing during sex with a person that loves your, else you lose more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
-        "color": [255,36,0]
+        "color": [255,36,0],
+        "famecat" : null
     },
     "Pink": {
         "positive": [
@@ -76,7 +78,8 @@
             "Haven't we met before?"
         ],
         "description": "You live an exciting life! Pursuing new things is your drive. You lose no energy while climaxing with a person on your first time together, else more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death." ,
-        "color" : [255,192,203]
+        "color" : [255,192,203],
+        "famecat" : ["Airhead", "Slut", "Group"]
     },
     "Sundown": {
         "positive": [
@@ -86,7 +89,8 @@
             "Sundown does not have thoughts."
         ],
         "description": "Your transformation was not complete. You are only a half-succubus. You gain less energy and lose more. You cannot reach below 0 Energy.",
-        "color" : [255,179,181]
+        "color" : [255,179,181],
+        "famecat" : [""]
     },
     "Mahogany": {
         "positive": [
@@ -112,6 +116,7 @@
             "Predictable and tame."
         ],
         "description": "Without risk, there is no fun... You do not lose energy while climaxing form being raped, you lose more otherwise. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
-        "color": [108,67,36]
+        "color": [108,67,36],
+        "famecat" : ["Masochist", "Bound", "Submissive"]
     }
 }

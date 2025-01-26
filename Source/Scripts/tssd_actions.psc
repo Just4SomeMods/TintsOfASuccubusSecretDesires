@@ -100,6 +100,9 @@ Function OpenGrandeMenu()
     if TSSD_SuccubusType.GetValue() == -1
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         SelectSuccubusType(dbgSuccy)
+        int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
+        ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+        ModEvent.Send(EventHandle)
         if dbgSuccy < 0
             Return
         endif
@@ -225,6 +228,7 @@ Function OpenSuccubusTraits()
             index += 1
         EndWhile
         TSSD_SuccubusTraits.SetValue(chosenBinar)
+        CheckFlagsSLSF()
     endif
 EndFunction
 
@@ -260,6 +264,7 @@ Function SelectSuccubusType(int query = -1)
             PlayerRef.AddPerk(TSSD_Base_Explanations)
             RegisterSuccubusEvents()
         endif
+        CheckFlagsSLSF()
     endif
         ;if succubusType == 2
             ;DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
@@ -648,7 +653,83 @@ Function AddToStatistics(int amount_of_hours)
             index += 1
         endwhile
     endif
+    string[] succubusTypes = GetSuccubusTypesAll()
+    string isType = succubusTypes[succubusType]
+    string[] jsolve = JArray.asStringArray(JDB.solveObj(".tssdkinds."+isType+".famecat"))
+    int jarrayIndex = 0
+    Int EventHandle
+    while jarrayIndex < jsolve.Length
+        EventHandle = ModEvent.Create("SLSF_Reloaded_SendManualFameGain")
+        ModEvent.PushString(EventHandle, jsolve[jarrayIndex])
+        ModEvent.PushString(EventHandle, "Current")
+        ModEvent.PushInt(EventHandle, 0) 
+        ModEvent.PushInt(EventHandle, amount_of_hours)
+        ModEvent.Send(EventHandle)
+        jarrayIndex += 1
+    endwhile
+    string likesF = StringUtil.Split("Likes Women;Likes Men",";")[(0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int]
+
+    EventHandle = ModEvent.Create("SLSF_Reloaded_SendManualFameGain")
+    ModEvent.PushString(EventHandle, likesF)
+    ModEvent.PushString(EventHandle, "Current")
+    ModEvent.PushInt(EventHandle, 0) 
+    ModEvent.PushInt(EventHandle, amount_of_hours)
+    ModEvent.Send(EventHandle)
 Endfunction
+
+
+Function CheckFlagsSLSF()
+    RegisterForModEvent("SLSF_Reloaded_ReturnModRegisteredState", "SetFlagsSLSF")
+    int EventHandle = ModEvent.Create("SLSF_Reloaded_RequestModRegisterState")
+    ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+    ModEvent.Send(EventHandle)
+Endfunction
+
+Function SetFlagsSLSF(string modName, bool isActive)
+    if modName == "TintsOfASuccubusSecretDesires.esp" 
+        UnregisterForModEvent("SLSF_Reloaded_ReturnModRegisteredState")
+        if !isActive
+            int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
+            ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+            ModEvent.Send(EventHandle)
+        endif
+        int EventHandle
+        int succubusType = TSSD_SuccubusType.GetValue() as int
+        string[] succubusTypes = GetSuccubusTypesAll()
+        int typesIndex = 0
+        while typesIndex < succubusTypes.Length
+            int jarrayIndex = 0
+            string isType = succubusTypes[typesIndex]
+            string[] jsolve = JArray.asStringArray(JDB.solveObj(".tssdkinds."+isType+".famecat"))
+            while jarrayIndex < jsolve.Length
+                string cat = jsolve[jarrayIndex]
+                EventHandle = ModEvent.Create("SLSF_Reloaded_Set" + cat + "Flag")
+                ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+                ModEvent.PushBool(EventHandle, typesIndex == succubusType)
+                ModEvent.Send(EventHandle)
+                jarrayIndex += 1
+            endwhile
+            typesIndex += 1
+        endwhile
+        int traitsIndex = 0
+        string[] succubusTraits = GetSuccubusTraitsAll()
+        bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
+        while traitsIndex < succubusTraits.Length
+            int innerTraitsIndex = 0
+            string[] catsFame = JArray.asStringArray(JDB.solveObj(".tssdtraits."+succubusTraits[traitsIndex]+".famecat"))
+            while innerTraitsIndex < catsFame.Length
+                string cat = catsFame[innerTraitsIndex]
+                EventHandle = ModEvent.Create("SLSF_Reloaded_Set" + cat + "Flag")
+                ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+                ModEvent.PushBool(EventHandle, chosenTraits[traitsIndex])
+                ModEvent.Send(EventHandle)
+                innerTraitsIndex += 1
+            endwhile
+            traitsIndex += 1
+        endwhile
+    endif
+Endfunction
+
 
 Function RefreshEnergy(float adjustBy, int upTo = 100)
     float lastVal = SuccubusDesireLevel.GetValue()
@@ -793,13 +874,14 @@ Endfunction
 Event OnUpdateGameTime()
     int succubusType = TSSD_SuccubusType.GetValue() as int
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
-    if SuccubusDesireLevel.GetValue() < -10 && ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) || \
+    float valBefore = SuccubusDesireLevel.GetValue()
+    if valBefore < 50 && (PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) ||\
              (succubusType == 1 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypePlayerHouse)) || \
              (succubusType == 2 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity))  || \
-            (succubusType == 4 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) )
-        if timeBetween * 24 >= 1
+            (succubusType == 4 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) ))
+        if timeBetween >= 1
             RefreshEnergy(timeBetween, 50)
-            AddToStatistics(timeBetween as int)
+            AddToStatistics( (SuccubusDesireLevel.GetValue() - valBefore) as int)
         endif
         timeBetween = 0
     endif
