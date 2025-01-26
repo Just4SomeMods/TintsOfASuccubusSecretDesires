@@ -2,7 +2,7 @@ Scriptname tssd_SuccubusPreyMarker extends activemagiceffect
 
 tssd_succubusstageendblockhook Property stageEndHook Auto
 GlobalVariable Property SuccubusDesireLevel Auto
-Actor ThisThing
+Actor Property ThisThing Auto
 Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
 
