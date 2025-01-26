@@ -98,7 +98,7 @@ Function OpenGrandeMenu()
         return
     endif
     if TSSD_SuccubusType.GetValue() == -1
-        int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplenations:Main")
+        int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         SelectSuccubusType(dbgSuccy)
         if dbgSuccy < 0
             Return
@@ -368,7 +368,7 @@ Function OpenSuccubusAbilities()
     
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
-        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA])
+        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) ||  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main") > 0
             itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
         endif
         indexOfA += 1
@@ -429,22 +429,34 @@ Function OpenSuccubusAbilities()
             if !deathModeActivated
                 toggleDeathMode()
             endif
-            ; GameHours.SetValue(GameHours.GetValue() + 1) TODO
+            GameHours.SetValue(GameHours.GetValue() + 1) ; TODO
             Utility.Wait(2.5)
             tarRef.MoveTo(PlayerRef, 0, 1000)
             Sexlab.RegisterHook( stageEndHook)
             Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
             ImageSpaceModifier.RemoveCrossFade(3)
         endif
-    else
+    elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1
+        bool found = false
         while indexOfA < SuccubusAbilitiesNames.Length
             if myItems[result] == SuccubusAbilitiesNames[indexOfA]
-                SuccubusAbilitiesSpells[indexOfA].Cast(PlayerRef, PlayerRef)
-                updateSuccyNeeds(0)
+                found = true
             endif
             indexOfA += 1
         endwhile
+        if found
+            indexOfA = 1
+            while indexOfA < SuccubusAbilitiesNames.Length
+                if myItems[result] == SuccubusAbilitiesNames[indexOfA]
+                    SuccubusAbilitiesSpells[indexOfA].Cast(PlayerRef, PlayerRef)
+                    updateSuccyNeeds(-20)
+                else
+                    PlayerRef.DispelSpell(SuccubusAbilitiesSpells[indexOfA])
+                endif
+                indexOfA += 1
+            endwhile
+        endif
     endif
 EndFunction
 
@@ -473,8 +485,8 @@ Function RegisterSuccubusEvents()
         PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
         TSSD_MaxTraits.SetValue(99)
     endif
-    RegisterForModEvent("SexLabOrgasmSeparate", "PlayerOrgasmLel")
-    RegisterForModEvent("PlayerTrack_Start", "PlayerStart")
+    RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
+    RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 Endfunction
 
@@ -531,7 +543,7 @@ Function EvaluateCompleteScene(bool onStart=false)
     endif
 Endfunction
 
-Function PlayerStart(Form FormRef, int tid)
+Function PlayerSceneStart(Form FormRef, int tid)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
@@ -733,7 +745,7 @@ Event OnUpdate()
 EndEvent
 
 
-Event PlayerOrgasmLel(Form ActorRef_Form, Int Thread)
+Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)

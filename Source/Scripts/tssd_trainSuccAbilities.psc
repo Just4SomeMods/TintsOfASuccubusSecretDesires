@@ -71,7 +71,9 @@ Function Train()
         TOSD_SuccubusPerkPoints.SetValue(TOSD_SuccubusPerkPoints.GetValue() + 1 as int)
     else
         SkillVal.SetValue( SkillVal.GetValue() + 1 )
-        CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
+        if (Math.Floor(SkillVal.GetValue() / 5) as float) == SkillVal.GetValue() / 5
+            CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
+        endif
         ;CustomSkills.IncrementSkill(SkillVal)
     endif
 
