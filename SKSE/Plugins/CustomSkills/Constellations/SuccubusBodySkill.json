@@ -20,14 +20,14 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|056",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "Overstuffed" , "FightMode", "JailerMode" , "EnergyConverter"
+          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "PassiveEnergy"
           ]
      },
           {
           "id": "EnergyConverter",
           "perk": "TintsOfASuccubusSecretDesires.esp|011",
           "x": 0.0,
-          "y": 1.5,
+          "y": 0.25,
           "links": [ 
           ]
      },{
@@ -42,13 +42,20 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|05D",
           "x": -0.5,
           "y": 0.5,
-          "links": [
+          "links": [ "JailerMode" 
           ]
      },{
           "id": "JailerMode",
           "perk": "TintsOfASuccubusSecretDesires.esp|062",
           "x": 0.5,
           "y": 0.5,
+          "links": [
+          ]
+     },{
+          "id": "PassiveEnergy",
+          "perk": "TintsOfASuccubusSecretDesires.esp|052",
+          "x": -0.5,
+          "y": -0.1,
           "links": [
           ]
      }

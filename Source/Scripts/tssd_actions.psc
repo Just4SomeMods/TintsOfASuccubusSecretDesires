@@ -36,14 +36,8 @@ GlobalVariable Property TSSD_SuccubusType Auto
 Perk Property TSSD_Base_Explanations Auto
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
-Perk Property TSSD_Base_CapIncrease2 Auto
-Perk Property TSSD_Base_CapIncrease3 Auto
 Perk Property TSSD_Drain_GentleDrain1 Auto
-Perk Property TSSD_Drain_GentleDrain2 Auto
-Perk Property TSSD_Drain_GentleDrain3 Auto
-Perk Property TSSD_Drain_GentleDrain4 Auto
 Perk Property TSSD_Drain_DrainMore1 Auto
-Perk Property TSSD_Drain_DrainMore2 Auto
 Perk Property TSSD_Seduction_Kiss1 Auto
 Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
@@ -70,6 +64,9 @@ MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
 Keyword Property LocTypeCity Auto
+Keyword Property LocTypeClearable Auto
+Keyword Property LocTypeHabitation Auto
+Keyword Property LocTypeHabitationHasInn Auto
 
 HeadPart PlayerEyes
 
@@ -667,7 +664,7 @@ Function AddToStatistics(int amount_of_hours)
         ModEvent.Send(EventHandle)
         jarrayIndex += 1
     endwhile
-    string likesF = StringUtil.Split("Likes Women;Likes Men",";")[(0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int]
+    string likesF = StringUtil.Split("Likes Men;Likes Women",";")[(0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int]
 
     EventHandle = ModEvent.Create("SLSF_Reloaded_SendManualFameGain")
     ModEvent.PushString(EventHandle, likesF)
@@ -743,14 +740,14 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
     int greed_mult = 1
-    if PlayerRef.HasPerk(TSSD_Drain_DrainMore2)
+    if PlayerRef.HasPerk(TSSD_Drain_DrainMore1.GetNextPerk())
         greed_mult = 3
     elseif PlayerRef.HasPerk(TSSD_Drain_DrainMore1)
         greed_mult = 2
     endif
-    if PlayerRef.HasPerk(TSSD_Base_CapIncrease3)
+    if PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk().GetNextPerk())
         max_energy_level = 1000
-    elseif PlayerRef.HasPerk(TSSD_Base_CapIncrease2)
+    elseif PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk())
         max_energy_level = 400
     elseif PlayerRef.HasPerk(TSSD_Base_CapIncrease1)
         max_energy_level = 200
@@ -843,9 +840,9 @@ Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
         EndWhile
     elseif !deathModeActivated  && ActorRef != PlayerRef && PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-        if PlayerRef.HasPerk(TSSD_Drain_GentleDrain3)
+        if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
             new_drain_level /= 2
-        elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain2)
+        elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
             new_drain_level /= 3
         elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
             new_drain_level /= 5
@@ -860,9 +857,9 @@ float Function getDrainLevel(bool isGentle = false)
     if !isGentle
         return new_drain_level
     endif
-    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain3)
+    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
         new_drain_level /= 2
-    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain2)
+    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
         new_drain_level /= 3
     elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         new_drain_level /= 5
@@ -875,13 +872,17 @@ Event OnUpdateGameTime()
     int succubusType = TSSD_SuccubusType.GetValue() as int
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
     float valBefore = SuccubusDesireLevel.GetValue()
-    if valBefore < 50 && (PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && ((succubusType == 0 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeInn)) ||\
-             (succubusType == 1 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypePlayerHouse)) || \
-             (succubusType == 2 && Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity))  || \
-            (succubusType == 4 && !Game.GetPlayer().GetCurrentLocation().HasKeyword(LocTypeCity)) ))
+    Location curLoc = Game.GetPlayer().GetCurrentLocation()
+    if (valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
+        (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
         if timeBetween >= 1
-            RefreshEnergy(timeBetween, 50)
-            AddToStatistics( (SuccubusDesireLevel.GetValue() - valBefore) as int)
+            if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
+                RefreshEnergy(timeBetween * 20, 50)
+                AddToStatistics( (SuccubusDesireLevel.GetValue() - valBefore) as int)
+            elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
+                RefreshEnergy(timeBetween * 10, 50)
+                AddToStatistics( (SuccubusDesireLevel.GetValue() - valBefore) as int)
+            endif
         endif
         timeBetween = 0
     endif
