@@ -29,7 +29,7 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_KillEssentialsActive Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property TOSD_SuccubusPerkPoints Auto
-
+GlobalVariable Property GameHours Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
 GlobalVariable Property TSSD_SuccubusType Auto
 
@@ -255,7 +255,7 @@ Function SelectSuccubusType(int query = -1)
                 SuccubusXpAmount.SetValue( startLevel * 1000  )
                 PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
                 PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
-                PlayerRef.AddPerk(TSSD_Body_PassiveEnergy1)
+                PlayerRef.AddPerk(TSSD_Body_PlayDead1)
             endif
             PlayerRef.AddPerk(TSSD_Base_Explanations)
             RegisterSuccubusEvents()
@@ -358,10 +358,10 @@ Function OpenSuccubusAbilities()
     endif
     Actor Cross = Game.GetCurrentCrosshairRef() as Actor
     if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
-        itemsAsString += ";Ask for Sex."
+        itemsAsString += ";Ask for Sex"
     endif
     if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
-        itemsAsString += ";Act defeated."
+        itemsAsString += ";Act defeated"
     endif
 
     itemsAsString += ";Look for Prey"
@@ -398,10 +398,10 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
         ;endif
-    elseif myItems[result] == "Ask for Sex." && Cross
+    elseif myItems[result] == "Ask for Sex" && Cross
         Sexlab.RegisterHook( stageEndHook)
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
-    elseif myItems[result] == "Act defeated."
+    elseif myItems[result] == "Act defeated"
         int radius = getScanRange()
         PlayerRef.PlayIdle(BleedOutStart)
         targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
@@ -429,6 +429,7 @@ Function OpenSuccubusAbilities()
             if !deathModeActivated
                 toggleDeathMode()
             endif
+            ; GameHours.SetValue(GameHours.GetValue() + 1) TODO
             Utility.Wait(2.5)
             tarRef.MoveTo(PlayerRef, 0, 1000)
             Sexlab.RegisterHook( stageEndHook)
@@ -795,7 +796,7 @@ Event OnUpdateGameTime()
 endEvent
 
 Event OnMenuOpen(String MenuName)
-    if SuccubusDesireLevel.GetValue() <= ravanousNeedLevel
+    if SuccubusDesireLevel.GetValue() <= ravanousNeedLevel && TSSD_SuccubusType.GetValue() != -1
         UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
         GetAnnouncement().Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
     endif
