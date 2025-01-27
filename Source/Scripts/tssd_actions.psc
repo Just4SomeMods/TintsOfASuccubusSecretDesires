@@ -75,6 +75,7 @@ HeadPart PlayerEyes
 int ravanousNeedLevel = -100
 int lastUsed = -1
 int lastUsedSub = -1
+int spellToggle
 
 float lastSmoochTimeWithThatPerson = 0.0
 
@@ -356,6 +357,23 @@ Function OpenSuccubusCosmetics()
 Endfunction
 
 
+Function toggleSpells(int newToggle = -1)
+    if newToggle == -1
+        newToggle = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main")
+    endif
+    int indexOfA = 1
+    while indexOfA < SuccubusAbilitiesNames.length
+        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && newToggle > 0
+            PlayerRef.AddSpell(SuccubusAbilitiesSpells[indexOfA])
+        else
+            PlayerRef.RemoveSpell(SuccubusAbilitiesSpells[indexOfA])
+        endif
+        indexOfA += 1
+    endwhile
+    spellToggle = newToggle
+Endfunction
+
+
 Function OpenSuccubusAbilities()    
     String itemsAsString = "Allow draining"
     if deathModeActivated
@@ -373,7 +391,7 @@ Function OpenSuccubusAbilities()
     
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
-        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) ||  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main") >= 0
+        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && spellToggle < 2
             itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
         endif
         indexOfA += 1
@@ -396,13 +414,11 @@ Function OpenSuccubusAbilities()
     elseif myItems[result] == "Look for Prey"
         int radius = getScanRange()
         Actor[] allAround = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
-        ; DBGTRace(getAllNames(allAround))
         TSSD_SuccubusDetectJuice.SetNthEffectArea(0, radius )
         int oldDur = TSSD_SuccubusDetectJuice.GetNthEffectDuration(0)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, 5)
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
-        ;endif
     elseif myItems[result] == "Ask for Sex" && Cross
         Sexlab.RegisterHook( stageEndHook)
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
@@ -417,19 +433,26 @@ Function OpenSuccubusAbilities()
         Actor tarRef
         Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
         int numHostileActors = 0
+        float min_distance
+        Actor nearestActor
         while ac_index < cell_ac.Length
             curRef = cell_ac[ac_index]
             if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef)
-                numHostileActors += 1
-                if !isFading
-                    AzuraFadeToBlack.Apply()
-                    isFading = true
-                    tarRef = curRef
-                    isHostileArr[ac_index] = true
+                if !nearestActor || min_distance > PlayerRef.GetDistance(curRef)
+                    nearestActor = curRef
+                    min_distance = PlayerRef.GetDistance(curRef)
                 endif
+                isHostileArr[ac_index] = true
+                numHostileActors += 1
             endif
             ac_index += 1
         endwhile
+        if nearestActor
+            AzuraFadeToBlack.Apply()
+            isFading = true
+            tarRef = nearestActor
+        endif
+
         if isFading && tarRef
             if !deathModeActivated
                 toggleDeathMode()
@@ -466,7 +489,7 @@ Function OpenSuccubusAbilities()
 EndFunction
 
 int Function getScanRange()
-    return 50 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int)
+    return 70 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int) ; Skyrim Units to meters
 Endfunction
 
 String Function getAllNames(Actor[] inArr)
@@ -484,6 +507,7 @@ Endfunction
 Function RegisterSuccubusEvents()
     RegisterForUpdateGameTime(0.4)
     RegisterForMenu("Dialogue Menu")
+    RegisterForMenu("StatsMenu")
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
         PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
         TSSD_MaxTraits.SetValue(99)
@@ -541,7 +565,7 @@ Function EvaluateCompleteScene(bool onStart=false)
     elseif energyNew < 0
         output += "Eugh, this is bad. "
     endif
-    if cosmeticSettings[2] == 1
+    if ReadInCosmeticSetting()[2] == 1
         OEnergy.ShowAnnounceMent(energyNew as int)
     endif
 Endfunction
@@ -629,10 +653,11 @@ Function DebugForceOrgasm()
         int index = 0
         while index < ActorsIn.Length
             Actor ActorRef = ActorsIn[index]
-            _thread.ForceOrgasm(ActorRef)
+            if ActorRef
+                _thread.ForceOrgasm(ActorRef)
+            endif
             index += 1
         EndWhile
-        
     endif
 EndFunction
 
@@ -818,9 +843,15 @@ Event OnUpdateGameTime()
 endEvent
 
 Event OnMenuOpen(String MenuName)
-    if SuccubusDesireLevel.GetValue() <= ravanousNeedLevel && TSSD_SuccubusType.GetValue() != -1
+    if MenuName == "Dialogue Menu" && SuccubusDesireLevel.GetValue() <= ravanousNeedLevel && TSSD_SuccubusType.GetValue() != -1
         UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
         GetAnnouncement().Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
+    endif
+EndEvent
+
+Event OnMenuClose(String MenuName)
+    if MenuName == "StatsMenu"
+        toggleSpells(-1)
     endif
 EndEvent
 
@@ -828,6 +859,9 @@ Event OnInit()
     Maintenance(TSSD_SuccubusType)
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
+    if !spellToggle
+        toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
+    endif
 EndEvent
 
 Function onGameReload()
@@ -835,4 +869,7 @@ Function onGameReload()
     RegisterSuccubusEvents()
     cosmeticSettings = ReadInCosmeticSetting()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
+    if !spellToggle
+        toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
+    endif
 Endfunction

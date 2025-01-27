@@ -1,64 +1,659 @@
 {
-  "$schema": "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
-  "modName": "TintsOfASuccubusSecretDesires",
-  "displayName": "Tints of a Succubus secret desires",
-  "minMcmVersion": 13,
-  "pluginRequirements": [],
-  "cursorFillMode": "topToBottom",
-  "customContent": {
-    "source": "menus/TSSD/Overview.dds"
-  },
-  "pages": [
-      {
-        "pageDisplayName": "$First",
-        "content": [ {
-            "id": "iModifierHotkey:Main",
-            "text": "$ModifyHotkey",
-            "type": "keymap",
-            "help": "$OpenLastMenu",
-            "ignoreConflicts": true,
-                  "valueOptions": {
-                    "sourceType": "ModSettingInt"
-                  }
-          },
-          {
-            "id": "allInOneKey",
-            "text": "$SuperKey",
-            "type": "keymap",
-            "help": "$SuperKeyDesc."
-          },{
-            "id": "bKillEssentials:Main",
-            "type": "toggle",
-            "text": "$Kill_Essential_with_drain",
-            "help": "$Kill_Essential_with_drain_Desc",
-            "valueOptions": {
-              "sourceType": "ModSettingBool",
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
+    "modName": "TintsOfASuccubusSecretDesires",
+    "displayName": "Tints of a Succubus secret desires",
+    "minMcmVersion": 13,
+    "pluginRequirements": [],
+    "cursorFillMode": "topToBottom",
+    "customContent": {
+        "source": "menus/TSSD/Overview.dds"
+    },
+    "pages": [
+        {
+            "pageDisplayName": "$First",
+            "content": [
+                {
+                    "id": "iModifierHotkey:Main",
+                    "text": "$ModifyHotkey",
+                    "type": "keymap",
+                    "help": "$OpenLastMenu",
+                    "ignoreConflicts": true,
+                    "valueOptions": {
+                        "sourceType": "ModSettingInt"
+                    }
+                },
+                {
+                    "id": "allInOneKey",
+                    "text": "$SuperKey",
+                    "type": "keymap",
+                    "help": "$SuperKeyDesc."
+                },
+                {
+                    "id": "bKillEssentials:Main",
+                    "type": "toggle",
+                    "text": "$Kill_Essential_with_drain",
+                    "help": "$Kill_Essential_with_drain_Desc",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool",
                         "defaultValue": false
-            }
-            },{
-              "id": "bSpamNotifications:Main",
-              "type": "toggle",
-              "text": "$Debug_notes",
-              "help": "$Debug_notes_desc",
-              "valueOptions": {
-                "sourceType": "ModSettingBool",
-                          "defaultValue": false
-              }
-              },{
-                "id": "iSuccubusLevel:Main",
-                "text": "Demo Menu",
-                "type": "enum",
-                "help": "A menu allows a single selection from multiple choices.",
-                "valueOptions": {
-                  "options": ["Cursed a minute ago", "Fledgeling (default)", "Well probed", "Expert Succer", "Master of the Arts", "Legendary"],
-                  "sourceType": "ModSettingInt",
-                  "defaultValue": 1
-                  
+                    }
+                },
+                {
+                    "id": "bSpamNotifications:Main",
+                    "type": "toggle",
+                    "text": "$Debug_notes",
+                    "help": "$Debug_notes_desc",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool",
+                        "defaultValue": false
+                    }
+                },
+                {
+                    "id": "iSuccubusLevel:Main",
+                    "text": "Succubus Starting Level",
+                    "type": "enum",
+                    "valueOptions": {
+                        "options": [
+                            "Cursed a minute ago",
+                            "Fledgeling (default)",
+                            "Well probed",
+                            "Expert Succer",
+                            "Master of the Arts",
+                            "Legendary"
+                        ],
+                        "sourceType": "ModSettingInt",
+                        "defaultValue": 1
+                    }
+                },
+                {
+                    "id": "iSpellsAdded:Main",
+                    "text": "Abilities as Spells",
+                    "type": "enum",
+                    "help": "Choose if the abilities also appear as spells or not.",
+                    "valueOptions": {
+                        "options": [
+                            "Only as abilities",
+                            "Both",
+                            "Only as spells"
+                        ],
+                        "sourceType": "ModSettingInt"
+                    },
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "toggleSpells",
+                        "params": [
+                            "{i}-1"
+                        ]
+                    }
                 }
-              }
-
-        
             ]
-      }
+        },
+        {
+            "pageDisplayName": "TextureSets",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusHeartEyes2",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "HeadParts",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_FemaleEyesHeart2",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "MagicEffects",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_OverstuffedHealthBuff",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_ClawMultiplier",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_PerkScriptEffect",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_StopHealthRegen",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SpeedMod",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_MageFormIllDesEffectDONOTUSE",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_JailerModEffect",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_StopStaminaRegen",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_OverstuffedSlow",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_FightMode",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_AbsorbHealthConcAimed",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_StopMagickaRegen",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusAbsorbHealthConcAimed",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_StealthModeEffect",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusDetectEnergyFF",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_MageFormMagickaMod",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SmoochEffect",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "Quests",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "tssd_queststart",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "Globals",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusBaseLevel",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "tssd_showlevelup",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SuccubusXpAmount",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusSeductionLevel",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusDrainLevel",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_IsCarnation",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusSeductionLegendary",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "tssd_showMenuSeduction",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_IsRazzmatazz",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_IsLavenderblush",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_PerkPointsBought",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_MaxTraits",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_IsBlush",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SuccubusDesireLevel",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusDrainLegendary",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "tssd_showMenuDrain",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusTraits",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "tssd_showMenuBody",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusBodyLevel",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusSeductionRatio",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusType",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusBodyRatio",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusBaseRatio",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_IsCupid",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusBaseLegendary",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_KillEssentialsActive",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_IsTosca",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusBodyLegendary",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TOSD_SuccubusPerkPoints",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "tssd_showMenuBase",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "SkillSuccubusDrainRatio",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TOSD_MenuDebugReload",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "Perks",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_Seductress2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_EscapeMode",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_Innocent",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_PlayDead1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_FightMode",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_StaminaRegenFix",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_MentalFortitude1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_GentleDrain4",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_DrainMore2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_FilledUpEnjoyer1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_DrainSpellAimed",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_DrainMore1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_Leader",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_OfferSex",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_PassiveEnergy2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_EnergyConverter2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_CapIncrease1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_CapIncrease2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_StealthMode",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_AggressiveKiss2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_GentleDrain2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_HornyJail",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_EnergyConverter1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_Kiss1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_PassiveEnergy1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_AggressiveKiss1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_Seductress1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Seduction_MentalFortitude2",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_HealthRegenFix",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_Overstuffed",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_CapIncrease3",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_GentleDrain3",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_MageForm",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_MagickaRegenFix",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_TraitGain",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_PassiveEnergy3",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_ReducePenalty1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_IncreaseScentRange1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_BodyArtEnjoyer1",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Base_Explanations",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Drain_GentleDrain1",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "Spells",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_StealthModeSpell",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusClaws",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Overstuffed",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_DrainHealthAsSpell",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusBaseChanges",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_AddTraitSpell",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusKiss",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Body_JailerSpell",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_MageForm",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_FlightMode",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_DrainHealth",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_FightModeSpell",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SuccubusDetectJuice",
+                    "help": "$showStuff"
+                }
+            ]
+        }
     ]
-  }
+}

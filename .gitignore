@@ -11,3 +11,5 @@ meta.ini
 SSEEdit 4.1.5f*
 *.zip
 TintsOfASuccubusSecretDesires/*
+__pycache__*
+SpriggitTool/*
