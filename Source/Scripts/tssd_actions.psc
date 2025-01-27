@@ -321,16 +321,17 @@ EndFunction
 
 Function OpenSuccubusCosmetics()
     int jArr = JDB.solveObj(".tssdsettings")
-    
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int index = 0
-    while index < JValue.count(jArr) 
+    cosmeticSettings = ReadInCosmeticSetting()
+    while index < JValue.count(jArr)        
         string[] textArr = jArray.asStringArray(jArray.getObj(jArr,index))
+        DBGTRace(textArr[0])
         string text = textArr[0]
         if cosmeticSettings[index]
             text = "> " + text
         endif
-        TraitsMenu.AddItem( text, textArr[1], "menus/tssd/"+textArr[index]+".dds")
+        TraitsMenu.AddItem( text, textArr[1], "menus/tssd/"+textArr[0]+".dds")
         index += 1
     EndWhile
 
@@ -350,7 +351,8 @@ Function OpenSuccubusCosmetics()
         index += 1
     EndWhile
     MCM.SetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main", output)
-
+    cosmeticSettings = ReadInCosmeticSetting()
+    tWidgets.shouldFadeOut = cosmeticSettings[5]
 Endfunction
 
 
@@ -371,7 +373,7 @@ Function OpenSuccubusAbilities()
     
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
-        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) ||  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main") > 0
+        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) ||  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main") >= 0
             itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
         endif
         indexOfA += 1
@@ -831,4 +833,6 @@ EndEvent
 Function onGameReload()
     Maintenance(TSSD_SuccubusType)
     RegisterSuccubusEvents()
+    cosmeticSettings = ReadInCosmeticSetting()
+    tWidgets.shouldFadeOut = cosmeticSettings[5]
 Endfunction
