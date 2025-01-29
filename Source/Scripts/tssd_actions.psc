@@ -20,6 +20,7 @@ Idle property BleedOutStart auto
 
 tssd_orgasmenergylogic Property OEnergy Auto 
 
+
 GlobalVariable Property TimeOfDayGlobalProperty Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
 GlobalVariable Property SkillSuccubusSeductionLevel Auto
@@ -357,23 +358,6 @@ Function OpenSuccubusCosmetics()
 Endfunction
 
 
-Function toggleSpells(int newToggle = -1)
-    if newToggle == -1
-        newToggle = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main")
-    endif
-    int indexOfA = 1
-    while indexOfA < SuccubusAbilitiesNames.length
-        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && newToggle > 0
-            PlayerRef.AddSpell(SuccubusAbilitiesSpells[indexOfA])
-        else
-            PlayerRef.RemoveSpell(SuccubusAbilitiesSpells[indexOfA])
-        endif
-        indexOfA += 1
-    endwhile
-    spellToggle = newToggle
-Endfunction
-
-
 Function OpenSuccubusAbilities()    
     String itemsAsString = "Allow draining"
     if deathModeActivated
@@ -487,21 +471,6 @@ Function OpenSuccubusAbilities()
         endif
     endif
 EndFunction
-
-int Function getScanRange()
-    return 70 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int) ; Skyrim Units to meters
-Endfunction
-
-String Function getAllNames(Actor[] inArr)
-    int index = 0
-    string outString = ""
-    while index < inArr.length
-        outString += (inArr[index] as Actor).GetDisplayName() + ";"
-        index += 1 
-    endwhile
-    return outString
-Endfunction
-
 ;Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Function RegisterSuccubusEvents()
@@ -739,6 +708,38 @@ Function toggleDeathMode()
     endif
     ;TSSD_KillEssentialsActive.SetValue(MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main") as int)
 EndFunction
+
+int Function getScanRange()
+    return 70 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int) ; Skyrim Units to meters
+Endfunction
+
+
+Function toggleSpells(int newToggle = -1)
+    if newToggle == -1
+        newToggle = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main")
+    endif
+    int indexOfA = 1
+    while indexOfA < SuccubusAbilitiesNames.length
+        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && newToggle > 0
+            PlayerRef.AddSpell(SuccubusAbilitiesSpells[indexOfA])
+        else
+            PlayerRef.RemoveSpell(SuccubusAbilitiesSpells[indexOfA])
+        endif
+        indexOfA += 1
+    endwhile
+    spellToggle = newToggle
+Endfunction
+
+String Function getAllNames(Actor[] inArr)
+    int index = 0
+    string outString = ""
+    while index < inArr.length
+        outString += (inArr[index] as Actor).GetDisplayName() + ";"
+        index += 1 
+    endwhile
+    return outString
+Endfunction
+
 
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
