@@ -413,87 +413,87 @@
                 {
                     "type": "text",
                     "text": "TSSD_AbsorbHealthConcAimed",
-                    "help": "$showStuff"
+                    "help": "Absorb <mag> points of health per second from the target."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_ClawMultiplier",
-                    "help": "$showStuff"
+                    "help": "Your claw-like nails deal <mag> more damage."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_FightMode",
-                    "help": "$showStuff"
+                    "help": "You gain a <mag> stamina, deal <2> more damage and your power attacks cost <mag>% less. "
                 },
                 {
                     "type": "text",
                     "text": "TSSD_JailerModEffect",
-                    "help": "$showStuff"
+                    "help": "You gain a <mag>% damage reduction and you deal <mag>% more two-handed power attack damage."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_MageFormIllDesEffectDONOTUSE",
-                    "help": "$showStuff"
+                    "help": "Your Illusion spells and destructions spells are <mag>% more effective."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_MageFormMagickaMod",
-                    "help": "$showStuff"
+                    "help": "Increases your Magicka by <mag> points."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_OverstuffedHealthBuff",
-                    "help": "$showStuff"
+                    "help": "You're filled up on energy! You gain a <mag> buff to health. You also move 10% of that slower."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_OverstuffedSlow",
-                    "help": "$showStuff"
+                    "help": ""
                 },
                 {
                     "type": "text",
                     "text": "TSSD_PerkScriptEffect",
-                    "help": "$showStuff"
+                    "help": ""
                 },
                 {
                     "type": "text",
                     "text": "TSSD_SmoochEffect",
-                    "help": "$showStuff"
+                    "help": ""
                 },
                 {
                     "type": "text",
                     "text": "TSSD_SpeedMod",
-                    "help": "$showStuff"
+                    "help": "You are ethereal and move <mag>% faster."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_StealthModeEffect",
-                    "help": "$showStuff"
+                    "help": "Your sneak is increased by <mag>% and you deal more sneak attack damage with melee weapons."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_StopHealthRegen",
-                    "help": "$showStuff"
+                    "help": "You cannot regenerate health on your own."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_StopMagickaRegen",
-                    "help": "$showStuff"
+                    "help": "You are starving! You no longer regenerate Magicka."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_StopStaminaRegen",
-                    "help": "$showStuff"
+                    "help": "You are starving! You no longer regenerate Stamina."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_SuccubusAbsorbHealthConcAimed",
-                    "help": "$showStuff"
+                    "help": "Absorb <mag> points of health per second from the target."
                 },
                 {
                     "type": "text",
                     "text": "TSSD_SuccubusDetectEnergyFF",
-                    "help": "$showStuff"
+                    "help": ""
                 }
             ]
         },
@@ -503,207 +503,207 @@
                 {
                     "type": "text",
                     "text": "TSSD_Base_CapIncrease1",
-                    "help": "$showStuff"
+                    "help": "You increase your maximum energy level by 100. Gettting above 100 does not strengthen most abilities.\nSkillSuccubusBaseLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_CapIncrease2",
-                    "help": "$showStuff"
+                    "help": "You increase your maximum energy level by 200 more. Gettting above 100 does not strengthen most abilities. (400 max)\nSkillSuccubusBaseLevel >= 50.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_CapIncrease3",
-                    "help": "$showStuff"
+                    "help": "You increase your maximum energy level by 600 more. Gettting above 100 does not strengthen most abilities. (1000 max)\nSkillSuccubusBaseLevel >= 80.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_Explanations",
-                    "help": "$showStuff"
+                    "help": "You can no longer regenerate health. Below 0 Energy you can no longer regenerate stamina and magicka. At -100 Energy you enter a feeding frenzy, which increases damage taken by an insane amount and you force yourself onto the first person you can drain.\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_HealthRegenFix",
-                    "help": "$showStuff"
+                    "help": "You can regenerate health again at 50 or more energy.\nTSSD_Base_MagickaRegenFix None 1.0\nTSSD_Base_StaminaRegenFix None 1.0\nSkillSuccubusBaseLevel >= 50.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_IncreaseScentRange1",
-                    "help": "$showStuff"
+                    "help": "You increase your prey detection range by 10 meter.\nSkillSuccubusBaseLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_Innocent",
-                    "help": "$showStuff"
+                    "help": "[Draining someone to death seems like an accident to bystanders.]\nSkillSuccubusBaseLevel >= 80.0\nTSSD_Base_HealthRegenFix None 1.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_MagickaRegenFix",
-                    "help": "$showStuff"
+                    "help": "You can regenerate Magicka again at low energy.\nSkillSuccubusBaseLevel >= 30.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_ReducePenalty1",
-                    "help": "$showStuff"
+                    "help": "You lose less energy from climaxing.\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_StaminaRegenFix",
-                    "help": "$showStuff"
+                    "help": "You can regenerate Stamina again at low energy.\nSkillSuccubusBaseLevel >= 30.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Base_TraitGain",
-                    "help": "$showStuff"
+                    "help": "You gain a trait.\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_BodyArtEnjoyer1",
-                    "help": "$showStuff"
+                    "help": "[If you have been recently cummed upon, you gain faster stamina regeneration.]\nSkillSuccubusBodyLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_EnergyConverter1",
-                    "help": "$showStuff"
+                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_EnergyConverter2",
-                    "help": "$showStuff"
+                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_FightMode",
-                    "help": "$showStuff"
+                    "help": "You can sacrifice 20 energy to gain increased stamina, weapon damage and your power attacks cost less for a minute.\nSkillSuccubusBodyLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_FilledUpEnjoyer1",
-                    "help": "$showStuff"
+                    "help": "[If you have been recently filled up, you gain damage reduction.]\nSkillSuccubusBodyLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_HornyJail",
-                    "help": "$showStuff"
+                    "help": "You can sacrifice 20 energy to gain increased power attack damage and armor for a minute.\nSkillSuccubusBodyLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_Overstuffed",
-                    "help": "$showStuff"
+                    "help": "When you get overstuffed with energy, you gain a bonus to health equal to the points you are above 100 and 10% of that as a slow. (You need the base Cap Increase Perk to select this.)\nTSSD_Base_CapIncrease1 None 1.0\nSkillSuccubusBodyLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_PassiveEnergy1",
-                    "help": "$showStuff"
+                    "help": "Depending on your succubus type, you do not lose energy while waiting in specific circumstances.\nSkillSuccubusBodyLevel >= 10.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_PassiveEnergy2",
-                    "help": "$showStuff"
+                    "help": "Depending on your succubus type, you refresh 10 energy oer hour while waiting in specific circumstances.\nSkillSuccubusBodyLevel >= 10.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_PassiveEnergy3",
-                    "help": "$showStuff"
+                    "help": "Depending on your succubus type, you refresh 20 energy oer hour while waiting in specific circumstances.\nSkillSuccubusBodyLevel >= 10.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Body_PlayDead1",
-                    "help": "$showStuff"
+                    "help": "You can act exhausted and lure ne'er-do-wellers into having their way with you. This only works outside of combat and alerts their teammates after the deed.\nSkillSuccubusBodyLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_AggressiveKiss1",
-                    "help": "$showStuff"
+                    "help": "You gain the ability to suck the energy out of someone.\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_AggressiveKiss2",
-                    "help": "$showStuff"
+                    "help": "Stonger\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_DrainMore1",
-                    "help": "$showStuff"
+                    "help": "You refresh twice as much energy from your drain.\nSkillSuccubusDrainLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_DrainMore2",
-                    "help": "$showStuff"
+                    "help": "You refresh three times as much energy from your drain.\nSkillSuccubusDrainLevel >= 40.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_DrainSpellAimed",
-                    "help": "$showStuff"
+                    "help": "You gain a health absorb spell that costs energy.\nSkillSuccubusDrainLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_GentleDrain1",
-                    "help": "$showStuff"
+                    "help": "You can choose to nibble instead of ravage. You gain only a fifth of the benefits, but it is no longer detectable.\nSkillSuccubusDrainLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_GentleDrain2",
-                    "help": "$showStuff"
+                    "help": "You can choose to very gently drain instead of ravage. You gain only a third of the benefits, but it is no longer detectable.\nSkillSuccubusDrainLevel >= 40.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_GentleDrain3",
-                    "help": "$showStuff"
+                    "help": "You can choose to gently drain instead of ravage. You gain only half of the benefits, but it is no longer detectable.\nSkillSuccubusDrainLevel >= 60.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_GentleDrain4",
-                    "help": "$showStuff"
+                    "help": "Your Draining is no longer detectable.\nSkillSuccubusDrainLevel >= 80.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Drain_MageForm",
-                    "help": "$showStuff"
+                    "help": "You can sacrifice 20 energy to get a destruction, illusion and magicka buff for a minute.\nSkillSuccubusDrainLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_EscapeMode",
-                    "help": "$showStuff"
+                    "help": "You can sacrifice 20 energy to increase your speed and become ethereal.\nSkillSuccubusSeductionLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_Kiss1",
-                    "help": "$showStuff"
+                    "help": "Gives you the ability to stealthily absorb some energy from people.\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_Leader",
-                    "help": "$showStuff"
+                    "help": "You gain the ability to increase the enjoyment of every participant. (Holding the modifier key during sex)\nSkillSuccubusSeductionLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_MentalFortitude1",
-                    "help": "$showStuff"
+                    "help": "You can control yourself to not orgasm whilst being raped.\nSkillSuccubusSeductionLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_MentalFortitude2",
-                    "help": "$showStuff"
+                    "help": "You can control yourself to not orgasm whenever you have sex.\nSkillSuccubusSeductionLevel >= 40.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_OfferSex",
-                    "help": "$showStuff"
+                    "help": "You can initiate sex with someone. If the scene would end without them climaxing, they start to rape you until they are satisfied.\nSkillSuccubusSeductionLevel >= 0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_Seductress1",
-                    "help": "$showStuff"
+                    "help": "You gain the ability to kiss people.\nSkillSuccubusSeductionLevel >= 20.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_Seductress2",
-                    "help": "$showStuff"
+                    "help": "\nSkillSuccubusSeductionLevel >= 40.0\n"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_Seduction_StealthMode",
-                    "help": "$showStuff"
+                    "help": "You can sacrifice 20 energy to get better at sneaking and melee sneak attacks for a minute.\nSkillSuccubusSeductionLevel >= 20.0\n"
                 }
             ]
         },
@@ -787,18 +787,8 @@
                 },
                 {
                     "type": "input",
-                    "text": "TSSD_SuccubusBaseChanges Effect 0 Dur",
-                    "help": "Stop Health Regen None"
-                },
-                {
-                    "type": "input",
                     "text": "TSSD_SuccubusBaseChanges Effect 1 Mag",
                     "help": "Stop Magicka Regen 1000.0"
-                },
-                {
-                    "type": "input",
-                    "text": "TSSD_SuccubusBaseChanges Effect 1 Dur",
-                    "help": "Stop Magicka Regen None"
                 },
                 {
                     "type": "input",
@@ -807,18 +797,8 @@
                 },
                 {
                     "type": "input",
-                    "text": "TSSD_SuccubusBaseChanges Effect 2 Dur",
-                    "help": "Stop Health Regen None"
-                },
-                {
-                    "type": "input",
                     "text": "TSSD_SuccubusClaws Effect 0 Mag",
                     "help": "Long Nails 4.0"
-                },
-                {
-                    "type": "input",
-                    "text": "TSSD_SuccubusClaws Effect 0 Dur",
-                    "help": "Long Nails None"
                 },
                 {
                     "type": "input",
@@ -827,8 +807,13 @@
                 },
                 {
                     "type": "input",
-                    "text": "TSSD_SuccubusClaws Effect 1 Dur",
-                    "help": "Long Nails None"
+                    "text": "TSSD_SuccubusDetectJuice Effect 0 Dur",
+                    "help": "Detect Life Enemy Exterior 10"
+                },
+                {
+                    "type": "input",
+                    "text": "TSSD_SuccubusDetectJuice Effect 1 Dur",
+                    "help": "Detect Life Enemy Exterior 10"
                 }
             ]
         }
