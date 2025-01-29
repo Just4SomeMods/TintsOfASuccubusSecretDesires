@@ -256,7 +256,7 @@ Function SelectSuccubusType(int query = -1)
             updateSuccyNeeds(0)
             int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
             if startLevel > 0
-                SuccubusXpAmount.SetValue( startLevel * 1000  )
+                SuccubusXpAmount.SetValue( startLevel * 10000 )
                 PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
                 PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
                 PlayerRef.AddPerk(TSSD_Body_PlayDead1)
