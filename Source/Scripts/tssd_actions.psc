@@ -653,8 +653,12 @@ Endfunction
 
 Function RefreshEnergy(float adjustBy, int upTo = 100)
     float lastVal = SuccubusDesireLevel.GetValue()
+    int lowerBound = -100
+    if (TSSD_SuccubusType.GetValue() as int) == 3
+        lowerBound = 0
+    endif
     if lastVal < upTo && lastVal > -100
-        SuccubusDesireLevel.SetValue( min(upTo, max( -100,  lastVal + adjustBy) ) )
+        SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
     endif
 Endfunction
 
@@ -679,6 +683,10 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
     if value > 0
         SuccubusXpAmount.SetValue(SuccubusXpAmount.GetValue() + value * 10)
     endif
+    if succNeedVal - value < 0 && (TSSD_SuccubusType.GetValue() as int) == 3
+        value =  succNeedVal * - 1
+    endif
+        
     if succNeedVal != -101        
         if succNeedVal > 0
             SuccubusDesireLevel.SetValue(Min(max_energy_level, Max(succNeedVal+ value * greed_mult, 0)))
