@@ -77,6 +77,7 @@ int ravanousNeedLevel = -100
 int lastUsed = -1
 int lastUsedSub = -1
 int spellToggle
+string Property tssd_SpellDebugProp = "-1" Auto
 
 float lastSmoochTimeWithThatPerson = 0.0
 
@@ -857,12 +858,9 @@ Event OnMenuClose(String MenuName)
 EndEvent
 
 Event OnInit()
-    Maintenance(TSSD_SuccubusType)
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
-    if !spellToggle
-        toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
-    endif
+    onGameReload()
 EndEvent
 
 Function onGameReload()
@@ -872,5 +870,42 @@ Function onGameReload()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
+    endif
+
+    int jArr = JDB.solveObj(".tssdspellids")
+    int index = 0
+    while index < JValue.count(jArr)
+        int innerJ = jArray.getObj(jArr, index)
+        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,MCM.GetModSettingInt("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
+        index += 1
+    endwhile
+
+Endfunction
+
+Function addTSSDPerk(string perkToAdd)
+    Perk toAdd = Game.GetFormFromFile(perkToAdd as int, "TintsOfASuccubusSecretDesires.esp") as Perk    
+    if !PlayerRef.HasPerk(toAdd)
+        PlayerRef.AddPerk(toAdd)
+    else
+        PlayerRef.RemovePerk(toAdd)
+    endif
+Endfunction
+
+Function adjustSpell(bool isMag, string id, int index, string newValStr)
+    DBGTRace(newValStr)
+    int newVal = newValStr as int
+    Spell toAdj = Game.GetFormFromFile(id as int, "TintsOfASuccubusSecretDesires.esp") as Spell
+    DBGTRace(toAdj)
+    DBGTRace(isMag)
+    if newVal && toAdj
+        if isMag
+            toAdj.SetNthEffectMagnitude(index, newVal)
+        else
+            toAdj.SetNthEffectDuration(index, newVal)
+        endif
+        if playerref.hasspell(toAdj)
+            PlayerRef.RemoveSpell(toAdj)
+            PlayerRef.AddSpell(toAdj)
+        endif
     endif
 Endfunction

@@ -4,9 +4,10 @@ Perk Property TOSD_Base_TraitGain Auto
 Actor Property PlayerRef Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 
+import tssd_utils
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-	int max_num_traits = (Quest.GetQuest("tssd_queststart") as tssd_actions).GetSuccubusTraitsAll().Length
+	int max_num_traits = GetSuccubusTraitsAll().Length
 		if max_num_traits > TSSD_MaxTraits.GetValue()
 			PlayerRef.RemovePerk(TOSD_Base_TraitGain)
 		endif

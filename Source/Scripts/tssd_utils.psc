@@ -133,6 +133,8 @@ Function Maintenance(GlobalVariable TSSD_SuccubusType) Global
     JDB.SetObj("tssdoverviews", jval)
     jval = JValue.readFromFile("Data/Tssd/settings.json")
     JDB.SetObj("tssdsettings", jval)
+    jval = JValue.readFromFile("Data/Tssd/spellids.json")
+    JDB.SetObj("tssdspellids", jval)
     ReadInCosmeticSetting()
 Endfunction
 
