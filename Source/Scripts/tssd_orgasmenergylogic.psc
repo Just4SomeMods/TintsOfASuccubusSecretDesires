@@ -102,7 +102,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
             endif
             index += 1
         EndWhile
-    elseif WhoCums
+    elseif WhoCums && !MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugNoEnergyLoss:Main")
         Actor[] ActorsIn = _thread.GetPositions() 
         index = 0
         int max_rel = 0

@@ -39,6 +39,16 @@
                     }
                 },
                 {
+                    "id": "bDebugNoEnergyLoss:Main",
+                    "type": "toggle",
+                    "text": "$DebugNoEnergyLoss_text",
+                    "help": "$DebugNoEnergyLoss_desc",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool",
+                        "defaultValue": false
+                    }
+                },
+                {
                     "id": "bSpamNotifications:Main",
                     "type": "toggle",
                     "text": "$Debug_notes",
