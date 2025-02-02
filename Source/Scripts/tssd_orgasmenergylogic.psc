@@ -48,7 +48,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         if lastmet  < 0.0
             lastmet = 1
         endif
-        retval += 10 * lastMet * ( 1 / (Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), 1)))
+        retval += 20 * lastMet * ( 1 / (Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), 1)))
 
         bool cameOn = false
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
@@ -117,10 +117,10 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     
             index += 1
         EndWhile
-        float toLoseVal = 10
+        float toLoseVal = 2
         bool traitYes = false
         if succubusType == 0
-            toLoseVal = 5
+            toLoseVal = 1
         elseif succubusType == 1
             traitYes = max_rel == 4
         elseif succubusType == 2 
