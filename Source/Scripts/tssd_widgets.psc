@@ -59,7 +59,7 @@ Function setColorsOfBar()
 EndFunction
 
 Function UpdateStatus()
-    if iWidgets
+    if iWidgets && SuccubusDesireLevel.GetValue() > -101
         iWidgets.setTransparency(tWidgetNum,100)
         iWidgets.doTransitionByTime(tWidgetNum, max(SuccubusDesireLevel.GetValue(), SuccubusDesireLevel.GetValue() * -1) as int, 1.0, "meterpercent" ) 
         if shouldFadeOut
@@ -134,7 +134,7 @@ Event TSSD_Main_Bar_Update(string a_eventName, string a_strArg, float a_numArg, 
 EndEvent
 
 Event OniWantWidgetsReset(String eventName, String strArg, Float numArg, Form sender)
-	If eventName == "iWantWidgetsReset"
+	If eventName == "iWantWidgetsReset" && SuccubusDesireLevel.GetValue() > -101
         iWidgets = sender As iWant_Widgets
         tWidgetNum = iWidgets.loadMeter(1, 1, false)
         UpdateBarPositions()

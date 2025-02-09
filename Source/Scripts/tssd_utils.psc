@@ -159,10 +159,12 @@ Endfunction
 Function setHeartEyes(HeadPart PlayerEyes, bool on = true) Global
     Actor playerRef = Game.GetPlayer()
     HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
-    if !on && PlayerEyes
-        playerRef.ChangeHeadPart( PlayerEyes)
-    else
-        playerRef.ChangeHeadPart( HeartEyes )
+    if PlayerEyes
+        if !on
+            playerRef.ChangeHeadPart( PlayerEyes)
+        else
+            playerRef.ChangeHeadPart( HeartEyes )
+        endif
+        playerRef.QueueNiNodeUpdate()
     endif
-    playerRef.QueueNiNodeUpdate()
 Endfunction
