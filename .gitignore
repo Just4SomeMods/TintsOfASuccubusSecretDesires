@@ -14,3 +14,5 @@ TintsOfASuccubusSecretDesires/*
 __pycache__*
 SpriggitTool/*
 .venv/*
+papyrus-compiler/*
+.papyrus/*

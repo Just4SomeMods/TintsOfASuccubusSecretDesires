@@ -162,6 +162,9 @@ Endfunction
 
 
 Function ShowAnnounceMent(int energy)
-    GetAnnouncement().Show(nextAnnouncment +": " + energy , "icon.dds", aiDelay = 5.0)
+    if (TSSD_SuccubusType.getvalue() as int) > -1
+        GetAnnouncement().Show(nextAnnouncment +": " + energy , "icon.dds", aiDelay = 5.0)
+    endif
     nextAnnouncment = ""
+    
 Endfunction
