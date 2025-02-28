@@ -10,7 +10,7 @@ SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
 tssd_widgets Property tWidgets Auto
-float _updateTimer = 0.5
+Faction Property sla_Arousal Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
@@ -84,6 +84,7 @@ float lastSmoochTimeWithThatPerson = 0.0
 float last_checked
 float timer_internal = 0.0
 float smooching = 0.0
+float _updateTimer = 0.5
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -408,47 +409,7 @@ Function OpenSuccubusAbilities()
         Sexlab.RegisterHook( stageEndHook)
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
     elseif myItems[result] == "Act defeated"
-        int radius = getScanRange()
-        PlayerRef.PlayIdle(BleedOutStart)
-        targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
-        Actor[] cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
-        int ac_index = 0
-        bool isFading = false
-        Actor curRef
-        Actor tarRef
-        Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
-        int numHostileActors = 0
-        float min_distance
-        Actor nearestActor
-        while ac_index < cell_ac.Length
-            curRef = cell_ac[ac_index]
-            if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef)
-                if !nearestActor || min_distance > PlayerRef.GetDistance(curRef)
-                    nearestActor = curRef
-                    min_distance = PlayerRef.GetDistance(curRef)
-                endif
-                isHostileArr[ac_index] = true
-                numHostileActors += 1
-            endif
-            ac_index += 1
-        endwhile
-        if nearestActor
-            AzuraFadeToBlack.Apply()
-            isFading = true
-            tarRef = nearestActor
-        endif
-
-        if isFading && tarRef
-            if !deathModeActivated
-                toggleDeathMode()
-            endif
-            GameHours.SetValue(GameHours.GetValue() + 1) ; TODO
-            Utility.Wait(2.5)
-            tarRef.MoveTo(PlayerRef, 0, 1000)
-            Sexlab.RegisterHook( stageEndHook)
-            Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
-            ImageSpaceModifier.RemoveCrossFade(3)
-        endif
+        actDefeated()
     elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1
         bool found = false
@@ -473,6 +434,51 @@ Function OpenSuccubusAbilities()
     endif
 EndFunction
 ;Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Function actDefeated()
+    
+    int radius = getScanRange()
+    PlayerRef.PlayIdle(BleedOutStart)
+    targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
+    Actor[] cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
+    int ac_index = 0
+    bool isFading = false
+    Actor curRef
+    Actor tarRef
+    Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
+    int numHostileActors = 0
+    float min_distance
+    Actor nearestActor
+    while ac_index < cell_ac.Length
+        curRef = cell_ac[ac_index]
+        if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef)
+            if !nearestActor || min_distance > PlayerRef.GetDistance(curRef)
+                nearestActor = curRef
+                min_distance = PlayerRef.GetDistance(curRef)
+            endif
+            isHostileArr[ac_index] = true
+            numHostileActors += 1
+        endif
+        ac_index += 1
+    endwhile
+    if nearestActor
+        AzuraFadeToBlack.Apply()
+        isFading = true
+        tarRef = nearestActor
+    endif
+
+    if isFading && tarRef
+        if !deathModeActivated
+            toggleDeathMode()
+        endif
+        GameHours.SetValue(GameHours.GetValue() + 1) ; TODO
+        Utility.Wait(2.5)
+        tarRef.MoveTo(PlayerRef, 0, 1000)
+        Sexlab.RegisterHook( stageEndHook)
+        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
+        ImageSpaceModifier.RemoveCrossFade(3)
+    endif
+Endfunction
 
 Function RegisterSuccubusEvents()
     RegisterForUpdateGameTime(0.4)
@@ -650,7 +656,7 @@ Function AddToStatistics(int amount_of_hours)
 Endfunction
 
 
-
+; Function to adjust energy level
 Function RefreshEnergy(float adjustBy, int upTo = 100)
     float lastVal = SuccubusDesireLevel.GetValue()
     int lowerBound = -100
@@ -663,6 +669,7 @@ Function RefreshEnergy(float adjustBy, int upTo = 100)
 Endfunction
 
 
+; Function to update Energy Level by value, which increases XP
 Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
@@ -840,16 +847,17 @@ Event OnUpdateGameTime()
         (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
         if timeBetween >= 1
             if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
-                RefreshEnergy(timeBetween * 20, 50)
+                RefreshEnergy(energy_loss * 20, 50)
             elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
-                RefreshEnergy(timeBetween * 10, 50)
+                RefreshEnergy(energy_loss * 10, 50)
             endif
             AddToStatistics( ( (SuccubusDesireLevel.GetValue() - valBefore) /10 + timeBetween) as int)
         endif
         timeBetween = 0
     endif
+    float energy_loss = timeBetween * ( 1 + (PlayerRef.GetFactionRank(sla_Arousal)) / 100) * -1
     last_checked = TimeOfDayGlobalProperty.GetValue()
-    updateSuccyNeeds(timeBetween * -1)
+    updateSuccyNeeds(energy_loss)
 endEvent
 
 Event OnMenuOpen(String MenuName)

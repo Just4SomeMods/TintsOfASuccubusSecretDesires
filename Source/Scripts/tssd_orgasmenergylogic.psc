@@ -1,6 +1,5 @@
 Scriptname tssd_orgasmenergylogic extends Quest  
 
-
 import b612
 import tssd_utils
 GlobalVariable Property TimeOfDayGlobalProperty Auto
@@ -166,5 +165,4 @@ Function ShowAnnounceMent(int energy)
         GetAnnouncement().Show(nextAnnouncment +": " + energy , "icon.dds", aiDelay = 5.0)
     endif
     nextAnnouncment = ""
-    
 Endfunction
