@@ -66,7 +66,7 @@ Function SetFlagsSLSF(string modName, bool isActive)
 Endfunction
 
 
-Function onWaitPassive(int amount_of_hours)
+Function onWaitPassive(float amount_of_hours)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
     int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
@@ -85,7 +85,7 @@ Function onWaitPassive(int amount_of_hours)
         ModEvent.PushString(EventHandle, jsolve[jarrayIndex])
         ModEvent.PushString(EventHandle, "Current")
         ModEvent.PushInt(EventHandle, 0) 
-        ModEvent.PushInt(EventHandle, amount_of_hours)
+        ModEvent.PushInt(EventHandle, amount_of_hours as int)
         ModEvent.Send(EventHandle)
         jarrayIndex += 1
     endwhile
@@ -95,6 +95,6 @@ Function onWaitPassive(int amount_of_hours)
     ModEvent.PushString(EventHandle, likesF)
     ModEvent.PushString(EventHandle, "Current")
     ModEvent.PushInt(EventHandle, 0) 
-    ModEvent.PushInt(EventHandle, amount_of_hours)
+    ModEvent.PushInt(EventHandle, amount_of_hours as int)
     ModEvent.Send(EventHandle)
 Endfunction

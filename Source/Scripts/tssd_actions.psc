@@ -647,7 +647,7 @@ Function DebugForceOrgasm()
     endif
 EndFunction
 
-Function AddToStatistics(int amount_of_hours)
+Function AddToStatistics(float amount_of_hours)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
     int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
@@ -656,9 +656,9 @@ Function AddToStatistics(int amount_of_hours)
     endif
     int index = 0
     if succubusType != 3
-        while index < amount_of_hours
+        while index < (amount_of_hours as int)
             int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
-            sslStats.AddSex(PlayerRef, timespent = 0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+            sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
             index += 1
         endwhile
     endif
@@ -869,7 +869,7 @@ Event OnUpdateGameTime()
             elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
                 RefreshEnergy(energy_loss * 10, 50)
             endif
-            ; AddToStatistics( ( (SuccubusDesireLevel.GetValue() - valBefore) /10 + timeBetween) as int)
+            AddToStatistics( ( (SuccubusDesireLevel.GetValue() - valBefore) /10 + timeBetween))
         endif
         energy_loss = 0
     endif
