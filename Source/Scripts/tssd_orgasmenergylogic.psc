@@ -13,7 +13,7 @@ int smooching
 int nextAnnouncmentLineLength = 0
 string nextAnnouncment = "" 
 
-float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, int announceLogic = 0, bool overWriteStop = false)
+string Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, int announceLogic = 0, bool overWriteStop = false)
     ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
     int index = 0
@@ -29,6 +29,8 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
     int succubusType = TSSD_SuccubusType.getvalue() as int
     string succubusTypeString = succubusTypes[succubusType]
+    float largestTime = 0
+    int refillEnergy = 0
     if cosmeticSettings[2] == 0  && !overWriteStop
         announceLogic = 0
     endif
@@ -44,7 +46,11 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
             return 0
         endif
         lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-        if lastmet  < 0.0
+        if largestTime < lastMet
+            largestTime = lastMet
+        endif
+        lastMet *= 3
+        if (lastmet  < 0.0) || (lastmet > 1.0)
             lastmet = 1
         endif
         retval += 20 * lastMet * ( 1 / (Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), 1)))
@@ -116,23 +122,24 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
     
             index += 1
         EndWhile
-        float toLoseVal = 2
+        float toLoseVal = 20
         bool traitYes = false
         if succubusType == 0
-            toLoseVal = 1
+            toLoseVal /= 2
         elseif succubusType == 1
             traitYes = max_rel == 4
+            refillEnergy = 1000
         elseif succubusType == 2 
-            traitYes = SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && max_met == 0
+            traitYes = (largestTime > 3) || (max_met == 0)
         elseif succubusType == 3
             toLoseVal = 0
         elseif succubusType == 4
             traitYes = _thread.GetSubmissive(PlayerRef)
         endif
-
         if !traitYes
-            energyLosses = toLoseVal * -1
+            toLoseVal /= -10
         endif
+        energyLosses = toLoseVal
         if announceLogic > 0
             string announceDial = GetTypeDial(succubusTypeString, traitYes)
             nextAnnouncment += announceDial
@@ -156,7 +163,7 @@ float Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums =
         GetAnnouncement().Show(nextAnnouncment + " ; " + (retval as int), "icon.dds", aiDelay = 5.0)
         nextAnnouncment = ""
     endif
-    return retval
+    return "" + (retval as int) + ";" + refillEnergy
 Endfunction
 
 

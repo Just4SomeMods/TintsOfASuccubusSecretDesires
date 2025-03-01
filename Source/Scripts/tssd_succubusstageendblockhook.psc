@@ -2,11 +2,12 @@ Scriptname tssd_succubusstageendblockhook extends SexLabThreadHook
 
 Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
-bool notFirstToStageLast
+;bool notFirstToStageLast = false
+import tssd_utils
 
 ; Called when all of the threads data is set, before the active animation is chosen
 Function OnAnimationStarting(SexLabThread akThread)
-    notFirstToStageLast = false
+    ;notFirstToStageLast = false
     ;Debug.Messagebox("LEL")
 EndFunction
 
@@ -30,7 +31,7 @@ endFunction
 Function OnStageStart(SexLabThread akThread)
     
     if   SexLabRegistry.GetPathMax(akThread.getactivescene() ,akThread.GetActiveStage()).Length == 1
-        bool allSatisfied = true
+        bool someOneunsatisfied = false
         bool conSent = true
         int index = 0
         SexLabThread cur_thread = Sexlab.GetThreadByActor(PlayerRef)
@@ -43,7 +44,7 @@ Function OnStageStart(SexLabThread akThread)
                 enjoymentsBefore[index] = _thread.GetEnjoyment(ActorsIn[index]) 
                 if akTarget != PlayerRef
                     if _thread.ActorAlias(akTarget).GetOrgasmCount() == 0
-                        allSatisfied = false
+                        someOneunsatisfied = true
                     Endif
                     if cur_thread.GetSubmissive(akTarget)
                         conSent = false
@@ -51,7 +52,7 @@ Function OnStageStart(SexLabThread akThread)
                 endif
                 index += 1
             EndWhile
-            if !allSatisfied && notFirstToStageLast
+            if someOneunsatisfied; && notFirstToStageLast
                 ;Sexlab.GetPlayerController().AdvanceStage(true)
                 ;akThread.ResetScene(asScenes[0])
                 if (!conSent && !cur_thread.GetSubmissive(PlayerRef)) || cur_thread.GetSubmissive(PlayerRef)
@@ -73,24 +74,24 @@ Function OnStageStart(SexLabThread akThread)
                     EndWhile
                 endif
             endif
-            notFirstToStageLast = true
+            ;notFirstToStageLast = true
         else
             
-            notFirstToStageLast = false
+            ;notFirstToStageLast = false
         endif
     endif
 EndFunction
-
-; Called whenever a stage ends, including the very last one
-Function OnStageEnd(SexLabThread akThread)
-    ;Debug.Messagebox("End of " + SexLabRegistry.GetPathMax(akThread.getactivescene() ,akThread.GetActiveStage()).Length)
-    ; On Stage End seems to be broken
-EndFunction
-
-; Called once the animation has ended
-Function OnAnimationEnd(SexLabThread akThread)
-    ;Debug.Messagebox("Yeah")
-EndFunction
+; 
+; ; Called whenever a stage ends, including the very last one
+; Function OnStageEnd(SexLabThread akThread)
+;     ;Debug.Messagebox("End of " + SexLabRegistry.GetPathMax(akThread.getactivescene() ,akThread.GetActiveStage()).Length)
+;     ; On Stage End seems to be broken
+; EndFunction
+; 
+; ; Called once the animation has ended
+; Function OnAnimationEnd(SexLabThread akThread)
+;     ;Debug.Messagebox("Yeah")
+; EndFunction
 
 
 Event OnInit()
