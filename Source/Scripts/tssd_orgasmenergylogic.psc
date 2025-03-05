@@ -36,16 +36,18 @@ string Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums 
     endif
     if WhoCums != PlayerRef && WhoCums
 
+        lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
         if !isSuccable(WhoCums)
             if announceLogic != 1 
-                nextAnnouncment += WhoCums.GetDisplayName() + " can't be drained!"
+                nextAnnouncment += WhoCums.GetDisplayName() + " can only be drained once!"
             else
-                GetAnnouncement().Show(WhoCums.GetDisplayName() + " can't be drained!", "icon.dds", aiDelay = 5.0)
+                GetAnnouncement().Show(WhoCums.GetDisplayName() + " can only be drained once!", "icon.dds", aiDelay = 5.0)
                 nextAnnouncment = ""
             endif
-            return 0
+            if (lastmet  >= 0.0)
+                return 0
+            endif
         endif
-        lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
         if largestTime < lastMet
             largestTime = lastMet
         endif

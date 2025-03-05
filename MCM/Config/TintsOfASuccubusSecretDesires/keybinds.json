@@ -9,7 +9,7 @@
         "action": {
           "type": "CallFunction",
           "form": "TintsOfASuccubusSecretDesires.esp|001",
-          "scriptName": "tssd_actions",
+          "scriptName": "tssd_menus",
           "function": "OpenGrandeMenu"
         }
       },{

@@ -24,6 +24,10 @@
         "FileSize": 0
       },
       {
+        "Master": "iWant Widgets.esl",
+        "FileSize": 0
+      },
+      {
         "Master": "SexLab.esm",
         "FileSize": 0
       },
@@ -32,7 +36,11 @@
         "FileSize": 0
       },
       {
-        "Master": "iWant Widgets.esl",
+        "Master": "SkyUI_SE.esp",
+        "FileSize": 0
+      },
+      {
+        "Master": "b612.esp",
         "FileSize": 0
       }
     ],

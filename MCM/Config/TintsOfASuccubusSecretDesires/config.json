@@ -432,6 +432,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Drained!",
+                    "help": ""
+                },
+                {
+                    "type": "text",
                     "text": "FightModeEffect",
                     "help": "You gain a <mag> stamina, deal <2> more damage and your power attacks cost <mag>% less. "
                 },
@@ -1192,6 +1197,24 @@
                         "params": [
                             "{b}0",
                             "95",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DrainedMarkerDur0:Spells",
+                    "type": "input",
+                    "text": "Already Drained Effect 0 Dur",
+                    "help": "Drained! 28800",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "696656",
                             "{i}0",
                             "{value}"
                         ]

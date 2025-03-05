@@ -42,15 +42,18 @@ EndFunction
 
 ; how many times the player can train this skill
 Int Function GetAvailableTraining()
-    Return 100
+    if SkillVal == TSSD_PerkPointsBought
+        Return 100
+    endif
+    return 20
 EndFunction
 
 ; how much training for the next skill up costs
 Int Function GetTrainCost()
     if SkillVal == TSSD_PerkPointsBought
-        return 1000 * (GetTimesTrained() + 1)
+        return 1000 + 100 * GetTimesTrained()
     Endif
-    Return 10 * (GetTimesTrained() + 1)
+    Return 50 * (GetTimesTrained() + 1)
 EndFunction
 
 ; how much money the player currently has
@@ -70,10 +73,8 @@ Function Train()
         TSSD_PerkPointsBought.SetValue((TSSD_PerkPointsBought.GetValue()) + 1 as int)
         TOSD_SuccubusPerkPoints.SetValue(TOSD_SuccubusPerkPoints.GetValue() + 1 as int)
     else
-        SkillVal.SetValue( SkillVal.GetValue() + 1 )
-        if (Math.Floor(SkillVal.GetValue() / 5) as float) == SkillVal.GetValue() / 5
-            CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
-        endif
+        SkillVal.SetValue( SkillVal.GetValue() + 5 )
+        CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
         ;CustomSkills.IncrementSkill(SkillVal)
     endif
 

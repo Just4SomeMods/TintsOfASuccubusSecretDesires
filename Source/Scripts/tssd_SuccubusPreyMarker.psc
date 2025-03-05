@@ -1,5 +1,8 @@
 Scriptname tssd_SuccubusPreyMarker extends activemagiceffect  
 
+
+import tssd_utils
+GlobalVariable Property TimeOfDayGlobalProperty Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 Actor Property ThisThing Auto
@@ -12,7 +15,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
     if ThisThing.isHostileToActor(PlayerRef)
         tssd_actions_script.updateSuccyNeeds(-1)
     endif
-
 endEvent
 
 
