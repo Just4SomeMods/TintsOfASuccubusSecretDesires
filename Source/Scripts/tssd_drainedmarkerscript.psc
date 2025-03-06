@@ -2,7 +2,6 @@ Scriptname tssd_drainedmarkerscript extends activemagiceffect
 
 import tssd_utils
 GlobalVariable Property TSSD_SuccubusType Auto
-Spell Property TSSD_DrainedMarker Auto
 Actor Property targetOf Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)

@@ -73,6 +73,7 @@ int lastUsed = -1
 int lastUsedSub = -1
 int spellToggle
 string Property tssd_SpellDebugProp = "-1" Auto
+MagicEffect Property TSSD_DraineMarkerEffect Auto  
 
 float lastSmoochTimeWithThatPerson = 0.0
 
@@ -166,10 +167,12 @@ Function EvaluateCompleteScene(bool onStart=false)
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         while index < ActorsIn.length
             Actor ActorRef = Actorsin[Index]
-            energyNew += StringUtil.Split(OEnergy.EvaluateOrgasmEnergy(_thread, ActorRef, 2 * (1 - (onStart as int)), overWriteStop = true), ";")[0] as int
+            float[] retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
+            Oenergy.nextAnnouncment = ""
+            energyNew = retVals[0]
             if ActorRef && PlayerRef != ActorRef
                 max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
-                if !isSuccable(ActorRef) && deathModeActivated
+                if !isSuccableOverload(ActorRef) && deathModeActivated
                     max_prot = true
                 endif
             endif
@@ -194,9 +197,9 @@ Function EvaluateCompleteScene(bool onStart=false)
     elseif energyNew < 0
         output += "Eugh, this is bad. "
     endif
-    if ReadInCosmeticSetting()[2] == 1
-        OEnergy.ShowAnnounceMent(energyNew as int)
-    endif
+    ; if ReadInCosmeticSetting()[2] == 1
+    ;     OEnergy.ShowAnnounceMent(energyNew as int)
+    ; endif
 Endfunction
 
 Function PlayerSceneStart(Form FormRef, int tid)
@@ -223,6 +226,10 @@ Function PlayerSceneStart(Form FormRef, int tid)
     endif
 EndFunction
 
+bool Function isSuccableOverload(Actor ActorRef)
+    return isSuccable(ActorRef, TSSD_DraineMarkerEffect)
+Endfunction
+
 Function PlayerSceneEnd(Form FormRef, int tid)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     sslThreadController _thread =  Sexlab.GetController(tid)
@@ -238,7 +245,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         int index = 0
         while index < ActorsIn.Length
             Actor WhoCums = ActorsIn[index]
-            if isSuccable(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
+            if isSuccableOverload(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
                 orgasmCountScene += _thread.ActorAlias(WhoCums).GetOrgasmCount()
                 succAbleTargets += 1
             endif
@@ -247,7 +254,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         index = 0
         while index < ActorsIn.Length
             Actor WhoCums = ActorsIn[index]
-            if isSuccable(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
+            if isSuccableOverload(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
                 updateSuccyNeeds(  min(WhoCums.GetAV("Health"), getDrainLevel() * orgasmCountScene / succAbleTargets )  )
                 TSSD_DrainHealth.SetNthEffectMagnitude(0, getDrainLevel() * orgasmCountScene / succAbleTargets )
                 TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
@@ -450,13 +457,16 @@ EndEvent
 
 
 Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
+    int succubusType = TSSD_SuccubusType.GetValue() as int
     sslThreadController _thread =  Sexlab.GetController(Thread)
     Actor ActorRef = ActorRef_Form as Actor
-    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
-        string[] outP = StringUtil.Split(OEnergy.EvaluateOrgasmEnergy(_thread, ActorRef, 1), ";")
-        updateSuccyNeeds(outP[0] as int, true)
-        if (outP[1] as int) > 0
-            RefreshEnergy(outP[1] as int)
+    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1) && isSuccableOverload(actorRef)
+        float[] retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
+        updateSuccyNeeds(retVals[0], true)        
+        GetAnnouncement().Show(Oenergy.nextAnnouncment +": " + retVals[0] , "icon.dds", aiDelay = 5.0)
+        Oenergy.nextAnnouncment = ""
+        if (retVals[1] as int) > 0
+            RefreshEnergy(retVals[1] as int)
         endif
         if actorRef != PlayerRef
             TSSD_DrainedMarker.Cast(ActorRef, ActorRef)

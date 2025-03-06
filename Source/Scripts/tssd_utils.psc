@@ -61,9 +61,9 @@ bool[] Function ReadInCosmeticSetting() Global
 Endfunction
 
 
-bool Function isSuccable(Actor akActor) Global
+bool Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect) Global
     ActorBase ak = (akActor.GetBaseObject() as ActorBase)
-    return !( Game.GetPlayer() == akActor || ak.IsProtected() || ak.IsEssential()) || (false && MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main")) && !akActor.IsChild()
+    return !( Game.GetPlayer() == akActor || ak.IsProtected() || ak.IsEssential()) || (false && MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main")) && !akActor.IsChild() && !akActor.HasMagicEffect(TSSD_DraineMarkerEffect)
 EndFunction
 
 float Function GetLastTimeSuccd(Actor Target, GlobalVariable TimeOfDayGlobalProperty) Global

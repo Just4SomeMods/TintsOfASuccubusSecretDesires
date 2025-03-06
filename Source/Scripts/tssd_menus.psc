@@ -251,12 +251,12 @@ Function OpenSettingsMenu()
     String[] myItems = StringUtil.Split(itemString,";")
     Int result 
     bool canEssDie = false
-    ; DBGTRace(modifierKeyIsDown +"_"+ (lastUsedSub > -1))
     
-    if modifierKeyIsDown && (lastUsedSub > -1.0) as bool
+    lastUsedSub > -1.0 ; FOR WHATEVER REASONS THIS NEEDS TO BE HERE
+    
+    if modifierKeyIsDown && (lastUsedSub > -1.0)
         result = lastUsedSub
     else
-        DBGTRace(myItems)
         result = GetSelectList().Show(myItems)
         lastUsedSub = result
         if result == -1
@@ -272,7 +272,7 @@ Function OpenSettingsMenu()
             tActions.EvaluateCompleteScene()
         elseif Cross
             string showboat = "I can't succ " + Cross.GetDisplayName() +"!"
-            if isSuccable(Cross)
+            if isSuccable(Cross, tActions.TSSD_DraineMarkerEffect )
                 int lasttime = (GetLastTimeSuccd(Cross, TimeOfDayGlobalProperty) * 300) as int
                 if lasttime > 100.0 || lasttime < 0.0
                     showboat = "This person is full of juicy energy!"
@@ -357,7 +357,8 @@ Function OpenSuccubusAbilities()
     endwhile
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
-    Int result 
+    Int result
+    
     if modifierKeyIsDown && lastUsedSub > -1
         result = lastUsedSub
     else

@@ -10,102 +10,49 @@ GlobalVariable Property TSSD_SuccubusType Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
 int smooching
 
-int nextAnnouncmentLineLength = 0
-string nextAnnouncment = "" 
+string Property nextAnnouncment Auto
 
-string Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums = none, int announceLogic = 0, bool overWriteStop = false)
+float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType , Actor WhoCums = none)    
     ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
+    string succubusTypeString = GetSuccubusTypesAll()[succubusType]
     int index = 0
-    float retval = 0
     string[] succubusTraits = GetSuccubusTraitsAll()
-    string[] succubusTypes = GetSuccubusTypesAll()
     int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 5)
     SUCCUBUSTRAITSVALUESBONUS[2] = 100
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     float lastMet = 1
-    float energyLosses = 0
     bool[] cosmeticSettings = ReadInCosmeticSetting()
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
-    int succubusType = TSSD_SuccubusType.getvalue() as int
-    string succubusTypeString = succubusTypes[succubusType]
     float largestTime = 0
-    int refillEnergy = 0
-    if cosmeticSettings[2] == 0  && !overWriteStop
-        announceLogic = 0
-    endif
-    if WhoCums != PlayerRef && WhoCums
+    float[] retVals = new float[2]
+    int nextAnnouncmentLineLength = 0
+    float energyLosses = 0
+    float retval = 0
 
+    if WhoCums && WhoCums != PlayerRef
         lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-        if !isSuccable(WhoCums)
-            if announceLogic != 1 
-                nextAnnouncment += WhoCums.GetDisplayName() + " can only be drained once!"
-            else
-                GetAnnouncement().Show(WhoCums.GetDisplayName() + " can only be drained once!", "icon.dds", aiDelay = 5.0)
-                nextAnnouncment = ""
-            endif
-            if (lastmet  >= 0.0)
-                return 0
-            endif
-        endif
-        if largestTime < lastMet
-            largestTime = lastMet
-        endif
-        lastMet *= 3
         if (lastmet  < 0.0) || (lastmet > 1.0)
             lastmet = 1
+        else
+            return none
         endif
-        retval += 20 * lastMet * ( 1 / (Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(), 1)))
-
-        bool cameOn = false
+        retval += 20
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
-            bool skipThis = false
+            bool traitYes = false
             if chosenTraits[index]
-                bool traitYes = false
-                if index == 0
-                    traitYes = _thread.HasSceneTag("Aircum")
-                    if traitYes
-                        cameOn = true
-                    elseif chosenTraits[1]
-                        skipThis = true
-                    endif
-                elseif index == 1
-                    traitYes =  !_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal")) && Sexlab.GetSex(WhoCums) != 1 && Sexlab.GetSex(WhoCums) != 4
-                    if cameOn
-                        skipThis = true
-                    endif                    
-                elseif index == 2
-                    traitYes =  WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1
-                elseif index == 3
-                    traitYes = (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))
-                elseif index == 4
-                    traitYes = _thread.sameSexThread()
-                    if traitYes && Sexlab.GetSex(WhoCums) == 1
-                        retval += 5
-                    endif
-                elseif index == 5
-                    float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
-                    traitYes = ar_norm > 0
-                    if traitYes
-                        retval += ar_norm / 5
-                    endif
-                    if announceLogic > 0
-                        nextAnnouncment += WhoCums.GetDisplayName()
-                    endif
+                traitYes = traitLogic(index, _thread, WhoCums)
+            
+                if (index == 5) && traitYes   
+                    nextAnnouncment += WhoCums.GetDisplayName()
                 endif
-                if traitYes && !skipThis
-                    float bonus_val = lastMet * SUCCUBUSTRAITSVALUESBONUS[index] * ( 1 / Max(_thread.ActorAlias(WhoCums).GetOrgasmCount(),1) / (_thread.GetPositions().Length - 1) )
-                    retval += bonus_val
+                string announceDial = GetTypeDial(succubusTraits[index], traitYes, true)
+                nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)
+                if nextAnnouncmentLineLength > 100
+                    nextAnnouncment += "\n"
+                    nextAnnouncmentLineLength = 0
                 endif
-                if announceLogic > 0 && !skipThis
-                    string announceDial = GetTypeDial(succubusTraits[index], traitYes, true)
-                    nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)
-                    if nextAnnouncmentLineLength > 100
-                        nextAnnouncment += "\n"
-                        nextAnnouncmentLineLength = 0
-                    endif
-                    nextAnnouncment += announceDial
-                endif
+                nextAnnouncment += announceDial
             endif
             index += 1
         EndWhile
@@ -126,34 +73,31 @@ string Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums 
         EndWhile
         float toLoseVal = 20
         bool traitYes = false
-        if succubusType == 0
+        if succubusTypeString == "Crimson"
             toLoseVal /= 2
-        elseif succubusType == 1
+        elseif succubusTypeString == "Scarlet"
             traitYes = max_rel == 4
-            refillEnergy = 1000
-        elseif succubusType == 2 
+            retVals[1] = 1000
+        elseif succubusTypeString == "Pink"
             traitYes = (largestTime > 3) || (max_met == 0)
-        elseif succubusType == 3
+        elseif succubusTypeString == "Sundown"
             toLoseVal = 0
-        elseif succubusType == 4
+        elseif succubusTypeString == "Mahogany"
             traitYes = _thread.GetSubmissive(PlayerRef)
         endif
         if !traitYes
             toLoseVal /= -10
         endif
         energyLosses = toLoseVal
-        if announceLogic > 0
-            string announceDial = GetTypeDial(succubusTypeString, traitYes)
-            nextAnnouncment += announceDial
-        endif
+        nextAnnouncment += GetTypeDial(succubusTypeString, traitYes)
     endif
     String output = ""
-    if (!WhoCums || (announceLogic == 0 && WhoCums != PLayerRef)) && smooching > 0.0
+    if (!WhoCums || WhoCums != PLayerRef) && smooching > 0.0
         retval = smooching * lastMet
         output += "Smooch!\n"
     endif
     if retval > 0
-        if succubusType == 3
+        if succubusTypeString == "Sundown"
             retval /= 2
         endif
     endif
@@ -161,17 +105,20 @@ string Function EvaluateOrgasmEnergy(sslThreadController _thread, Actor WhoCums 
     if output != ""
         nextAnnouncment += output +"\n"
     endif
-    if announceLogic == 1
-        GetAnnouncement().Show(nextAnnouncment + " ; " + (retval as int), "icon.dds", aiDelay = 5.0)
-        nextAnnouncment = ""
-    endif
-    return "" + (retval as int) + ";" + refillEnergy
+    retVals[0] = retVal
+    return retVals
+
 Endfunction
 
 
-Function ShowAnnounceMent(int energy)
-    if (TSSD_SuccubusType.getvalue() as int) > -1
-        GetAnnouncement().Show(nextAnnouncment +": " + energy , "icon.dds", aiDelay = 5.0)
-    endif
-    nextAnnouncment = ""
+
+bool Function traitLogic(int index, sslThreadController _thread, Actor WhoCums)
+    float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
+
+    return  ((index == 0 && _thread.HasSceneTag("Aircum")) ||\
+    ((index == 1) && (!_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal")) && Sexlab.GetSex(WhoCums) != 1 && Sexlab.GetSex(WhoCums) != 4)) ||\
+    ((index == 2) && WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1) ||\
+    ((index == 3) && (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))) ||\
+    ((index == 4) && _thread.sameSexThread()) ||\
+    ((index == 5) && (ar_norm > 0) ))
 Endfunction
