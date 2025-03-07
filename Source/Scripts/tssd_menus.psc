@@ -36,11 +36,11 @@ Perk Property TSSD_Drain_GentleDrain1 Auto
 Perk Property TSSD_Seduction_Kiss1 Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PlayDead1 Auto
+Perk Property TSSD_Body_DefeatThem1 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 
 bool lookedAtExplanationsOnce = false
-bool deathModeActivated
 bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
@@ -272,7 +272,7 @@ Function OpenSettingsMenu()
             tActions.EvaluateCompleteScene()
         elseif Cross
             string showboat = "I can't succ " + Cross.GetDisplayName() +"!"
-            if isSuccable(Cross, tActions.TSSD_DraineMarkerEffect )
+            if tActions.isSuccableOverload(Cross)
                 int lasttime = (GetLastTimeSuccd(Cross, TimeOfDayGlobalProperty) * 300) as int
                 if lasttime > 100.0 || lasttime < 0.0
                     showboat = "This person is full of juicy energy!"
@@ -330,15 +330,15 @@ Endfunction
 Function OpenSuccubusAbilities()
     String itemsAsString = "Allow draining"
     Actor tarRef = none
-    if deathModeActivated
+    if tactions.deathModeActivated
         itemsAsString = "Hold back draining"
     endif
     Actor Cross = Game.GetCurrentCrosshairRef() as Actor
     if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
         itemsAsString += ";Ask for Sex"
     endif
+    tarRef = tActions.searchForTargets()
     if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
-        tarRef = tActions.searchForTargets()
         if tarRef
             itemsAsString += ";Act defeated"
         else
@@ -355,11 +355,15 @@ Function OpenSuccubusAbilities()
         endif
         indexOfA += 1
     endwhile
+
+    if playerRef.HasPerk(TSSD_Body_DefeatThem1) && tActions.numHostileActors == 1 && tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")
+        itemsAsString += ";Rape them!"
+    endif
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result
     
-    if modifierKeyIsDown && lastUsedSub > -1
+    if modifierKeyIsDown && lastUsedSub >= 0
         result = lastUsedSub
     else
         result = GetSelectList().Show(myItems)
@@ -367,7 +371,13 @@ Function OpenSuccubusAbilities()
         if result == -1
             return
         endif
-    endif    
+    endif
+    if result == -1
+        result = GetSelectList().Show(myItems)
+        if result == -1
+            return
+        endif
+    endif
     tActions.NotificationSpam(myItems[result] )
     if myItems[result] == "Hold back draining" || myItems[result] == "Allow draining"
         tActions.toggleDeathMode()
@@ -384,6 +394,12 @@ Function OpenSuccubusAbilities()
         Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef)
+    elseif myItems[result] == "Rape them!"
+        if !tactions.deathModeActivated
+            tactions.toggleDeathMode()
+        endif
+        Sexlab.RegisterHook( tactions.stageEndHook)
+        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = tarRef)
     elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1
         bool found = false

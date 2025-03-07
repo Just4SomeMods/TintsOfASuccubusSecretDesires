@@ -685,6 +685,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Aggressive Negotation1",
+                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "78"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Energy To Mass1",
                     "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 0\n",
                     "action": {
@@ -1214,7 +1228,7 @@
                         "function": "adjustSpell",
                         "params": [
                             "{b}0",
-                            "696656",
+                            "77",
                             "{i}0",
                             "{value}"
                         ]

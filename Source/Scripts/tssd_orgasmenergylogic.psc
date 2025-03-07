@@ -25,7 +25,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
     bool[] cosmeticSettings = ReadInCosmeticSetting()
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
     float largestTime = 0
-    float[] retVals = new float[2]
+    float[] retVals = Utility.CreateFloatArray(2, 0)
     int nextAnnouncmentLineLength = 0
     float energyLosses = 0
     float retval = 0
@@ -35,7 +35,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
         if (lastmet  < 0.0) || (lastmet > 1.0)
             lastmet = 1
         else
-            return none
+            return retVals
         endif
         retval += 20
         while index < SUCCUBUSTRAITSVALUESBONUS.Length

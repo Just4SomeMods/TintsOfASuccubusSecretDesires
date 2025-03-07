@@ -20,7 +20,15 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|056",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "PassiveEnergy"
+          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "PassiveEnergy", "OverPowerThem"
+          ]
+     },
+     {
+          "id": "OverPowerThem",
+          "perk": "TintsOfASuccubusSecretDesires.esp|04E",
+          "x": 0.9,
+          "y": -0.2,
+          "links": [
           ]
      },
           {

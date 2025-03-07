@@ -28,7 +28,7 @@ EndFunction
 
 ; shows trainer's skill level
 String Function GetTrainerSkill()
-    Return "Master"
+    Return "5 increases each"
 EndFunction
 
 String Function GetTimesTrainedLabel()
@@ -37,7 +37,7 @@ EndFunction
 
 ; how many times the player has trained this skill
 Int Function GetTimesTrained()
-    return SkillVal.GetValue() as int
+    return (SkillVal.GetValue()/5) as int
 EndFunction
 
 ; how many times the player can train this skill
@@ -53,7 +53,7 @@ Int Function GetTrainCost()
     if SkillVal == TSSD_PerkPointsBought
         return 1000 + 100 * GetTimesTrained()
     Endif
-    Return 50 * (GetTimesTrained() + 1)
+    Return 250 * (GetTimesTrained() + 1)
 EndFunction
 
 ; how much money the player currently has

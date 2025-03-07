@@ -47,7 +47,7 @@ Spell Property TSSD_Overstuffed Auto
 Spell Property TSSD_DrainHealth Auto
 Spell Property TSSD_DrainedMarker Auto
 
-bool deathModeActivated
+bool Property deathModeActivated Auto
 bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
@@ -72,6 +72,8 @@ int ravanousNeedLevel = -100
 int lastUsed = -1
 int lastUsedSub = -1
 int spellToggle
+int Property numHostileActors Auto
+
 string Property tssd_SpellDebugProp = "-1" Auto
 MagicEffect Property TSSD_DraineMarkerEffect Auto  
 
@@ -100,7 +102,7 @@ Actor Function searchForTargets()
     Actor curRef
     Actor tarRef
     Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
-    int numHostileActors = 0
+    numHostileActors = 0
     float min_distance
     Actor nearestActor
     while ac_index < cell_ac.Length
@@ -125,7 +127,6 @@ Endfunction
 
 Function actDefeated(actor tarRef)
     if tarRef
-        DBGTRace(tarRef.GetDisplayName() + tarRef.isdead())
         PlayerRef.PlayIdle(BleedOutStart)
         AzuraFadeToBlack.Apply()
         if !deathModeActivated
@@ -164,24 +165,27 @@ Function EvaluateCompleteScene(bool onStart=false)
     Actor[] ActorsIn = _thread.GetPositions()
     string output = ""
     float energyNew = 0
+    float[] retVals = new float[2]
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         while index < ActorsIn.length
             Actor ActorRef = Actorsin[Index]
-            float[] retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
-            Oenergy.nextAnnouncment = ""
-            energyNew = retVals[0]
-            if ActorRef && PlayerRef != ActorRef
-                max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
-                if !isSuccableOverload(ActorRef) && deathModeActivated
-                    max_prot = true
+            int relatisonship = ActorRef.GetRelationshipRank(playerref)
+            if isSuccableOverload(ActorRef) && (succubusType != 1 || relatisonship < 4)
+                retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
+                energyNew = retVals[0]
+                if ActorRef
+                    max_rel = max(relatisonship, max_rel) as int
                 endif
+            elseif ActorRef != PlayerRef
+                if deathModeActivated
+                    max_prot = true
+                    toggleDeathMode()
+                endif
+                output += ActorRef.GetDisplayName() + " can't be drained!
+"
             endif
             index += 1
         EndWhile
-        if ((deathModeActivated && onStart) && ( (succubusType == 1 || max_prot)  && (max_rel > 3)  )  ) ; TODO - Logic for auto-deactivation
-            output += "I can't drain them! "
-            toggleDeathMode()
-        endif
     endif
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
@@ -192,11 +196,17 @@ Function EvaluateCompleteScene(bool onStart=false)
         output += "Mhhm this is good. "
     elseif energyNew >= 10
         output += "I like this. "
-    elseif energyNew >= 0
+    elseif energyNew > 0
         output += "I can live with this. "
-    elseif energyNew < 0
+    else
         output += "Eugh, this is bad. "
     endif
+    string newOut = Oenergy.nextAnnouncment
+    newOut += "
+"
+    newOut += output +": " + retVals[0] as int
+    GetAnnouncement().Show(newOut  , "icon.dds", aiDelay = 5.0)
+
     ; if ReadInCosmeticSetting()[2] == 1
     ;     OEnergy.ShowAnnounceMent(energyNew as int)
     ; endif
@@ -252,11 +262,12 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             index+=1
         EndWhile
         index = 0
+        succAbleTargets = max(1, succAbleTargets) as int
         while index < ActorsIn.Length
             Actor WhoCums = ActorsIn[index]
-            if isSuccableOverload(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && _thread.ActorAlias(WhoCums).GetOrgasmCount() > 0
-                updateSuccyNeeds(  min(WhoCums.GetAV("Health"), getDrainLevel() * orgasmCountScene / succAbleTargets )  )
-                TSSD_DrainHealth.SetNthEffectMagnitude(0, getDrainLevel() * orgasmCountScene / succAbleTargets )
+            if WhoCums.hasmagiceffect(TSSD_DraineMarkerEffect) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
+                updateSuccyNeeds(  min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )  )
+                TSSD_DrainHealth.SetNthEffectMagnitude(0, 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
                 TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
             endif
             index+=1
@@ -272,8 +283,9 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         int tarIndex = 0
         while tarIndex < targetsToAlert.Length
             Actor curRef = targetsToAlert[tarIndex]
-            if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef)
+            if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled() && !curRef.isDead()
                 curRef.StartCombat(PlayerRef)
+                curRef.PathToReference(PlayerRef, 0.9)
             endif
             tarIndex += 1
         EndWhile
