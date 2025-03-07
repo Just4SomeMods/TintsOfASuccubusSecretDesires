@@ -14,6 +14,10 @@ GlobalVariable Property TSSD_SuccubusType Auto
 
 bool Property shouldFadeOut Auto
 
+Function onReloadStuff()
+    onInit()
+Endfunction
+
 Event OnInit()
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
     String[] barVals = StringUtil.Split("Pos_X;Pos_Y;Size_X;Size_Y;Rotation", ";")
@@ -30,6 +34,9 @@ Event OnInit()
         registerForModEvent("EVM_SliderChanged_" + "TSSD_Main_Bar_"+barVals[index],  "TSSD_Main_Bar_"+barVals[index]+"_Event")
         index += 1
     endwhile
+    UpdateBarPositions()
+    iWidgets.setTransparency(tWidgetNum, 100)
+    UpdateStatus()
 EndEvent
 
 Event TSSD_Main_Bar_Pos_X_Event(string a_eventName, string a_strArg, float a_numArg, form a_sender)
@@ -61,7 +68,8 @@ EndFunction
 Function UpdateStatus()
     if iWidgets && SuccubusDesireLevel.GetValue() > -101
         iWidgets.setTransparency(tWidgetNum,100)
-        iWidgets.doTransitionByTime(tWidgetNum, max(SuccubusDesireLevel.GetValue(), SuccubusDesireLevel.GetValue() * -1) as int, 1.0, "meterpercent" ) 
+        iWidgets.setvisible(tWidgetNum,100)
+        iWidgets.doTransitionByTime(tWidgetNum, max(SuccubusDesireLevel.GetValue(), SuccubusDesireLevel.GetValue() * -1) as int, 1.0, "meterpercent" )
         if shouldFadeOut
             iWidgets.doTransitionByTime(tWidgetNum, 0, seconds = 2.0, targetAttribute = "alpha", easingClass = "none",  easingMethod = "none",  delay = 5.0)
         endif

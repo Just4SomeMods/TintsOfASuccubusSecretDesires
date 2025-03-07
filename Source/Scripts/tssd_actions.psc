@@ -182,6 +182,7 @@ Function EvaluateCompleteScene(bool onStart=false)
             int relatisonship = ActorRef.GetRelationshipRank(playerref)
             if isSuccableOverload(ActorRef) && (succubusType != 1 || relatisonship < 4)
                 retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
+                Oenergy.nextAnnouncment = ""
                 energyNew = retVals[0]
                 if ActorRef
                     max_rel = max(relatisonship, max_rel) as int
@@ -582,6 +583,8 @@ Function onGameReload()
     RegisterSuccubusEvents()
     cosmeticSettings = ReadInCosmeticSetting()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
+    tWidgets.onReloadStuff()
+    updateSuccyNeeds(0)
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
     endif
