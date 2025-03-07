@@ -52,7 +52,8 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-Actor[] targetsToAlert
+Actor[] Property targetsToAlert Auto
+Actor[] Property cell_ac Auto
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
@@ -96,7 +97,8 @@ Endfunction
 Actor Function searchForTargets()
     int radius = getScanRange()
     targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
-    Actor[] cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
+    cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
+    DBGTRace(cell_ac)
     int ac_index = 0
     bool isFading = false
     Actor curRef
@@ -105,6 +107,7 @@ Actor Function searchForTargets()
     numHostileActors = 0
     float min_distance
     Actor nearestActor
+    Actor[] tempArr = new Actor[1]
     while ac_index < cell_ac.Length
         curRef = cell_ac[ac_index]
         if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled() && !curRef.isDead() && !curRef.HasKeyword(IsCreature)
@@ -113,10 +116,17 @@ Actor Function searchForTargets()
                 min_distance = PlayerRef.GetDistance(curRef)
             endif
             isHostileArr[ac_index] = true
+            if numHostileActors == 0
+                tempArr[0] = curRef
+            else
+                tempArr = PapyrusUtil.PushActor(tempArr,curRef )
+            endif
             numHostileActors += 1
         endif
+        
         ac_index += 1
     endwhile
+    cell_ac = tempArr
     if nearestActor
         isFading = true
         tarRef = nearestActor

@@ -45,7 +45,6 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-Actor[] targetsToAlert
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
@@ -356,8 +355,14 @@ Function OpenSuccubusAbilities()
         indexOfA += 1
     endwhile
 
-    if playerRef.HasPerk(TSSD_Body_DefeatThem1) && tActions.numHostileActors == 1 && tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")
-        itemsAsString += ";Rape them!"
+    if playerRef.HasPerk(TSSD_Body_DefeatThem1)
+        int max_targets = 1 + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk().GetNextPerk()) as int +\
+                              playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk()) as int
+        if tActions.numHostileActors <= max_targets
+            if max_targets > 1 || (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")) || playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) && PlayerRef.GetLevel() > tarRef.GetLevel() || playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())
+                itemsAsString += ";Rape them!"
+            endif
+        endif
     endif
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
@@ -399,7 +404,21 @@ Function OpenSuccubusAbilities()
             tactions.toggleDeathMode()
         endif
         Sexlab.RegisterHook( tactions.stageEndHook)
-        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = tarRef)
+        if !Sexlab.StartSceneA(akPositions = PapyrusUtil.PushActor(tactions.cell_ac, PlayerRef), asTags = "", akSubmissives = tactions.cell_ac)
+            if !Sexlab.StartScene(akPositions = PapyrusUtil.PushActor(tactions.cell_ac, PlayerRef), asTags = "")
+                int tarIndex = 0
+                while tarIndex < tactions.cell_ac.Length
+                    Actor curT = tactions.cell_ac[tarIndex]
+                    if curT && !curT.isDead()
+                        tactions.updateSuccyNeeds(  min(curT.GetAV("Health"), 100 + tactions.getDrainLevel() )  )
+                        tactions.TSSD_DrainHealth.SetNthEffectMagnitude(0, 100 + tactions.getDrainLevel() )
+                        tactions.TSSD_DrainHealth.Cast(PlayerRef, curT)
+                    endif
+                    tarIndex += 1
+                EndWhile
+            endif
+        endif
+
     elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1
         bool found = false
