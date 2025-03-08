@@ -20,6 +20,9 @@ Idle property BleedOutStart auto
 
 tssd_orgasmenergylogic Property OEnergy Auto 
 
+Quest Property tssd_dealwithcurseQuest Auto
+
+GlobalVariable[] Property tssd_deityTrackers Auto
 
 GlobalVariable Property TimeOfDayGlobalProperty Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
@@ -225,13 +228,13 @@ Endfunction
 
 Function PlayerSceneStart(Form FormRef, int tid)
     int succubusType = TSSD_SuccubusType.GetValue() as int
+    Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
     if smooching == 0.0
         EvaluateCompleteScene(true)
     else
-        Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
         Actor nonPlayer = ActorsIn[0]
         if nonPlayer == PlayerRef
             nonPlayer = ActorsIn[1]
@@ -245,7 +248,25 @@ Function PlayerSceneStart(Form FormRef, int tid)
         endif
         setHeartEyes(PlayerEyes, true)
     endif
+    if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+        int index = 0
+        while index < ActorsIn.Length
+            Actor WhoCums = ActorsIn[index]
+            float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
+            if WhoCums != PlayerRef && (lstTime < 0 || lstTime > 7)
+                increaseGlobalDeity(3, 25)
+            else
+                increaseGlobalDeity(3, 5)
+            endif
+
+            index+=1
+        EndWhile
+    endif
 EndFunction
+
+bool Function increaseGlobalDeity(int index, int byVal = 1)
+    return tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 22 + index)
+Endfunction
 
 bool Function isSuccableOverload(Actor ActorRef)
     return isSuccable(ActorRef, TSSD_DraineMarkerEffect)
@@ -258,6 +279,9 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     if Sexlab.IsHooked(stageEndHook)
         Sexlab.UnRegisterHook( stageEndHook)
     endif
+
+
+
     if deathModeActivated
         ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
         ; TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
@@ -341,6 +365,9 @@ Endfunction
 
 ; Function to adjust energy level
 Function RefreshEnergy(float adjustBy, int upTo = 100)
+    if  !tssd_dealwithcurseQuest.isobjectivefailed(24)
+        upTo = 19
+    endif
     float lastVal = SuccubusDesireLevel.GetValue()
     int lowerBound = -100
     if (TSSD_SuccubusType.GetValue() as int) == 3

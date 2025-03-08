@@ -101,6 +101,56 @@
             ]
         },
         {
+            "pageDisplayName": "DEBUG: Activators",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "ShrineOfKynareth",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineOfZenithar",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofAkatosh",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofArkay",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofDibella",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofJulianos",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofMara",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofStendarr",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "ShrineofTalos",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
             "pageDisplayName": "DEBUG: Globals",
             "content": [
                 {
@@ -353,6 +403,126 @@
                         "step": 1,
                         "sourceType": "GlobalValue",
                         "sourceForm": "TintsOfASuccubusSecretDesires.esp|04B"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestakglobal",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|051"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestakglobalcor",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|06F"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestdbglobal",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|050"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestdbglobalcor",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|071"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestmaglobal",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|072"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestmaglobalcor",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|073"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessqueststglobal",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|06C"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessqueststglobalcor",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|06E"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestztglobal",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|06B"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestztglobalcor",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|070"
                     }
                 },
                 {
@@ -699,62 +869,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "Aggressive Negotation2",
-                    "help": "You can overpower the last hostile target, if they have less health than you or are of lower level than you and drain them dry.\nSkillSuccubusBodyLevel >= 20.0\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "80"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Aggressive Negotation3",
-                    "help": "You can overpower the last hostile target and drain them dry.\nSkillSuccubusBodyLevel >= 80.0\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "81"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Aggressive Negotation4",
-                    "help": "You can overpower the last two hostile targets and drain them dry.\nSkillSuccubusBodyLevel >= 90.0\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "107"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Aggressive Negotation5",
-                    "help": "You can overpower the last three hostile targets and drain them dry.\nSkillSuccubusBodyLevel >= 100.0\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "108"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
                     "text": "Energy To Mass1",
                     "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 0\n",
                     "action": {
@@ -890,6 +1004,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "86"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Divine \"Blessings\"",
+                    "help": "\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "109"
                         ]
                     }
                 },
@@ -1437,7 +1565,7 @@
                 {
                     "id": "sTSSD_SuccubusBaseChangesMag0:Spells",
                     "type": "input",
-                    "text": "Succubus  Curse Effect 0 Mag",
+                    "text": "Succubus Curse Effect 0 Mag",
                     "help": "Stop Health Regen 1000",
                     "action": {
                         "type": "CallFunction",
@@ -1455,7 +1583,7 @@
                 {
                     "id": "sTSSD_SuccubusBaseChangesMag1:Spells",
                     "type": "input",
-                    "text": "Succubus  Curse Effect 1 Mag",
+                    "text": "Succubus Curse Effect 1 Mag",
                     "help": "Stop Magicka Regen 1000",
                     "action": {
                         "type": "CallFunction",
@@ -1473,7 +1601,7 @@
                 {
                     "id": "sTSSD_SuccubusBaseChangesMag2:Spells",
                     "type": "input",
-                    "text": "Succubus  Curse Effect 2 Mag",
+                    "text": "Succubus Curse Effect 2 Mag",
                     "help": "Stop Health Regen 1000",
                     "action": {
                         "type": "CallFunction",

@@ -1,0 +1,63 @@
+{
+  "FormKey": "0D987B:Skyrim.esm",
+  "EditorID": "ShrineOfZenithar",
+  "Version2": 12,
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "TempleBlessingScript",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TempleBlessing",
+            "Object": "0FB99B:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "BlessingMessage",
+            "Object": "10A28F:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
+          }
+        ]
+      },
+      {
+        "Name": "tssd_startquestscript",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptStringProperty",
+            "Name": "deityName",
+            "Data": "Zenithar"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "tssd_dealwithcurseQuest",
+            "Object": "00004F:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_SuccubusType",
+            "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
+          }
+        ]
+      }
+    ]
+  },
+  "ObjectBounds": {
+    "First": "-16, -16, 55",
+    "Second": "18, 18, 68"
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Shrine of Zenithar"
+  },
+  "Model": {
+    "File": "Clutter\\Shrines\\ShrineZenithar.nif",
+    "Data": "0x020000000200000000000000A972B6226464730081A1A136C238E7566464730081A1A136"
+  },
+  "MarkerColor": "#00CC4C33",
+  "Flags": []
+}

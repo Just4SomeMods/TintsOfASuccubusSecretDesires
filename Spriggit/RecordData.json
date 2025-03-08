@@ -6,6 +6,9 @@
   "ModKey": "TintsOfASuccubusSecretDesires.esp",
   "GameRelease": "SkyrimSE",
   "ModHeader": {
+    "Flags": [
+      "Small"
+    ],
     "Author": "DEFAULT",
     "MasterReferences": [
       {

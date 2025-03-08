@@ -1,0 +1,63 @@
+{
+  "FormKey": "0D987D:Skyrim.esm",
+  "EditorID": "ShrineofStendarr",
+  "Version2": 11,
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "TempleBlessingScript",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TempleBlessing",
+            "Object": "0FB999:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "BlessingMessage",
+            "Object": "10A28D:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
+          }
+        ]
+      },
+      {
+        "Name": "tssd_startquestscript",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptStringProperty",
+            "Name": "deityName",
+            "Data": "Stendarr"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "tssd_dealwithcurseQuest",
+            "Object": "00004F:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_SuccubusType",
+            "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
+          }
+        ]
+      }
+    ]
+  },
+  "ObjectBounds": {
+    "First": "-16, -16, 54",
+    "Second": "15, 15, 86"
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Shrine of Stendarr"
+  },
+  "Model": {
+    "File": "Clutter\\Shrines\\ShrineStendarr.nif",
+    "Data": "0x020000000200000000000000A9FF901A6464730081A1A13679FFEEC56464730081A1A136"
+  },
+  "MarkerColor": "#00CC4C33",
+  "Flags": []
+}

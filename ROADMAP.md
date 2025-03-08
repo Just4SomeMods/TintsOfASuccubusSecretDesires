@@ -5,8 +5,22 @@ Try and cure yourself or deepen the corruption!
 ## Divine Quest ideas
 
 ### Mara
-Help a couple marry, marry yourself, build a home or get pregnant!
+* Help with a marriage, marry yourself, build a home or get pregnant!
+* OR: Sleep with married people
 
 ### Dibella
-Have sex with x different people while denying yourself.
+* Make Love.
+* OR: Have sex with dubious consent
+
+### Arkay
+* Defeat Undead.
+* OR: Defeat the undead through draining them
+
+### Zenithar
+* Taxes
+* OR: Pay your taxes through illegal activities
+
+### Stendarr
+* Help the people
+* OR: Do quests for the thieves guild, Dark Brotherhood or the Civil War 
 

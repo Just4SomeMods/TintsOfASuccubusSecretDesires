@@ -60,7 +60,6 @@ bool[] Function ReadInCosmeticSetting() Global
     return cosmeticSettings
 Endfunction
 
-
 bool Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect) Global
     ActorBase ak = (akActor.GetBaseObject() as ActorBase)
     return (Game.GetPlayer() != akActor) && !ak.IsProtected() && !ak.IsEssential() && !akActor.HasMagicEffect(TSSD_DraineMarkerEffect) && !akActor.IsChild()
