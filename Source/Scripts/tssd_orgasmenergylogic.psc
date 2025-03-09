@@ -16,7 +16,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
     ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
     string succubusTypeString = GetSuccubusTypesAll()[succubusType]
-    int index = 0
+    
     string[] succubusTraits = GetSuccubusTraitsAll()
     int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 5)
     SUCCUBUSTRAITSVALUESBONUS[2] = 100
@@ -37,16 +37,16 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
         else
             return retVals
         endif
+        int index = 0
         retval += 20
         while index < SUCCUBUSTRAITSVALUESBONUS.Length
             bool traitYes = false
             if chosenTraits[index]
                 traitYes = traitLogic(index, _thread, WhoCums)
-            
-                if (index == 5) && traitYes   
+                if traitYes && index == 5
                     nextAnnouncment += WhoCums.GetDisplayName()
                 endif
-                string announceDial = GetTypeDial(succubusTraits[index], traitYes, true)
+                string announceDial = " " + GetTypeDial(succubusTraits[index], traitYes, true)
                 nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)
                 if nextAnnouncmentLineLength > 100
                     nextAnnouncment += "\n"
@@ -58,7 +58,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
         EndWhile
     elseif WhoCums && !MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugNoEnergyLoss:Main")
         Actor[] ActorsIn = _thread.GetPositions() 
-        index = 0
+        int index = 0
         int max_rel = 0
         int max_prot = 0
         int max_met = 0
@@ -109,8 +109,6 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
     return retVals
 
 Endfunction
-
-
 
 bool Function traitLogic(int index, sslThreadController _thread, Actor WhoCums)
     float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
