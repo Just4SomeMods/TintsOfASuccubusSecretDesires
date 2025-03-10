@@ -311,9 +311,11 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         while index < ActorsIn.Length
             Actor WhoCums = ActorsIn[index]
             if WhoCums.hasmagiceffect(TSSD_DraineMarkerEffect) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
-                updateSuccyNeeds(  min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )  )
-                TSSD_DrainHealth.SetNthEffectMagnitude(0, 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
+                float succdVal = min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
+                updateSuccyNeeds( succdVal   )
+                TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
                 TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
+                TSSD_SuccubusLibido.Mod(succdVal/10)
             endif
             index+=1
         EndWhile
