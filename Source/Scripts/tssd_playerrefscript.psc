@@ -16,7 +16,6 @@ Event OnInit()
 
     AddInventoryEventFilter(Gold001)
     RegisterForTrackedStatsEvent()
-    PO3_Events_Form.RegisterForQuestStage(Playerref, none)
 
 EndEvent
 
@@ -51,10 +50,5 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         if !tssd_dealwithcurseQuest.isobjectivefailed(22) && (asStatFilter == "Thieves' Guild Quests Completed" || asStatFilter == "The Dark Brotherhood Quests Completed" || asStatFilter == "Civil War Quests Completed" || asStatFilter == "Daedric Quests Completed" || asStatFilter == "Dawnguard Quests Completed" || asStatFilter == "Dragonborn Quests Completed")
             tssd_dealwithcurseQuest.ModObjectiveGlobal(1, TSSD_deityblessqueststglobalcor, 32)
         endif
-
-
-
-
     endif
-
 endEvent

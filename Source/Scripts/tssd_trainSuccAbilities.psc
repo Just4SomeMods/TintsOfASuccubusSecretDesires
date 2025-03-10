@@ -8,6 +8,9 @@ GlobalVariable skillVal
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TOSD_SuccubusPerkPoints Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
+Actor Property PlayerRef Auto
+Perk Property TSSD_Base_Explanations Auto
+Spell Property TSSD_BaseHealthBodyBuff Auto
 
 Function SetSkillName(String newName)
     SkillName = newName
@@ -42,10 +45,7 @@ EndFunction
 
 ; how many times the player can train this skill
 Int Function GetAvailableTraining()
-    if SkillVal == TSSD_PerkPointsBought
-        Return 100
-    endif
-    return 20
+    Return 999
 EndFunction
 
 ; how much training for the next skill up costs
@@ -68,14 +68,21 @@ EndFunction
 
 ; train the skill
 Function Train()
-    SuccubusXpAmount.SetValue( GetCurrentGold() - GetTrainCost() )
+    SuccubusXpAmount.Mod( -1 * GetTrainCost() )
     if SkillVal == TSSD_PerkPointsBought
-        TSSD_PerkPointsBought.SetValue((TSSD_PerkPointsBought.GetValue()) + 1 as int)
-        TOSD_SuccubusPerkPoints.SetValue(TOSD_SuccubusPerkPoints.GetValue() + 1 as int)
+        TSSD_PerkPointsBought.Mod( 1)
+        TOSD_SuccubusPerkPoints.Mod(1)
     else
-        SkillVal.SetValue( SkillVal.GetValue() + 5 )
+        SkillVal.Mod( 5 )
         CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
         ;CustomSkills.IncrementSkill(SkillVal)
+    endif
+    if PlayerRef.HasPerk(TSSD_Base_Explanations)
+        if SkillName == "Body"
+            PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff)
+        endif
+        PlayerRef.RemovePerk(TSSD_Base_Explanations)
+        PlayerRef.AddPerk(TSSD_Base_Explanations)
     endif
 
 EndFunction

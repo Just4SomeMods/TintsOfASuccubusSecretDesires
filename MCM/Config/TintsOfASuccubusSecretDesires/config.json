@@ -371,6 +371,30 @@
                 },
                 {
                     "type": "slider",
+                    "text": "TSSD_SuccubusBreakRank",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": -1,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|079"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_SuccubusLibido",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": -101,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|078"
+                    }
+                },
+                {
+                    "type": "slider",
                     "text": "TSSD_SuccubusPerkPoints",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -618,11 +642,6 @@
                 {
                     "type": "text",
                     "text": "Mageform",
-                    "help": "Your Illusion spells and destructions spells are <mag>% more effective."
-                },
-                {
-                    "type": "text",
-                    "text": "Mageform",
                     "help": "Increases your Magicka by <mag> points."
                 },
                 {
@@ -679,6 +698,11 @@
                     "type": "text",
                     "text": "Detect Life Enemy Exterior",
                     "help": ""
+                },
+                {
+                    "type": "text",
+                    "text": "Fortify Magicka",
+                    "help": "Magicka more by <mag> Points and health lel."
                 }
             ]
         },
@@ -1292,6 +1316,24 @@
         {
             "pageDisplayName": "DEBUG: Spells",
             "content": [
+                {
+                    "id": "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
+                    "type": "input",
+                    "text": "Base Magicka Drain Buff Effect 0 Mag",
+                    "help": "Fortify Magicka 1",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "89",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
                 {
                     "id": "sTSSD_Body_JailerSpellMag0:Spells",
                     "type": "input",

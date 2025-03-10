@@ -1,0 +1,29 @@
+[Properties]
+
+sBaseL  = "Object: TintsOfASuccubusSecretDesires.esp::0x01F"
+sBodyL  = "Object: TintsOfASuccubusSecretDesires.esp::0x004"
+sDrainL = "Object: TintsOfASuccubusSecretDesires.esp::0x002"
+sSeduL  = "Object: TintsOfASuccubusSecretDesires.esp::0x003"
+
+[SuccubusBaseSkill]
+type = "Functional"
+alias = "OneHandedSkillAdvance"
+get = "GetGlobalValueParam(sBaseL)"
+
+[SuccubusBodySkill]
+type = "Functional"
+alias = "TwoHandedSkillAdvance"
+get = "GetGlobalValueParam(sBodyL)"
+
+[SuccubusDrainSkill]
+type = "Functional"
+alias = "RestorationSkillAdvance"
+get = "GetGlobalValueParam(sDrainL)"
+
+[SuccubusSeductionSkill]
+type = "Functional"
+alias = "EnchantingSkillAdvance"
+get = "GetGlobalValueParam(sSeduL)"
+
+[Include]
+"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill"]

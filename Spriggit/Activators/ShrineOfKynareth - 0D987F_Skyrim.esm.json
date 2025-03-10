@@ -9,6 +9,11 @@
         "Properties": [
           {
             "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
             "Name": "TempleBlessing",
             "Object": "0FB997:Skyrim.esm"
           },
@@ -16,22 +21,12 @@
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "BlessingMessage",
             "Object": "10A28B:Skyrim.esm"
-          },
-          {
-            "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "AltarRemoveMsg",
-            "Object": "10E4F9:Skyrim.esm"
           }
         ]
       },
       {
         "Name": "tssd_startquestscript",
         "Properties": [
-          {
-            "MutagenObjectType": "ScriptStringProperty",
-            "Name": "deityName",
-            "Data": "Kynareth"
-          },
           {
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "tssd_dealwithcurseQuest",
@@ -41,6 +36,11 @@
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "TSSD_SuccubusType",
             "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptStringProperty",
+            "Name": "deityName",
+            "Data": "Kynareth"
           }
         ]
       }

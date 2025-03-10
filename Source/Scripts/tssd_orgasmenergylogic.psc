@@ -45,6 +45,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
                 traitYes = traitLogic(index, _thread, WhoCums)
                 if traitYes && index == 5
                     nextAnnouncment += WhoCums.GetDisplayName()
+                    retval += SUCCUBUSTRAITSVALUESBONUS[index]
                 endif
                 string announceDial = " " + GetTypeDial(succubusTraits[index], traitYes, true)
                 nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)

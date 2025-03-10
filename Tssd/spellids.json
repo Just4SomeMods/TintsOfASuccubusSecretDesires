@@ -1,5 +1,11 @@
 [
     [
+        "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
+        true,
+        "89",
+        0
+    ],
+    [
         "sTSSD_Body_JailerSpellMag0:Spells",
         true,
         "100",

@@ -21,6 +21,7 @@ Idle property BleedOutStart auto
 tssd_orgasmenergylogic Property OEnergy Auto 
 
 Quest Property tssd_dealwithcurseQuest Auto
+Quest Property tssd_libidoTrackerQuest Auto
 
 GlobalVariable[] Property tssd_deityTrackers Auto
 
@@ -35,6 +36,7 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property TSSD_SuccubusType Auto
+GlobalVariable Property TSSD_SuccubusLibido Auto
 
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
@@ -145,7 +147,7 @@ Function actDefeated(actor tarRef)
         if !deathModeActivated
             toggleDeathMode()
         endif
-        GameHours.SetValue(GameHours.GetValue() + 1) ; TODO
+        GameHours.Mod(1) ; TODO
         Utility.Wait(2.5)
         tarRef.MoveTo(PlayerRef, 0, 0)
         tarRef.enable()
@@ -166,8 +168,16 @@ Function RegisterSuccubusEvents()
     RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
+    RegisterForTrackedStatsEvent()
+    tssd_libidoTrackerQuest.start()
 Endfunction
 
+  
+Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
+      if (asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered"
+        Debug.Notification("Oh I gotta talk about that!")
+      endif
+endEvent
 
 Function EvaluateCompleteScene(bool onStart=false)
     sslThreadController _thread =  Sexlab.GetPlayerController()
@@ -398,7 +408,7 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
     endif
 
     if value > 0
-        SuccubusXpAmount.SetValue(SuccubusXpAmount.GetValue() + value * 10)
+        SuccubusXpAmount.Mod(value * 10)
     endif
     if succNeedVal - value < 0 && (TSSD_SuccubusType.GetValue() as int) == 3
         value =  succNeedVal * - 1
@@ -566,7 +576,7 @@ Event OnUpdateGameTime()
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
     float valBefore = SuccubusDesireLevel.GetValue()
     Location curLoc = Game.GetPlayer().GetCurrentLocation()
-    float energy_loss = timeBetween * ( 1 + (PlayerRef.GetFactionRank(sla_Arousal)) / 100)
+    float energy_loss = timeBetween * ( 1 + (TSSD_SuccubusLibido.GetValue()) / 100)
     if (valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
         (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
         if timeBetween >= 1
@@ -584,6 +594,7 @@ Event OnUpdateGameTime()
         last_checked = TimeOfDayGlobalProperty.GetValue()
         updateSuccyNeeds(energy_loss)
     endif
+    TSSD_SuccubusLibido.SetValue( max(0,TSSD_SuccubusLibido.GetValue() - timeBetween))
 endEvent
 
 Event OnMenuOpen(String MenuName)

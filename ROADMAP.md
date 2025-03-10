@@ -32,8 +32,8 @@ Try and cure yourself or deepen the corruption!
 
 * Per Corruption a visual effect
 * Mara - Homewrecker
-* Dibella Cracked Skin Body
-* Stendarr Cracked Skin Face
+* Dibella Cracked Skin Body slavetats/Demons/body_cracks.dds
+* Stendarr Cracked Skin Face slavetats/Demons/cracks_face.dds
 * Arkay Grey skin?
 * Zenithar Cracked Hands
 * If all then horns, (tail and wings optionally as well)

@@ -45,7 +45,7 @@
             "Shadows consume me without warmth.",
             "Alone, I am but a flickering ember."
         ],
-        "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. You do not lose energy from climaxing during sex with a person that loves your, else you lose more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
+        "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. You do not lose energy from climaxing during sex with a person that loves your, else you lose more. Your libido increases every time you learn something new as you think about wanting to talk about it with that special person.",
         "color": [255,36,0],
         "famecat" : null
     },
@@ -76,7 +76,7 @@
             "Isn't it time for something new?",
             "Haven't we met before?"
         ],
-        "description": "You live an exciting life! Pursuing new things is your drive. You lose no energy while climaxing with a person on your first time together, else more. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death." ,
+        "description": "You live an exciting life! Pursuing new things is your drive. You lose no energy while climaxing with a person on your first time together, else more. Your libido increases when you are around lots of people." ,
         "color" : [255,192,203],
         "famecat" : ["Airhead", "Slut", "Group"]
     },
@@ -114,7 +114,7 @@
             "My heart longs for a wilder beat.",
             "Predictable and tame."
         ],
-        "description": "Without risk, there is no fun... You do not lose energy while climaxing form being raped, you lose more otherwise. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
+        "description": "Without risk, there is no fun... You do not lose energy while climaxing form being raped, you lose more otherwise. Your libido increases every time take damage.",
         "color": [108,67,36],
         "famecat" : ["Masochist", "Bound", "Submissive"]
     }

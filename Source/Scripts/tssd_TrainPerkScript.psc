@@ -11,6 +11,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		if max_num_traits > TSSD_MaxTraits.GetValue()
 			PlayerRef.RemovePerk(TOSD_Base_TraitGain)
 		endif
-		TSSD_MaxTraits.setvalue(TSSD_MaxTraits.GetValue() + 1 )
+		TSSD_MaxTraits.Mod(1 )
 		Debug.Messagebox("You can now select " + TSSD_MaxTraits.GetValue() + " out of " + max_num_traits + " Traits!")
 endevent
