@@ -1,0 +1,54 @@
+{
+     "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+     "id": "SuccubusSeductionSkill",
+     "name": "$SuccubusDeitySkillName",
+     "description": "$SuccubusDeitySkillDescription",
+     "legendary": "TintsOfASuccubusSecretDesires.esp|01E",
+     "level": "TintsOfASuccubusSecretDesires.esp|01F",
+     "ratio": "TintsOfASuccubusSecretDesires.esp|020",
+     "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+     "experienceFormula": {
+          "useMult": 7.0,
+          "useOffset": 0.0,
+          "improveMult": 0.5,
+          "improveOffset": 120.0,
+          "enableXPPerRank": false
+     },
+     "nodes": [
+          {
+          "id": "Dibella",
+          "perk": "TintsOfASuccubusSecretDesires.esp|075",
+          "x": 0.5,
+          "y": -0.5,
+          "links": [ ]
+          },
+          {
+          "id": "Mara",
+          "perk": "TintsOfASuccubusSecretDesires.esp|07B",
+          "x": -0.5,
+          "y": -0.5,
+          "links": [ ]
+          },
+          {
+          "id": "Arkay",
+          "perk": "TintsOfASuccubusSecretDesires.esp|07C",
+          "x": 0.5,
+          "y": 0.5,
+          "links": [ ]
+          },
+          {
+          "id": "Stendarr",
+          "perk": "TintsOfASuccubusSecretDesires.esp|07D",
+          "x": -0.5,
+          "y": 0.5,
+          "links": [ ]
+          },
+          {
+          "id": "Zenithar",
+          "perk": "TintsOfASuccubusSecretDesires.esp|07E",
+          "x": 0,
+          "y": 1,
+          "links": [ ]
+          }
+     ]
+}

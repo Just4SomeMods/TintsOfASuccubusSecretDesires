@@ -621,6 +621,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Stendarr: Libido decreases faster",
+                    "help": "Your charity helps you focus more."
+                },
+                {
+                    "type": "text",
                     "text": "Long Nails",
                     "help": "Your claw-like nails deal <mag> more damage."
                 },
@@ -697,6 +702,11 @@
                 {
                     "type": "text",
                     "text": "Detect Life Enemy Exterior",
+                    "help": ""
+                },
+                {
+                    "type": "text",
+                    "text": "Zenithar: Libido Decrease",
                     "help": ""
                 },
                 {
@@ -936,7 +946,7 @@
                 {
                     "type": "text",
                     "text": "Creampie Lover1",
-                    "help": "[If you have been recently filled up, you gain damage reduction.]\nSkillSuccubusBodyLevel >= 0\n",
+                    "help": "While you are digesting semen, you gain stamina regeneration.\nSkillSuccubusBodyLevel >= 0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1028,6 +1038,76 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "86"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Arkay's gift",
+                    "help": "Your libido increase by draining someone to death is cut in half.\nTSSD_deityblessquestakglobal >= 100.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "124"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Dibella's gift",
+                    "help": "Your libido decreases more if you masturbate in a public place.\nTSSD_deityblessquestdbglobal >= 1000.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "117"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Mara's gift",
+                    "help": "Your libido decreases faster in a home.\nTSSD_deityblessquestmaglobal >= 1.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "123"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Stendarr's gift",
+                    "help": "Your libido decreases when you give money to the poor.\nTSSD_deityblessqueststglobal >= 10.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "125"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Zenithar's Acquired Goods",
+                    "help": "You can pray to Zenithar to reduce your libido for a small donation.\nTSSD_deityblessquestztglobal >= 10000.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "126"
                         ]
                     }
                 },
@@ -1316,6 +1396,24 @@
         {
             "pageDisplayName": "DEBUG: Spells",
             "content": [
+                {
+                    "id": "sFavorJobsBeggarsAbilityDur1:Spells",
+                    "type": "input",
+                    "text": "The Gift of Charity Effect 1 Dur",
+                    "help": "Stendarr: Libido decreases faster 3600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "978776",
+                            "{i}1",
+                            "{value}"
+                        ]
+                    }
+                },
                 {
                     "id": "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
                     "type": "input",
@@ -1726,6 +1824,24 @@
                             "{b}0",
                             "54",
                             "{i}1",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_ZenitharDonationSpellDur0:Spells",
+                    "type": "input",
+                    "text": "Zenithar Libido Decrease Effect 0 Dur",
+                    "help": "Zenithar: Libido Decrease 3600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "129",
+                            "{i}0",
                             "{value}"
                         ]
                     }

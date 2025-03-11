@@ -31,6 +31,7 @@ Event OnActivate(ObjectReference akActionRef)
                 (tssd_dealwithcurseQuest as tssd_curequestvariables).toggleCurse(deityName)
             endif
         endif
+
     endif
 
 

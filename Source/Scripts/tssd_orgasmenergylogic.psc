@@ -18,14 +18,14 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
     string succubusTypeString = GetSuccubusTypesAll()[succubusType]
     
     string[] succubusTraits = GetSuccubusTraitsAll()
-    int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 5)
+    int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 20)
     SUCCUBUSTRAITSVALUESBONUS[2] = 100
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     float lastMet = 1
     bool[] cosmeticSettings = ReadInCosmeticSetting()
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
     float largestTime = 0
-    float[] retVals = Utility.CreateFloatArray(2, 0)
+    float[] retVals = Utility.CreateFloatArray(3, 0)
     int nextAnnouncmentLineLength = 0
     float energyLosses = 0
     float retval = 0
@@ -43,9 +43,13 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
             bool traitYes = false
             if chosenTraits[index]
                 traitYes = traitLogic(index, _thread, WhoCums)
-                if traitYes && index == 5
-                    nextAnnouncment += WhoCums.GetDisplayName()
+                if traitYes 
                     retval += SUCCUBUSTRAITSVALUESBONUS[index]
+                    if index == 5
+                        nextAnnouncment += WhoCums.GetDisplayName()
+                    endif
+                else
+                    retVals[2] += SUCCUBUSTRAITSVALUESBONUS[index]
                 endif
                 string announceDial = " " + GetTypeDial(succubusTraits[index], traitYes, true)
                 nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)

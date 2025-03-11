@@ -1,6 +1,7 @@
 Scriptname tssd_actions extends Quest
 import b612
 import tssd_utils
+import PapyrusUtil
 
 Actor Property PlayerRef Auto
 
@@ -46,6 +47,11 @@ Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PassiveEnergy1 Auto
 Perk Property TSSD_Base_IncreaseScentRange1 Auto
+Perk Property TSSD_ArkayDibellaPerk Auto
+Perk Property TSSD_DeityDibellaPerk Auto
+Perk Property TSSD_MaraDibellaPerk Auto
+Perk Property TSSD_StendarrDibellaPerk Auto
+Perk Property TSSD_ZenitharDibellaPerk Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
@@ -79,9 +85,12 @@ int lastUsed = -1
 int lastUsedSub = -1
 int spellToggle
 int Property numHostileActors Auto
+int Property playerArousal Auto
 
 string Property tssd_SpellDebugProp = "-1" Auto
 MagicEffect Property TSSD_DraineMarkerEffect Auto  
+MagicEffect Property TSSD_BeggarLibidoDecrease Auto  
+MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
 
 float lastSmoochTimeWithThatPerson = 0.0
 
@@ -89,6 +98,12 @@ float last_checked
 float timer_internal = 0.0
 float smooching = 0.0
 float _updateTimer = 0.5
+
+import storageutil
+String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
+String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
+String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
+STRING PROPERTY SUCCUBUSLIBIDOINCREASE = "tssd.Libido.Rate" autoreadonly hidden
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -103,7 +118,6 @@ Actor Function searchForTargets()
     int radius = getScanRange()
     targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
     cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
-    DBGTRace(cell_ac)
     int ac_index = 0
     bool isFading = false
     Actor curRef
@@ -238,6 +252,7 @@ Endfunction
 
 Function PlayerSceneStart(Form FormRef, int tid)
     int succubusType = TSSD_SuccubusType.GetValue() as int
+    playerArousal = playerref.GetFactionRank(sla_Arousal)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
@@ -275,7 +290,9 @@ Function PlayerSceneStart(Form FormRef, int tid)
 EndFunction
 
 bool Function increaseGlobalDeity(int index, int byVal = 1)
-    return tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 22 + index)
+    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 22 + index)
+    advanceStageTwenty()
+    return isCompleted
 Endfunction
 
 bool Function isSuccableOverload(Actor ActorRef)
@@ -292,34 +309,48 @@ Function PlayerSceneEnd(Form FormRef, int tid)
 
 
 
-    if deathModeActivated
-        ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
-        ; TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
-        int orgasmCountScene = 0
-        int succAbleTargets = 0
-        int index = 0
-        while index < ActorsIn.Length
-            Actor WhoCums = ActorsIn[index]
-            if isSuccableOverload(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
-                orgasmCountScene += _thread.ActorAlias(WhoCums).GetOrgasmCount()
-                succAbleTargets += 1
-            endif
-            index+=1
-        EndWhile
-        index = 0
-        succAbleTargets = max(1, succAbleTargets) as int
-        while index < ActorsIn.Length
-            Actor WhoCums = ActorsIn[index]
-            if WhoCums.hasmagiceffect(TSSD_DraineMarkerEffect) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
-                float succdVal = min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
-                updateSuccyNeeds( succdVal   )
-                TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
-                TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
-                TSSD_SuccubusLibido.Mod(succdVal/10)
-            endif
-            index+=1
-        EndWhile
+    ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
+    ; TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
+    int orgasmCountScene = 0
+    int succAbleTargets = 0
+    int index = 0
+    bool playerCame = _thread.ActorAlias(PlayerRef).GetOrgasmCount() > 0
+    int bonusReduction = 10
+
+    if Actorsin.Length == 1
+        if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets()
+            bonusReduction += 10
+        endif
+        if playerCame && (playerArousal >= 50  || bonusReduction > 10)
+            TSSD_SuccubusLibido.SetValue(max(0,TSSD_SuccubusLibido.GetValue() - bonusReduction * (playerArousal / 50) ) )
+        endif
     endif
+    while index < ActorsIn.Length
+        Actor WhoCums = ActorsIn[index]
+        if isSuccableOverload(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
+            orgasmCountScene += _thread.ActorAlias(WhoCums).GetOrgasmCount()
+            succAbleTargets += 1
+        endif
+        index+=1
+    EndWhile
+    index = 0
+    succAbleTargets = max(1, succAbleTargets) as int
+    while index < ActorsIn.Length
+        Actor WhoCums = ActorsIn[index]
+        if WhoCums.hasmagiceffect(TSSD_DraineMarkerEffect) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated
+            float succdVal = min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
+            updateSuccyNeeds( succdVal   )
+            TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
+            TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
+            int reduction = 10
+            if PlayerRef.HasPerk(TSSD_ArkayDibellaPerk)
+                reduction += 10
+            endif
+            TSSD_SuccubusLibido.Mod(succdVal/reduction)
+        endif
+        index+=1
+    EndWhile
+
     if deathModeActivated && SuccubusDesireLevel.GetValue() >= 0
         toggleDeathMode()
     endif
@@ -524,8 +555,9 @@ Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     Actor ActorRef = ActorRef_Form as Actor
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1) && isSuccableOverload(actorRef)
         float[] retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
-        updateSuccyNeeds(retVals[0], true)        
-        GetAnnouncement().Show(Oenergy.nextAnnouncment +": " + retVals[0] , "icon.dds", aiDelay = 5.0)
+        updateSuccyNeeds(retVals[0], true)
+        TSSD_SuccubusLibido.Mod(retVals[2])
+        GetAnnouncement().Show(Oenergy.nextAnnouncment +": " + (retVals[0] as int) , "icon.dds", aiDelay = 5.0)
         Oenergy.nextAnnouncment = ""
         if (retVals[1] as int) > 0
             RefreshEnergy(retVals[1] as int)
@@ -596,7 +628,22 @@ Event OnUpdateGameTime()
         last_checked = TimeOfDayGlobalProperty.GetValue()
         updateSuccyNeeds(energy_loss)
     endif
-    TSSD_SuccubusLibido.SetValue( max(0,TSSD_SuccubusLibido.GetValue() - timeBetween))
+    int multiplierDecrease = 1
+    if PlayerRef.HasPerk(TSSD_MaraDibellaPerk) && curLoc.HasKeyword(LocTypePlayerHouse)
+        multiplierDecrease += 1
+    endif
+    if PlayerRef.hasmagiceffect(TSSD_BeggarLibidoDecrease)
+        multiplierDecrease += 1
+    endif
+    if PlayerRef.hasmagiceffect(TSSD_ZenitharDonationSpellEffect)   
+        multiplierDecrease += 1
+    endif
+    TSSD_SuccubusLibido.Mod( timeBetween * AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) ) )
+    DBGTRace(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) )
+    TSSD_SuccubusLibido.SetValue( max(0,TSSD_SuccubusLibido.GetValue() - timeBetween * multiplierDecrease ))
+    
+    ; DBGTRace("Oral Cum: " + GetFloatValue(PlayerRef, CUM_ORAL) + "Anal Cum: " + GetFloatValue(PlayerRef, CUM_ANAL) + "Vaginal Cum: " +GetFloatValue(PlayerRef, CUM_VAGINAL))
+    
 endEvent
 
 Event OnMenuOpen(String MenuName)
@@ -613,6 +660,7 @@ Event OnMenuClose(String MenuName)
 EndEvent
 
 Event OnInit()
+    IntListResize(PlayerRef, SUCCUBUSLIBIDOINCREASE, 20)
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
     onGameReload()
@@ -667,5 +715,12 @@ Endfunction
 Function NotificationSpam(string Displaying)
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bSpamNotifications:Main")
         Debug.Notification( "You picked: " + Displaying )
+    endif
+Endfunction
+
+
+Function advanceStageTwenty()
+    if tssd_dealwithcurseQuest.IsObjectiveCompleted(21) && tssd_dealwithcurseQuest.IsObjectiveCompleted(22) && tssd_dealwithcurseQuest.IsObjectiveCompleted(23) && tssd_dealwithcurseQuest.IsObjectiveCompleted(24) && tssd_dealwithcurseQuest.IsObjectiveCompleted(25)
+        tssd_dealwithcurseQuest.setstage(40)
     endif
 Endfunction

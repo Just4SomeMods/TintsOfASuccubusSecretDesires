@@ -14,13 +14,13 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A28F:Skyrim.esm"
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "AltarRemoveMsg",
-            "Object": "10E4F9:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A28F:Skyrim.esm"
           }
         ]
       },
@@ -43,6 +43,9 @@
             "Object": "00004F:TintsOfASuccubusSecretDesires.esp"
           }
         ]
+      },
+      {
+        "Name": "tssd_zenithardonationscript"
       }
     ]
   },

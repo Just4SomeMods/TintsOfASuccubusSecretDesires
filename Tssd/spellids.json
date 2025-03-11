@@ -1,5 +1,11 @@
 [
     [
+        "sFavorJobsBeggarsAbilityDur1:Spells",
+        true,
+        "978776",
+        1
+    ],
+    [
         "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
         true,
         "89",
@@ -136,5 +142,11 @@
         true,
         "54",
         1
+    ],
+    [
+        "sTSSD_ZenitharDonationSpellDur0:Spells",
+        true,
+        "129",
+        0
     ]
 ]

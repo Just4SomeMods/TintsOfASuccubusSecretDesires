@@ -20,7 +20,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|056",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "PassiveEnergy", "OverPowerThem"
+          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "PassiveEnergy", "OverPowerThem", "Filledup"
           ]
      },
      {
@@ -28,6 +28,14 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|04E",
           "x": 0.9,
           "y": -0.2,
+          "links": [
+          ]
+     },
+     {
+          "id": "Filledup",
+          "perk": "TintsOfASuccubusSecretDesires.esp|026",
+          "x": 0.9,
+          "y": 2.2,
           "links": [
           ]
      },
