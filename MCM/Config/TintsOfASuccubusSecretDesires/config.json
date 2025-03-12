@@ -712,6 +712,16 @@
             ]
         },
         {
+            "pageDisplayName": "DEBUG: Messages",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_ZenitharDonationQuestion",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
             "pageDisplayName": "DEBUG: Perks",
             "content": [
                 {
