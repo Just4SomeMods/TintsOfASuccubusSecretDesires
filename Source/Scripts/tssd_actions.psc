@@ -14,6 +14,8 @@ tssd_succubusstageendblockhook Property stageEndHook Auto
 tssd_widgets Property tWidgets Auto
 Faction Property sla_Arousal Auto
 
+tssd_LibidoTrackerRefScript Property libidoTrackerScript Auto
+
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
 String[] Property SuccubusAbilitiesNames  Auto    
@@ -39,6 +41,8 @@ GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property TSSD_SuccubusType Auto
 GlobalVariable Property TSSD_SuccubusLibido Auto
+GlobalVariable Property TSSD_SuccubusBreakRank Auto
+GlobalVariable Property TSSD_ravanousNeedLevel Auto
 
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
@@ -78,7 +82,6 @@ Keyword Property IsCreature Auto
 
 HeadPart PlayerEyes
 
-int ravanousNeedLevel = -100
 int lastUsed = -1
 int lastUsedSub = -1
 int spellToggle
@@ -193,6 +196,7 @@ endEvent
 
 Function EvaluateCompleteScene(bool onStart=false)
     sslThreadController _thread =  Sexlab.GetPlayerController()
+    float playerArousalNow = playerref.GetFactionRank(sla_Arousal)
     int index = 0
     int max_rel = -4
     bool max_prot = false
@@ -226,6 +230,10 @@ Function EvaluateCompleteScene(bool onStart=false)
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
         output += "Someone is about to die! "
+    elseif ActorsIn.Length == 1 && playerArousalNow + TSSD_SuccubusLibido.GetValue() > 75
+        output += "Some great me time! "
+    elseif ActorsIn.Length == 1
+        output += "I'm not in the mood "
     elseif energyNew >= 30
         output += "Ooh, this will do nicely! "
     elseif energyNew >= 20
@@ -319,8 +327,8 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets()
             bonusReduction += 10
         endif
-        if playerCame && (playerArousal >= 50  || bonusReduction > 10)            
-            (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(bonusReduction * (playerArousal / 50) )
+        if playerCame && (playerArousal + TSSD_SuccubusLibido.GetValue() >= 75  || bonusReduction > 10)            
+            libidoTrackerScript.changeLibido(bonusReduction * (playerArousal + TSSD_SuccubusLibido.GetValue() / 50) )
         endif
     endif
     while index < ActorsIn.Length
@@ -344,7 +352,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
                 reduction += 10
             endif
-            (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(succdVal/reduction)
+            libidoTrackerScript.changeLibido(succdVal/reduction)
         endif
         index+=1
     EndWhile
@@ -470,7 +478,7 @@ Function toggleDeathMode()
         deathModeActivated = false
     endif
     deathModeActivated = !deathModeActivated
-    if SuccubusDesireLevel.GetValue() <= ravanousNeedLevel
+    if SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
         deathModeActivated = true
     endif
     if deathModeActivated
@@ -537,7 +545,7 @@ Event OnUpdate()
         endif
     endif
     float succNeedVal = SuccubusDesireLevel.GetValue()
-    if succNeedVal <= ravanousNeedLevel && succNeedVal > -101
+    if succNeedVal <= TSSD_ravanousNeedLevel.GetValue() && succNeedVal > -101
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         if !deathModeActivated
             toggleDeathMode()
@@ -554,7 +562,7 @@ Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1) && isSuccableOverload(actorRef)
         float[] retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
         updateSuccyNeeds(retVals[0], true)
-        (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(retVals[2])
+        libidoTrackerScript.changeLibido(retVals[2])
         GetAnnouncement().Show(Oenergy.nextAnnouncment +": " + (retVals[0] as int) , "icon.dds", aiDelay = 5.0)
         Oenergy.nextAnnouncment = ""
         if (retVals[1] as int) > 0
@@ -608,20 +616,26 @@ Event OnUpdateGameTime()
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
     float valBefore = SuccubusDesireLevel.GetValue()
     Location curLoc = Game.GetPlayer().GetCurrentLocation()
-    float energy_loss = timeBetween * ( 1 + (TSSD_SuccubusLibido.GetValue()) / 100)
-    if (valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
-        (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
-        if timeBetween >= 1
-            if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
-                RefreshEnergy(energy_loss * 20, 50)
-            elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
-                RefreshEnergy(energy_loss * 10, 50)
+    float chVal = 1
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
+        chVal = ( 1 + (TSSD_SuccubusLibido.GetValue()) / 100) * ( 1 + TSSD_SuccubusBreakRank.GetValue())
+    endif
+    float energy_loss = timeBetween * chVal
+    if curLoc 
+        if (valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
+            (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
+            if timeBetween >= 1
+                if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
+                    RefreshEnergy(energy_loss * 20, 50)
+                elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
+                    RefreshEnergy(energy_loss * 10, 50)
+                endif
+                float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
+                libidoTrackerScript.changeLibido(changeAmount )
+                AddToStatistics(changeAmount)
             endif
-            float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
-            (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(changeAmount )
-            AddToStatistics(changeAmount)
+            energy_loss = 0
         endif
-        energy_loss = 0
     endif
     if energy_loss > 0
         energy_loss *= -1
@@ -633,7 +647,7 @@ Event OnUpdateGameTime()
 endEvent
 
 Event OnMenuOpen(String MenuName)
-    if MenuName == "Dialogue Menu" && SuccubusDesireLevel.GetValue() <= ravanousNeedLevel && TSSD_SuccubusType.GetValue() != -1
+    if MenuName == "Dialogue Menu" && SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue() && TSSD_SuccubusType.GetValue() != -1
         UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
         GetAnnouncement().Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
     endif
@@ -650,6 +664,7 @@ Event OnInit()
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
     onGameReload()
+    libidoTrackerScript.changeLibido(1)
 EndEvent
 
 Function onGameReload()
@@ -661,6 +676,9 @@ Function onGameReload()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
     tWidgets.onReloadStuff()
     updateSuccyNeeds(0)
+    if IntListCount(PlayerRef, SUCCUBUSLIBIDOINCREASE) < 10
+        IntListResize(PlayerRef, SUCCUBUSLIBIDOINCREASE, 20)
+    endif
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
     endif
@@ -673,6 +691,13 @@ Function onGameReload()
         index += 1
     endwhile
 
+    if tssd_libidoTrackerQuest.GetStage() == 100
+        if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
+            TSSD_ravanousNeedLevel.SetValue(1000)
+        else
+            TSSD_ravanousNeedLevel.SetValue(-100)
+        endif
+    endif
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)

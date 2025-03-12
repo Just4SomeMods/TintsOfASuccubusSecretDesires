@@ -1,11 +1,19 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 4
+;NEXT FRAGMENT INDEX 6
 Scriptname QF_tssd_libidoTrackerQuest_0800007A Extends Quest Hidden
 
 ;BEGIN ALIAS PROPERTY PlayerRef
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_PlayerRef Auto
 ;END ALIAS PROPERTY
+
+;BEGIN FRAGMENT Fragment_4
+Function Fragment_4()
+;BEGIN CODE
+TSSD_ravanousNeedLevel.SetValue(1000)
+;END CODE
+EndFunction
+;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_3
 Function Fragment_3()
@@ -17,3 +25,5 @@ EndFunction
 ;END FRAGMENT
 
 ;END FRAGMENT CODE - Do not edit anything between this and the begin comment
+
+GlobalVariable Property TSSD_ravanousNeedLevel  Auto  

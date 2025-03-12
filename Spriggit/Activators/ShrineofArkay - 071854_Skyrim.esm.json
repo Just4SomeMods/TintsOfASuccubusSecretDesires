@@ -14,24 +14,19 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A288:Skyrim.esm"
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "AltarRemoveMsg",
-            "Object": "10E4F9:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A288:Skyrim.esm"
           }
         ]
       },
       {
         "Name": "tssd_startquestscript",
         "Properties": [
-          {
-            "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TSSD_SuccubusType",
-            "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
-          },
           {
             "MutagenObjectType": "ScriptStringProperty",
             "Name": "deityName",
@@ -41,6 +36,11 @@
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "tssd_dealwithcurseQuest",
             "Object": "00004F:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_SuccubusType",
+            "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
           }
         ]
       }

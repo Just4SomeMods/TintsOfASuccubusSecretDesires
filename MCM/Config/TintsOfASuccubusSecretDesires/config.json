@@ -551,6 +551,18 @@
                 },
                 {
                     "type": "slider",
+                    "text": "TSSD_ravanousNeedLevel",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": -100,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|084"
+                    }
+                },
+                {
+                    "type": "slider",
                     "text": "TSSD_showMenuBase",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -714,6 +726,11 @@
         {
             "pageDisplayName": "DEBUG: Messages",
             "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_GameOverMessage",
+                    "help": "$showStuff"
+                },
                 {
                     "type": "text",
                     "text": "TSSD_ZenitharDonationQuestion",

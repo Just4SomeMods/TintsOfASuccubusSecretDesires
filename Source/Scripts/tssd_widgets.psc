@@ -39,12 +39,14 @@ Event TSSD_Main_Bar_Rotation_Event(string a_eventName, string a_strArg, float a_
 EndEvent
 
 Function setColorsOfBar()
-    string curSuccubusType = GetSuccubusTypesAll()[TSSD_SuccubusType.GetValue() as int]
-    if SuccubusDesireLevel.GetValue() > 0
-        int[] colors = JArray.asIntArray(JDB.solveObj(".tssdkinds."+curSuccubusType+".color"))
-        IWidgets.setMeterRGB(tWidgetNum, colors[0], colors[1], colors[2], colors[0], colors[1], colors[2])
-    else
-        IWidgets.setMeterRGB(tWidgetNum, 0,0,0, 0,0,0)
+    if TSSD_SuccubusType.GetValue() > -1
+        string curSuccubusType = GetSuccubusTypesAll()[TSSD_SuccubusType.GetValue() as int]
+        if SuccubusDesireLevel.GetValue() > 0
+            int[] colors = JArray.asIntArray(JDB.solveObj(".tssdkinds."+curSuccubusType+".color"))
+            IWidgets.setMeterRGB(tWidgetNum, colors[0], colors[1], colors[2], colors[0], colors[1], colors[2])
+        else
+            IWidgets.setMeterRGB(tWidgetNum, 0,0,0, 0,0,0)
+        endif
     endif
 EndFunction
 
@@ -146,14 +148,14 @@ Event OniWantWidgetsReset(String eventName, String strArg, Float numArg, Form se
             TSSD_Main_Bar_Update("EVM_SliderChanged_" + "TSSD_Main_Bar_"+barVals[index], none, inp, none)
             index += 1
         endwhile
-        UpdateStatus()
         IWidgets.setVisible(tWidgetNum, 0)
         iWidgets.setTransparency(tWidgetNum, 0)
+        UpdateStatus()
         Utility.Wait(10)
         IWidgets.setVisible(tWidgetNum, (SuccubusDesireLevel.GetValue() > -101) as int)
         iWidgets.setTransparency(tWidgetNum, 100)
         UpdateBarPositions()
-        setColorsOfBar()
+        UpdateStatus()
 	EndIf
 	RegisterForSingleUpdate(_updateTimer)
 EndEvent

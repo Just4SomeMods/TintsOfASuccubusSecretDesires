@@ -8,6 +8,7 @@ GlobalVariable Property SuccubusDesireLevel Auto
 Actor Property ThisThing Auto
 Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
+GlobalVariable Property TSSD_ravanousNeedLevel Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
     ThisThing = akTarget
@@ -19,7 +20,7 @@ endEvent
 
 
 Event OnActivate(ObjectReference akActionRef)
-    if ThisThing && akActionRef == PlayerRef && SuccubusDesireLevel.GetValue() <= -100
+    if ThisThing && akActionRef == PlayerRef && SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
         Sexlab.RegisterHook( stageEndHook)
         ThisThing.SendAssaultAlarm()
         Faction CrimeFaction = ThisThing.GetCrimeFaction()

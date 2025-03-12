@@ -28,6 +28,8 @@ Keyword Property LocTypeClearable Auto
 Keyword Property LocTypeHabitation Auto
 Keyword Property LocTypeHabitationHasInn Auto
 
+Message Property TSSD_GameOverMessage Auto
+
 
 Event OnInit()
 	PO3_Events_Alias.RegisterForBookRead(self)
@@ -55,7 +57,9 @@ endEvent
 
 
 Function changeLibido(float toChange)
-	if TSSD_SuccubusLibido.GetValue() >= 0
+	toChange *= MCM.GetModSettingFloat("TintsOfASuccubusSecretDesires","fAdjustLibidoGain:Libido")
+	DBGTRace(toChange)
+	if TSSD_SuccubusLibido.GetValue() >= 0 &&  MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
 		if toChange > 0 && PlayerRef.HasPerk(TSSD_DeityAllPerk)
 			toChange /= 2
 		endif
@@ -85,18 +89,26 @@ Event OnUpdateGameTime()
 			multiplierDecrease += 1
 		endif
 		if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
-			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 1)
+			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 2)
+			DBGTRace(succubusType+"_" +curLoc.HasKeyword(LocTypeHabitationHasInn))
 		else        
 			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 0)
 		endif
 		; float incr = timeBetween * ( -1 * multiplierDecrease + AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) ))
 		changeLibido(timeBetween * -1 * multiplierDecrease)
 		changeLibido(timeBetween * AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE)))
-
 		if TSSD_SuccubusLibido.GetValue() > 100 && SuccubusDesireLevel.GetValue() < 50
 			Debug.Notification("Libido Break")
 			changeLibido(-100)
-			GetOwningQuest().ModObjectiveGlobal(1, TSSD_SuccubusBreakRank, 1, 10)
+			if GetOwningQuest().ModObjectiveGlobal(1, TSSD_SuccubusBreakRank, 1, 10)
+				int ibutton = TSSD_GameOverMessage.Show()
+				if ibutton == 1
+					MCM.SetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido", false)
+				else
+					GetOwningQuest().SetStage(100)
+				endif
+
+			endif
 			; GetOwningQuest().SetObjectiveCompleted(0, false)
 		endif
 	endIf
