@@ -5,6 +5,36 @@
   "VirtualMachineAdapter": {
     "Scripts": [
       {
+        "Name": "tssd_zenithardonationscript",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_ZenitharDonationSpell",
+            "Object": "000081:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "Gold001",
+            "Object": "00000F:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_ZenitharDonationQuestion",
+            "Object": "000037:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "PlayerRef",
+            "Object": "000014:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_DeityZenitharPerk",
+            "Object": "00007E:TintsOfASuccubusSecretDesires.esp"
+          }
+        ]
+      },
+      {
         "Name": "TempleBlessingScript",
         "Properties": [
           {
@@ -14,13 +44,13 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A28F:Skyrim.esm"
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "AltarRemoveMsg",
-            "Object": "10E4F9:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A28F:Skyrim.esm"
           }
         ]
       },
@@ -43,9 +73,6 @@
             "Object": "00004F:TintsOfASuccubusSecretDesires.esp"
           }
         ]
-      },
-      {
-        "Name": "tssd_zenithardonationscript"
       }
     ]
   },
