@@ -2,6 +2,7 @@ Scriptname tssd_actions extends Quest
 import b612
 import tssd_utils
 import PapyrusUtil
+import storageutil
 
 Actor Property PlayerRef Auto
 
@@ -47,11 +48,8 @@ Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PassiveEnergy1 Auto
 Perk Property TSSD_Base_IncreaseScentRange1 Auto
-Perk Property TSSD_ArkayDibellaPerk Auto
+Perk Property TSSD_DeityArkayPerk Auto
 Perk Property TSSD_DeityDibellaPerk Auto
-Perk Property TSSD_MaraDibellaPerk Auto
-Perk Property TSSD_StendarrDibellaPerk Auto
-Perk Property TSSD_ZenitharDibellaPerk Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
@@ -99,7 +97,6 @@ float timer_internal = 0.0
 float smooching = 0.0
 float _updateTimer = 0.5
 
-import storageutil
 String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
 String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
 String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
@@ -184,6 +181,7 @@ Function RegisterSuccubusEvents()
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
     RegisterForTrackedStatsEvent()
     tssd_libidoTrackerQuest.start()
+    tssd_libidoTrackerQuest.setstage(10)
 Endfunction
 
   
@@ -321,8 +319,8 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets()
             bonusReduction += 10
         endif
-        if playerCame && (playerArousal >= 50  || bonusReduction > 10)
-            TSSD_SuccubusLibido.SetValue(max(0,TSSD_SuccubusLibido.GetValue() - bonusReduction * (playerArousal / 50) ) )
+        if playerCame && (playerArousal >= 50  || bonusReduction > 10)            
+            (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(bonusReduction * (playerArousal / 50) )
         endif
     endif
     while index < ActorsIn.Length
@@ -343,10 +341,10 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
             TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
             int reduction = 10
-            if PlayerRef.HasPerk(TSSD_ArkayDibellaPerk)
+            if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
                 reduction += 10
             endif
-            TSSD_SuccubusLibido.Mod(succdVal/reduction)
+            (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(succdVal/reduction)
         endif
         index+=1
     EndWhile
@@ -556,7 +554,7 @@ Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1) && isSuccableOverload(actorRef)
         float[] retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
         updateSuccyNeeds(retVals[0], true)
-        TSSD_SuccubusLibido.Mod(retVals[2])
+        (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(retVals[2])
         GetAnnouncement().Show(Oenergy.nextAnnouncment +": " + (retVals[0] as int) , "icon.dds", aiDelay = 5.0)
         Oenergy.nextAnnouncment = ""
         if (retVals[1] as int) > 0
@@ -619,7 +617,9 @@ Event OnUpdateGameTime()
             elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
                 RefreshEnergy(energy_loss * 10, 50)
             endif
-            AddToStatistics( ( (SuccubusDesireLevel.GetValue() - valBefore) /10 + timeBetween))
+            float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
+            (tssd_libidoTrackerQuest as tssd_LibidoTrackerRefScript).changeLibido(changeAmount )
+            AddToStatistics(changeAmount)
         endif
         energy_loss = 0
     endif
@@ -628,25 +628,6 @@ Event OnUpdateGameTime()
         last_checked = TimeOfDayGlobalProperty.GetValue()
         updateSuccyNeeds(energy_loss)
     endif
-    int multiplierDecrease = 1
-    if PlayerRef.HasPerk(TSSD_MaraDibellaPerk) && curLoc.HasKeyword(LocTypePlayerHouse)
-        multiplierDecrease += 1
-    endif
-    if PlayerRef.hasmagiceffect(TSSD_BeggarLibidoDecrease)
-        multiplierDecrease += 1
-    endif
-    if PlayerRef.hasmagiceffect(TSSD_ZenitharDonationSpellEffect)   
-        multiplierDecrease += 1
-    endif
-    if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
-        IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 1)
-    else        
-        IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 0)
-    endif
-    TSSD_SuccubusLibido.Mod( timeBetween * AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) ) )
-    DBGTRace(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) )
-    TSSD_SuccubusLibido.SetValue( max(0,TSSD_SuccubusLibido.GetValue() - timeBetween * multiplierDecrease ))
-    
     ; DBGTRace("Oral Cum: " + GetFloatValue(PlayerRef, CUM_ORAL) + "Anal Cum: " + GetFloatValue(PlayerRef, CUM_ANAL) + "Vaginal Cum: " +GetFloatValue(PlayerRef, CUM_VAGINAL))
     
 endEvent
@@ -672,8 +653,10 @@ Event OnInit()
 EndEvent
 
 Function onGameReload()
+    if TSSD_SuccubusType.GetValue() > -1
+        RegisterSuccubusEvents()
+    endif
     Maintenance(TSSD_SuccubusType)
-    RegisterSuccubusEvents()
     cosmeticSettings = ReadInCosmeticSetting()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
     tWidgets.onReloadStuff()

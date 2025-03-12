@@ -20,34 +20,41 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|075",
           "x": 0.5,
           "y": -0.5,
-          "links": [ ]
+          "links": [ "All" ]
           },
           {
           "id": "Mara",
           "perk": "TintsOfASuccubusSecretDesires.esp|07B",
           "x": -0.5,
           "y": -0.5,
-          "links": [ ]
+          "links": [ "All" ]
           },
           {
           "id": "Arkay",
           "perk": "TintsOfASuccubusSecretDesires.esp|07C",
           "x": 0.5,
           "y": 0.5,
-          "links": [ ]
+          "links": [ "All" ]
           },
           {
           "id": "Stendarr",
           "perk": "TintsOfASuccubusSecretDesires.esp|07D",
           "x": -0.5,
           "y": 0.5,
-          "links": [ ]
+          "links": [ "All" ]
           },
           {
           "id": "Zenithar",
           "perk": "TintsOfASuccubusSecretDesires.esp|07E",
           "x": 0,
           "y": 1,
+          "links": [ "All" ]
+          },
+          {
+          "id": "All",
+          "perk": "TintsOfASuccubusSecretDesires.esp|038",
+          "x": 0,
+          "y": 0.5,
           "links": [ ]
           }
      ]

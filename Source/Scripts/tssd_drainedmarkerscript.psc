@@ -16,5 +16,4 @@ endEvent
 
 Event OnUpdateGameTime()
     Dispel()
-    DBGTRace(targetOf.GetDisplayName())
 endEvent

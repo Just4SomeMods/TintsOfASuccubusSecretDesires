@@ -201,6 +201,7 @@ EndFunction
 
 Function SelectSuccubusType(int query = -1)
     int index = 0
+    int oldVal = TSSD_SuccubusType.GetValue() as int
     if query < 0
         b612_TraitsMenu TraitsMenu = GetTraitsMenu()
         string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
@@ -214,10 +215,8 @@ Function SelectSuccubusType(int query = -1)
         if resultw.Length>0
             query = resultW[0] as int
         endif
-        OpenSuccubusTraits()
     endif
     if query >= 0
-        int oldVal = TSSD_SuccubusType.GetValue() as int
         TSSD_SuccubusType.SetValue(query)
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
@@ -235,6 +234,10 @@ Function SelectSuccubusType(int query = -1)
             tActions.RegisterSuccubusEvents()
         endif
         slsfListener.CheckFlagsSLSF()
+        if oldVal == -1 && TSSD_SuccubusType.GetValue() > -1
+            OpenSuccubusTraits()
+            tWidgets.onReloadStuff()
+        endif
 
     endif
         ;if succubusType == 2

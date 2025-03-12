@@ -7,18 +7,33 @@ Form Property Gold001 Auto
 Actor Property PlayerRef Auto
 Quest Property tssd_dealwithcurseQuest Auto
 GlobalVariable Property TSSD_deityblessquestakglobal Auto
+GlobalVariable Property TSSD_deityblessquestmaglobal Auto
 GlobalVariable Property TSSD_deityblessquestztglobal Auto
 GlobalVariable Property TSSD_deityblessqueststglobal Auto
 GlobalVariable Property TSSD_deityblessquestakglobalcor Auto
 GlobalVariable Property TSSD_deityblessquestztglobalcor Auto
 GlobalVariable Property TSSD_deityblessqueststglobalcor Auto
+GlobalVariable Property TSSD_deityblessquestmaglobalcor Auto
 Keyword Property IsMerchant Auto
+Quest Property RelationshipMarriage Auto
 
 Event OnInit()
 
     AddInventoryEventFilter(Gold001)
     RegisterForTrackedStatsEvent()
+    if RelationshipMarriage.GetStage() >= 100
+		GetOwningQuest().ModObjectiveGlobal(1, TSSD_deityblessquestmaglobal, 21, 1)
+    else
+        PO3_Events_Alias.RegisterForQuestStage(self, RelationshipMarriage)
+    endif
+EndEvent
 
+
+Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
+	if aiNewStage == 100
+		GetOwningQuest().ModObjectiveGlobal(1, TSSD_deityblessquestmaglobal, 21, 1)
+        PO3_Events_Alias.UnregisterForQuestStage(self, RelationshipMarriage)
+	endif
 EndEvent
 
 Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akSourceContainer)

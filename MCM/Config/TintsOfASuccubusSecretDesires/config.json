@@ -1048,6 +1048,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "A blessing from the gods",
+                    "help": "Through your devotion, you cut your gained libido in half.\nTSSD_DeityArkayPerk None 1.0\nTSSD_DeityDibellaPerk None 1.0\nTSSD_DeityMaraPerk None 1.0\nTSSD_DeityStendarrPerk None 1.0\nTSSD_DeityZenitharPerk None 1.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "56"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Arkay's gift",
                     "help": "Your libido increase by draining someone to death is cut in half.\nTSSD_deityblessquestakglobal >= 100.0\n",
                     "action": {

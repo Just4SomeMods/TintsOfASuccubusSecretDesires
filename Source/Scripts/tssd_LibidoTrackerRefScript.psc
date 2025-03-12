@@ -1,50 +1,104 @@
 Scriptname tssd_LibidoTrackerRefScript extends ReferenceAlias  
 import tssd_utils
+import PapyrusUtil
+import storageutil
 
 Float Property gameTimePassed Auto
 Int Property BookNumTracker Auto
+Actor Property PlayerRef Auto
 GlobalVariable Property TSSD_SuccubusLibido Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property SuccubusDesireLevel Auto
+GlobalVariable Property TSSD_SuccubusType Auto
+STRING PROPERTY SUCCUBUSLIBIDOINCREASE = "tssd.Libido.Rate" autoreadonly hidden
+MagicEffect Property TSSD_BeggarLibidoDecrease Auto  
+MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
+Perk Property TSSD_DeityArkayPerk Auto
+Perk Property TSSD_DeityDibellaPerk Auto
+Perk Property TSSD_DeityMaraPerk Auto
+Perk Property TSSD_DeityStendarrPerk Auto
+Perk Property TSSD_DeityZenitharPerk Auto
+Perk Property TSSD_DeityAllPerk Auto
+
+Keyword Property LocTypeInn Auto
+Keyword Property LocTypePlayerHouse Auto
+Keyword Property LocTypeCity Auto
+Keyword Property LocTypeClearable Auto
+Keyword Property LocTypeHabitation Auto
+Keyword Property LocTypeHabitationHasInn Auto
+
 
 Event OnInit()
 	PO3_Events_Alias.RegisterForBookRead(self)
 	RegisterForTrackedStatsEvent()
 	RegisterForUpdateGameTime(1)
+	gameTimePassed = GameHours.GetValue()
+	TSSD_SuccubusBreakRank.SetValue(0)
+	GetOwningQuest().ModObjectiveGlobal(0, TSSD_SuccubusBreakRank, 1, 10)
 Endevent
 
 
 Event OnBookRead(Book akBook)
 	float deltaDiff = Game.QueryStat("Books Read") - BookNumTracker
 	if deltaDiff > 0
-		IncreaseLibido(deltaDiff * 2)
+		changeLibido(deltaDiff * 2)
 		BookNumTracker = Game.QueryStat("Books Read")
 	endif
 EndEvent
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
 	if asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered"
-		IncreaseLibido(1)
+		changeLibido(1)
 	endif
 endEvent
 
-Function IncreaseLibido(float toIncrease)
+
+Function changeLibido(float toChange)
 	if TSSD_SuccubusLibido.GetValue() >= 0
-		GetOwningQuest().ModObjectiveGlobal(toIncrease, TSSD_SuccubusLibido, 0)
+		if toChange > 0 && PlayerRef.HasPerk(TSSD_DeityAllPerk)
+			toChange /= 2
+		endif
+		float curVal = TSSD_SuccubusLibido.GetValue() 
+		if curVal + toChange >= 0
+			GetOwningQuest().ModObjectiveGlobal(toChange, TSSD_SuccubusLibido, 0, -1, true, true, false)
+		else
+			GetOwningQuest().ModObjectiveGlobal(curVal * -1, TSSD_SuccubusLibido, 0, -1, true, true, false)
+		endif
 	endif
 Endfunction
 
+
 Event OnUpdateGameTime()
 	if TSSD_SuccubusLibido.GetValue() >= 0
-		float deltaTime = GameHours.GetValue() - gameTimePassed
-		IncreaseLibido(deltaTime * 20 )
-		gameTimePassed += deltaTime
+		int succubusType = TSSD_SuccubusType.GetValue() as int
+		Location curLoc = PlayerRef.GetCurrentLocation()
+		float timeBetween = (GameHours.GetValue() - gameTimePassed) * 20
+		int multiplierDecrease = 1
+		if PlayerRef.HasPerk(TSSD_DeityMaraPerk) && curLoc.HasKeyword(LocTypePlayerHouse)
+			multiplierDecrease += 1
+		endif
+		if PlayerRef.hasmagiceffect(TSSD_BeggarLibidoDecrease)
+			multiplierDecrease += 1
+		endif
+		if PlayerRef.hasmagiceffect(TSSD_ZenitharDonationSpellEffect)   
+			multiplierDecrease += 1
+		endif
+		if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
+			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 1)
+		else        
+			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 0)
+		endif
+		; float incr = timeBetween * ( -1 * multiplierDecrease + AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) ))
+		changeLibido(timeBetween * -1 * multiplierDecrease)
+		changeLibido(timeBetween * AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE)))
+
 		if TSSD_SuccubusLibido.GetValue() > 100 && SuccubusDesireLevel.GetValue() < 50
 			Debug.Notification("Libido Break")
-			TSSD_SuccubusLibido.SetValue(0)
+			changeLibido(-100)
 			GetOwningQuest().ModObjectiveGlobal(1, TSSD_SuccubusBreakRank, 1, 10)
-			GetOwningQuest().SetObjectiveCompleted(0, false)
+			; GetOwningQuest().SetObjectiveCompleted(0, false)
 		endif
 	endIf
+	gameTimePassed = GameHours.GetValue()
   endEvent

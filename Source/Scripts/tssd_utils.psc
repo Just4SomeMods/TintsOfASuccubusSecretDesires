@@ -34,6 +34,26 @@ float[] Function CopyArray(float[] arr1) Global
     return arr2
 EndFunction
 
+int[] Function CopyIntArray(int[] arr1) Global
+    int[] arr2 = Utility.CreateIntArray(arr1.Length)
+    int index = 0
+    while index < arr2.length
+        arr2[index] = arr1[index]
+        index+=1
+    EndWhile
+    return arr2
+EndFunction
+
+float[] Function CopyToFloatArray(int[] arr1) Global
+    float[] arr2 = Utility.CreateFloatArray(arr1.Length)
+    int index = 0
+    while index < arr2.length
+        arr2[index] = arr1[index] as float
+        index+=1
+    EndWhile
+    return arr2
+EndFunction
+
 
 String Function GenerateFullPath(String filename) Global
     Return "Data/Tssd/" + filename + ".json"

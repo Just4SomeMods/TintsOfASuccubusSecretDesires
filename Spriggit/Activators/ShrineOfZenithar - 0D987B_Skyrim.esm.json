@@ -9,23 +9,23 @@
         "Properties": [
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TSSD_ZenitharDonationSpell",
-            "Object": "000081:TintsOfASuccubusSecretDesires.esp"
-          },
-          {
-            "MutagenObjectType": "ScriptObjectProperty",
             "Name": "Gold001",
             "Object": "00000F:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TSSD_ZenitharDonationQuestion",
-            "Object": "000037:TintsOfASuccubusSecretDesires.esp"
+            "Name": "TSSD_ZenitharDonationSpell",
+            "Object": "000081:TintsOfASuccubusSecretDesires.esp"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "PlayerRef",
             "Object": "000014:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_ZenitharDonationQuestion",
+            "Object": "000037:TintsOfASuccubusSecretDesires.esp"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
@@ -44,13 +44,13 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "AltarRemoveMsg",
-            "Object": "10E4F9:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A28F:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A28F:Skyrim.esm"
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
           }
         ]
       },
@@ -58,14 +58,14 @@
         "Name": "tssd_startquestscript",
         "Properties": [
           {
-            "MutagenObjectType": "ScriptStringProperty",
-            "Name": "deityName",
-            "Data": "Zenithar"
-          },
-          {
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "TSSD_SuccubusType",
             "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptStringProperty",
+            "Name": "deityName",
+            "Data": "Zenithar"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
