@@ -661,11 +661,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "Test",
-                    "help": ""
-                },
-                {
-                    "type": "text",
                     "text": "Smooch!",
                     "help": ""
                 },
@@ -876,7 +871,7 @@
                 {
                     "type": "text",
                     "text": "Body Art Lover1",
-                    "help": "[If you have been recently cummed upon, you gain faster stamina regeneration.]\nSkillSuccubusBodyLevel >= 0\n",
+                    "help": "If you have cum on your chest, you gain a 20% discount from merchants.\nSkillSuccubusSeductionLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

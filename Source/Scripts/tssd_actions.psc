@@ -638,6 +638,11 @@ Event OnUpdateGameTime()
     if PlayerRef.hasmagiceffect(TSSD_ZenitharDonationSpellEffect)   
         multiplierDecrease += 1
     endif
+    if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
+        IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 1)
+    else        
+        IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 0)
+    endif
     TSSD_SuccubusLibido.Mod( timeBetween * AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) ) )
     DBGTRace(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) )
     TSSD_SuccubusLibido.SetValue( max(0,TSSD_SuccubusLibido.GetValue() - timeBetween * multiplierDecrease ))

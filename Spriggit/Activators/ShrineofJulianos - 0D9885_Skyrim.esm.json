@@ -14,13 +14,13 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A28A:Skyrim.esm"
+            "Name": "AltarRemoveMsg",
+            "Object": "10E4F9:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "AltarRemoveMsg",
-            "Object": "10E4F9:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A28A:Skyrim.esm"
           }
         ]
       },
