@@ -99,6 +99,34 @@
                     }
                 }
             ]
+        },{
+            "pageDisplayName": "$Libido",
+            "content": [
+                {
+                    "id": "bEnableLibido:Libido",
+                    "type": "toggle",
+                    "text": "$SuccubusLibido_t",
+                    "help": "$SuccubusLibido_t_desc",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool",
+                        "defaultValue": false
+                    }
+                },
+                {
+                    "id": "fAdjustLibidoGain:Libido",
+                    "type": "slider",
+                    "text": "$SuccubusLibido Gain",
+                    "help": "$SuccubusLibido_desc",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 10,
+                        "step": 0.1,
+                        "sourceType": "ModSettingFloat",
+                        "formatString": "{1}"
+
+                    }
+                }
+            ]
         },
         {
             "pageDisplayName": "DEBUG: Activators",
