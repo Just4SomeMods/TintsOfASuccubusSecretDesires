@@ -58,7 +58,6 @@ endEvent
 
 Function changeLibido(float toChange)
 	toChange *= MCM.GetModSettingFloat("TintsOfASuccubusSecretDesires","fAdjustLibidoGain:Libido")
-	DBGTRace(toChange)
 	if TSSD_SuccubusLibido.GetValue() >= 0 &&  MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
 		if toChange > 0 && PlayerRef.HasPerk(TSSD_DeityAllPerk)
 			toChange /= 2
@@ -90,7 +89,7 @@ Event OnUpdateGameTime()
 		endif
 		if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
 			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 2)
-			DBGTRace(succubusType+"_" +curLoc.HasKeyword(LocTypeHabitationHasInn))
+			; DBGTRace(succubusType+"_" +curLoc.HasKeyword(LocTypeHabitationHasInn))
 		else        
 			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 0)
 		endif

@@ -99,7 +99,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "pageDisplayName": "$Libido",
             "content": [
                 {
@@ -123,7 +124,6 @@
                         "step": 0.1,
                         "sourceType": "ModSettingFloat",
                         "formatString": "{1}"
-
                     }
                 }
             ]
@@ -1571,7 +1571,7 @@
                 {
                     "id": "sTSSD_DrainHealthAsSpellMag0:Spells",
                     "type": "input",
-                    "text": "Vampiric Drain Effect 0 Mag",
+                    "text": "Health Drain Effect 0 Mag",
                     "help": "Drain Health 5",
                     "action": {
                         "type": "CallFunction",
@@ -1589,7 +1589,7 @@
                 {
                     "id": "sTSSD_DrainHealthAsSpellDur0:Spells",
                     "type": "input",
-                    "text": "Vampiric Drain Effect 0 Dur",
+                    "text": "Health Drain Effect 0 Dur",
                     "help": "Drain Health 1",
                     "action": {
                         "type": "CallFunction",

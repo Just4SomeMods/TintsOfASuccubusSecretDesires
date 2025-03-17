@@ -6,7 +6,7 @@ int skillValue = 0
 
 GlobalVariable skillVal
 GlobalVariable Property SuccubusXpAmount Auto
-GlobalVariable Property TOSD_SuccubusPerkPoints Auto
+GlobalVariable Property TSSD_SuccubusPerkPoints Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
 Actor Property PlayerRef Auto
 Perk Property TSSD_Base_Explanations Auto
@@ -71,7 +71,7 @@ Function Train()
     SuccubusXpAmount.Mod( -1 * GetTrainCost() )
     if SkillVal == TSSD_PerkPointsBought
         TSSD_PerkPointsBought.Mod( 1)
-        TOSD_SuccubusPerkPoints.Mod(1)
+        TSSD_SuccubusPerkPoints.Mod(1)
     else
         SkillVal.Mod( 5 )
         CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)

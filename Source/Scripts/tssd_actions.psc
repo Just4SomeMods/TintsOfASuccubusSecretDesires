@@ -345,7 +345,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         Actor WhoCums = ActorsIn[index]
         if WhoCums.hasmagiceffect(TSSD_DraineMarkerEffect) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated
             float succdVal = min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
-            updateSuccyNeeds( succdVal   )
+            updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   )
             TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
             TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
             int reduction = 10
@@ -413,7 +413,7 @@ Endfunction
 
 
 ; Function to adjust energy level
-Function RefreshEnergy(float adjustBy, int upTo = 100)
+Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated = false)
     if  !tssd_dealwithcurseQuest.isobjectivefailed(24)
         upTo = 19
     endif
@@ -422,14 +422,15 @@ Function RefreshEnergy(float adjustBy, int upTo = 100)
     if (TSSD_SuccubusType.GetValue() as int) == 3
         lowerBound = 0
     endif
-    if lastVal < upTo && lastVal > -100
+    ; DBGTRace(isDeathModeActivated)
+    if lastVal < upTo && (lastVal > -100 || isDeathModeActivated)
         SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
     endif
 Endfunction
 
 
 ; Function to update Energy Level by value, which increases XP
-Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
+Function updateSuccyNeeds(float value, bool resetAfterEnd = false, bool isDeathModeActivated = false)
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
     int greed_mult = 1
@@ -450,14 +451,14 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false)
         SuccubusXpAmount.Mod(value * 10)
     endif
     if succNeedVal - value < 0 && (TSSD_SuccubusType.GetValue() as int) == 3
-        value =  succNeedVal * - 1
+        value =   succNeedVal * - 1
     endif
-        
-    if succNeedVal != -101        
+    ; DBGTRace(TSSD_ravanousNeedLevel.GetValue())
+    if succNeedVal > TSSD_ravanousNeedLevel.GetValue() - 1
         if succNeedVal > 0
             SuccubusDesireLevel.SetValue(Min(max_energy_level, Max(succNeedVal+ value * greed_mult, 0)))
         else
-            RefreshEnergy(value)
+            RefreshEnergy(value, 100, isDeathModeActivated)
         endif
     endif
     succNeedVal = SuccubusDesireLevel.GetValue()
@@ -614,33 +615,35 @@ Endfunction
 Event OnUpdateGameTime()
     int succubusType = TSSD_SuccubusType.GetValue() as int
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
-    float valBefore = SuccubusDesireLevel.GetValue()
-    Location curLoc = Game.GetPlayer().GetCurrentLocation()
-    float chVal = 1
-    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
-        chVal = ( 1 + (TSSD_SuccubusLibido.GetValue()) / 100) * ( 1 + TSSD_SuccubusBreakRank.GetValue())
-    endif
-    float energy_loss = timeBetween * chVal
-    if curLoc 
-        if (valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
-            (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
-            if timeBetween >= 1
-                if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
-                    RefreshEnergy(energy_loss * 20, 50)
-                elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
-                    RefreshEnergy(energy_loss * 10, 50)
-                endif
-                float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
-                libidoTrackerScript.changeLibido(changeAmount )
-                AddToStatistics(changeAmount)
-            endif
-            energy_loss = 0
+    if timeBetween > 1
+        float valBefore = SuccubusDesireLevel.GetValue()
+        Location curLoc = Game.GetPlayer().GetCurrentLocation()
+        float chVal = 1
+        if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
+            chVal = ( 1 + (TSSD_SuccubusLibido.GetValue()) / 100) * ( 1 + TSSD_SuccubusBreakRank.GetValue())
         endif
-    endif
-    if energy_loss > 0
-        energy_loss *= -1
-        last_checked = TimeOfDayGlobalProperty.GetValue()
-        updateSuccyNeeds(energy_loss)
+        float energy_loss = timeBetween * chVal
+        if curLoc 
+            if (valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
+                (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
+                if timeBetween >= 1
+                    if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
+                        RefreshEnergy(energy_loss * 20, 50)
+                    elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
+                        RefreshEnergy(energy_loss * 10, 50)
+                    endif
+                    float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
+                    libidoTrackerScript.changeLibido(changeAmount )
+                    AddToStatistics(changeAmount)
+                endif
+                energy_loss = 0
+            endif
+        endif
+        if energy_loss > 0
+            energy_loss *= -1
+            last_checked = TimeOfDayGlobalProperty.GetValue()
+            updateSuccyNeeds(energy_loss)
+        endif
     endif
     ; DBGTRace("Oral Cum: " + GetFloatValue(PlayerRef, CUM_ORAL) + "Anal Cum: " + GetFloatValue(PlayerRef, CUM_ANAL) + "Vaginal Cum: " +GetFloatValue(PlayerRef, CUM_VAGINAL))
     
@@ -687,7 +690,7 @@ Function onGameReload()
     int index = 0
     while index < JValue.count(jArr)
         int innerJ = jArray.getObj(jArr, index)
-        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,MCM.GetModSettingInt("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
+        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile
 
@@ -710,16 +713,16 @@ Function addTSSDPerk(string perkToAdd)
 Endfunction
 
 Function adjustSpell(bool isMag, string id, int index, string newValStr)
-    int newVal = newValStr as int
+    float newVal = newValStr as float
     Spell toAdj = Game.GetFormFromFile(id as int, "TintsOfASuccubusSecretDesires.esp") as Spell
     if newVal && toAdj
-        if isMag
-            toAdj.SetNthEffectMagnitude(index, newVal)
-        else
-            toAdj.SetNthEffectDuration(index, newVal)
-        endif
         if playerref.hasspell(toAdj)
-            PlayerRef.RemoveSpell(toAdj)
+            PlayerRef.RemoveSpell(toAdj) 
+            if isMag
+                toAdj.SetNthEffectMagnitude(index, newVal as float)
+            else
+                toAdj.SetNthEffectDuration(index, newVal as int)
+            endif
             PlayerRef.AddSpell(toAdj)
         endif
     endif

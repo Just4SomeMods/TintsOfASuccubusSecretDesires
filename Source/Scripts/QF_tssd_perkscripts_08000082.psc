@@ -12,10 +12,13 @@ Function Fragment_2()
 ;BEGIN CODE
 int max_num_traits = 8
 if max_num_traits > TSSD_MaxTraits.GetValue()
-            Game.GetPlayer().RemovePerk(TSSD_Base_TraitGain)
+        TSSD_MaxTraits.Mod(1 )
+        Debug.Messagebox("You can now select " + TSSD_MaxTraits.GetValue() as int + " out of " + max_num_traits + " Traits!")
+        if max_num_traits > TSSD_MaxTraits.GetValue()
+                        Game.GetPlayer().RemovePerk(TSSD_Base_TraitGain)
+        endif
+
 endif
-TSSD_MaxTraits.Mod(1 )
-Debug.Messagebox("You can now select " + TSSD_MaxTraits.GetValue() as int + " out of " + max_num_traits + " Traits!")
 ;END CODE
 EndFunction
 ;END FRAGMENT
