@@ -115,9 +115,9 @@ Function OpenExpansionMenu()
     endif
     b612_SelectList mySelectList = GetSelectList()
     String[] myItems = StringUtil.Split("Perk Trees;Base Skill;Drain;Seduction;Body;Perk Points;Show Explanations again",";")
-    Int result 
+    Int result
     if modifierKeyIsDown && lastUsedSub > -1
-        result = lastUsedSub
+            result = lastUsedSub
     else
         result  = mySelectList.Show(myItems)
         lastUsedSub = result
@@ -128,8 +128,8 @@ Function OpenExpansionMenu()
     if result == 0
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
     elseif result < 6 && result > -1
-        OpenSkillTrainingsMenu(result - 1)
-        tActions.NotificationSpam(myItems[result - 1] )
+            OpenSkillTrainingsMenu(result - 1)
+            tActions.NotificationSpam(myItems[result - 1] )
     elseif result == 6
         lookedAtExplanationsOnce = false
         OpenExpansionMenu()
@@ -235,9 +235,9 @@ Function SelectSuccubusType(int query = -1)
         endif
         slsfListener.CheckFlagsSLSF()
         if oldVal == -1 && TSSD_SuccubusType.GetValue() > -1
-            OpenSuccubusTraits()
-            tWidgets.onReloadStuff()
-        endif
+                OpenSuccubusTraits()
+                tWidgets.onReloadStuff()
+            endif
 
     endif
         ;if succubusType == 2
@@ -261,7 +261,7 @@ Function OpenSettingsMenu()
     lastUsedSub > -1.0 ; FOR WHATEVER REASONS THIS NEEDS TO BE HERE
     
     if modifierKeyIsDown && (lastUsedSub > -1.0)
-        result = lastUsedSub
+            result = lastUsedSub
     else
         result = GetSelectList().Show(myItems)
         lastUsedSub = result
@@ -281,11 +281,11 @@ Function OpenSettingsMenu()
             if tActions.isSuccableOverload(Cross)
                 int lasttime = (GetLastTimeSuccd(Cross, TimeOfDayGlobalProperty) * 300) as int
                 if lasttime > 100.0 || lasttime < 0.0
-                    showboat = "This person is full of juicy energy!"
+                showboat = "This person is full of juicy energy!"
                 else
-                    showboat = "This person is only " + lasttime + "% ready."
+                        showboat = "This person is only " + lasttime + "% ready."
+                    endif
                 endif
-            endif
             GetAnnouncement().Show(showboat, "icon.dds", aiDelay = 2.0)
         endif
     elseif myItems[result] == "Debug Climax Now"
@@ -333,6 +333,30 @@ Function OpenSuccubusCosmetics()
 Endfunction
 
 
+bool Function checkAbilityDefeatThem(Actor tarRef)
+    if playerRef.HasPerk(TSSD_Body_DefeatThem1)
+        if !playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())
+            if PlayerRef.GetLevel() <= tarRef.GetLevel() 
+                return false
+            endif
+        endif
+        int max_targets = 1 + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk().GetNextPerk()) as int +\
+                              playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk()) as int
+        if tActions.numHostileActors <= max_targets
+            if max_targets > 1 
+                return true
+            endif
+            if (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health"))
+                return true
+            endif 
+            if playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) 
+                return true
+            endif
+        endif
+    endif
+Endfunction
+
+
 Function OpenSuccubusAbilities()
     String itemsAsString = "Allow draining"
     Actor tarRef = none
@@ -345,10 +369,10 @@ Function OpenSuccubusAbilities()
     endif
     tarRef = tActions.searchForTargets()
     if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
-        if tarRef
-            itemsAsString += ";Act defeated"
-        else
-            itemsAsString += ";Act defeated (no Target found)"
+            if tarRef
+                itemsAsString += ";Act defeated"
+            else
+                itemsAsString += ";Act defeated (no Target found)"
         endif
     endif
 
@@ -357,26 +381,20 @@ Function OpenSuccubusAbilities()
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
         if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && spellToggle < 2
-            itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
+                itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
         endif
         indexOfA += 1
     endwhile
 
-    if playerRef.HasPerk(TSSD_Body_DefeatThem1)
-        int max_targets = 1 + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk().GetNextPerk()) as int +\
-                              playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk()) as int
-        if tActions.numHostileActors <= max_targets
-            if max_targets > 1 || (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")) || playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) && PlayerRef.GetLevel() > tarRef.GetLevel() || playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())
-                itemsAsString += ";Rape them!"
-            endif
-        endif
+    if checkAbilityDefeatThem(tarRef)
+        itemsAsString += ";Rape them!"
     endif
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result
     
     if modifierKeyIsDown && lastUsedSub >= 0
-        result = lastUsedSub
+            result = lastUsedSub
     else
         result = GetSelectList().Show(myItems)
         lastUsedSub = result
@@ -402,8 +420,8 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
     elseif myItems[result] == "Ask for Sex" && Cross
-        Sexlab.RegisterHook( stageEndHook)
-        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
+            Sexlab.RegisterHook( stageEndHook)
+            Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef)
     elseif myItems[result] == "Rape them!"
@@ -417,9 +435,9 @@ Function OpenSuccubusAbilities()
                 while tarIndex < tactions.cell_ac.Length
                     Actor curT = tactions.cell_ac[tarIndex]
                     if curT && !curT.isDead()
-                        tactions.updateSuccyNeeds(  min(curT.GetAV("Health"), 100 + tactions.getDrainLevel() )  )
-                        tactions.TSSD_DrainHealth.SetNthEffectMagnitude(0, 100 + tactions.getDrainLevel() )
-                        tactions.TSSD_DrainHealth.Cast(PlayerRef, curT)
+                            tactions.updateSuccyNeeds(  min(curT.GetAV("Health"), 100 + tactions.getDrainLevel() )  )
+                            tactions.TSSD_DrainHealth.SetNthEffectMagnitude(0, 100 + tactions.getDrainLevel() )
+                            tactions.TSSD_DrainHealth.Cast(PlayerRef, curT)
                     endif
                     tarIndex += 1
                 EndWhile

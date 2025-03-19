@@ -16,3 +16,4 @@ SpriggitTool/*
 .venv/*
 papyrus-compiler/*
 .papyrus/*
+unusedCode.txt

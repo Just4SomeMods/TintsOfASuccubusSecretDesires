@@ -30,7 +30,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
     float energyLosses = 0
     float retval = 0
 
-    if WhoCums && WhoCums != PlayerRef
+    if isEnabledAndNotPlayer(WhoCums)
         lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
         if (lastmet  < 0.0) || (lastmet > 1.0)
             lastmet = 1
@@ -62,42 +62,42 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
             index += 1
         EndWhile
     elseif WhoCums && !MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugNoEnergyLoss:Main")
-        Actor[] ActorsIn = _thread.GetPositions() 
-        int index = 0
-        int max_rel = 0
-        int max_prot = 0
-        int max_met = 0
-        while index < ActorsIn.length
-            Actor ActorRef = Actorsin[Index]            
-            if PlayerRef != ActorRef
-                max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
-                max_met = max(SexlabStatistics.GetTimesMet(ActorRef,PlayerRef), max_met) as int
-            endif
-    
-            index += 1
-        EndWhile
-        float toLoseVal = 20
-        bool traitYes = false
-        if succubusTypeString == "Crimson"
-            toLoseVal /= 2
-        elseif succubusTypeString == "Scarlet"
-            traitYes = max_rel == 4
-            retVals[1] = 1000
-        elseif succubusTypeString == "Pink"
+            Actor[] ActorsIn = _thread.GetPositions() 
+            int index = 0
+            int max_rel = 0
+            int max_prot = 0
+            int max_met = 0
+            while index < ActorsIn.length
+                Actor ActorRef = Actorsin[Index]            
+                if PlayerRef != ActorRef
+                    max_rel = max(ActorRef.GetRelationshipRank(playerref), max_rel) as int
+                    max_met = max(SexlabStatistics.GetTimesMet(ActorRef,PlayerRef), max_met) as int
+                endif
+        
+                index += 1
+            EndWhile
+            float toLoseVal = 20
+            bool traitYes = false
+            if succubusTypeString == "Crimson"
+                toLoseVal /= 2
+            elseif succubusTypeString == "Scarlet"
+                traitYes = max_rel == 4
+                retVals[1] = 1000
+            elseif succubusTypeString == "Pink"
             traitYes = (largestTime > 3) || (max_met == 0)
-        elseif succubusTypeString == "Sundown"
-            toLoseVal = 0
-        elseif succubusTypeString == "Mahogany"
-            traitYes = _thread.GetSubmissive(PlayerRef)
-        endif
-        if !traitYes
-            toLoseVal /= -10
-        endif
-        energyLosses = toLoseVal
-        nextAnnouncment += GetTypeDial(succubusTypeString, traitYes)
+            elseif succubusTypeString == "Sundown"
+                toLoseVal = 0
+            elseif succubusTypeString == "Mahogany"
+                traitYes = _thread.GetSubmissive(PlayerRef)
+            endif
+            if !traitYes
+                toLoseVal /= -10
+            endif
+            energyLosses = toLoseVal
+            nextAnnouncment += GetTypeDial(succubusTypeString, traitYes)
     endif
     String output = ""
-    if (!WhoCums || WhoCums != PLayerRef) && smooching > 0.0
+    if isEnabledAndNotPlayer(WhoCums) && smooching > 0.0
         retval = smooching * lastMet
         output += "Smooch!\n"
     endif
@@ -118,10 +118,42 @@ Endfunction
 bool Function traitLogic(int index, sslThreadController _thread, Actor WhoCums)
     float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
 
-    return  ((index == 0 && _thread.HasSceneTag("Aircum")) ||\
-    ((index == 1) && (!_thread.HasSceneTag("Aircum") && (_thread.HasSceneTag("Oral") || _thread.HasSceneTag("Anal") || _thread.HasSceneTag("Vaginal")) && Sexlab.GetSex(WhoCums) != 1 && Sexlab.GetSex(WhoCums) != 4)) ||\
-    ((index == 2) && WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0 && _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1) ||\
-    ((index == 3) && (_thread.HasSceneTag("love") || _thread.HasSceneTag("loving"))) ||\
-    ((index == 4) && _thread.sameSexThread()) ||\
-    ((index == 5) && (ar_norm > 0) ))
+    if index == 0
+        if _thread.HasSceneTag("Aircum")
+            return true
+        endif
+    elseif index == 1
+        if !_thread.HasSceneTag("Aircum")
+            if _thread.HasSceneTag("Oral")
+                return true
+            elseif _thread.HasSceneTag("Anal")
+                return true
+            elseif _thread.HasSceneTag("Vaginal")
+                return true
+            endif
+        endif
+    elseif index == 2
+        if WhoCums.GetHighestRelationshiprank() == 4
+            if SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0
+                if _thread.ActorAlias(WhoCums).GetOrgasmCount() <= 1
+                    return true
+                endif
+            endif
+        endif
+    elseif index == 3
+        if _thread.HasSceneTag("love")
+            return true
+        elseif _thread.HasSceneTag("loving")
+            return true
+        endif
+    elseif index == 4
+        if _thread.sameSexThread()
+            return true
+        endif
+    elseif index == 5
+        if ar_norm > 0
+            return true
+        endif
+    endif
+    return  false
 Endfunction
