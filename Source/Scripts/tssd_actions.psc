@@ -227,11 +227,36 @@ Function EvaluateCompleteScene(bool onStart=false)
             index += 1
         EndWhile
     endif
+
+    int max_relRank = -4
+    index = 0
+    while index < ActorsIn.length
+        Actor ActorRef = Actorsin[Index]
+        int relatisonship = ActorRef.GetRelationshipRank(playerref)
+        if isEnabledAndNotPlayer(ActorRef)
+            max_relRank = max(relatisonship, max_relRank) as int
+        endif
+        if max_relRank > 3 
+            if deathModeActivated
+                toggleDeathMode()
+            endif
+        endif
+        index += 1
+    EndWhile
+
+    bool energyOutPut = true
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
         output += "Someone is about to die! "
-    elseif ActorsIn.Length == 1 && playerArousalNow + TSSD_SuccubusLibido.GetValue() > 75
+    elseif succubusType == 1 
+        if max_relRank == 4
+            output += GetTypeDial("Scarlet", true)
+            energyOutPut = false
+        endif
+    elseif ActorsIn.Length == 1 
+        if playerArousalNow + TSSD_SuccubusLibido.GetValue() > 75
         output += "Some great me time! "
+        endif
     elseif ActorsIn.Length == 1
         output += "I'm not in the mood "
     elseif energyNew >= 30
@@ -246,9 +271,10 @@ Function EvaluateCompleteScene(bool onStart=false)
         output += "Eugh, this is bad. "
     endif
     string newOut = Oenergy.nextAnnouncment
-    newOut += "
-"
-    newOut += output +": " + retVals[0] as int
+    newOut += output
+    if energyOutPut
+        newOut += ": " + retVals[0] as int
+    endif
     GetAnnouncement().Show(newOut  , "icon.dds", aiDelay = 5.0)
 
     ; if ReadInCosmeticSetting()[2] == 1
@@ -293,6 +319,7 @@ Function PlayerSceneStart(Form FormRef, int tid)
             index+=1
         EndWhile
     endif
+    endif
 EndFunction
 
 bool Function increaseGlobalDeity(int index, int byVal = 1)
@@ -301,8 +328,8 @@ bool Function increaseGlobalDeity(int index, int byVal = 1)
     return isCompleted
 Endfunction
 
-bool Function isSuccableOverload(Actor ActorRef)
-    return isSuccable(ActorRef, TSSD_DraineMarkerEffect)
+bool Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false)
+    return isSuccable(ActorRef, TSSD_DraineMarkerEffect, ignoreMarker)
 Endfunction
 
 Function PlayerSceneEnd(Form FormRef, int tid)
@@ -327,14 +354,28 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets()
             bonusReduction += 10
         endif
-        if playerCame && (playerArousal + TSSD_SuccubusLibido.GetValue() >= 75  || bonusReduction > 10)            
+        endif
+        if playerCame 
+            if (playerArousal + TSSD_SuccubusLibido.GetValue() >= 75 )            
+                libidoTrackerScript.changeLibido(bonusReduction * (playerArousal + TSSD_SuccubusLibido.GetValue() / 50) )
+            elseif bonusReduction > 10
             libidoTrackerScript.changeLibido(bonusReduction * (playerArousal + TSSD_SuccubusLibido.GetValue() / 50) )
+            endif
         endif
     endif
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if isSuccableOverload(WhoCums) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4)
-            orgasmCountScene += _thread.ActorAlias(WhoCums).GetOrgasmCount()
+        DBGTRace(isSuccableOverload(WhoCums, true))
+        if isSuccableOverload(WhoCums, true)
+            int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
+            orgasmCountScene += orgCount
+            if  succubusType == 1 
+                if WhoCums.GetRelationshipRank(PlayerRef) == 4 
+                    if orgCount > 0
+                        RefreshEnergy(100)
+                    endif
+                endif
+            endif
             succAbleTargets += 1
         endif
         index+=1
@@ -367,7 +408,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         int tarIndex = 0
         while tarIndex < targetsToAlert.Length
             Actor curRef = targetsToAlert[tarIndex]
-            if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled() && !curRef.isDead()
+            if isEnabledAndNotPlayer(curRef) && curRef.isHostileToActor(PlayerRef)
                 curRef.StartCombat(PlayerRef)
                 curRef.PathToReference(PlayerRef, 0.9)
             endif
@@ -611,6 +652,40 @@ float Function getDrainLevel(bool isGentle = false)
     return new_drain_level
 Endfunction
 
+bool Function GetHabitationCorrect(Location curLoc)
+    bool value = false
+    int succubusType = TSSD_SuccubusType.GetValue() as int
+    
+    if succubusType == 0
+        if curLoc.HasKeyword(LocTypeInn)
+            value = true
+        endif
+    endif
+
+    if succubusType == 1
+        if curLoc.HasKeyword(LocTypePlayerHouse)
+            value = true
+        endif
+    endif
+
+    if succubusType == 2
+        if curLoc.HasKeyword(LocTypeInn)
+            value = true
+        endif
+        if curLoc.HasKeyword(LocTypeHabitationHasInn)
+            value = true
+        endif
+    endif
+
+    if succubusType == 4
+        if !curLoc.HasKeyword(LocTypeHabitation)
+            value = true
+        endif
+    endif
+
+    return value
+EndFunction
+
 
 Event OnUpdateGameTime()
     int succubusType = TSSD_SuccubusType.GetValue() as int
@@ -624,8 +699,7 @@ Event OnUpdateGameTime()
         endif
         float energy_loss = timeBetween * chVal
         if curLoc 
-            if (valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1)) && \
-                (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) || (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) || (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) || (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
+            if valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && GetHabitationCorrect(curLoc) 
                 if timeBetween >= 1
                     if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
                         RefreshEnergy(energy_loss * 20, 50)
@@ -635,8 +709,8 @@ Event OnUpdateGameTime()
                     float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
                     libidoTrackerScript.changeLibido(changeAmount )
                     AddToStatistics(changeAmount)
+                    energy_loss = 0
                 endif
-                energy_loss = 0
             endif
         endif
         if energy_loss > 0
