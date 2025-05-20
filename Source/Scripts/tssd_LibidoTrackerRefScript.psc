@@ -50,9 +50,11 @@ Event OnBookRead(Book akBook)
 EndEvent
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-	if asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered"
-		changeLibido(1)
-	endif
+	; int succubusType = TSSD_SuccubusType.GetValue() as int
+	; if succubusType == 1 && ((asStatFilter == "Books Read")  || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
+    ;     Debug.Notification("Oh I gotta talk with them about that!")
+	; 	changeLibido(10)
+	; endif
 endEvent
 
 

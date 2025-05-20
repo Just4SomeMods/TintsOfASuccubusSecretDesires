@@ -51,7 +51,6 @@ bool [] cosmeticSettings
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 
-int ravanousNeedLevel = -100
 int Property lastUsed Auto
 int Property lastUsedSub  Auto
 int spellToggle

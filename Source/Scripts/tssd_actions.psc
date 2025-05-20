@@ -14,6 +14,8 @@ tssd_succubusstageendblockhook Property stageEndHook Auto
 tssd_widgets Property tWidgets Auto
 Faction Property sla_Arousal Auto
 
+Actor Property MySweetHeart Auto
+
 tssd_LibidoTrackerRefScript Property libidoTrackerScript Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
@@ -189,8 +191,15 @@ Endfunction
 
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-      if (asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered"
-        Debug.Notification("Oh I gotta talk about that!")
+    int succubusType = TSSD_SuccubusType.GetValue() as int
+    if  succubusType == 1 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
+        if MySweetHeart
+            Debug.Notification("Oh I gotta talk with " + MySweetHeart.GetDisplayName() +  " about that!")
+        else
+            Debug.Notification("I am so alone!")
+            libidoTrackerScript.changeLibido(10)
+        endif
+        libidoTrackerScript.changeLibido(10)
     endif
 endEvent
 
@@ -209,7 +218,7 @@ Function EvaluateCompleteScene(bool onStart=false)
         while index < ActorsIn.length
             Actor ActorRef = Actorsin[Index]
             int relatisonship = ActorRef.GetRelationshipRank(playerref)
-            if isSuccableOverload(ActorRef) && (succubusType != 1 || relatisonship < 4)
+            if isSuccableOverload(ActorRef)
                 retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
                 Oenergy.nextAnnouncment = ""
                 energyNew = retVals[0]
@@ -285,6 +294,7 @@ Endfunction
 Function PlayerSceneStart(Form FormRef, int tid)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     playerArousal = playerref.GetFactionRank(sla_Arousal)
+    sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
@@ -305,23 +315,58 @@ Function PlayerSceneStart(Form FormRef, int tid)
                 endif
                 setHeartEyes(PlayerEyes, true)
             endif
-    if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-            int index = 0
-        while index < ActorsIn.Length
-            Actor WhoCums = ActorsIn[index]
-            float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-            if WhoCums != PlayerRef && (lstTime < 0 || lstTime > 7)
-                increaseGlobalDeity(3, 25)
-            else
-                increaseGlobalDeity(3, 5)
+    if tssd_dealwithcurseQuest.GetStage() == 20
+        int outerIndex = 0
+        bool conSent = true
+        actor consentingActor
+        while outerIndex < ActorsIn.Length
+            consentingActor = ActorsIn[outerIndex]
+            if _thread.GetSubmissive(consentingActor)
+                conSent = false
             endif
-            index+=1
-        EndWhile
+            outerIndex += 1
+        endwhile
+        if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+            int index = 0
+            int val_to_increase = 0
+            int deityNum = 3
+            int toVal = 1000
+            if !conSent
+                deityNum = 8
+                toVal = 500
+            endif
+            while index < ActorsIn.Length
+                Actor WhoCums = ActorsIn[index]
+                float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
+                if WhoCums != PlayerRef && (lstTime < 0 || lstTime > 7)
+                    val_to_increase += 25
+                elseif WhoCums != PlayerRef
+                    val_to_increase += 5
+                endif
+                index+=1
+            EndWhile
+            increaseGlobalDeity(deityNum, val_to_increase, toVal)
+        endif
+        if !tssd_dealwithcurseQuest.isobjectivefailed(21) ; Mara
+            int index = 0
+            while index < ActorsIn.length
+                Actor WhoCums = ActorsIn[index]
+                float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
+                if WhoCums.GetHighestRelationshiprank() >= 3 && lstTime < 0
+                    increaseGlobalDeity(5, 1, 5)
+                endif
+                index+=1
+            EndWhile
+        endif
     endif
 EndFunction
 
-bool Function increaseGlobalDeity(int index, int byVal = 1)
-    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 22 + index)
+bool Function increaseGlobalDeity(int index, int byVal = 1, int targetVal = -1)
+    int additional = 0
+    if index >= 5
+        additional = 5
+    endif
+    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 21 + index + additional, targetVal)
     advanceStageTwenty()
     return isCompleted
 Endfunction
@@ -358,12 +403,12 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     endif
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        DBGTRace(isSuccableOverload(WhoCums, true))
         if isSuccableOverload(WhoCums, true)
             int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
             orgasmCountScene += orgCount
             if  succubusType == 1 
                 if WhoCums.GetRelationshipRank(PlayerRef) == 4 
+                    MySweetHeart = WhoCums
                     if orgCount > 0
                         RefreshEnergy(100)
                     endif
@@ -500,7 +545,7 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false, bool isDeathM
     if succNeedVal > 100 && PlayerRef.HasPerk(TSSD_Body_Overstuffed)
             TSSD_Overstuffed.SetNthEffectMagnitude(0, succNeedVal - 100)
             TSSD_Overstuffed.SetNthEffectMagnitude(1, min(80,(succNeedVal - 100) / 10))
-            PlayerRef.ADdSpell(TSSD_Overstuffed, false)
+            PlayerRef.AddSpell(TSSD_Overstuffed, false)
     endif
     if resetAfterEnd
         smooching = 0.0
@@ -534,7 +579,7 @@ Function toggleSpells(int newToggle = -1)
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
         if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && newToggle > 0
-                PlayerRef.AddSpell(SuccubusAbilitiesSpells[indexOfA])
+                PlayerRef.AddSpell(SuccubusAbilitiesSpells[indexOfA], false)
             else
                 PlayerRef.RemoveSpell(SuccubusAbilitiesSpells[indexOfA])
         endif
@@ -790,7 +835,7 @@ Function adjustSpell(bool isMag, string id, int index, string newValStr)
                 else
                     toAdj.SetNthEffectDuration(index, newVal as int)
                 endif
-                PlayerRef.AddSpell(toAdj)
+                PlayerRef.AddSpell(toAdj, false)
         endif
     endif
 Endfunction
@@ -803,7 +848,22 @@ Endfunction
 
 
 Function advanceStageTwenty()
-    if tssd_dealwithcurseQuest.IsObjectiveCompleted(21) && tssd_dealwithcurseQuest.IsObjectiveCompleted(22) && tssd_dealwithcurseQuest.IsObjectiveCompleted(23) && tssd_dealwithcurseQuest.IsObjectiveCompleted(24) && tssd_dealwithcurseQuest.IsObjectiveCompleted(25)
-                        tssd_dealwithcurseQuest.setstage(40)
+    int index = 0
+    while index < 5
+        if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
+            tssd_dealwithcurseQuest.SetObjectiveFailed(21 + index)
+        endif
+        index += 1
+    EndWhile
+    index = 0
+    bool isCompleted = true
+    while index < 5
+        if !tssd_dealwithcurseQuest.IsObjectiveCompleted(21 + index) ||  !tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
+            isCompleted = false
+        endif
+        index += 1
+    EndWhile
+    if isCompleted
+        tssd_dealwithcurseQuest.setstage(40)
     endif
 Endfunction

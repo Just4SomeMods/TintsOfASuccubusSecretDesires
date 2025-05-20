@@ -79,7 +79,7 @@ Function Train()
     endif
     if PlayerRef.HasPerk(TSSD_Base_Explanations)
         if SkillName == "Body"
-            PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff)
+            PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
         endif
         PlayerRef.RemovePerk(TSSD_Base_Explanations)
         PlayerRef.AddPerk(TSSD_Base_Explanations)

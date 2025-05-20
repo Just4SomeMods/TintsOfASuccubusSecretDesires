@@ -4,6 +4,8 @@ import tssd_utils
 
 Int Property undeadKilled Auto
 Form Property Gold001 Auto
+Faction Property ThievesGuildFaction Auto
+Faction Property DarkBrotherhoodFaction Auto
 Actor Property PlayerRef Auto
 Quest Property tssd_dealwithcurseQuest Auto
 GlobalVariable Property TSSD_deityblessquestakglobal Auto
@@ -41,16 +43,28 @@ Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemRefere
       int lostMoney = ((aiItemCount + 1) / 2) as int
       PlayerRef.RemoveItem(akBaseItem,  lostMoney )
       Debug.Notification("Zenithar takes half your cut!")
-      tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobal, 25, 10000)
+      DBGTRace(ThievesGuildFaction)
+        if (akSourceContainer as Actor).isInFaction(DarkBrotherhoodFaction) || (akSourceContainer as Actor).isInFaction(ThievesGuildFaction)
+            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobalcor, 35, 5000)
+        else
+            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobal, 25, 10000)
+        endif
+        advanceStageTwenty()
     endif
 
 endEvent
 
 Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
     if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25) && UI.IsMenuOpen("Dialogue Menu")
-      int lostMoney = ((aiItemCount + 1) / 2) as int
-      Debug.Notification("Zenithar likes your trade!")
-      tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobal, 25, 10000)
+        int lostMoney = ((aiItemCount + 1) / 2) as int
+        if (akDestContainer as Actor).IsInFaction(ThievesGuildFaction)
+            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobalcor, 35, 5000)
+            Debug.Notification("Zenithar tolerates your trade.")
+        else
+            Debug.Notification("Zenithar likes your trade!")
+            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobal, 25, 10000)
+        endif
+        advanceStageTwenty()
     endif
 
 endEvent
@@ -74,7 +88,22 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
 endEvent
 
 Function advanceStageTwenty()
-    if tssd_dealwithcurseQuest.IsObjectiveCompleted(21) && tssd_dealwithcurseQuest.IsObjectiveCompleted(22) && tssd_dealwithcurseQuest.IsObjectiveCompleted(23) && tssd_dealwithcurseQuest.IsObjectiveCompleted(24) && tssd_dealwithcurseQuest.IsObjectiveCompleted(25)
+    int index = 0
+    while index < 5
+        if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
+            tssd_dealwithcurseQuest.SetObjectiveFailed(21 + index)
+        endif
+        index += 1
+    EndWhile
+    index = 0
+    bool isCompleted = true
+    while index < 5
+        if !tssd_dealwithcurseQuest.IsObjectiveCompleted(21 + index) ||  !tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
+            isCompleted = false
+        endif
+        index += 1
+    EndWhile
+    if isCompleted
         tssd_dealwithcurseQuest.setstage(40)
     endif
 Endfunction
