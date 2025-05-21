@@ -42,8 +42,9 @@ Endevent
 
 
 Event OnBookRead(Book akBook)
+	int succubusType = TSSD_SuccubusType.GetValue() as int
 	float deltaDiff = Game.QueryStat("Books Read") - BookNumTracker
-	if deltaDiff > 0
+	if succubusType == 1 && deltaDiff > 0
 		changeLibido(deltaDiff * 2)
 		BookNumTracker = Game.QueryStat("Books Read")
 	endif
@@ -55,20 +56,21 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     ;     Debug.Notification("Oh I gotta talk with them about that!")
 	; 	changeLibido(10)
 	; endif
-endEvent
+endEvent			
 
 
 Function changeLibido(float toChange)
 	toChange *= MCM.GetModSettingFloat("TintsOfASuccubusSecretDesires","fAdjustLibidoGain:Libido")
+	bool updatesQues = ReadInCosmeticSetting()[14]
 	if TSSD_SuccubusLibido.GetValue() >= 0 &&  MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
 		if toChange > 0 && PlayerRef.HasPerk(TSSD_DeityAllPerk)
 			toChange /= 2
 		endif
 		float curVal = TSSD_SuccubusLibido.GetValue() 
 		if curVal + toChange >= 0
-			GetOwningQuest().ModObjectiveGlobal(toChange, TSSD_SuccubusLibido, 0, -1, true, true, false)
+			GetOwningQuest().ModObjectiveGlobal(toChange, TSSD_SuccubusLibido, 0, -1, true, true, updatesQues && toChange >= 1)
 		else
-			GetOwningQuest().ModObjectiveGlobal(curVal * -1, TSSD_SuccubusLibido, 0, -1, true, true, false)
+			GetOwningQuest().ModObjectiveGlobal(curVal * -1, TSSD_SuccubusLibido, 0, -1, true, true, updatesQues && toChange <= -1)
 		endif
 	endif
 Endfunction

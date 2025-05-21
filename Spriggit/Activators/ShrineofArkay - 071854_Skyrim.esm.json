@@ -9,8 +9,8 @@
         "Properties": [
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A288:Skyrim.esm"
+            "Name": "TempleBlessing",
+            "Object": "0FB994:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
@@ -19,8 +19,8 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TempleBlessing",
-            "Object": "0FB994:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A288:Skyrim.esm"
           }
         ]
       },

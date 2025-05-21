@@ -193,13 +193,14 @@ Endfunction
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     if  succubusType == 1 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
+        int toIncrease = 10
         if MySweetHeart
             Debug.Notification("Oh I gotta talk with " + MySweetHeart.GetDisplayName() +  " about that!")
         else
             Debug.Notification("I am so alone!")
-            libidoTrackerScript.changeLibido(10)
+            toIncrease += 10
         endif
-        libidoTrackerScript.changeLibido(10)
+        libidoTrackerScript.changeLibido(toIncrease)
     endif
 endEvent
 
@@ -779,7 +780,7 @@ Event OnInit()
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
 	RegisterForSingleUpdate(_updateTimer)
     onGameReload()
-    libidoTrackerScript.changeLibido(1)
+    libidoTrackerScript.changeLibido(0)
 EndEvent
 
 Function onGameReload()

@@ -47,6 +47,8 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
+string currentVersion = "0.03.02"
+
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
@@ -326,7 +328,7 @@ Function OpenSuccubusCosmetics()
         output += "" + (cosmeticSettings[index] as int)
         index += 1
     EndWhile
-    MCM.SetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main", output)
+    MCM.SetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main", output)    
     cosmeticSettings = ReadInCosmeticSetting()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
 Endfunction

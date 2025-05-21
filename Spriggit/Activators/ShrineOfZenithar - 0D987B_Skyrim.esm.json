@@ -9,18 +9,8 @@
         "Properties": [
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TSSD_DeityZenitharPerk",
-            "Object": "00007E:TintsOfASuccubusSecretDesires.esp"
-          },
-          {
-            "MutagenObjectType": "ScriptObjectProperty",
             "Name": "TSSD_ZenitharDonationSpell",
             "Object": "000081:TintsOfASuccubusSecretDesires.esp"
-          },
-          {
-            "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "PlayerRef",
-            "Object": "000014:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
@@ -31,6 +21,16 @@
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "TSSD_ZenitharDonationQuestion",
             "Object": "000037:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_DeityZenitharPerk",
+            "Object": "00007E:TintsOfASuccubusSecretDesires.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "PlayerRef",
+            "Object": "000014:Skyrim.esm"
           }
         ]
       },
@@ -39,8 +39,8 @@
         "Properties": [
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "BlessingMessage",
-            "Object": "10A28F:Skyrim.esm"
+            "Name": "TempleBlessing",
+            "Object": "0FB99B:Skyrim.esm"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
@@ -49,8 +49,8 @@
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TempleBlessing",
-            "Object": "0FB99B:Skyrim.esm"
+            "Name": "BlessingMessage",
+            "Object": "10A28F:Skyrim.esm"
           }
         ]
       },
