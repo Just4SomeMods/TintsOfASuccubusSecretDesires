@@ -18,3 +18,4 @@ papyrus-compiler/*
 .papyrus/*
 unusedCode.txt
 SSEEdit Backups/
+*.ipynb
