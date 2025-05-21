@@ -193,12 +193,12 @@ Endfunction
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     if  succubusType == 1 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
-        int toIncrease = 10
+        int toIncrease = 2
         if MySweetHeart
             Debug.Notification("Oh I gotta talk with " + MySweetHeart.GetDisplayName() +  " about that!")
         else
             Debug.Notification("I am so alone!")
-            toIncrease += 10
+            toIncrease += 2
         endif
         libidoTrackerScript.changeLibido(toIncrease)
     endif

@@ -100,9 +100,10 @@ Event OnUpdateGameTime()
 		; float incr = timeBetween * ( -1 * multiplierDecrease + AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE) ))
 		changeLibido(timeBetween * -1 * multiplierDecrease)
 		changeLibido(timeBetween * AddIntValues(IntListToArray (PlayerRef, SUCCUBUSLIBIDOINCREASE)))
-		if TSSD_SuccubusLibido.GetValue() > 100 && SuccubusDesireLevel.GetValue() < 50
+		if TSSD_SuccubusLibido.GetValue() > 100 && SuccubusDesireLevel.GetValue() < -50
 			Debug.Notification("Libido Break")
 			changeLibido(-100)
+			SuccubusDesireLevel.SetValue(100)
 			if GetOwningQuest().ModObjectiveGlobal(1, TSSD_SuccubusBreakRank, 1, 10)
 				int ibutton = TSSD_GameOverMessage.Show()
 				if ibutton == 1
