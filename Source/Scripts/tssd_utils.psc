@@ -134,32 +134,44 @@ bool Function targetCheckForScan(Actor curRef, keyword animalKeyword) Global
     return true
 
 Endfunction
-bool Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect, bool ignoreMarker) Global
+
+int Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect, actor playerref, bool ignoreMarker, bool afterSceneEnd = false) Global
+    ; -1 can't be drained, 0 can only be drained once, 1 can be drained
+    int timesMet = SexlabStatistics.GetTimesMet(akActor,PlayerRef)
+    DBGTRace("Player has met " + akActor.GetDisplayName() + " this many times: " + timesMet)
+    if afterSceneEnd
+        timesMet -= 1
+    endif
+
     ActorBase ak = (akActor.GetBaseObject() as ActorBase)
     
+    if akActor.IsChild()
+        return -1
+    endif
+
+    if timesMet == 0
+        return 0
+    endif
+    
     if Game.GetPlayer() == akActor
-        return false
+        return -1
     endif
 
     if ak.IsProtected()
-        return false
+        return -1
     endif
     
     if ak.IsEssential()
-        return false
-    endif
-    
-    if akActor.IsChild()
-        return false
+        return -1
     endif
     
     if akActor.HasMagicEffect(TSSD_DraineMarkerEffect)
         if !ignoreMarker
-            return false
+            return -1
         endif
     endif
 
-    return true
+    return 1
     
 EndFunction
 

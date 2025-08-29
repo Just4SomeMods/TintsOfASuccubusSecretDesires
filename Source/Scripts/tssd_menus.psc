@@ -279,7 +279,7 @@ Function OpenSettingsMenu()
             tActions.EvaluateCompleteScene()
         elseif Cross
             string showboat = "I can't succ " + Cross.GetDisplayName() +"!"
-            if tActions.isSuccableOverload(Cross)
+            if tActions.isSuccableOverload(Cross) > -1
                 int lasttime = (GetLastTimeSuccd(Cross, TimeOfDayGlobalProperty) * 300) as int
                 if lasttime > 100.0 || lasttime < 0.0
                 showboat = "This person is full of juicy energy!"

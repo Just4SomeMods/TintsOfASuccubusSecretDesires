@@ -10,6 +10,12 @@ GlobalVariable Property TSSD_SuccubusType Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
 int smooching
 
+
+Function queueStringForAnnouncement(string inputStr)
+    nextAnnouncment += inputStr
+EndFunction
+
+
 string Property nextAnnouncment Auto
 
 float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType , Actor WhoCums = none)    
