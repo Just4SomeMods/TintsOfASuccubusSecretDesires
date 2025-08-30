@@ -122,6 +122,46 @@ Function queueStringForAnnouncement(string inputStr)
     OEnergy.queueStringForAnnouncement(inputStr)
 EndFunction
 
+Actor Function getLonelyTarget()
+    int radius = getScanRange()
+    targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
+    cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
+    int ac_index = 0
+    bool isFading = false
+    Actor curRef
+    Actor tarRef
+    Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
+    numHostileActors = 0
+    float min_distance
+    Actor nearestActor
+    Actor[] tempArr = new Actor[1]
+    while ac_index < cell_ac.Length
+        curRef = cell_ac[ac_index]        
+        if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled() && !curRef.isDead() 
+            if !nearestActor || min_distance > PlayerRef.GetDistance(curRef)
+                nearestActor = curRef
+                min_distance = PlayerRef.GetDistance(curRef)
+            endif
+            isHostileArr[ac_index] = true
+            if numHostileActors == 0
+                tempArr[0] = curRef
+            else
+                tempArr = PapyrusUtil.PushActor(tempArr,curRef )
+            endif
+            numHostileActors += 1
+        endif
+        
+        ac_index += 1
+    endwhile
+    cell_ac = tempArr
+    if nearestActor && !nearestActor.HasKeyword(IsCreature) && numHostileActors == 1 
+        isFading = true
+        tarRef = nearestActor
+        return nearestActor
+    endif
+    return none
+EndFunction
+
 Actor Function searchForTargets()
     int radius = getScanRange()
     targetsToAlert = MiscUtil.ScanCellNPCs(PlayerRef)
@@ -221,6 +261,7 @@ Function EvaluateCompleteScene(bool onStart=false)
     string output = ""
     float energyNew = 0
     float[] retVals = new float[2]
+    Oenergy.nextAnnouncment = ""
     if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
         while index < ActorsIn.length
             Actor ActorRef = Actorsin[Index]
@@ -228,14 +269,14 @@ Function EvaluateCompleteScene(bool onStart=false)
             int isSucc = isSuccableOverload(ActorRef)
             DBGTRace(isSucc + ActorRef.GetDisplayName())
             if isSucc == 0
-                queueStringForAnnouncement("Can only be drained once!
-"
-)
+                queueStringForAnnouncement("Can only be drained once!")
             endif
 
             if isSucc > -1
                 retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
-                Oenergy.nextAnnouncment = ""
+                if isSucc > 0
+                    Oenergy.nextAnnouncment = ""
+                endif
                 energyNew = retVals[0]
                 if ActorRef
                     max_rel = max(relatisonship, max_rel) as int
@@ -247,11 +288,10 @@ Function EvaluateCompleteScene(bool onStart=false)
                 endif
                 string nextOutput = ActorRef.GetDisplayName() + " can't be drained"
                 DBGTRace(ActorRef.GetDisplayName() + " has it? " + ActorRef.HasMagicEffect(TSSD_DraineMarkerEffect))
-                if ActorRef.HasMagicEffect(TSSD_DraineMarkerEffect)
+                if ActorRef.HasMagicEffect(TSSD_DraineMarkerEffect) && isSucc > -1
                     nextOutput += " yet"
                 endif
-                nextOutput += "!
-"
+                nextOutput += "!"
                 queueStringForAnnouncement(nextOutput)
             endif
             index += 1

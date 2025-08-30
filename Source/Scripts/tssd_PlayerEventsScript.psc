@@ -2,6 +2,8 @@ Scriptname tssd_PlayerEventsScript extends ReferenceAlias
 
 GlobalVariable Property TSSD_SuccubusType Auto
 GlobalVariable Property TSSD_SuccubusLibido Auto
+tssd_actions Property tActions Auto
+Actor Property PlayerRef Auto
 
 tssd_LibidoTrackerRefScript Property libidoTrackerScript Auto
 
@@ -18,4 +20,11 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
             endif
         endif
     endif
+    if TSSD_SuccubusLibido.GetValue() > 10  && PlayerRef.GetAV("Health") < 50
+        Actor tar = tActions.getLonelyTarget()
+        if tar
+            tActions.actDefeated(tar)
+        endif
+    endif
+
   EndEvent

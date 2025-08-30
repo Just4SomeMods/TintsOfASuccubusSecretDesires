@@ -14,7 +14,7 @@ GlobalVariable Property TSSD_SuccubusType Auto
 
 bool Property shouldFadeOut Auto
 
-Function onReloadStuff()
+Function onReloadStuff() 
     onInit()
 Endfunction
 
