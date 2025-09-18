@@ -2,9 +2,9 @@
 ;NEXT FRAGMENT INDEX 6
 Scriptname QF_tssd_libidoTrackerQuest_0800007A Extends Quest Hidden
 
-;BEGIN ALIAS PROPERTY PlayerRef
+;BEGIN ALIAS PROPERTY PlayerAlias
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_PlayerRef Auto
+ReferenceAlias Property Alias_PlayerAlias Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN FRAGMENT Fragment_4

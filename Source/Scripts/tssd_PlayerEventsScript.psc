@@ -5,8 +5,6 @@ GlobalVariable Property TSSD_SuccubusLibido Auto
 tssd_actions Property tActions Auto
 Actor Property PlayerRef Auto
 
-tssd_LibidoTrackerRefScript Property libidoTrackerScript Auto
-
 import tssd_utils
 
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
@@ -16,13 +14,13 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
     if TSSD_SuccubusType.GetValue() == 4 
         if akW
             if !abHitBlocked
-                libidoTrackerScript.changeLibido(akW.GetBaseDamage() / 5)
+                tActions.libidoTrackerScript.changeLibido(akW.GetBaseDamage() / 5)
             endif
         endif
     endif
     if TSSD_SuccubusLibido.GetValue() > 10  && PlayerRef.GetAV("Health") < 50
         Actor tar = tActions.getLonelyTarget()
-        if tar
+        if tar && tar != PlayerRef
             tActions.actDefeated(tar)
         endif
     endif

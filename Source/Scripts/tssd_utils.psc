@@ -138,7 +138,10 @@ Endfunction
 int Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect, actor playerref, bool ignoreMarker, bool afterSceneEnd = true) Global
     ; -1 can't be drained, 0 can only be drained once, 1 can be drained
     int timesMet = SexlabStatistics.GetTimesMet(akActor,PlayerRef)
-    DBGTRace("Player has met " + akActor.GetDisplayName() + " this many times: " + timesMet)
+    if Game.GetPlayer() == akActor
+        return -1
+    endif
+    
     if afterSceneEnd
         timesMet -= 1
     endif
@@ -150,19 +153,12 @@ int Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect, acto
     endif
 
     
-    if Game.GetPlayer() == akActor
-        return -1
-    endif
     
-    if timesMet == 0
-        return 0
-    endif
 
-    if ak.IsProtected()
-        return -1
-    endif
-    
-    if ak.IsEssential()
+    if ak.IsProtected() || ak.IsEssential()
+        if timesMet < 1
+            return 0
+        endif
         return -1
     endif
     

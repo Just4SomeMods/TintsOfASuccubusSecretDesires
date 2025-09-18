@@ -64,6 +64,7 @@ Spell Property TSSD_DrainedMarker Auto
 
 bool Property deathModeActivated Auto
 bool modifierKeyIsDown = false
+bool Property isHoveringPrey Auto
 
 bool [] cosmeticSettings
 
@@ -150,7 +151,6 @@ Actor Function getLonelyTarget()
             endif
             numHostileActors += 1
         endif
-        
         ac_index += 1
     endwhile
     cell_ac = tempArr
@@ -190,7 +190,6 @@ Actor Function searchForTargets()
             endif
             numHostileActors += 1
         endif
-        
         ac_index += 1
     endwhile
     cell_ac = tempArr
@@ -199,7 +198,7 @@ Actor Function searchForTargets()
         tarRef = nearestActor
         return nearestActor
     endif
-    return none
+    return PlayerRef
 Endfunction
 
 Function actDefeated(actor tarRef)
@@ -271,8 +270,7 @@ Function EvaluateCompleteScene(bool onStart=false)
             if isSucc == 0
                 queueStringForAnnouncement("Can only be drained once!")
             endif
-
-            if isSucc > -1
+            if isSucc > 0
                 retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
                 if isSucc > 0
                     Oenergy.nextAnnouncment = ""
@@ -297,7 +295,6 @@ Function EvaluateCompleteScene(bool onStart=false)
             index += 1
         EndWhile
     endif
-
     int max_relRank = -4
     index = 0
     while index < ActorsIn.length
@@ -313,7 +310,6 @@ Function EvaluateCompleteScene(bool onStart=false)
         endif
         index += 1
     EndWhile
-
     bool energyOutPut = true
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
@@ -346,7 +342,6 @@ Function EvaluateCompleteScene(bool onStart=false)
         newOut += ": " + retVals[0] as int
     endif
     GetAnnouncement().Show(newOut  , "icon.dds", aiDelay = 5.0)
-
     ; if ReadInCosmeticSetting()[2] == 1
     ;     OEnergy.ShowAnnounceMent(energyNew as int)
     ; endif
@@ -440,7 +435,7 @@ bool Function increaseGlobalDeity(int index, int byVal = 1, int targetVal = -1)
     return isCompleted
 Endfunction
 
-int Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = false)
+int Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = true)
     return isSuccable(ActorRef, TSSD_DraineMarkerEffect, playerref, ignoreMarker, afterSceneEnd)
 Endfunction
 
@@ -451,9 +446,6 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     if Sexlab.IsHooked(stageEndHook)
         Sexlab.UnRegisterHook( stageEndHook)
     endif
-
-
-
     ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
     ; TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
     int orgasmCountScene = 0
@@ -461,9 +453,8 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     int index = 0
     bool playerCame = _thread.ActorAlias(PlayerRef).GetOrgasmCount() > 0
     int bonusReduction = 10
-
     if Actorsin.Length == 1
-        if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets()
+        if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets() != PlayerRef
             bonusReduction += 10
         endif
         if playerCame && ( playerArousal + TSSD_SuccubusLibido.GetValue() >= 75  ||         bonusReduction > 10)
@@ -472,15 +463,12 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     endif
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if isSuccableOverload(WhoCums, true,true) > -1
+        if isSuccableOverload(WhoCums, true,true) > -1            
+            WhoCums.PlayIdle(BleedOutStart)
             int orgCount = _thread.ActorAlias(WhoCums).GetOrgasmCount()
             orgasmCountScene += orgCount
-            if  succubusType == 1 
-                if WhoCums.GetRelationshipRank(PlayerRef) == 4 
-                    if orgCount > 0
+            if  succubusType == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4 && orgCount > 0
                         RefreshEnergy(100)
-                    endif
-                endif
             endif
             succAbleTargets += 1
         endif
@@ -491,19 +479,18 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
         if WhoCums.hasmagiceffect(TSSD_DraineMarkerEffect) && (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated
-                    float succdVal = min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
-                    updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   )
-                    TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
-                    TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
-                    int reduction = 10
-                    if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
-                        reduction += 10
-                    endif
-                    libidoTrackerScript.changeLibido(succdVal/reduction)
+            float succdVal = min(WhoCums.GetAV("Health"), 100 + getDrainLevel() * orgasmCountScene / succAbleTargets )
+            updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   )
+            TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal + 100 )
+            TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
+            int reduction = 10
+            if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
+                reduction += 10
+            endif
+            libidoTrackerScript.changeLibido(succdVal/reduction)
         endif
         index+=1
     EndWhile
-
     if deathModeActivated && SuccubusDesireLevel.GetValue() >= 0
             toggleDeathMode()
     endif
@@ -521,7 +508,6 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             tarIndex += 1
         EndWhile
     endif
-
     targetsToAlert = new Actor[1]
 EndFunction
 
@@ -557,7 +543,6 @@ Function AddToStatistics(float amount_of_hours)
     endif
     slsfListener.onWaitPassive(amount_of_hours)
 Endfunction
-
 
 ; Function to adjust energy level
 Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated = false)
@@ -661,14 +646,12 @@ String Function getAllNames(Actor[] inArr)
     string outString = ""
     while index < inArr.length
         outString += (inArr[index] as Actor).GetDisplayName() + ";"
-        index += 1 
+        index += 1
     endwhile
     return outString
 Endfunction
 
-
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 Event OnUpdate()
     sslThreadController _thread =  Sexlab.GetPlayerController()
@@ -676,20 +659,20 @@ Event OnUpdate()
             if timer_internal < 0
                 timer_internal += Max(_updateTimer, 0.0)
         elseif Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main")) && PlayerRef.GetAV("Stamina") > 10 && timer_internal < 6
-                        timer_internal += _updateTimer
-                        PlayerRef.DamageActorValue("Stamina", 50 * _updateTimer )
-                    elseif timer_internal > 0
-                        int index = 0
-                        Actor[] ActorsIn = _thread.GetPositions()
-                        while index < ActorsIn.Length
-                            if ActorsIn[index] != PlayerRef
-                                _thread.AdjustEnjoyment(ActorsIn[index], Min(300, _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
-                            else
-                                _thread.AdjustEnjoyment(ActorsIn[index], Min(90 - _thread.GetEnjoyment(ActorsIn[index]), _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
-                            endif
-                            index += 1
-                        EndWhile
-                        timer_internal = -5
+            timer_internal += _updateTimer
+            PlayerRef.DamageActorValue("Stamina", 50 * _updateTimer )
+        elseif timer_internal > 0
+            int index = 0
+            Actor[] ActorsIn = _thread.GetPositions()
+            while index < ActorsIn.Length                
+                if ActorsIn[index] != PlayerRef
+                    _thread.AdjustEnjoyment(ActorsIn[index], Min(300, _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
+                else
+                    _thread.AdjustEnjoyment(ActorsIn[index], Min(90 - _thread.GetEnjoyment(ActorsIn[index]), _thread.GetEnjoyment(ActorsIn[index]) + 25 * timer_internal) as int)
+                endif
+                index += 1
+            EndWhile
+            timer_internal = -5
         endif
     endif
     float succNeedVal = SuccubusDesireLevel.GetValue()
@@ -701,7 +684,6 @@ Event OnUpdate()
     endif
 	RegisterForSingleUpdate(_updateTimer)
 EndEvent
-
 
 Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     int succubusType = TSSD_SuccubusType.GetValue() as int
@@ -721,23 +703,23 @@ Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
             endif
         endif
     if deathModeActivated && ActorRef != PlayerRef
-            int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
-            int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-            ;TSSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
-            ;TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
-            while  Stage_in < StageCount 
-                _thread.AdvanceStage()
-                Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-            EndWhile
+        int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
+        int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+        ;TSSD_DrainHealth.SetNthEffectMagnitude(1, Min( ActorRef.GetActorValue("Health") - 10, 100 + SkillSuccubusDrainLevel.GetValue() * 4 ))
+        ;TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
+        while  Stage_in < StageCount 
+            _thread.AdvanceStage()
+            Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+        EndWhile
     elseif !deathModeActivated  && ActorRef != PlayerRef && PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
-                float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-                if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
-                    new_drain_level /= 2
-                elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
-                    new_drain_level /= 3
-                elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
-                    new_drain_level /= 5
-        endif
+        float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
+        if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
+            new_drain_level /= 2
+        elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
+            new_drain_level /= 3
+        elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
+            new_drain_level /= 5
+    endif
         ;TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
         ;TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
     endif
@@ -792,7 +774,6 @@ bool Function GetHabitationCorrect(Location curLoc)
     return value
 EndFunction
 
-
 Event OnUpdateGameTime()
     int succubusType = TSSD_SuccubusType.GetValue() as int
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
@@ -825,8 +806,6 @@ Event OnUpdateGameTime()
             updateSuccyNeeds(energy_loss)
         endif
     endif
-    ; DBGTRace("Oral Cum: " + GetFloatValue(PlayerRef, CUM_ORAL) + "Anal Cum: " + GetFloatValue(PlayerRef, CUM_ANAL) + "Vaginal Cum: " +GetFloatValue(PlayerRef, CUM_VAGINAL))
-    
 endEvent
 
 Event OnMenuOpen(String MenuName)
@@ -849,11 +828,36 @@ Event OnInit()
     onGameReload()
     libidoTrackerScript.changeLibido(0)
 EndEvent
+ 
+Event OnCrosshairRefChange(ObjectReference ref)
+    SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+    Actor Aref = ref as Actor
+	If Aref
+        int succRes = isSuccableOverload(Aref)        
+        if succRes > 0
+            myBinding.Add("tssd_getTargetCross", "Succubus Actions " + isSuccableOverload(Aref), 47)
+            int lasttime = (GetLastTimeSuccd(Aref, TimeOfDayGlobalProperty) * 300) as int
+            if lasttime > 100.0 || lasttime < 0.0
+                lasttime = 100
+            endif
+            if lasttime > 50
+                myBinding.Add("tssd_getTargetPct", lasttime + "%",-1)
+                isHoveringPrey = true
+            endif
+        endif
+    else
+        myBinding.Remove("tssd_getTargetCross")
+        myBinding.Remove("tssd_getTargetPct")
+        isHoveringPrey = false
+	EndIf
+EndEvent
 
 Function onGameReload()
     if TSSD_SuccubusType.GetValue() > -1
         RegisterSuccubusEvents()
     endif
+    RegisterForCrosshairRef()
+    isHoveringPrey = false
     Maintenance(TSSD_SuccubusType)
     cosmeticSettings = ReadInCosmeticSetting()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
@@ -873,14 +877,6 @@ Function onGameReload()
         adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile
-
-    ;if tssd_libidoTrackerQuest.GetStage() == 100
-    ;    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
-    ;        TSSD_ravanousNeedLevel.SetValue(1000)
-    ;    else
-    ;        TSSD_ravanousNeedLevel.SetValue(-100)
-    ;    endif
-    ;endif
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)
@@ -913,7 +909,6 @@ Function NotificationSpam(string Displaying)
         Debug.Notification( "You picked: " + Displaying )
     endif
 Endfunction
-
 
 Function advanceStageTwenty()
     int index = 0

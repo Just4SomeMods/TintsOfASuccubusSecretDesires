@@ -75,6 +75,11 @@ Function OpenGrandeMenu()
             Return
         endif
     endif
+    if tActions.isHoveringPrey
+        OpenSuccubusAbilities()
+
+        return
+    endif
     b612_SelectList mySelectList = GetSelectList()
     sslThreadController _thread =  Sexlab.GetPlayerController()
     String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
@@ -335,6 +340,13 @@ Endfunction
 
 
 bool Function checkAbilityDefeatThem(Actor tarRef)
+    if tActions.isHoveringPrey && tarRef == playerRef
+        tarRef = Game.GetCurrentCrosshairRef() as Actor
+        tactions.cell_ac[0] = tarRef
+    endif
+    if !tarRef.isHostileToActor(playerRef) && tActions.isSuccableOverload(tarRef) > -1
+        return true
+    endif
     if playerRef.HasPerk(TSSD_Body_DefeatThem1)
         if !playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())
             if PlayerRef.GetLevel() <= tarRef.GetLevel() 
@@ -360,7 +372,7 @@ Endfunction
 
 Function OpenSuccubusAbilities()
     String itemsAsString = "Allow draining"
-    Actor tarRef = none
+    Actor tarRef = PlayerRef
     if tactions.deathModeActivated
         itemsAsString = "Hold back draining"
     endif
@@ -370,7 +382,7 @@ Function OpenSuccubusAbilities()
     endif
     tarRef = tActions.searchForTargets()
     if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
-            if tarRef
+            if tarRef && tarRef != PlayerRef
                 itemsAsString += ";Act defeated"
             else
                 itemsAsString += ";Act defeated (no Target found)"
@@ -386,7 +398,6 @@ Function OpenSuccubusAbilities()
         endif
         indexOfA += 1
     endwhile
-
     if checkAbilityDefeatThem(tarRef)
         itemsAsString += ";Rape them!"
     endif
