@@ -427,7 +427,7 @@ Function OpenSuccubusAbilities()
     endif
     tActions.NotificationSpam(myItems[result] )
     if myItems[result] == "Hold back draining" || myItems[result] == "Allow draining"
-        tActions.toggleDeathMode()
+        tActions.toggleDeathMode(true)
     elseif myItems[result] == "Look for Prey"
         int radius = tActions.getScanRange()
         Actor[] allAround = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
@@ -443,7 +443,7 @@ Function OpenSuccubusAbilities()
         tActions.actDefeated(tarRef)
     elseif myItems[result] == "Rape them!"
         if !tactions.deathModeActivated
-            tactions.toggleDeathMode()
+            tactions.toggleDeathMode(true)
         endif
         Sexlab.RegisterHook( tactions.stageEndHook)
         if !Sexlab.StartSceneA(akPositions = PapyrusUtil.PushActor(tactions.cell_ac, PlayerRef), asTags = "", akSubmissives = tactions.cell_ac)

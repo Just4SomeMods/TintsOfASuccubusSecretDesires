@@ -40,10 +40,9 @@ EndEvent
 
 Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akSourceContainer)
     if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25)
-      int lostMoney = ((aiItemCount + 1) / 2) as int
-      PlayerRef.RemoveItem(akBaseItem,  lostMoney )
-      Debug.Notification("Zenithar takes half your cut!")
-      DBGTrace(ThievesGuildFaction)
+        int lostMoney = ((aiItemCount + 1) / 2) as int
+        PlayerRef.RemoveItem(akBaseItem,  lostMoney )
+        Debug.Notification("Zenithar takes half your cut!")
         if (akSourceContainer as Actor).isInFaction(DarkBrotherhoodFaction) || (akSourceContainer as Actor).isInFaction(ThievesGuildFaction)
             tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobalcor, 35, 5000)
         else

@@ -203,7 +203,7 @@ Function actDefeated(actor tarRef)
         PlayerRef.PlayIdle(BleedOutStart)
         AzuraFadeToBlack.Apply()
         if !deathModeActivated
-            toggleDeathMode()
+            toggleDeathMode(true)
         endif
         GameHours.Mod(1) ; TODO
         Utility.Wait(2.5)
@@ -222,10 +222,10 @@ Function RegisterSuccubusEvents()
         PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
         TSSD_MaxTraits.SetValue(99)
     endif
-    ;RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
     RegisterForTrackedStatsEvent()
+    ; RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
     ; tssd_libidoTrackerQuest.start()
     ; tssd_libidoTrackerQuest.setstage(10)
 Endfunction
@@ -277,11 +277,10 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
             if ActorRef
                 max_rel = max(relatisonship, max_rel) as int
             endif
-        elseif ActorRef != PlayerRef 
-            
+        elseif ActorRef != PlayerRef
             if deathModeActivated
                 max_prot = true
-                toggleDeathMode()
+                toggleDeathMode(true)
             endif
             string nextOutput = ActorRef.GetDisplayName() + " can't be drained"
             if ActorRef.HasMagicEffect(TSSD_DraineMarkerEffect) && isSucc > -1
@@ -300,10 +299,8 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
         if isEnabledAndNotPlayer(ActorRef)
             max_relRank = max(relatisonship, max_relRank) as int
         endif
-        if max_relRank > 3 
-            if deathModeActivated
-                toggleDeathMode()
-            endif
+        if max_relRank > 3 && deathModeActivated
+            toggleDeathMode(true)
         endif
         index += 1
     EndWhile
@@ -311,15 +308,11 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
         output += "Someone is about to die! "
-    elseif succubusType == 1 
-        if max_relRank == 4
-            output += GetTypeDial("Scarlet", true)
-            energyOutPut = false
-        endif
-    elseif ActorsIn.Length == 1 
-        if playerArousalNow + TSSD_SuccubusLibido.GetValue() > 75
-            output += "Some great me time! "
-        endif
+    elseif succubusType == 1 && max_relRank == 4
+        output += GetTypeDial("Scarlet", true)
+        energyOutPut = false
+    elseif ActorsIn.Length == 1 && playerArousalNow + TSSD_SuccubusLibido.GetValue() > 75
+        output += "Some great me time! "
     elseif ActorsIn.Length == 1
         output += "I'm not in the mood "
     elseif energyNew >= 30
@@ -340,20 +333,32 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
         newOut = "Energy gained: " + energyNew as int + "\n" + newOut
     endif
     GetAnnouncement().Show(newOut  , "icon.dds", aiDelay = 0.0)
-    ; if ReadInCosmeticSetting()[2] == 1
-    ;     OEnergy.ShowAnnounceMent(energyNew as int)
-    ; endif
+    
     return energyNew as int
 Endfunction
 
 Function PlayerSceneStart(Form FormRef, int tid)
-    int nxtEnergy = EvaluateCompleteScene(tid)
 
     int succubusType = TSSD_SuccubusType.GetValue() as int
     playerArousal = playerref.GetFactionRank(sla_Arousal)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
     int indexIn = 0
+    if !deathModeActivated && _thread.GetSubmissive(PlayerRef)
+        bool aggressiveY = false
+        while indexIn < ActorsIn.length
+            Actor consentingActor = ActorsIn[indexIn]
+            if consentingActor != PlayerRef && isSuccableOverload(consentingActor) >= 0
+                aggressiveY = true
+            endif
+            indexIn += 1
+        endwhile
+        if aggressiveY
+            toggleDeathMode(false)
+        endif
+    endif
+    int nxtEnergy = EvaluateCompleteScene(tid)
+    indexIn = 0
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
         if consentingActor.GetRelationshipRank(PlayerRef) == 4 
@@ -441,8 +446,6 @@ int Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool 
     return isSuccable(ActorRef, TSSD_DraineMarkerEffect, playerref, ignoreMarker, afterSceneEnd)
 Endfunction
 
-
-
 Function PlayerSceneEnd(Form FormRef, int tid)
     int nxtEnergy = EvaluateCompleteScene(tid)
     updateSuccyNeeds(nxtEnergy)
@@ -516,10 +519,8 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     targetsToAlert = new Actor[1]
 
     if deathModeActivated && SuccubusDesireLevel.GetValue() >= 0
-            toggleDeathMode()
+        toggleDeathMode(true)
     endif
-
-
 EndFunction
 
 Function DebugForceOrgasm()
@@ -566,7 +567,6 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     if (TSSD_SuccubusType.GetValue() as int) == 3
         lowerBound = 0
     endif
-    DBGTrace(lastVal + " "+ upTo + " " + adjustBy )
     if lastVal < upTo && (lastVal > -100 || isDeathModeActivated)
         SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
     endif
@@ -574,7 +574,6 @@ Endfunction
 
 ; Function to update Energy Level by value, which increases XP
 Function updateSuccyNeeds(float value, bool resetAfterEnd = false, bool isDeathModeActivated = false)
-    DBGTrace(value + " gained?")
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
     int greed_mult = 1
@@ -590,7 +589,6 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false, bool isDeathM
     elseif PlayerRef.HasPerk(TSSD_Base_CapIncrease1)
         max_energy_level = 200
     endif
-
     if value > 0
         SuccubusXpAmount.Mod(value * 10)
     endif
@@ -611,7 +609,7 @@ Function updateSuccyNeeds(float value, bool resetAfterEnd = false, bool isDeathM
     tWidgets.UpdateStatus()
 EndFunction
 
-Function toggleDeathMode()
+Function toggleDeathMode(bool makeAnnouncement = true)
     if (deathModeActivated != false) && (deathModeActivated != true)
         deathModeActivated = false
     endif
@@ -621,7 +619,9 @@ Function toggleDeathMode()
     endif
     if deathModeActivated
         BerserkerMainImod.ApplyCrossFade(1)
-        GetAnnouncement().Show("SOMEONE NEEDS TO DIE NOW!", "icon.dds", aiDelay = 2.0)
+        if makeAnnouncement
+            GetAnnouncement().Show("SOMEONE NEEDS TO DIE NOW!", "icon.dds", aiDelay = 2.0)
+        endif
     else
         BerserkerMainImod.Remove()
     endif

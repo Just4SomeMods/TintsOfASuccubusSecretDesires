@@ -20,3 +20,6 @@ unusedCode.txt
 SSEEdit Backups/
 *.ipynb
 pPPYline
+build/*
+SKSE-Menu-Framework-2-Example/*
+uiCreation/*
