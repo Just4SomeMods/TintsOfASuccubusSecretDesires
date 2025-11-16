@@ -93,7 +93,7 @@ Event OnUpdateGameTime()
 		endif
 		if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
 			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 2)
-			; DBGTRace(succubusType+"_" +curLoc.HasKeyword(LocTypeHabitationHasInn))
+			; DBGTrace(succubusType+"_" +curLoc.HasKeyword(LocTypeHabitationHasInn))
 		else        
 			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 0)
 		endif

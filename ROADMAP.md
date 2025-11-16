@@ -38,3 +38,10 @@ Try and cure yourself or deepen the corruption!
 * Zenithar Cracked Hands
 * If all then horns, (tail and wings optionally as well)
 
+# Ideas
+## Tease
+Illusionist, 
+
+## Show-off
+
+## Thief

@@ -50,11 +50,11 @@ bool [] cosmeticSettings
 string currentVersion = "0.03.03"
 
 
-ImageSpaceModifier Property AzuraFadeToBlack  Auto  
+ImageSpaceModifier Property AzuraFadeToBlack  Auto 
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 
-int Property lastUsed Auto
-int Property lastUsedSub  Auto
+int lastUsed  = -1
+int lastUsedSub = -1
 int spellToggle
 
 
@@ -72,16 +72,17 @@ Function OpenGrandeMenu()
         ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
         ModEvent.Send(EventHandle)
         if dbgSuccy < 0
-            Return
+            return
         endif
     endif
-    if tActions.isHoveringPrey
+    sslThreadController _thread =  Sexlab.GetPlayerController()
+    if _thread
+        int x = 1
+    elseif tActions.isHoveringPrey
         OpenSuccubusAbilities()
-
         return
     endif
     b612_SelectList mySelectList = GetSelectList()
-    sslThreadController _thread =  Sexlab.GetPlayerController()
     String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
     if TSSD_MaxTraits.GetValue() > 0
         myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type;Select Traits",";")
@@ -247,7 +248,7 @@ Function SelectSuccubusType(int query = -1)
 
     endif
         ;if succubusType == 2
-            ;DBGTRace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
+            ;DBGTrace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
             
         ;Endif
 EndFunction
@@ -281,7 +282,7 @@ Function OpenSettingsMenu()
     tActions.NotificationSpam(myItems[result] )
     if myItems[result] == "Evaluate Needs"
         if Sexlab.GetPlayerController()
-            tActions.EvaluateCompleteScene()
+            tActions.EvaluateCompleteScene(-1)
         elseif Cross
             string showboat = "I can't succ " + Cross.GetDisplayName() +"!"
             if tActions.isSuccableOverload(Cross) > -1
@@ -367,6 +368,7 @@ bool Function checkAbilityDefeatThem(Actor tarRef)
             endif
         endif
     endif
+    return false
 Endfunction
 
 
@@ -376,7 +378,10 @@ Function OpenSuccubusAbilities()
     if tactions.deathModeActivated
         itemsAsString = "Hold back draining"
     endif
-    Actor Cross = Game.GetCurrentCrosshairRef() as Actor
+    Actor Cross
+    if Game.GetCurrentCrosshairRef() as Actor
+        Cross = Game.GetCurrentCrosshairRef() as Actor
+    endif
     if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
         itemsAsString += ";Ask for Sex"
     endif
@@ -390,7 +395,6 @@ Function OpenSuccubusAbilities()
     endif
 
     itemsAsString += ";Look for Prey"
-    
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
         if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && spellToggle < 2
@@ -403,15 +407,16 @@ Function OpenSuccubusAbilities()
     endif
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
-    Int result
-    
-    if modifierKeyIsDown && lastUsedSub >= 0
+    Int result = -1
+    if modifierKeyIsDown
+        if lastUsedSub >= 0
             result = lastUsedSub
-    else
-        result = GetSelectList().Show(myItems)
-        lastUsedSub = result
-        if result == -1
-            return
+        else
+            result = GetSelectList().Show(myItems)
+            lastUsedSub = result
+            if result == -1
+                return
+            endif
         endif
     endif
     if result == -1
