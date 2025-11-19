@@ -351,6 +351,18 @@
                 },
                 {
                     "type": "slider",
+                    "text": "TSSD_InnocentsSlain",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|088"
+                    }
+                },
+                {
+                    "type": "slider",
                     "text": "TSSD_KillEssentialsActive",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -359,6 +371,18 @@
                         "step": 1,
                         "sourceType": "GlobalValue",
                         "sourceForm": "TintsOfASuccubusSecretDesires.esp|033"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_LustLevel",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|086"
                     }
                 },
                 {
@@ -673,6 +697,11 @@
                     "type": "text",
                     "text": "Drained!",
                     "help": ""
+                },
+                {
+                    "type": "text",
+                    "text": "Drained Downsides",
+                    "help": "Drained targets take <mag>% more damage and lose all their magicka."
                 },
                 {
                     "type": "text",
@@ -1605,10 +1634,28 @@
                     }
                 },
                 {
+                    "id": "sTSSD_DrainedMarkerMag0:Spells",
+                    "type": "input",
+                    "text": "Already Drained Effect 0 Mag",
+                    "help": "Drained Downsides 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "77",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
                     "id": "sTSSD_DrainedMarkerDur0:Spells",
                     "type": "input",
                     "text": "Already Drained Effect 0 Dur",
-                    "help": "Drained! 28800",
+                    "help": "Drained Downsides 1200",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1617,6 +1664,42 @@
                         "params": [
                             "{b}0",
                             "77",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DrainedMarkerTwoMag0:Spells",
+                    "type": "input",
+                    "text": "AlRDrained Effect 0 Mag",
+                    "help": "Drained Downsides 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "137",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DrainedMarkerTwoDur0:Spells",
+                    "type": "input",
+                    "text": "AlRDrained Effect 0 Dur",
+                    "help": "Drained Downsides 1200",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "137",
                             "{i}0",
                             "{value}"
                         ]

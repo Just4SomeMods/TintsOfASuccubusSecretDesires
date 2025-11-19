@@ -9,11 +9,6 @@
         "Properties": [
           {
             "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TempleBlessing",
-            "Object": "0FB998:Skyrim.esm"
-          },
-          {
-            "MutagenObjectType": "ScriptObjectProperty",
             "Name": "AltarRemoveMsg",
             "Object": "10E4F9:Skyrim.esm"
           },
@@ -21,6 +16,11 @@
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "BlessingMessage",
             "Object": "10A28C:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TempleBlessing",
+            "Object": "0FB998:Skyrim.esm"
           }
         ]
       },
@@ -28,9 +28,9 @@
         "Name": "tssd_startquestscript",
         "Properties": [
           {
-            "MutagenObjectType": "ScriptObjectProperty",
-            "Name": "TSSD_SuccubusType",
-            "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
+            "MutagenObjectType": "ScriptStringProperty",
+            "Name": "deityName",
+            "Data": "Mara"
           },
           {
             "MutagenObjectType": "ScriptObjectProperty",
@@ -38,9 +38,9 @@
             "Object": "00004F:TintsOfASuccubusSecretDesires.esp"
           },
           {
-            "MutagenObjectType": "ScriptStringProperty",
-            "Name": "deityName",
-            "Data": "Mara"
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TSSD_SuccubusType",
+            "Object": "00004B:TintsOfASuccubusSecretDesires.esp"
           }
         ]
       }

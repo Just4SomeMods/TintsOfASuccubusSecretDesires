@@ -1,7 +1,7 @@
 {
   "SpriggitSource": {
     "PackageName": "Spriggit.json.Skyrim",
-    "Version": "0.39.10"
+    "Version": "0.40"
   },
   "ModKey": "TintsOfASuccubusSecretDesires.esp",
   "GameRelease": "SkyrimSE",
@@ -28,11 +28,11 @@
         "FileSize": 0
       },
       {
-        "Master": "SexLab.esm",
+        "Master": "iWant Widgets.esl",
         "FileSize": 0
       },
       {
-        "Master": "iWant Widgets.esl",
+        "Master": "SexLab.esm",
         "FileSize": 0
       }
     ],

@@ -48,9 +48,27 @@
         0
     ],
     [
+        "sTSSD_DrainedMarkerMag0:Spells",
+        true,
+        "77",
+        0
+    ],
+    [
         "sTSSD_DrainedMarkerDur0:Spells",
         true,
         "77",
+        0
+    ],
+    [
+        "sTSSD_DrainedMarkerTwoMag0:Spells",
+        true,
+        "137",
+        0
+    ],
+    [
+        "sTSSD_DrainedMarkerTwoDur0:Spells",
+        true,
+        "137",
         0
     ],
     [

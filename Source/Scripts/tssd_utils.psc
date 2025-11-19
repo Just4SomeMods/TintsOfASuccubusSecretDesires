@@ -17,26 +17,7 @@ EndFunction
 
 
 Bool Function SafeProcess() Global
-    If (!Utility.IsInMenuMode()) 
-        if (!UI.IsMenuOpen("Dialogue Menu")) 
-            if (!UI.IsMenuOpen("Console")) 
-                if (!UI.IsMenuOpen("Crafting Menu")) 
-                    if (!UI.IsMenuOpen("MessageBoxMenu")) 
-                        if (!UI.IsMenuOpen("ContainerMenu")) 
-                            if (!UI.IsMenuOpen("InventoryMenu")) 
-                                if (!UI.IsMenuOpen("BarterMenu")) 
-                                    if (!UI.IsTextInputEnabled())
-                                        Return True
-                                    endif
-                                endif
-                            endif
-                        endif
-                    endif
-                endif
-            endif
-        endif
-    endif
-    Return False    
+    return (!Utility.IsInMenuMode()) && (!UI.IsMenuOpen("Dialogue Menu")) && (!UI.IsMenuOpen("Console")) && (!UI.IsMenuOpen("Crafting Menu")) && (!UI.IsMenuOpen("MessageBoxMenu")) && (!UI.IsMenuOpen("ContainerMenu")) &&  (!UI.IsMenuOpen("InventoryMenu")) && (!UI.IsMenuOpen("BarterMenu"))  && (!UI.IsTextInputEnabled())
 EndFunction
 
 float[] Function CopyArray(float[] arr1) Global
@@ -99,73 +80,19 @@ bool Function isEnabledAndNotPlayer(Actor curRef) Global
     if !curRef
         return false
     endif
-
-    if !curRef.IsEnabled()
-        return false
-    endif
-
-    if curRef == Game.GetPlayer()
-        return false
-    endif
-
-    if curRef.isDead()
-        return false
-    endif
-
-
-
-    return true
+    return curRef.IsEnabled() && curRef != Game.GetPlayer() && !curRef.isDead()
 EndFunction
 
 
 bool Function targetCheckForScan(Actor curRef, keyword animalKeyword) Global
-    if !isEnabledAndNotPlayer(curRef)
-        return false
-    endif
-
-    if !curRef.isHostileToActor(Game.GetPlayer())
-        return false
-    endif
-
-    if curRef.HasKeyword(animalKeyword)
-        return false
-    endif
-
-    return true
-
+    return isEnabledAndNotPlayer(curRef) && curRef.isHostileToActor(Game.GetPlayer()) && !curRef.HasKeyword(animalKeyword)
 Endfunction
 
-int Function isSuccable(Actor akActor, MagicEffect TSSD_DraineMarkerEffect, actor playerref, bool ignoreMarker, bool afterSceneEnd = true) Global
+int Function isSuccable(Actor akActor, MagicEffect TSSD_DrainedDownSide, actor playerref, bool ignoreMarker, bool afterSceneEnd = true) Global
     ; -1 can't be drained, 0 can only be drained once, 1 can be drained
-    int timesMet = SexlabStatistics.GetTimesMet(akActor,PlayerRef)
-    if Game.GetPlayer() == akActor
-        return -1
-    endif
-    
-    if afterSceneEnd
-        timesMet -= 1
-    endif
 
-    ActorBase ak = (akActor.GetBaseObject() as ActorBase)
-    
-    if akActor.IsChild()
+    if akActor.IsChild() || Game.GetPlayer() == akActor || akActor.HasMagicEffect(TSSD_DrainedDownSide) &&  !ignoreMarker
         return -1
-    endif
-
-    
-    
-
-    if ak.IsProtected() || ak.IsEssential()
-        if timesMet < 1
-            return 0
-        endif
-        return -1
-    endif
-    
-    if akActor.HasMagicEffect(TSSD_DraineMarkerEffect)
-        if !ignoreMarker
-            return -1
-        endif
     endif
 
     return 1
