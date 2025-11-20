@@ -30,7 +30,6 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
 GlobalVariable Property TSSD_SuccubusType Auto
-GlobalVariable Property TSSD_SuccubusLibido Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 
 Perk Property TSSD_Base_Explanations Auto
@@ -227,7 +226,6 @@ Function SelectSuccubusType(int query = -1)
         TSSD_SuccubusType.SetValue(query)
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
-            TSSD_SuccubusLibido.SetValue(50)
             TSSD_SuccubusBreakRank.SetValue(0)
             tActions.updateSuccyNeeds(0)
             int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")

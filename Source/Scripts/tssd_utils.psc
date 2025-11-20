@@ -88,6 +88,15 @@ bool Function targetCheckForScan(Actor curRef, keyword animalKeyword) Global
     return isEnabledAndNotPlayer(curRef) && curRef.isHostileToActor(Game.GetPlayer()) && !curRef.HasKeyword(animalKeyword)
 Endfunction
 
+bool Function isDeathSuccable(Actor akActor, MagicEffect TSSD_DrainedDownSide, actor playerref, bool ignoreMarker, bool afterSceneEnd = true) Global
+    if !isSuccable(akActor, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
+        return false
+    endif
+    ActorBase ak = (akActor.GetBaseObject() as ActorBase)
+    return  !(ak.IsProtected() || ak.IsEssential())
+    
+EndFunction
+
 int Function isSuccable(Actor akActor, MagicEffect TSSD_DrainedDownSide, actor playerref, bool ignoreMarker, bool afterSceneEnd = true) Global
     ; -1 can't be drained, 0 can only be drained once, 1 can be drained
 

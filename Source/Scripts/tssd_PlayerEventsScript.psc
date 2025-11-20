@@ -1,7 +1,6 @@
 Scriptname tssd_PlayerEventsScript extends ReferenceAlias
 
 GlobalVariable Property TSSD_SuccubusType Auto
-GlobalVariable Property TSSD_SuccubusLibido Auto
 tssd_actions Property tActions Auto
 Actor Property PlayerRef Auto
 
@@ -11,18 +10,18 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
     bool abBashAttack, bool abHitBlocked)
     Weapon akW = akSource as Weapon
     
-    if TSSD_SuccubusType.GetValue() == 4 
-        if akW
-            if !abHitBlocked
-                tActions.libidoTrackerScript.changeLibido(akW.GetBaseDamage() / 5)
-            endif
-        endif
-    endif
-    if TSSD_SuccubusLibido.GetValue() > 10  && PlayerRef.GetAV("Health") < 50
-        Actor tar = tActions.getLonelyTarget()
-        if tar && tar != PlayerRef
-            tActions.actDefeated(tar)
-        endif
-    endif
+    ;if TSSD_SuccubusType.GetValue() == 4 
+    ;    if akW
+    ;        if !abHitBlocked
+    ;            tActions.libidoTrackerScript.changeLibido(akW.GetBaseDamage() / 5)
+    ;        endif
+    ;    endif
+    ;endif
+    ;if TSSD_SuccubusLibido.GetValue() > 10  && PlayerRef.GetAV("Health") < 50
+    ;    Actor tar = tActions.getLonelyTarget()
+    ;    if tar && tar != PlayerRef
+    ;        tActions.actDefeated(tar)
+    ;    endif
+    ;endif
 
   EndEvent

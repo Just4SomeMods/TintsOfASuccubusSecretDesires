@@ -16,8 +16,6 @@ Faction Property sla_Arousal Auto
 
 Actor Property MySweetHeart Auto
 
-tssd_LibidoTrackerRefScript Property libidoTrackerScript Auto
-
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
 String[] Property SuccubusAbilitiesNames  Auto    
@@ -27,7 +25,6 @@ Idle property BleedOutStart auto
 tssd_orgasmenergylogic Property OEnergy Auto 
 
 Quest Property tssd_dealwithcurseQuest Auto
-Quest Property tssd_libidoTrackerQuest Auto
 Quest Property TSSD_EvilSuccubusQuest Auto
 
 GlobalVariable[] Property tssd_deityTrackers Auto
@@ -43,7 +40,6 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property TSSD_SuccubusType Auto
-GlobalVariable Property TSSD_SuccubusLibido Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
 GlobalVariable Property TSSD_InnocentsSlain Auto
@@ -94,8 +90,7 @@ int Property numHostileActors Auto
 int Property playerArousal Auto
 
 string Property tssd_SpellDebugProp = "-1" Auto
-MagicEffect Property TSSD_DrainedDownSide Auto  
-MagicEffect Property TSSD_BeggarLibidoDecrease Auto  
+MagicEffect Property TSSD_DrainedDownSide Auto
 MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
 
 float lastSmoochTimeWithThatPerson = 0.0
@@ -108,7 +103,6 @@ float _updateTimer = 0.5
 String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
 String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
 String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
-STRING PROPERTY SUCCUBUSLIBIDOINCREASE = "tssd.Libido.Rate" autoreadonly hidden
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -225,8 +219,6 @@ Function RegisterSuccubusEvents()
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
     RegisterForTrackedStatsEvent()
     ; RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
-    ; tssd_libidoTrackerQuest.start()
-    ; tssd_libidoTrackerQuest.setstage(10)
 Endfunction
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
@@ -239,7 +231,6 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
             Debug.Notification("I am so alone!")
             toIncrease += 2
         endif
-        libidoTrackerScript.changeLibido(toIncrease)
     endif
 endEvent
 
@@ -307,7 +298,7 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
     elseif succubusType == 1 && max_relRank == 4
         output += GetTypeDial("Scarlet", true)
         energyOutPut = false
-    elseif ActorsIn.Length == 1 && playerArousalNow + TSSD_SuccubusLibido.GetValue() > 75
+    elseif ActorsIn.Length == 1 && playerArousalNow > 75
         output += "Some great me time! "
     elseif ActorsIn.Length == 1
         output += "I'm not in the mood "
@@ -357,7 +348,7 @@ Function PlayerSceneStart(Form FormRef, int tid)
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
         if consentingActor.GetRelationshipRank(PlayerRef) == 4 
-            GetAnnouncement().Show("❤️❤️❤️ " + consentingActor.GetDisplayName() + " ❤️❤️❤️" , "icon.dds", aiDelay = 2.0)
+            GetAnnouncement().Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
             MySweetHeart = consentingActor
             indexIn = 99
         endif
@@ -444,12 +435,20 @@ int Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool 
     return isSuccable(ActorRef, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
 Endfunction
 
+bool Function isDeathSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = true)
+    return isDeathSuccable(ActorRef, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
+EndFunction
+
 Function PlayerSceneEnd(Form FormRef, int tid)
     int nxtEnergy = EvaluateCompleteScene(tid)
     updateSuccyNeeds(nxtEnergy)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
+    int succAbleTargets = 0
+    int index = 0
+    bool playerCame = _thread.ActorAlias(PlayerRef).GetOrgasmCount() > 0
+    int bonusReduction = 10
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
         if isSuccableOverload(WhoCums, false,true) > -1
@@ -458,36 +457,26 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             else
                 PlayerRef.PushActorAway(WhoCums, 1.0)
             endif
-            orgasmCountScene += 1
-            if  succubusType == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4
-                RefreshEnergy(100)
-            endif
             succAbleTargets += 1
+        endif
+        if  succubusType == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4
+            RefreshEnergy(100)
         endif
         index+=1
     EndWhile
     ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
-    ; TSSD_DrainHealth.Cast(PlayerRef, ActorRef)
-    int orgasmCountScene = 0
-    int succAbleTargets = 0
-    int index = 0
-    bool playerCame = _thread.ActorAlias(PlayerRef).GetOrgasmCount() > 0
-    int bonusReduction = 10
+    ; TSSD_DrainHealth.Cst(PlayerRef, ActorRef)
     if Actorsin.Length == 1
         if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets() != PlayerRef
             bonusReduction += 10
-        endif
-        if playerCame && ( playerArousal + TSSD_SuccubusLibido.GetValue() >= 75  || bonusReduction > 10)
-            libidoTrackerScript.changeLibido(bonusReduction * (playerArousal + TSSD_SuccubusLibido.GetValue() / 50) )
         endif
     endif
     index = 0
     succAbleTargets = max(1, succAbleTargets) as int
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isSuccableOverload(WhoCums,false,true) && WhoCums != PlayerRef
+        if (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isDeathSuccableOverload(WhoCums)
             float succdVal = min(WhoCums.GetAV("Health"), getDrainLevel() )
-            TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
             updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   )
             TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
             TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
@@ -501,8 +490,9 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
                 reduction += 10
             endif
-            ; libidoTrackerScript.changeLibido(succdVal/reduction)
-            ; WhoCums.PlayIdle(BleedOutStart)
+        endif
+        if WhoCums != PlayerRef
+            TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
         endif
         index+=1
     EndWhile
@@ -554,7 +544,8 @@ Function AddToStatistics(float amount_of_hours)
     if succubusType != 3
         while index < (amount_of_hours as int)
             int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
-            sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+            sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, isaggressive = succubusType == 4,
+             Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
             index += 1
         endwhile
     endif
@@ -701,9 +692,6 @@ Event OnUpdateGameTime()
         float valBefore = SuccubusDesireLevel.GetValue()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
         float chVal = 1
-        if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bEnableLibido:Libido")
-            chVal = ( 1 + (TSSD_SuccubusLibido.GetValue()) / 100) * ( 1 + TSSD_SuccubusBreakRank.GetValue())
-        endif
         float energy_loss = timeBetween * chVal * 0.1
         if curLoc 
             if valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && GetHabitationCorrect(curLoc) 
@@ -714,7 +702,6 @@ Event OnUpdateGameTime()
                         RefreshEnergy(energy_loss * 10, 50)
                     endif
                     float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
-                    libidoTrackerScript.changeLibido(changeAmount )
                     AddToStatistics(changeAmount)
                     energy_loss = 0
                 endif
@@ -750,10 +737,8 @@ Event OnMenuClose(String MenuName)
 EndEvent
 
 Event OnInit()
-    IntListResize(PlayerRef, SUCCUBUSLIBIDOINCREASE, 20)
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
     onGameReload()
-    libidoTrackerScript.changeLibido(0)
 EndEvent
  
 Event OnCrosshairRefChange(ObjectReference ref)
@@ -788,9 +773,6 @@ Function onGameReload()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
     tWidgets.onReloadStuff()
     updateSuccyNeeds(0)
-    if IntListCount(PlayerRef, SUCCUBUSLIBIDOINCREASE) < 10
-        IntListResize(PlayerRef, SUCCUBUSLIBIDOINCREASE, 20)
-    endif
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
     endif
@@ -799,7 +781,8 @@ Function onGameReload()
     int index = 0
     while index < JValue.count(jArr)
         int innerJ = jArray.getObj(jArr, index)
-        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
+        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,
+        MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile
 Endfunction
