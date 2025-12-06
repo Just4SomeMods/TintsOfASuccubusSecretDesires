@@ -45,7 +45,7 @@
             "Shadows consume me without warmth.",
             "Alone, I am but a flickering ember."
         ],
-        "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. You do not lose energy from climaxing during sex with a person that loves your, else you lose more. Your libido increases every time you learn something new as you think about wanting to talk about it with that special person.",
+        "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. Having sex with a person that loves you makes them your love thrall. Making non-sweethearts a thrall has a chance to kill a sweetheart.",
         "color": [255,36,0],
         "famecat" : null
     },
@@ -76,7 +76,7 @@
             "Isn't it time for something new?",
             "Haven't we met before?"
         ],
-        "description": "You live an exciting life! Pursuing new things is your drive. You lose no energy while climaxing with a person on your first time together, else more. Your libido increases when you are around lots of people." ,
+        "description": "You live an exciting life! Pursuing new things is your drive. Having consentual sex for the first time with someone enthralls them for a day." ,
         "color" : [255,192,203],
         "famecat" : ["Airhead", "Slut", "Group"]
     },
@@ -114,7 +114,7 @@
             "My heart longs for a wilder beat.",
             "Predictable and tame."
         ],
-        "description": "Without risk, there is no fun... You do not lose energy while climaxing form being raped, you lose more otherwise. Your libido increases every time take damage.",
+        "description": "Without risk, there is no fun... Every time an enemy damages you, you regain a bit of energy.",
         "color": [108,67,36],
         "famecat" : ["Masochist", "Bound", "Submissive"]
     }

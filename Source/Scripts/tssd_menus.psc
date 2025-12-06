@@ -12,7 +12,6 @@ SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
 tssd_widgets Property tWidgets Auto
-Faction Property sla_Arousal Auto
 tssd_actions Property tActions Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
@@ -56,8 +55,58 @@ int lastUsed  = -1
 int lastUsedSub = -1
 int spellToggle
 
+Quest Property tssd_enthrallDialogue Auto
+
+Faction Property sla_Arousal Auto
+Faction Property TSSD_ThrallDominant Auto
+Faction Property TSSD_ThrallAggressive Auto
+
 
 ;MENUS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Function OpenThrallMenu(Actor targetRef)
+    b612_SelectList mySelectList = GetSelectList()
+    String[] myItems = StringUtil.Split("Intimacy;Inventory;Release",";")
+    int result = mySelectList.Show(myItems)
+    if result == 0
+        OpenIntmacyMenu(targetRef)
+    endif
+
+EndFunction
+
+Function OpenIntmacyMenu(Actor targetRef)
+    b612_SelectList mySelectList = GetSelectList()
+    String[] myItems = StringUtil.Split("> Thrall passive;> Thrall non-aggressive;Kiss;Vaginal",";")
+    if targetRef.GetFactionRank(TSSD_ThrallDominant) == 1
+        myItems[0] = "> Thrall Active"
+    endif
+    if targetRef.GetFactionRank(TSSD_ThrallAggressive) == 1
+        myItems[1] = "> Thrall aggressive"
+    endif
+    int result = mySelectList.Show(myItems)
+    if result <= 2 && result > -1
+        if result == 0
+            targetRef.SetFactionRank(TSSD_ThrallDominant, 1-targetRef.GetFactionRank(TSSD_ThrallDominant))
+        else
+            targetRef.SetFactionRank(TSSD_ThrallAggressive, 1-targetRef.GetFactionRank(TSSD_ThrallAggressive))
+        endif
+        OpenIntmacyMenu(targetRef)
+    elseif result == 2
+        SexLab.StartSceneQuick(PlayerRef, targetRef, asTags="kissing, limitedstrip, -sex")
+    elseif result == 3
+        string tagsIn = "vaginal"
+        if targetRef.GetFactionRank(TSSD_ThrallAggressive) > 0
+            tagsIn += ",aggressive"
+        endif
+        if targetRef.GetFactionRank(TSSD_ThrallDominant) > 0
+            SexLab.StartSceneQuick(PlayerRef, targetRef, asTags=tagsIn) 
+        else
+            SexLab.StartSceneQuick(targetRef, PlayerRef, asTags=tagsIn) 
+        endif
+
+    Endif
+
+EndFunction
 
 Function OpenGrandeMenu()
     modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
@@ -77,8 +126,8 @@ Function OpenGrandeMenu()
     sslThreadController _thread =  Sexlab.GetPlayerController()
     if _thread
         int x = 1
-    elseif tActions.isHoveringPrey
-        OpenSuccubusAbilities()
+    elseif tActions.HoveredPrey != PlayerRef
+        OpenThrallMenu(tActions.HoveredPrey)
         return
     endif
     b612_SelectList mySelectList = GetSelectList()
@@ -235,14 +284,15 @@ Function SelectSuccubusType(int query = -1)
                 PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
                 PlayerRef.AddPerk(TSSD_Body_PlayDead1)
             endif
+            tssd_enthrallDialogue.Start()
             PlayerRef.AddPerk(TSSD_Base_Explanations)
             tActions.RegisterSuccubusEvents()
         endif
         slsfListener.CheckFlagsSLSF()
         if oldVal == -1 && TSSD_SuccubusType.GetValue() > -1
-                OpenSuccubusTraits()
-                tWidgets.onReloadStuff()
-            endif
+            OpenSuccubusTraits()
+            tWidgets.onReloadStuff()
+        endif
 
     endif
         ;if succubusType == 2

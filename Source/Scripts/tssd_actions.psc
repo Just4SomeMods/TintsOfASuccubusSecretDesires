@@ -12,9 +12,12 @@ SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
 tssd_widgets Property tWidgets Auto
+
 Faction Property sla_Arousal Auto
+Faction Property TSSD_EnthralledFaction Auto
 
 Actor Property MySweetHeart Auto
+Actor Property HoveredPrey Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
@@ -68,6 +71,7 @@ bool [] cosmeticSettings
 
 Actor[] Property targetsToAlert Auto
 Actor[] Property cell_ac Auto
+Actor[] Property mySweethearts Auto
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
 ImageSpaceModifier Property BerserkerMainImod  Auto  
@@ -152,7 +156,7 @@ Actor Function getLonelyTarget()
         tarRef = nearestActor
         return nearestActor
     endif
-    return none
+    return PlayerRef
 EndFunction
 
 Actor Function searchForTargets()
@@ -202,8 +206,8 @@ Function actDefeated(actor tarRef)
         Utility.Wait(2.5)
         tarRef.MoveTo(PlayerRef, 0, 0)
         tarRef.enable()
-        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
         ImageSpaceModifier.RemoveCrossFade(3)
+        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
     endif
 Endfunction
 
@@ -745,6 +749,13 @@ Event OnCrosshairRefChange(ObjectReference ref)
     SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
     Actor Aref = ref as Actor
 
+    if Aref && Aref.GetFactionRank(TSSD_EnthralledFaction) >= 1
+        myBinding.Add("tssd_getTargetCross", "Thrall Actions", 47)
+        HoveredPrey = Aref
+    else
+        HoveredPrey = PlayerRef
+    endif
+
 	If Aref && isSuccableOverload(Aref) > 0 && !Aref.isDead()
         myBinding.Add("tssd_getTargetCross", "Succubus Actions " + isSuccableOverload(Aref), 47)
         int lasttime = (GetLastTimeSuccd(Aref, TimeOfDayGlobalProperty) * 300) as int
@@ -755,11 +766,24 @@ Event OnCrosshairRefChange(ObjectReference ref)
             myBinding.Add("tssd_getTargetPct", lasttime + "%",-1)
             isHoveringPrey = true
         endif
+        RegisterForSingleUpdate(1)
     else
         myBinding.Remove("tssd_getTargetCross")
         myBinding.Remove("tssd_getTargetPct")
         isHoveringPrey = false
 	EndIf
+EndEvent
+
+Event OnUpdate()
+    if  Game.GetCurrentCrosshairRef() && Game.GetCurrentCrosshairRef() == HoveredPrey
+        RegisterForSingleUpdate(1)
+    else
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        myBinding.Remove("tssd_getTargetCross")
+        myBinding.Remove("tssd_getTargetPct")
+        isHoveringPrey = false
+        HoveredPrey = PlayerRef
+    endif
 EndEvent
 
 Function onGameReload()

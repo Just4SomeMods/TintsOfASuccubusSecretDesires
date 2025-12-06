@@ -1,0 +1,69 @@
+[11/20/2025 | 12:53:11.007] - ===MAMMAERIES AND LACTATION LOG START===
+[11/20/2025 | 12:53:11.021] - ===PLAYER NAME: Player ===
+[11/20/2025 | 12:53:11.068] - <Core> [UpdatePlayerWeight] Player Weight = 75.000000
+[11/20/2025 | 12:53:11.082] - <Breast Manager> [UpdateBoobSize]
+[11/20/2025 | 12:53:11.098] - <Breast Manager> [UpdateBoobSize] Breast Node Scale = 1.000000
+[11/20/2025 | 12:53:11.112] - <Breast Manager> [UpdateBoobSize] RAW Boob Weight = 2.250000
+[11/20/2025 | 12:53:11.127] - <Breast Manager> [UpdateBoobSize] Node Scale Difference = 0.000000
+[11/20/2025 | 12:53:11.142] - <Breast Manager> [UpdateBoobSize] Milk Weight = 0.000000
+[11/20/2025 | 12:53:11.173] - <Breast Manager> [UpdateBoobSize] Breast Weight = 4.500000
+[11/20/2025 | 12:53:11.848] - <Breast Manager> [SetMilkLimit]
+[11/20/2025 | 12:53:11.861] - <Breast Manager> [SetMilkLimit] Base Milk Limit = 16.250000
+[11/20/2025 | 12:53:11.874] - <Breast Manager> [SetMilkLimit] Uncorrected Milk Limit = 16.250000
+[11/20/2025 | 12:53:11.890] - <Breast Manager> [SetMilkLimit] Corrected Milk Limit = 16.250000
+[11/20/2025 | 12:53:11.973] - MAL Update Stamina Rate
+[11/20/2025 | 12:53:12.024] - <Effect Manager> [UpdateStaminaRate] Stamina Penalty Precent = 0.375000
+[11/20/2025 | 12:53:12.042] - <Effect Manager> [UpdateStaminaRate] Stamina Damage Precent = 0.187500
+[11/20/2025 | 12:53:12.058] - <Effect Manager> [UpdateStaminaRate] Stamina Damage Precent (Bounded) = 0.187500
+[11/20/2025 | 12:53:12.075] - <Effect Manager> [UpdateStaminaRate] Stamina Damage = 0.937500
+[11/20/2025 | 12:53:12.124] - <Effect Manager> [UpdateStaminaRate] Previous Stamina Damage = 0.937500
+[11/20/2025 | 12:53:12.141] - <Effect Manager> [UpdateMagickaRate] Update Magicka Rate
+[11/20/2025 | 12:53:12.209] - <Effect Manager> [UpdateMagickaRate] Magicka Penalty Percent = 0.625000
+[11/20/2025 | 12:53:12.226] - <Effect Manager> [UpdateMagickaRate] Magicka Damage Percent = 0.312500
+[11/20/2025 | 12:53:12.241] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; RAW Boost = -0.312500
+[11/20/2025 | 12:53:12.258] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; Boost Add (1) = 0.312500
+[11/20/2025 | 12:53:12.274] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; Boost Add (2) = 0.250000
+[11/20/2025 | 12:53:12.292] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; Boost Add (3) = 0.750000
+[11/20/2025 | 12:53:12.324] - <Effect Manager> [UpdateHealthRate] Update Health Rate
+[11/20/2025 | 12:53:12.373] - <Effect Manager> [UpdateHealthRate] Health Rate Penalty Percent = 0.625000
+[11/20/2025 | 12:53:12.391] - <Effect Manager> [UpdateHealthRate] Health Rate Damage Percent = 0.156250
+[11/20/2025 | 12:53:12.408] - <Effect Manager> [UpdateHealthRate] Health Rate Damage = 0.109375
+[11/20/2025 | 12:53:12.458] - <Effect Manager> [UpdateHealthRate] Previous Health Damage = 0.109375
+[11/20/2025 | 12:53:12.477] - <Effect Manager> [UpdateSpeedValue] Update Speed
+[11/20/2025 | 12:53:12.558] - <Effect Manager> [UpdateSpeedValue] Current SpeedMult is: 100.000000 (as Int = 100)
+[11/20/2025 | 12:53:12.574] - <Effect Manager> [UpdateSpeedValue] Speed Penalty Percent = 0.375000
+[11/20/2025 | 12:53:12.592] - <Effect Manager> [UpdateSpeedValue] Speed Damage Percent = 0.075000
+[11/20/2025 | 12:53:12.608] - <Effect Manager> [UpdateSpeedValue] Speed Damage Result = 93
+[11/20/2025 | 12:53:12.624] - <Effect Manager> [UpdateSpeedValue] Speed Damage Correction = 0
+[11/20/2025 | 12:53:12.657] - <Effect Manager> [UpdateSpeedValue] Previous Speed Damage = 7.000000
+[11/20/2025 | 12:53:12.674] - <Effect Manager> [UpdateCarryWeight] Update Carry Weight
+[11/20/2025 | 12:53:12.724] - <Effect Manager> [UpdateCarryWeight] Previous Carry Weight Damage = 4.500000
+[11/20/2025 | 12:53:16.495] - MAL Update Stamina Rate
+[11/20/2025 | 12:53:16.544] - <Effect Manager> [UpdateStaminaRate] Stamina Penalty Precent = 0.375000
+[11/20/2025 | 12:53:16.561] - <Effect Manager> [UpdateStaminaRate] Stamina Damage Precent = 0.187500
+[11/20/2025 | 12:53:16.579] - <Effect Manager> [UpdateStaminaRate] Stamina Damage Precent (Bounded) = 0.187500
+[11/20/2025 | 12:53:16.601] - <Effect Manager> [UpdateStaminaRate] Stamina Damage = 0.937500
+[11/20/2025 | 12:53:16.711] - <Effect Manager> [UpdateStaminaRate] Previous Stamina Damage = 0.937500
+[11/20/2025 | 12:53:16.729] - <Effect Manager> [UpdateMagickaRate] Update Magicka Rate
+[11/20/2025 | 12:53:16.778] - <Effect Manager> [UpdateMagickaRate] Magicka Penalty Percent = 0.625000
+[11/20/2025 | 12:53:16.794] - <Effect Manager> [UpdateMagickaRate] Magicka Damage Percent = 0.312500
+[11/20/2025 | 12:53:16.811] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; RAW Boost = -0.312500
+[11/20/2025 | 12:53:16.828] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; Boost Add (1) = 0.312500
+[11/20/2025 | 12:53:16.848] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; Boost Add (2) = 0.250000
+[11/20/2025 | 12:53:16.864] - <Effect Manager> [BoostMagickaRate] Magicka Rate Boost; Boost Add (3) = 0.750000
+[11/20/2025 | 12:53:16.894] - <Effect Manager> [UpdateHealthRate] Update Health Rate
+[11/20/2025 | 12:53:16.945] - <Effect Manager> [UpdateHealthRate] Health Rate Penalty Percent = 0.625000
+[11/20/2025 | 12:53:16.961] - <Effect Manager> [UpdateHealthRate] Health Rate Damage Percent = 0.156250
+[11/20/2025 | 12:53:16.978] - <Effect Manager> [UpdateHealthRate] Health Rate Damage = 0.109375
+[11/20/2025 | 12:53:17.028] - <Effect Manager> [UpdateHealthRate] Previous Health Damage = 0.109375
+[11/20/2025 | 12:53:17.045] - <Effect Manager> [UpdateSpeedValue] Update Speed
+[11/20/2025 | 12:53:17.128] - <Effect Manager> [UpdateSpeedValue] Current SpeedMult is: 100.000000 (as Int = 100)
+[11/20/2025 | 12:53:17.146] - <Effect Manager> [UpdateSpeedValue] Speed Penalty Percent = 0.375000
+[11/20/2025 | 12:53:17.163] - <Effect Manager> [UpdateSpeedValue] Speed Damage Percent = 0.075000
+[11/20/2025 | 12:53:17.178] - <Effect Manager> [UpdateSpeedValue] Speed Damage Result = 93
+[11/20/2025 | 12:53:17.196] - <Effect Manager> [UpdateSpeedValue] Speed Damage Correction = 0
+[11/20/2025 | 12:53:17.228] - <Effect Manager> [UpdateSpeedValue] Previous Speed Damage = 7.000000
+[11/20/2025 | 12:53:17.245] - <Effect Manager> [UpdateCarryWeight] Update Carry Weight
+[11/20/2025 | 12:53:17.296] - <Effect Manager> [UpdateCarryWeight] Previous Carry Weight Damage = 4.500000
+[11/20/2025 | 12:53:17.512] - <NPC Updater> [IterateNPCs] - Hours Passed = 32.043564
+[11/20/2025 | 12:53:17.578] - <NPC Updater> [IterateNPCs] - Update Operation took 0.015991 seconds to complete for 0 NPCs

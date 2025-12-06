@@ -101,34 +101,6 @@
             ]
         },
         {
-            "pageDisplayName": "$Libido",
-            "content": [
-                {
-                    "id": "bEnableLibido:Libido",
-                    "type": "toggle",
-                    "text": "$SuccubusLibido_t",
-                    "help": "$SuccubusLibido_t_desc",
-                    "valueOptions": {
-                        "sourceType": "ModSettingBool",
-                        "defaultValue": false
-                    }
-                },
-                {
-                    "id": "fAdjustLibidoGain:Libido",
-                    "type": "slider",
-                    "text": "$SuccubusLibido Gain",
-                    "help": "$SuccubusLibido_desc",
-                    "valueOptions": {
-                        "min": 0,
-                        "max": 10,
-                        "step": 0.1,
-                        "sourceType": "ModSettingFloat",
-                        "formatString": "{1}"
-                    }
-                }
-            ]
-        },
-        {
             "pageDisplayName": "DEBUG: Activators",
             "content": [
                 {
@@ -1355,6 +1327,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "91"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Soul Drain",
+                    "help": "Draining a victim to death fills up a soul gem.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "139"
                         ]
                     }
                 },
