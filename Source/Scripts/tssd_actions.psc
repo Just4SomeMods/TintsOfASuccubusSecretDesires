@@ -72,8 +72,8 @@ bool [] cosmeticSettings
 Actor[] Property targetsToAlert Auto
 Actor[] Property cell_ac Auto
 Actor[] Property mySweethearts Auto
-
-ImageSpaceModifier Property AzuraFadeToBlack  Auto  
+  
+ImageSpaceModifier Property AzuraFadeToBlack  Auto
 ImageSpaceModifier Property BerserkerMainImod  Auto  
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 
