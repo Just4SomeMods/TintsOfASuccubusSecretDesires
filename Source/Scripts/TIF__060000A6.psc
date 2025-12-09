@@ -7,10 +7,15 @@ Function Fragment_0(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
 AzuraFadeToBlack.Apply()
-        GameHours.Mod(1) ; TODO
+
+   SuccubusDesireLevel.SetValue( 100  )	
         Utility.Wait(2.5)
         ImageSpaceModifier.RemoveCrossFade(3)
-tdAct.RefreshEnergy(100)
+        GameHours.Mod(1) ; TODO
+	int upTo = 100
+    if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
+        upTo = 19
+    endif
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -21,4 +26,5 @@ ImageSpaceModifier Property AzuraFadeToBlack  Auto
 
 GlobalVariable Property GameHours  Auto   
 
-tssd_actions Property tdAct  Auto  
+GlobalVariable Property SuccubusDesireLevel Auto
+Quest Property tssd_dealwithcurseQuest Auto

@@ -243,7 +243,7 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
     if inPutScene >= 0
         _thread = Sexlab.GetController(inPutScene)
     else
-        sslThreadController _thread =  Sexlab.GetPlayerController()
+        _thread =  Sexlab.GetPlayerController()
     endif
     if !_thread
         DBGTrace("No active Scene!")
@@ -548,8 +548,8 @@ Function AddToStatistics(float amount_of_hours)
     if succubusType != 3
         while index < (amount_of_hours as int)
             int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
-            sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, isaggressive = succubusType == 4,
-             Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+            sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, \
+            isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
             index += 1
         endwhile
     endif
@@ -680,12 +680,11 @@ Endfunction
 
 bool Function GetHabitationCorrect(Location curLoc)
     int succubusType = TSSD_SuccubusType.GetValue() as int    
-    return (
+    return (\
                 (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) ||\
                 (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) ||\
                 (succubusType == 2 && curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeHabitationHasInn)) ||\
-                (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))
-    )
+                (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))    )
             
 EndFunction
 
@@ -805,7 +804,7 @@ Function onGameReload()
     int index = 0
     while index < JValue.count(jArr)
         int innerJ = jArray.getObj(jArr, index)
-        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,
+        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,\
         MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile

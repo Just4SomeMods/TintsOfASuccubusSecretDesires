@@ -24,3 +24,5 @@ build/*
 SKSE-Menu-Framework-2-Example/*
 uiCreation/*
 CC/*
+.stignore
+.stfolder

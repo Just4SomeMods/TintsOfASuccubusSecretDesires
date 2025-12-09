@@ -9,6 +9,7 @@ Actor akSpeaker = akSpeakerRef as Actor
 akSpeaker.SetFactionRank(TSSD_ThrallAggressive,1)
 akSpeaker.SetFactionRank(TSSD_ThrallDominant,1)
 akSpeaker.SetFactionRank(TSSD_EnthralledFaction,2)
+akSpeaker.SetFactionRank(TSSD_ThrallMain,1)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -19,3 +20,4 @@ EndFunction
 Faction Property TSSD_ThrallAggressive Auto
 Faction Property TSSD_ThrallDominant Auto
 Faction Property  TSSD_EnthralledFaction Auto
+Faction Property  TSSD_ThrallMain Auto

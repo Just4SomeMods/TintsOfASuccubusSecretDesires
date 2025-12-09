@@ -1,39 +1,40 @@
-topicInfos:
-  # Thrall topic Info
-  - id: 0x00093|TintsOfASuccubusSecretDesires.esp
-    responses:
-      - subtitle: "I am yours to command!"
-    conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 2 AND
-    random: true
-  - id: 0x00093|TintsOfASuccubusSecretDesires.esp
-    responses:
-      - subtitle: "What do you want my pet?"
-    conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 3 AND
-  # Thrall kiss topic
-  - id: 0x00098|TintsOfASuccubusSecretDesires.esp
-    responses:
-      - subtitle: "I've longed for your embrace."
-    conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 2 AND
-    random: true
-  - id: 0x00098|TintsOfASuccubusSecretDesires.esp
-    responses:
-      - subtitle: "Let me taste your lips."
-    conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 3 AND
-    random: true
-  # Thrall sex topic
-  - id: 0x00096|TintsOfASuccubusSecretDesires.esp
-    responses:
-      - subtitle: "Just how you like it."
-    conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 3 AND
-    random: true
-  - id: 0x00096|TintsOfASuccubusSecretDesires.esp
-    responses:
-      - subtitle: "Just how I like it."
-    conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 3 AND
-    random: true
+scripts:
+  - script: "TSSDThrallDia.lua"
+    type: 2
+  - script: "TSSDPlayerDial.lua"
+    type: 1
+
+#topicInfos:
+#  # Thrall topic Info
+#  - id: 0x00093|TintsOfASuccubusSecretDesires.esp
+#    responses:
+#      - subtitle: "I am yours to command!"
+#    conditions:
+#      - GetFactionRank TSSD_EnthralledFaction == 3 AND
+#  - id: 0x00093|TintsOfASuccubusSecretDesires.esp
+#    responses:
+#      - subtitle: "What do you want my pet?"
+#    conditions:
+#      - GetFactionRank TSSD_EnthralledFaction == 2 AND
+#  # Thrall kiss topic
+#  - id: 0x00098|TintsOfASuccubusSecretDesires.esp
+#    responses:
+#      - subtitle: "I've longed for your embrace."
+#    conditions:
+#      - GetFactionRank TSSD_EnthralledFaction == 3 AND
+#  - id: 0x00098|TintsOfASuccubusSecretDesires.esp
+#    responses:
+#      - subtitle: "Let me taste your lips."
+#    conditions:
+#      - GetFactionRank TSSD_EnthralledFaction == 2 AND
+#  # Thrall sex topic
+#  - id: 0x00096|TintsOfASuccubusSecretDesires.esp
+#    responses:
+#      - subtitle: "Just how you like it."
+#    conditions:
+#      - GetFactionRank TSSD_EnthralledFaction == 3 AND
+#  - id: 0x00096|TintsOfASuccubusSecretDesires.esp
+#    responses:
+#      - subtitle: "Just how I like it."
+#    conditions:
+#      - GetFactionRank TSSD_EnthralledFaction == 2 AND
