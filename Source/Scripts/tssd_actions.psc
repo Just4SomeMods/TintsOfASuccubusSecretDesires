@@ -3,6 +3,7 @@ import b612
 import tssd_utils
 import PapyrusUtil
 import storageutil
+import CustomSkills
 
 Actor Property PlayerRef Auto
 
@@ -75,7 +76,9 @@ Actor[] Property mySweethearts Auto
   
 ImageSpaceModifier Property AzuraFadeToBlack  Auto
 ImageSpaceModifier Property BerserkerMainImod  Auto  
+
 MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
+MagicEffect Property TSSD_SatiatedEffect Auto
 
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
@@ -235,6 +238,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
             Debug.Notification("I am so alone!")
             toIncrease += 2
         endif
+        SuccubusXpAmount.Mod(10)
     endif
 endEvent
 
@@ -444,44 +448,37 @@ bool Function isDeathSuccableOverload(Actor ActorRef, bool ignoreMarker = false,
 EndFunction
 
 Function PlayerSceneEnd(Form FormRef, int tid)
-    int nxtEnergy = EvaluateCompleteScene(tid)
-    updateSuccyNeeds(nxtEnergy)
     int succubusType = TSSD_SuccubusType.GetValue() as int
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
-    int succAbleTargets = 0
     int index = 0
-    bool playerCame = _thread.ActorAlias(PlayerRef).GetOrgasmCount() > 0
     int bonusReduction = 10
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if isSuccableOverload(WhoCums, false,true) > -1
-            if deathModeActivated
-                WhoCums.PlayIdle(BleedOutStart)
-            else
-                PlayerRef.PushActorAway(WhoCums, 1.0)
-            endif
-            succAbleTargets += 1
+        if deathModeActivated
+            WhoCums.PlayIdle(BleedOutStart)
+        elseif WhoCums != PlayerRef
+            PlayerRef.PushActorAway(WhoCums, 1.0)
         endif
-        if  succubusType == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4
+        if  succubusType == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4 && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
+            gainSuccubusXP(1000,1000)
             RefreshEnergy(100)
         endif
         index+=1
     EndWhile
+    int nxtEnergy = EvaluateCompleteScene(tid)
+    gainSuccubusXP(nxtEnergy)
     ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
     ; TSSD_DrainHealth.Cst(PlayerRef, ActorRef)
-    if Actorsin.Length == 1
-        if PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets() != PlayerRef
-            bonusReduction += 10
-        endif
+    if Actorsin.Length == 1 && PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets() != PlayerRef
+        bonusReduction += 10
     endif
     index = 0
-    succAbleTargets = max(1, succAbleTargets) as int
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
         if (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isDeathSuccableOverload(WhoCums)
             float succdVal = min(WhoCums.GetAV("Health"), getDrainLevel() )
-            updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   )
+            ; updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   ) TODO change to only if evil?
             TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
             TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
             int reduction = 10
@@ -494,6 +491,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
             elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
                 reduction += 10
             endif
+            gainSuccubusXP(succdVal, reduction)
         endif
         if WhoCums != PlayerRef
             TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
@@ -572,8 +570,23 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     endif
 Endfunction
 
+
 ; Function to update Energy Level by value, which increases XP
-Function updateSuccyNeeds(float value, bool resetAfterEnd = false, bool isDeathModeActivated = false)
+Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
+    float succNeedVal = SuccubusDesireLevel.GetValue()
+    int max_energy_level = 100
+    int greed_mult = 1
+    SuccubusDesireLevel.Mod( Max (0,byValue - enegryLossReduction) / -10)
+    SuccubusXpAmount.Mod(byValue)
+    tWidgets.UpdateStatus()
+    if CustomSkills.GetAPIVersion() >= 3
+        CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
+    endif
+EndFunction
+
+
+; Function to update Energy Level by value, which increases XP
+Function updateSuccyNeedsDEPRECATED(float value, bool resetAfterEnd = false, bool isDeathModeActivated = false)
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
     int greed_mult = 1
@@ -695,25 +708,24 @@ Event OnUpdateGameTime()
         float valBefore = SuccubusDesireLevel.GetValue()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
         float chVal = 1
-        float energy_loss = timeBetween * chVal * 0.1
-        if curLoc 
-            if valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && GetHabitationCorrect(curLoc) 
-                if timeBetween >= 1
-                    if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
-                        RefreshEnergy(energy_loss * 20, 50)
-                    elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
-                        RefreshEnergy(energy_loss * 10, 50)
-                    endif
-                    float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
-                    AddToStatistics(changeAmount)
-                    energy_loss = 0
-                endif
+        float energy_loss = timeBetween * chVal
+        if PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
+            energy_loss *= 0.1
+        endif
+        if curLoc && valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && GetHabitationCorrect(curLoc) && timeBetween >= 1
+            if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
+                RefreshEnergy(energy_loss * 20, 50)
+            elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
+                RefreshEnergy(energy_loss * 10, 50)
             endif
+            float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
+            AddToStatistics(changeAmount)
+            energy_loss = 0
         endif
         if energy_loss > 0
             energy_loss *= -1
             last_checked = TimeOfDayGlobalProperty.GetValue()
-            updateSuccyNeeds(energy_loss)
+            SuccubusDesireLevel.Mod(energy_loss)
         endif
     endif
     float succNeedVal = SuccubusDesireLevel.GetValue()
@@ -795,7 +807,7 @@ Function onGameReload()
     cosmeticSettings = ReadInCosmeticSetting()
     tWidgets.shouldFadeOut = cosmeticSettings[5]
     tWidgets.onReloadStuff()
-    updateSuccyNeeds(0)
+    gainSuccubusXP(0)
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
     endif
@@ -823,14 +835,14 @@ Function adjustSpell(bool isMag, string id, int index, string newValStr)
     float newVal = newValStr as float
     Spell toAdj = Game.GetFormFromFile(id as int, "TintsOfASuccubusSecretDesires.esp") as Spell
     if newVal && toAdj
-            if playerref.hasspell(toAdj)
-                PlayerRef.RemoveSpell(toAdj) 
-                if isMag
-                    toAdj.SetNthEffectMagnitude(index, newVal as float)
-                else
-                    toAdj.SetNthEffectDuration(index, newVal as int)
-                endif
-                PlayerRef.AddSpell(toAdj, false)
+        if playerref.hasspell(toAdj)
+            PlayerRef.RemoveSpell(toAdj) 
+            if isMag
+                toAdj.SetNthEffectMagnitude(index, newVal as float)
+            else
+                toAdj.SetNthEffectDuration(index, newVal as int)
+            endif
+            PlayerRef.AddSpell(toAdj, false)
         endif
     endif
 Endfunction

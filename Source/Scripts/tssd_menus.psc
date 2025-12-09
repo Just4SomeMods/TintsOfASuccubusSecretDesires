@@ -276,7 +276,7 @@ Function SelectSuccubusType(int query = -1)
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
             TSSD_SuccubusBreakRank.SetValue(0)
-            tActions.updateSuccyNeeds(0)
+            tActions.RefreshEnergy(0)
             int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
             if startLevel > 0
                 SuccubusXpAmount.SetValue( startLevel * 10000 )
@@ -500,7 +500,7 @@ Function OpenSuccubusAbilities()
                 while tarIndex < tactions.cell_ac.Length
                     Actor curT = tactions.cell_ac[tarIndex]
                     if curT && !curT.isDead()
-                            tactions.updateSuccyNeeds(  min(curT.GetAV("Health"), 100 + tactions.getDrainLevel() )  )
+                            tactions.gainSuccubusXP(  min(curT.GetAV("Health"), 100 + tactions.getDrainLevel() )  )
                             tactions.TSSD_DrainHealth.SetNthEffectMagnitude(0, 100 + tactions.getDrainLevel() )
                             tactions.TSSD_DrainHealth.Cast(PlayerRef, curT)
                     endif
@@ -523,7 +523,7 @@ Function OpenSuccubusAbilities()
             while indexOfA < SuccubusAbilitiesNames.Length
                 if myItems[result] == SuccubusAbilitiesNames[indexOfA]
                     SuccubusAbilitiesSpells[indexOfA].Cast(PlayerRef, PlayerRef)
-                    tActions.updateSuccyNeeds(-20)
+                    tActions.RefreshEnergy(-20)
                 else
                     PlayerRef.DispelSpell(SuccubusAbilitiesSpells[indexOfA])
                 endif

@@ -11,7 +11,7 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
     Weapon akW = akSource as Weapon
     
     if TSSD_SuccubusType.GetValue() == 4 && akW && !abHitBlocked
-        tActions.updateSuccyNeeds(akW.GetBaseDamage() / 5)
+        tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
     endif
     if PlayerRef.GetAV("Health") < 100
         Actor tar = tActions.getLonelyTarget()

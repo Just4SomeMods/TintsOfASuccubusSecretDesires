@@ -11,7 +11,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 EndEvent
 
 Event OnUpdate()
-    tssd_actions_script.updateSuccyNeeds(-1)
+    tssd_actions_script.RefreshEnergy(-1)
     RegisterForSingleUpdate(0.1)
 endEvent
 

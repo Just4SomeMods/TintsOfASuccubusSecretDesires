@@ -6,7 +6,7 @@ Scriptname TIF__06000098 Extends TopicInfo Hidden
 Function Fragment_2(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-SexLab.StartSceneQuick(PlayerRef, akSpeaker, asTags="kissing, limitedstrip, -sex")
+SexLab.StartSceneQuick(PlayerRef, akSpeaker)
 ;END CODE
 EndFunction
 ;END FRAGMENT

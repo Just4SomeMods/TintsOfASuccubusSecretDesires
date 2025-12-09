@@ -14,7 +14,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
     ThisThing = akTarget
     tssd_actions tssd_actions_script = Quest.GetQuest("tssd_queststart") as tssd_actions
     if ThisThing.isHostileToActor(PlayerRef)
-        tssd_actions_script.updateSuccyNeeds(-1)
+        tssd_actions_script.RefreshEnergy(-1)
     endif
 endEvent
 
