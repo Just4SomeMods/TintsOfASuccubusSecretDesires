@@ -4,10 +4,13 @@ String SkillName = ""
 string skillId = ""
 int skillValue = 0
 
+import tssd_utils
+
 GlobalVariable skillVal
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_SuccubusPerkPoints Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
+GlobalVariable Property TSSD_ReverseBodySkill Auto
 Actor Property PlayerRef Auto
 Perk Property TSSD_Base_Explanations Auto
 Spell Property TSSD_BaseHealthBodyBuff Auto
@@ -80,6 +83,7 @@ Function Train()
     if PlayerRef.HasPerk(TSSD_Base_Explanations)
         if SkillName == "Body"
             PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
+            TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
         endif
         PlayerRef.RemovePerk(TSSD_Base_Explanations)
         PlayerRef.AddPerk(TSSD_Base_Explanations)

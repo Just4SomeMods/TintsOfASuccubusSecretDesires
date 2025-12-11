@@ -3,6 +3,8 @@ scripts:
     type: 2
   - script: "TSSDPlayerDial.lua"
     type: 1
+  - script: "TSSDHumiliation.lua"
+    type: 0
 
 #topicInfos:
 #  # Thrall topic Info

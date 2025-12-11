@@ -1,12 +1,12 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
 ;NEXT FRAGMENT INDEX 2
-Scriptname TIF__06147F80 Extends TopicInfo Hidden
+Scriptname TIF__060000D2 Extends TopicInfo Hidden
 
 ;BEGIN FRAGMENT Fragment_1
 Function Fragment_1(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-int x = 1
+int x = 0
 ;END CODE
 EndFunction
 ;END FRAGMENT

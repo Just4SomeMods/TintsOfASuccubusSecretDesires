@@ -8,7 +8,6 @@ Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
 slaUtil.SetActorExposure(akSpeaker, 99)
 akSpeaker.AddToFaction(sla_Arousal_Locked)
-Debug.MessageBox(akSpeaker.GetDisplayName())
 ;END CODE
 EndFunction
 ;END FRAGMENT

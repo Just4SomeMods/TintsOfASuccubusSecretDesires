@@ -7,12 +7,12 @@ import CustomSkills
 
 Actor Property PlayerRef Auto
 
+
 tssd_slsfrscript Property slsfListener Auto
-iWant_Widgets Property  iWidgets Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
-tssd_widgets Property tWidgets Auto
+tssd_widgets Property tWidgets Auto 
 
 Faction Property sla_Arousal Auto
 Faction Property TSSD_EnthralledFaction Auto
@@ -47,6 +47,7 @@ GlobalVariable Property TSSD_SuccubusType Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
 GlobalVariable Property TSSD_InnocentsSlain Auto
+GlobalVariable Property TSSD_HumiliationDone Auto
 
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
@@ -225,8 +226,9 @@ Function RegisterSuccubusEvents()
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
     RegisterForTrackedStatsEvent()
+    RegisterForModEvent("TSSD_HumiliationDoneEvent","HumiDone") 
     ; RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
-Endfunction
+Endfunction 
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     int succubusType = TSSD_SuccubusType.GetValue() as int
@@ -741,7 +743,7 @@ Event OnMenuOpen(String MenuName)
     if MenuName == "Dialogue Menu" && SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue() && TSSD_SuccubusType.GetValue() != -1
         UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
         GetAnnouncement().Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
-    endif
+    endif 
     isHoveringPrey = false
 EndEvent
 
@@ -820,7 +822,14 @@ Function onGameReload()
         MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile
+
 Endfunction
+
+
+Event HumiDone(string eventName, string strArg, float numArg, Form sender)
+    Utility.Wait(5)
+    UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
+EndEvent
 
 Function addTSSDPerk(string perkToAdd)
     Perk toAdd = Game.GetFormFromFile(perkToAdd as int, "TintsOfASuccubusSecretDesires.esp") as Perk    
