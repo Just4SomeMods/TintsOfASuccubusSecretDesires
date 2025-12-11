@@ -64,6 +64,7 @@ Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
 Spell Property TSSD_DrainHealth Auto
 Spell Property TSSD_DrainedMarker Auto
+Spell Property TSSD_RejectionPoison Auto
 
 bool Property deathModeActivated Auto
 bool modifierKeyIsDown = false
@@ -227,8 +228,14 @@ Function RegisterSuccubusEvents()
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
     RegisterForTrackedStatsEvent()
     RegisterForModEvent("TSSD_HumiliationDoneEvent","HumiDone") 
+    RegisterForModEvent("TSSD_RecejctedEvent","OnSuccRejected") 
     ; RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
-Endfunction 
+Endfunction
+
+Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
+    TSSD_DrainedMarker.Cast(PlayerRef, (sender as Actor))
+    TSSD_RejectionPoison.Cast((sender as Actor), PlayerRef)
+endevent
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     int succubusType = TSSD_SuccubusType.GetValue() as int

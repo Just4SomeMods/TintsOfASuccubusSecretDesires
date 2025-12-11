@@ -7,7 +7,7 @@ Scriptname TIF_TSSD_RejectionInfo_060000CC Extends TopicInfo Hidden
 Function Fragment_0(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-TSSD_DrainedMarker.Cast(PlayerRef, akSpeaker)
+akSpeaker.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -111,3 +111,4 @@ bool Property startsSex Auto
 
 
 Spell Property TSSD_DrainedMarker Auto
+Spell Property TSSD_RejectionPoison Auto
