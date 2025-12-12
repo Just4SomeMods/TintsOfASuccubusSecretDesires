@@ -1,121 +1,122 @@
 {
-    "Crimson": {
-        "positive": [
-            "Crimson does not have positive thoughts."
-        ],
-        "negative": [
-            "Exhausting..."
-        ],
-        "description": "Your standard Succubus experience. You lose less energy from climaxing yourself. At minimum energy, you enter Predator mode, forcing yourself on the first person you talk to, draining them to death.",
-        "color" : [220,20,60],
-        "famecat" : ["Dominant"]
-    },
     "Scarlet": {
-        "positive": [
-            "My love!",
-            "You make my heart race.",
-            "This love is intoxicating.",
-            "Our hearts beat as one.",
-            "The warmth of your love fills me with power.",
-            "Your embrace makes the world fade away.",
-            "Together, we reach new heights of passion and intimacy.",
-            "Feeling your love revitalizes me.",
-            "With each touch, our bond grows stronger.",
-            "I can feel the fire of our passion igniting within us.",
-            "In your arms, I am free to be my most powerful self.",
-            "My heart swells with desire for you.",
-            "This passion is pure and true.",
-            "My flame burns brighter for your touch.",
-            "I feel complete when we are one.",
-            "The love between us, a beacon of light.",
-            "This connection is beyond all physical needs."
+        "DialogueEmbraced": {
+            "positive": [
+                "My love!",
+                "You make my heart race.",
+                "This love is intoxicating.",
+                "Our hearts beat as one.",
+                "The warmth of your love fills me with power.",
+                "Your embrace makes the world fade away.",
+                "Together, we reach new heights of passion and intimacy.",
+                "Feeling your love revitalizes me.",
+                "With each touch, our bond grows stronger.",
+                "I can feel the fire of our passion igniting within us.",
+                "In your arms, I am free to be my most powerful self.",
+                "My heart swells with desire for you.",
+                "This passion is pure and true.",
+                "My flame burns brighter for your touch.",
+                "I feel complete when we are one.",
+                "The love between us, a beacon of light.",
+                "This connection is beyond all physical needs."
+            ],
+            "negative": [
+                "No... I didn't mean to!",
+                "This emptiness consumes me...",
+                "My soul aches for genuine affection.",
+                "The void within me grows with every shallow encounter.",
+                "This lust is but a hollow echo.",
+                "The taste of passion is bittersweet without love.",
+                "I yearn for a heart to call my own.",
+                "My heart aches, the emptiness is overwhelming.",
+                "This pain cuts deeper than any sword.",
+                "Lost in the void of separation.",
+                "Without them, my essence fades away.",
+                "Shadows consume me without warmth.",
+                "Alone, I am but a flickering ember."
+            ]
+        },
+        "DialogueRejected": {
+            "positive": [
+                "New one!",
+                "Oooh, new experiences!",
+                "I love feeling naughty with someone new.",
+                "This exciting touch, so exhilarating.",
+                "The first time always leaves a lasting impression.",
+                "First times are the most thrilling.",
+                "New conquest!",
+                "Fresh blood!",
+                "You're mine now.",
+                "Your first time with me is unforgettable.",
+                "Let's make memories!"
+            ],
+            "negative": [
+                "Boring!",
+                "Boring... been there, done that.",
+                "I prefer fresh adventures.",
+                "Why repeat old mistakes?",
+                "This is so... predictable.",
+                "Move along, nothing new to see here.",
+                "Not worth the calories.",
+                "What am I even doing?",
+                "Are you sure we haven't already done this?",
+                "Isn't it time for something new?",
+                "Haven't we met before?"
+            ]
+        },
+        "description": "If you choose Scarlet, you can only gain energy back from interactions with people that know and respect you.\nIf you deny Scarlet, you can only gain energy back from those who don't.",
+        "color": [
+            255,
+            36,
+            0
         ],
-        "negative": [
-            "No... I didn't mean to!",
-            "This emptiness consumes me...",
-            "My soul aches for genuine affection.",
-            "The void within me grows with every shallow encounter.",
-            "This lust is but a hollow echo.",
-            "The taste of passion is bittersweet without love.",
-            "I yearn for a heart to call my own.",
-            "My heart aches, the emptiness is overwhelming.",
-            "This pain cuts deeper than any sword.",
-            "Lost in the void of separation.",
-            "Without them, my essence fades away.",
-            "Shadows consume me without warmth.",
-            "Alone, I am but a flickering ember."
-        ],
-        "description" : "You are fueled by love, not lust. In the right light, your eyes appear as hears. Having sex with a person that loves you makes them your love thrall. Making non-sweethearts a thrall has a chance to kill a sweetheart.",
-        "color": [255,36,0],
-        "famecat" : null
-    },
-    "Pink": {
-        "positive": [
-            "New one!",
-            "Oooh, new experiences!",
-            "I love feeling naughty with someone new.",
-            "This exciting touch, so exhilarating.",
-            "The first time always leaves a lasting impression.",
-            "First times are the most thrilling.",
-            "New conquest!",
-            "Fresh blood!",
-            "You're mine now.",
-            "Your first time with me is unforgettable.",
-            "Let's make memories!"
-        ],
-        "negative": [
-            "Boring!",
-            "Boring... been there, done that.",
-            "I prefer fresh adventures.",
-            "Why repeat old mistakes?",
-            "This is so... predictable.",
-            "Move along, nothing new to see here.",
-            "Not worth the calories.",
-            "What am I even doing?",
-            "Are you sure we haven't already done this?",
-            "Isn't it time for something new?",
-            "Haven't we met before?"
-        ],
-        "description": "You live an exciting life! Pursuing new things is your drive. Having consentual sex for the first time with someone enthralls them for a day." ,
-        "color" : [255,192,203],
-        "famecat" : ["Airhead", "Slut", "Group"]
+        "famecatR": ["Airhead", "Slut", "Group"],
+        "famecat": null
     },
     "Sundown": {
-        "positive": [
-            "Sundown does not have thoughts."
+        "description": "If you choose Sundown, you only gain half as much XP as usual (easy mode).\nIf you deny Sundown, you passively lose energy (default).",
+        "color": [
+            255,
+            179,
+            181
         ],
-        "negative": [
-            "Sundown does not have thoughts."
-        ],
-        "description": "Your transformation was not complete. You are only a half-succubus. You gain less energy and lose more. You cannot reach below 0 Energy.",
-        "color" : [255,179,181],
-        "famecat" : [""]
+        "famecat": null
     },
     "Mahogany": {
-        "positive": [
-            "Exciting!",
-            "Breaking rules is part of the fun.",
-            "Life is all about taking risks.",
-            "I thrive on excitement.",
-            "Embrace the chaos.",
-            "The more dangerous, the more exhilarating.",
-            "Adventure calls."
+        "DialogueEmbraced": {
+            "positive": [
+                "Exciting!",
+                "Breaking rules is part of the fun.",
+                "Life is all about taking risks.",
+                "I thrive on excitement.",
+                "Embrace the chaos.",
+                "The more dangerous, the more exhilarating.",
+                "Adventure calls."
+            ],
+            "negative": [
+                "*Yawn*",
+                "A snooze-fest.",
+                "Where's the adrenaline?",
+                "I need more action.",
+                "I'm about to fall asleep.",
+                "Safe and boring.",
+                "This is not living.",
+                "Where's the excitement?",
+                "I need something more intense.",
+                "My heart longs for a wilder beat.",
+                "Predictable and tame."
+            ]
+        },
+        "description": "If you choose Mahogany, you can gain energy from hostile people.\nIf you deny Mahogany, you can bind willing people to you, to help you get your energy back.",
+        "color": [
+            108,
+            67,
+            36
         ],
-        "negative": [
-            "*Yawn*",
-            "A snooze-fest.",
-            "Where's the adrenaline?",
-            "I need more action.",
-            "I'm about to fall asleep.",
-            "Safe and boring.",
-            "This is not living.",
-            "Where's the excitement?",
-            "I need something more intense.",
-            "My heart longs for a wilder beat.",
-            "Predictable and tame."
-        ],
-        "description": "Without risk, there is no fun... Every time an enemy damages you, you regain a bit of energy.",
-        "color": [108,67,36],
-        "famecat" : ["Masochist", "Bound", "Submissive"]
+        "famecat": [
+            "Masochist",
+            "Bound",
+            "Submissive"
+        ]
     }
 }

@@ -1,5 +1,6 @@
 ScriptName tssd_utils hidden
 
+import b612
 
 float Function Max(float a, float b) Global
     if a > b 
@@ -165,8 +166,7 @@ Bool Function CheckFileExists(String fullPath) Global
     Return True
 EndFunction
 
-Function Maintenance(GlobalVariable TSSD_SuccubusType) Global
-    int succubusType = TSSD_SuccubusType.GetValue() as int
+Function Maintenance() Global
     int jval = JValue.readFromFile("Data/Tssd/succubustraits.json")
     JDB.SetObj("tssdtraits", jval)
     jval = JValue.readFromFile("Data/Tssd/succubuskinds.json")
@@ -210,3 +210,7 @@ Function setHeartEyes(HeadPart PlayerEyes, bool on = true) Global
         playerRef.QueueNiNodeUpdate()
     endif
 Endfunction
+
+Function T_Show(String asText, String asImagePath, Float aiDelay = 2.0, String asKnot = "") Global
+    return GetAnnouncement().Show(asText, asImagePath, aiDelay, asKnot)
+EndFunction

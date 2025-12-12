@@ -35,6 +35,13 @@ local pools = {
     {},{},{},
     {"Eww.",
     "No, thank you."}
+  },
+  TSSD_000D2 = {
+    {"Whatever you say my love."},
+    {"Take my money!"},
+    {"This is coming out of your stipend."},
+    {"I really shouldn't but those hips don't lie!"}
+
   }
 }
 

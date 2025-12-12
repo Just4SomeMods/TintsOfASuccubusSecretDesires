@@ -17,7 +17,8 @@ EndFunction
 Function Fragment_1(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-int x = 0
+SexLab.StartSceneQuick(PlayerRef, akSpeaker)
+PlayerRef.AddItem( Gold001 , 60)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -81,6 +82,15 @@ SexLab.StartSceneQuick(PlayerRef, akSpeaker, asTags=sexTags)
 EndFunction
 ;END FRAGMENT
 
+;BEGIN FRAGMENT Fragment_6
+Function Fragment_6(ObjectReference akSpeakerRef)
+Actor akSpeaker = akSpeakerRef as Actor
+;BEGIN CODE
+PlayerRef.RemoveItem(Gold001, 20)
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;END FRAGMENT CODE - Do not edit anything between this and the begin comment
 
 Faction Property TSSD_ThrallAggressive Auto
@@ -112,3 +122,6 @@ bool Property startsSex Auto
 
 Spell Property TSSD_DrainedMarker Auto
 Spell Property TSSD_RejectionPoison Auto
+
+
+MiscObject Property Gold001 Auto

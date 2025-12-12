@@ -11,7 +11,6 @@ tssd_slsfrscript Property slsfListener Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
-tssd_widgets Property tWidgets Auto
 tssd_actions Property tActions Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
@@ -28,8 +27,13 @@ GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
-GlobalVariable Property TSSD_SuccubusType Auto
+
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
+GlobalVariable[] Property TSSD_SuccubusTypes Auto
+
+GlobalVariable Property TSSD_TypeScarlet Auto
+GlobalVariable Property TSSD_TypeSundown Auto
+GlobalVariable Property TSSD_TypeMahogany Auto
 
 Perk Property TSSD_Base_Explanations Auto
 Perk Property TSSD_Drain_GentleDrain1 Auto
@@ -113,7 +117,7 @@ Function OpenGrandeMenu()
     if !SafeProcess()
         return
     endif
-    if TSSD_SuccubusType.GetValue() == -1
+    if SuccubusDesireLevel.GetValue() <= -101
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         SelectSuccubusType(dbgSuccy)
         int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
@@ -256,7 +260,6 @@ EndFunction
 
 Function SelectSuccubusType(int query = -1)
     int index = 0
-    int oldVal = TSSD_SuccubusType.GetValue() as int
     if query < 0
         b612_TraitsMenu TraitsMenu = GetTraitsMenu()
         string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
@@ -265,14 +268,18 @@ Function SelectSuccubusType(int query = -1)
             index += 1
         EndWhile
 
-        String[] resultw = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
-        index = 0        
-        if resultw.Length>0
-            query = resultW[0] as int
-        endif
+        String[] resultw = TraitsMenu.Show(aiMaxSelection = 3, aiMinSelection = 0)
+        index = 0
+        TSSD_SuccubusTypes[0].SetValue(0.0)
+        TSSD_SuccubusTypes[1].SetValue(0.0)
+        TSSD_SuccubusTypes[2].SetValue(0.0)
+        while index < resultW.Length
+            TSSD_SuccubusTypes[resultW[index] as int].SetValue(1.0)
+            index += 1
+            query = 1
+        endwhile
     endif
     if query >= 0
-        TSSD_SuccubusType.SetValue(query)
         if SuccubusDesireLevel.GetValue() == -101
             SuccubusDesireLevel.SetValue(50)
             TSSD_SuccubusBreakRank.SetValue(0)
@@ -289,11 +296,6 @@ Function SelectSuccubusType(int query = -1)
             tActions.RegisterSuccubusEvents()
         endif
         slsfListener.CheckFlagsSLSF()
-        if oldVal == -1 && TSSD_SuccubusType.GetValue() > -1
-            OpenSuccubusTraits()
-            tWidgets.onReloadStuff()
-        endif
-
     endif
         ;if succubusType == 2
             ;DBGTrace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
@@ -303,12 +305,12 @@ EndFunction
 
 Function OpenSettingsMenu()
     modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
-    string itemString = "Configure Bars"
+    string itemString = ""
     Actor Cross = Game.GetCurrentCrosshairRef() as Actor
     if Cross || Sexlab.GetPlayerController()
-        itemString += ";Evaluate Needs"
+        itemString += "Evaluate Needs;"
     endif
-    itemString += ";Debug Climax Now;Succubus Cosmetics Menu (Toggles)"
+    itemString += "Debug Climax Now;Succubus Cosmetics Menu (Toggles)"
     String[] myItems = StringUtil.Split(itemString,";")
     Int result 
     bool canEssDie = false
@@ -341,12 +343,10 @@ Function OpenSettingsMenu()
                         showboat = "This person is only " + lasttime + "% ready."
                     endif
                 endif
-            GetAnnouncement().Show(showboat, "icon.dds", aiDelay = 2.0)
+            T_Show(showboat, "icon.dds", aiDelay = 2.0)
         endif
     elseif myItems[result] == "Debug Climax Now"
         tActions.DebugForceOrgasm()
-    elseif myItems[result] == "Configure Bars"
-        tWidgets.ListOpenBarsOld()
     elseif myItems[result] == "Succubus Cosmetics Menu (Toggles)"
         OpenSuccubusCosmetics()
     endif
@@ -384,7 +384,6 @@ Function OpenSuccubusCosmetics()
     EndWhile
     MCM.SetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main", output)    
     cosmeticSettings = ReadInCosmeticSetting()
-    tWidgets.shouldFadeOut = cosmeticSettings[5]
 Endfunction
 
 

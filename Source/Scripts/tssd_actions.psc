@@ -1,5 +1,5 @@
 Scriptname tssd_actions extends Quest
-import b612
+
 import tssd_utils
 import PapyrusUtil
 import storageutil
@@ -12,7 +12,6 @@ tssd_slsfrscript Property slsfListener Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
-tssd_widgets Property tWidgets Auto 
 
 Faction Property sla_Arousal Auto
 Faction Property TSSD_EnthralledFaction Auto
@@ -43,7 +42,9 @@ GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property GameHours Auto
-GlobalVariable Property TSSD_SuccubusType Auto
+GlobalVariable Property TSSD_TypeScarlet Auto
+GlobalVariable Property TSSD_TypeSundown Auto
+GlobalVariable Property TSSD_TypeMahogany Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
 GlobalVariable Property TSSD_InnocentsSlain Auto
@@ -113,6 +114,7 @@ String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
 String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
 String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
 
+
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Function addToSmooching(float val)
@@ -124,6 +126,100 @@ Endfunction
 Function queueStringForAnnouncement(string inputStr)
     OEnergy.queueStringForAnnouncement(inputStr)
 EndFunction
+
+
+
+; Function to adjust energy level
+Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated = false)
+
+    if  !tssd_dealwithcurseQuest.isobjectivefailed(24)
+        upTo = 19
+    endif
+    float lastVal = SuccubusDesireLevel.GetValue()
+    int lowerBound = -100
+    if (TSSD_TypeSundown.GetValue() as int) == 1
+        lowerBound = 0
+    endif
+    if lastVal < upTo && (lastVal > -100 || isDeathModeActivated)
+        SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
+    endif
+Endfunction
+
+float Function getDrainLevel(bool isGentle = false)
+    float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
+    if !isGentle
+        return new_drain_level
+    endif
+    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
+        new_drain_level /= 2
+    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
+        new_drain_level /= 3
+    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
+        new_drain_level /= 5
+    endif
+    return new_drain_level
+Endfunction
+
+
+
+Function toggleDeathMode(bool makeAnnouncement = true)
+    if (deathModeActivated != false) && (deathModeActivated != true)
+        deathModeActivated = false
+    endif
+    deathModeActivated = !deathModeActivated
+    if SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
+        deathModeActivated = true
+    endif
+    if deathModeActivated
+        BerserkerMainImod.ApplyCrossFade(1)
+        if makeAnnouncement
+            T_Show("SOMEONE NEEDS TO DIE NOW!", "icon.dds", aiDelay = 2.0)
+        endif
+    else
+        BerserkerMainImod.Remove()
+    endif
+    ;TSSD_KillEssentialsActive.SetValue(MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main") as int)
+EndFunction
+
+
+
+; Function to update Energy Level by value, which increases XP
+Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
+    float succNeedVal = SuccubusDesireLevel.GetValue()
+    int max_energy_level = 100
+    int greed_mult = 1
+    SuccubusDesireLevel.Mod( Max (0,byValue - enegryLossReduction) / -10)
+    SuccubusXpAmount.Mod(byValue)
+    if CustomSkills.GetAPIVersion() >= 3
+        CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
+    endif
+EndFunction
+
+
+int Function getScanRange()
+    return 70 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int) ; Skyrim Units to meters
+Endfunction
+
+Function advanceStageTwenty()
+    int index = 0
+    while index < 5
+        if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
+            tssd_dealwithcurseQuest.SetObjectiveFailed(21 + index)
+        endif
+        index += 1
+    EndWhile
+    index = 0
+    bool isCompleted = true
+    while index < 5
+        if !tssd_dealwithcurseQuest.IsObjectiveCompleted(21 + index) ||  !tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
+            isCompleted = false
+        endif
+        index += 1
+    EndWhile
+    if isCompleted
+        tssd_dealwithcurseQuest.setstage(40)
+    endif
+Endfunction
 
 Actor Function getLonelyTarget()
     int radius = getScanRange()
@@ -232,24 +328,6 @@ Function RegisterSuccubusEvents()
     ; RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
 Endfunction
 
-Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
-    TSSD_DrainedMarker.Cast(PlayerRef, (sender as Actor))
-    TSSD_RejectionPoison.Cast((sender as Actor), PlayerRef)
-endevent
-  
-Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-    int succubusType = TSSD_SuccubusType.GetValue() as int
-    if  succubusType == 1 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
-        int toIncrease = 2
-        if MySweetHeart
-            Debug.Notification("Oh I gotta talk with " + MySweetHeart.GetDisplayName() +  " about that!")
-        else
-            Debug.Notification("I am so alone!")
-            toIncrease += 2
-        endif
-        SuccubusXpAmount.Mod(10)
-    endif
-endEvent
 
 int Function EvaluateCompleteScene(int inPutScene = -1)
     sslThreadController _thread
@@ -265,7 +343,6 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
     int index = 0
     int max_rel = -4
     bool max_prot = false
-    int succubusType = TSSD_SuccubusType.GetValue() as int
     Actor[] ActorsIn = _thread.GetPositions()
     string output = ""
     float energyNew = 0
@@ -276,7 +353,7 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
         int relatisonship = ActorRef.GetRelationshipRank(playerref)
         int isSucc = isSuccableOverload(ActorRef)
         if isSucc >= 0
-            retVals = OEnergy.OrgasmEnergyValue(_thread, succubusType, ActorRef)
+            retVals = OEnergy.OrgasmEnergyValue(_thread, ActorRef)
             energyNew = retVals[0]
             if ActorRef
                 max_rel = max(relatisonship, max_rel) as int
@@ -312,7 +389,7 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
     if deathModeActivated
         energyNew += (ActorsIn.Length - 1) * 100
         output += "Someone is about to die! "
-    elseif succubusType == 1 && max_relRank == 4
+    elseif (TSSD_TypeScarlet.GetValue() as int) == 1 && max_relRank == 4
         output += GetTypeDial("Scarlet", true)
         energyOutPut = false
     elseif ActorsIn.Length == 1 && playerArousalNow > 75
@@ -336,14 +413,31 @@ int Function EvaluateCompleteScene(int inPutScene = -1)
     if energyOutPut
         newOut = "Energy gained: " + energyNew as int + "\n" + newOut
     endif
-    GetAnnouncement().Show(newOut  , "icon.dds", aiDelay = 0.0)
+    T_Show(newOut  , "icon.dds", aiDelay = 0.0)
     
     return energyNew as int
 Endfunction
 
+bool Function increaseGlobalDeity(int index, int byVal = 1, int targetVal = -1)
+    int additional = 0
+    if index >= 5
+        additional = 5
+    endif
+    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 21 + index + additional, targetVal)
+    advanceStageTwenty()
+    return isCompleted
+Endfunction
+
+int Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = true)
+    return isSuccable(ActorRef, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
+Endfunction
+
+bool Function isDeathSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = true)
+    return isDeathSuccable(ActorRef, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
+EndFunction
+
 Function PlayerSceneStart(Form FormRef, int tid)
     searchForTargets()
-    int succubusType = TSSD_SuccubusType.GetValue() as int
     playerArousal = playerref.GetFactionRank(sla_Arousal)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
@@ -365,7 +459,7 @@ Function PlayerSceneStart(Form FormRef, int tid)
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
         if consentingActor.GetRelationshipRank(PlayerRef) == 4 
-            GetAnnouncement().Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
+            T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
             MySweetHeart = consentingActor
             indexIn = 99
         endif
@@ -382,7 +476,7 @@ Function PlayerSceneStart(Form FormRef, int tid)
         endif
         lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer, TimeOfDayGlobalProperty)        
     endif
-    if Game.GetModByName("Tullius Eyes.esp") != 255 && (succubusType == 1 || cosmeticSettings[1] ) && cosmeticSettings[0]
+    if Game.GetModByName("Tullius Eyes.esp") != 255 && (TSSD_TypeScarlet.GetValue() == 1 || cosmeticSettings[1] ) && cosmeticSettings[0]
         HeadPart tEyes = currentEyes()
         if tEyes
             PlayerEyes = tEyes
@@ -438,26 +532,7 @@ Function PlayerSceneStart(Form FormRef, int tid)
     endif
 EndFunction
 
-bool Function increaseGlobalDeity(int index, int byVal = 1, int targetVal = -1)
-    int additional = 0
-    if index >= 5
-        additional = 5
-    endif
-    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 21 + index + additional, targetVal)
-    advanceStageTwenty()
-    return isCompleted
-Endfunction
-
-int Function isSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = true)
-    return isSuccable(ActorRef, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
-Endfunction
-
-bool Function isDeathSuccableOverload(Actor ActorRef, bool ignoreMarker = false, bool afterSceneEnd = true)
-    return isDeathSuccable(ActorRef, TSSD_DrainedDownSide, playerref, ignoreMarker, afterSceneEnd)
-EndFunction
-
 Function PlayerSceneEnd(Form FormRef, int tid)
-    int succubusType = TSSD_SuccubusType.GetValue() as int
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
     int index = 0
@@ -469,7 +544,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         elseif WhoCums != PlayerRef
             PlayerRef.PushActorAway(WhoCums, 1.0)
         endif
-        if  succubusType == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4 && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
+        if  TSSD_TypeScarlet.GetValue() == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4 && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
             gainSuccubusXP(1000,1000)
             RefreshEnergy(100)
         endif
@@ -485,7 +560,7 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     index = 0
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if (succubusType != 1 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isDeathSuccableOverload(WhoCums)
+        if (TSSD_TypeScarlet.GetValue() != 1.0 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isDeathSuccableOverload(WhoCums)
             float succdVal = min(WhoCums.GetAV("Health"), getDrainLevel() )
             ; updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   ) TODO change to only if evil?
             TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
@@ -545,114 +620,24 @@ Function DebugForceOrgasm()
 EndFunction
 
 Function AddToStatistics(float amount_of_hours)
-    int succubusType = TSSD_SuccubusType.GetValue() as int
     int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
     int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
     if genderPlayer == 0
         sexualityPlayer = 100 - sexualityPlayer
     endif
     int index = 0
-    if succubusType != 3
+    if TSSD_TypeSundown.GetValue() != 1.0
         while index < (amount_of_hours as int)
             int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
             sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, \
-            isaggressive = succubusType == 4, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+        isaggressive = TSSD_TypeMahogany.GetValue() == 1.0, Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
             index += 1
         endwhile
     endif
     slsfListener.onWaitPassive(amount_of_hours)
 Endfunction
 
-; Function to adjust energy level
-Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated = false)
 
-    if  !tssd_dealwithcurseQuest.isobjectivefailed(24)
-        upTo = 19
-    endif
-    float lastVal = SuccubusDesireLevel.GetValue()
-    int lowerBound = -100
-    if (TSSD_SuccubusType.GetValue() as int) == 3
-        lowerBound = 0
-    endif
-    if lastVal < upTo && (lastVal > -100 || isDeathModeActivated)
-        SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
-    endif
-Endfunction
-
-
-; Function to update Energy Level by value, which increases XP
-Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
-    float succNeedVal = SuccubusDesireLevel.GetValue()
-    int max_energy_level = 100
-    int greed_mult = 1
-    SuccubusDesireLevel.Mod( Max (0,byValue - enegryLossReduction) / -10)
-    SuccubusXpAmount.Mod(byValue)
-    tWidgets.UpdateStatus()
-    if CustomSkills.GetAPIVersion() >= 3
-        CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
-    endif
-EndFunction
-
-
-; Function to update Energy Level by value, which increases XP
-Function updateSuccyNeedsDEPRECATED(float value, bool resetAfterEnd = false, bool isDeathModeActivated = false)
-    float succNeedVal = SuccubusDesireLevel.GetValue()
-    int max_energy_level = 100
-    int greed_mult = 1
-    if PlayerRef.HasPerk(TSSD_Drain_DrainMore1.GetNextPerk())
-        greed_mult = 3
-    elseif PlayerRef.HasPerk(TSSD_Drain_DrainMore1)
-        greed_mult = 2
-    endif
-    if PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk().GetNextPerk())
-        max_energy_level = 1000
-    elseif PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk())
-        max_energy_level = 400
-    elseif PlayerRef.HasPerk(TSSD_Base_CapIncrease1)
-        max_energy_level = 200
-    endif
-    if value > 0
-        SuccubusXpAmount.Mod(value * 10)
-    endif
-    if value < 0 && succNeedVal - value < 0 && (TSSD_SuccubusType.GetValue() as int) == 3
-            value =   succNeedVal * - 1
-    endif
-    RefreshEnergy(value, 100, isDeathModeActivated)
-    succNeedVal = SuccubusDesireLevel.GetValue()
-    PlayerRef.RemoveSpell(TSSD_Overstuffed)
-    if succNeedVal > 100 && PlayerRef.HasPerk(TSSD_Body_Overstuffed)
-        TSSD_Overstuffed.SetNthEffectMagnitude(0, succNeedVal - 100)
-        TSSD_Overstuffed.SetNthEffectMagnitude(1, min(80,(succNeedVal - 100) / 10))
-        PlayerRef.AddSpell(TSSD_Overstuffed, false)
-    endif
-    if resetAfterEnd
-        smooching = 0.0
-    endif
-    tWidgets.UpdateStatus()
-EndFunction
-
-Function toggleDeathMode(bool makeAnnouncement = true)
-    if (deathModeActivated != false) && (deathModeActivated != true)
-        deathModeActivated = false
-    endif
-    deathModeActivated = !deathModeActivated
-    if SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
-        deathModeActivated = true
-    endif
-    if deathModeActivated
-        BerserkerMainImod.ApplyCrossFade(1)
-        if makeAnnouncement
-            GetAnnouncement().Show("SOMEONE NEEDS TO DIE NOW!", "icon.dds", aiDelay = 2.0)
-        endif
-    else
-        BerserkerMainImod.Remove()
-    endif
-    ;TSSD_KillEssentialsActive.SetValue(MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main") as int)
-EndFunction
-
-int Function getScanRange()
-    return 70 * ( 1 + PlayerRef.HasPerk(TSSD_Base_IncreaseScentRange1) as int) ; Skyrim Units to meters
-Endfunction
 
 
 Function toggleSpells(int newToggle = -1)
@@ -685,33 +670,36 @@ Endfunction
 
 
 
-float Function getDrainLevel(bool isGentle = false)
-    float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-    if !isGentle
-        return new_drain_level
+Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
+    TSSD_DrainedMarker.Cast(PlayerRef, (sender as Actor))
+    TSSD_RejectionPoison.Cast((sender as Actor), PlayerRef)
+    
+    T_Show("Getting rejected hurts!"  , "icon.dds", aiDelay = 0.0)
+endevent
+  
+Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
+    if  (TSSD_TypeScarlet.GetValue() as int) == 1 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
+        int toIncrease = 2
+        if MySweetHeart
+            Debug.Notification("Oh I gotta talk with " + MySweetHeart.GetDisplayName() +  " about that!")
+        else
+            Debug.Notification("I am so alone!")
+            toIncrease += 2
+        endif
+        SuccubusXpAmount.Mod(10)
     endif
-    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
-        new_drain_level /= 2
-    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
-        new_drain_level /= 3
-    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
-        new_drain_level /= 5
-    endif
-    return new_drain_level
-Endfunction
+endEvent
 
-bool Function GetHabitationCorrect(Location curLoc)
-    int succubusType = TSSD_SuccubusType.GetValue() as int    
+
+bool Function GetHabitationCorrect(Location curLoc) 
     return (\
-                (succubusType == 0 && curLoc.HasKeyword(LocTypeInn)) ||\
-                (succubusType == 1 && curLoc.HasKeyword(LocTypePlayerHouse)) ||\
-                (succubusType == 2 && curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeHabitationHasInn)) ||\
-                (succubusType == 4 && !curLoc.HasKeyword(LocTypeHabitation))    )
+                (TSSD_TypeScarlet.GetValue() >= 1 && curLoc.HasKeyword(LocTypePlayerHouse)) ||\
+                (TSSD_TypeScarlet.GetValue() <= 0 && curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeHabitationHasInn)) ||\
+                (TSSD_TypeMahogany.GetValue() >= 1 && !curLoc.HasKeyword(LocTypeHabitation))    )
             
 EndFunction
 
 Event OnUpdateGameTime()
-    int succubusType = TSSD_SuccubusType.GetValue() as int
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
     if timeBetween > 1
         float valBefore = SuccubusDesireLevel.GetValue()
@@ -744,12 +732,13 @@ Event OnUpdateGameTime()
             toggleDeathMode()
         endif
     endif
+    T_Show("", "menus/TSSD/" + ((SuccubusDesireLevel.GetValue() / 20) as int) + "H.dds" )
 endEvent
 
 Event OnMenuOpen(String MenuName)
-    if MenuName == "Dialogue Menu" && SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue() && TSSD_SuccubusType.GetValue() != -1
+    if MenuName == "Dialogue Menu" && SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
         UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
-        GetAnnouncement().Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
+        T_Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
     endif 
     isHoveringPrey = false
 EndEvent
@@ -807,15 +796,13 @@ Event OnUpdate()
 EndEvent
 
 Function onGameReload()
-    if TSSD_SuccubusType.GetValue() > -1
+    if SuccubusDesireLevel.GetValue() > -101
         RegisterSuccubusEvents()
     endif
     RegisterForCrosshairRef()
     isHoveringPrey = false
-    Maintenance(TSSD_SuccubusType)
+    Maintenance()
     cosmeticSettings = ReadInCosmeticSetting()
-    tWidgets.shouldFadeOut = cosmeticSettings[5]
-    tWidgets.onReloadStuff()
     gainSuccubusXP(0)
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
@@ -834,7 +821,7 @@ Endfunction
 
 
 Event HumiDone(string eventName, string strArg, float numArg, Form sender)
-    Utility.Wait(5)
+    Utility.Wait(1)
     UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
 EndEvent
 
@@ -866,26 +853,5 @@ Endfunction
 Function NotificationSpam(string Displaying)
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bSpamNotifications:Main")
         Debug.Notification( "You picked: " + Displaying )
-    endif
-Endfunction
-
-Function advanceStageTwenty()
-    int index = 0
-    while index < 5
-        if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
-            tssd_dealwithcurseQuest.SetObjectiveFailed(21 + index)
-        endif
-        index += 1
-    EndWhile
-    index = 0
-    bool isCompleted = true
-    while index < 5
-        if !tssd_dealwithcurseQuest.IsObjectiveCompleted(21 + index) ||  !tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
-            isCompleted = false
-        endif
-        index += 1
-    EndWhile
-    if isCompleted
-        tssd_dealwithcurseQuest.setstage(40)
     endif
 Endfunction

@@ -9,8 +9,11 @@ float _updateTimer = 0.5
 int[] Property new_Bar_Vals Auto
 
 iWant_Widgets Property  iWidgets Auto
+
 GlobalVariable Property SuccubusDesireLevel Auto
-GlobalVariable Property TSSD_SuccubusType Auto
+GlobalVariable Property TSSD_TypeScarlet Auto
+GlobalVariable Property TSSD_TypeSundown Auto
+GlobalVariable Property TSSD_TypeMahogany Auto
 
 bool Property shouldFadeOut Auto
 
@@ -39,14 +42,14 @@ Event TSSD_Main_Bar_Rotation_Event(string a_eventName, string a_strArg, float a_
 EndEvent
 
 Function setColorsOfBar()
-    if TSSD_SuccubusType.GetValue() > -1
-        string curSuccubusType = GetSuccubusTypesAll()[TSSD_SuccubusType.GetValue() as int]
-        if SuccubusDesireLevel.GetValue() > 0
+    if SuccubusDesireLevel.GetValue() > -101
+       ;/  string curSuccubusType = GetSuccubusTypesAll()[TSSD_SuccubusType.GetValue() as int]
+        if false && SuccubusDesireLevel.GetValue() > 0
             int[] colors = JArray.asIntArray(JDB.solveObj(".tssdkinds."+curSuccubusType+".color"))
             IWidgets.setMeterRGB(tWidgetNum, colors[0], colors[1], colors[2], colors[0], colors[1], colors[2])
-        else
-            IWidgets.setMeterRGB(tWidgetNum, 0,0,0, 0,0,0)
-        endif
+        else /;
+        IWidgets.setMeterRGB(tWidgetNum, 256,36,0, 256,36,0);/ 
+        endif /;
     endif
 EndFunction
 

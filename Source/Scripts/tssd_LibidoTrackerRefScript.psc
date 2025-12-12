@@ -10,7 +10,12 @@ GlobalVariable Property TSSD_SuccubusLibido Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property SuccubusDesireLevel Auto
-GlobalVariable Property TSSD_SuccubusType Auto
+
+
+GlobalVariable Property TSSD_TypeScarlet Auto
+GlobalVariable Property TSSD_TypeSundown Auto
+GlobalVariable Property TSSD_TypeMahogany Auto
+
 STRING PROPERTY SUCCUBUSLIBIDOINCREASE = "tssd.Libido.Rate" autoreadonly hidden
 MagicEffect Property TSSD_BeggarLibidoDecrease Auto  
 MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
@@ -42,9 +47,8 @@ Endevent
 
 
 Event OnBookRead(Book akBook)
-	int succubusType = TSSD_SuccubusType.GetValue() as int
 	float deltaDiff = Game.QueryStat("Books Read") - BookNumTracker
-	if succubusType == 1 && deltaDiff > 0
+	if TSSD_TypeScarlet.GetValue() == 1.0 && deltaDiff > 0
 		changeLibido(deltaDiff * 2)
 		BookNumTracker = Game.QueryStat("Books Read")
 	endif
@@ -78,7 +82,7 @@ Endfunction
 
 Event OnUpdateGameTime()
 	if TSSD_SuccubusLibido.GetValue() >= 0
-		int succubusType = TSSD_SuccubusType.GetValue() as int
+		int succubusType = TSSD_TypeScarlet.GetValue() as int
 		Location curLoc = PlayerRef.GetCurrentLocation()
 		float timeBetween = (GameHours.GetValue() - gameTimePassed) * 20
 		int multiplierDecrease = 1
@@ -91,7 +95,7 @@ Event OnUpdateGameTime()
 		if PlayerRef.hasmagiceffect(TSSD_ZenitharDonationSpellEffect)   
 			multiplierDecrease += 1
 		endif
-		if (succubusType == 2 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
+		if (succubusType == 0.0 && ( curLoc.HasKeyword(LocTypeInn) ||  curLoc.HasKeyword(LocTypeHabitationHasInn)) ) 
 			IntListSet(PlayerRef, SUCCUBUSLIBIDOINCREASE, 1, 2)
 			; DBGTrace(succubusType+"_" +curLoc.HasKeyword(LocTypeHabitationHasInn))
 		else        

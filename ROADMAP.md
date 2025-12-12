@@ -45,3 +45,19 @@ Illusionist,
 ## Show-off
 
 ## Thief
+
+
+
+# Colors again
+
+## Scarlet
+If you choose Scarlet, you can only gain energy back from interactions with people that know and respect you.
+If you deny Scarlet, you can only gain energy back from those who don't.
+
+## Sundown
+If you choose Sundown, you only gain half as much XP as usual (easy mode).
+If you deny Sundown, you passively lose energy (default).
+
+## Mahogany
+If you choose Mahogany, you can gain energy from hostile people.
+If you deny Mahogany, you can bind willing people to you, to help you get your energy back.

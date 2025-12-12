@@ -6,9 +6,12 @@ GlobalVariable Property TimeOfDayGlobalProperty Auto
 Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
 Faction Property sla_Arousal Auto
-GlobalVariable Property TSSD_SuccubusType Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
 int smooching
+
+GlobalVariable Property TSSD_TypeScarlet Auto
+GlobalVariable Property TSSD_TypeSundown Auto
+GlobalVariable Property TSSD_TypeMahogany Auto
 
 
 Function queueStringForAnnouncement(string inputStr)
@@ -18,10 +21,9 @@ EndFunction
 
 string Property nextAnnouncment Auto
 
-float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType , Actor WhoCums = none)    
+float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = none)    
     ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
-    string succubusTypeString = GetSuccubusTypesAll()[succubusType]
     
     string[] succubusTraits = GetSuccubusTraitsAll()
     int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 20)
@@ -70,11 +72,6 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, int succubusType
     if isEnabledAndNotPlayer(WhoCums) && smooching > 0.0
         retval = smooching * lastMet
         output += "Smooch!"
-    endif
-    if retval > 0
-        if succubusTypeString == "Sundown"
-            retval /= 2
-        endif
     endif
     retVal += energyLosses
     if output != ""

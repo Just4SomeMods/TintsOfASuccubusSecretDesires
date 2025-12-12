@@ -4,10 +4,10 @@ import tssd_utils
 Quest Property tssd_dealwithcurseQuest Auto
 
 String Property deityName Auto
-GlobalVariable Property TSSD_SuccubusType Auto
+GlobalVariable Property SuccubusDesireLevel Auto
 
 Event OnActivate(ObjectReference akActionRef)
-    if TSSD_SuccubusType.getvalue()>=0 && Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main"))
+    if SuccubusDesireLevel.GetValue() > -101 && Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main"))
         if !tssd_dealwithcurseQuest.IsRunning()
             tssd_dealwithcurseQuest.Start()
             ;tssd_dealwithcurseQuest.setstage(10)

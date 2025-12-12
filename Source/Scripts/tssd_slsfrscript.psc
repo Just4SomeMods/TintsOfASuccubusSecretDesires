@@ -5,7 +5,7 @@ import tssd_utils
 Actor Property PlayerRef Auto
 
 GlobalVariable Property TSSD_SuccubusTraits Auto
-GlobalVariable Property TSSD_SuccubusType Auto
+
 sslActorStats Property sslStats Auto
 SexLabFramework Property SexLab Auto
 
@@ -29,7 +29,6 @@ Function SetFlagsSLSF(string modName, bool isActive)
             ModEvent.Send(EventHandle)
         endif
         int EventHandle
-        int succubusType = TSSD_SuccubusType.GetValue() as int
         string[] succubusTypes = GetSuccubusTypesAll()
         int typesIndex = 0
         while typesIndex < succubusTypes.Length
@@ -40,7 +39,7 @@ Function SetFlagsSLSF(string modName, bool isActive)
                 string cat = jsolve[jarrayIndex]
                 EventHandle = ModEvent.Create("SLSF_Reloaded_Set" + cat + "Flag")
                 ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
-                ModEvent.PushBool(EventHandle, typesIndex == succubusType)
+                ModEvent.PushBool(EventHandle, false) ; TODO typesIndex == succubusType)
                 ModEvent.Send(EventHandle)
                 jarrayIndex += 1
             endwhile
@@ -67,8 +66,7 @@ Endfunction
 
 
 Function onWaitPassive(float amount_of_hours)
-    int succubusType = TSSD_SuccubusType.GetValue() as int
-    int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
+    ;/ int sexualityPlayer = sslStats.GetSexuality(PlayerRef)
     int genderPlayer = min(Sexlab.GetSex(PlayerRef), 1) as int
     if genderPlayer == 0
         sexualityPlayer = 100 - sexualityPlayer
@@ -96,5 +94,5 @@ Function onWaitPassive(float amount_of_hours)
     ModEvent.PushString(EventHandle, "Current")
     ModEvent.PushInt(EventHandle, 0) 
     ModEvent.PushInt(EventHandle, amount_of_hours as int)
-    ModEvent.Send(EventHandle)
+    ModEvent.Send(EventHandle)  TODO/; 
 Endfunction
