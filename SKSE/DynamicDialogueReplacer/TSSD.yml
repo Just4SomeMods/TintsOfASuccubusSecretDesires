@@ -69,15 +69,15 @@ topics:
       - pl1 <> HasPerk TSSD_Seduction_Seductress1 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
 
-  # Puinsher
+  # Punisher
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
     inject:
       - 0xC3|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_Pain_Good1 == 1 AND
+      - pl1 <> HasPerk TSSD_Body_PainGood1 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - pl1 <> HasPerk TSSD_Body_Pain_Good2 == 1 AND
+      - pl1 <> HasPerk TSSD_Body_PainGood2 == 1 AND
 
   # Kiss
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp

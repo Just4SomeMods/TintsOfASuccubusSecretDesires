@@ -89,7 +89,7 @@ Function Train()
             TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
         elseif SkillName == "Drain"            
             TSSD_ReverseDrainSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
-        elseif SkillName == "Seduciton"
+        elseif SkillName == "Seduction"
             TSSD_ReverseSeductionSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
         endif
         PlayerRef.RemovePerk(TSSD_Base_Explanations)

@@ -60,6 +60,10 @@ String [] Function GetSuccubusTypesAll() Global
     return JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
 Endfunction
 
+String [] Function GetSuccubusStartPerksAll() Global
+    return JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusSPerks"))
+Endfunction
+
 String [] Function GetSuccubusTraitsAll() Global
     return JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
 Endfunction
@@ -169,6 +173,8 @@ EndFunction
 Function Maintenance() Global
     int jval = JValue.readFromFile("Data/Tssd/succubustraits.json")
     JDB.SetObj("tssdtraits", jval)
+    jval = JValue.readFromFile("Data/Tssd/succubusEnergyPerks.json")
+    JDB.SetObj("tssdperks", jval)
     jval = JValue.readFromFile("Data/Tssd/succubuskinds.json")
     JDB.SetObj("tssdkinds", jval)
     jval = JValue.readFromFile("Data/Tssd/overviews.json")

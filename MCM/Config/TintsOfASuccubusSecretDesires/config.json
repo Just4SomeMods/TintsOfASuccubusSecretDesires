@@ -912,7 +912,7 @@
                 {
                     "type": "text",
                     "text": "Overflow1",
-                    "help": "You increase your maximum energy level by 100. Gettting above 100 does not strengthen most abilities.\nSkillSuccubusBaseLevel >= 20.0\n",
+                    "help": "You increase your maximum energy level by 100. Getting above 100 does not strengthen most abilities.\nSkillSuccubusBaseLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -926,7 +926,7 @@
                 {
                     "type": "text",
                     "text": "Overflow2",
-                    "help": "You increase your maximum energy level by 200 more. Gettting above 100 does not strengthen most abilities. (400 max)\nSkillSuccubusBaseLevel >= 50.0\n",
+                    "help": "You increase your maximum energy level by 200 more. Getting above 100 does not strengthen most abilities. (400 max)\nSkillSuccubusBaseLevel >= 50.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -940,7 +940,7 @@
                 {
                     "type": "text",
                     "text": "Overflow3",
-                    "help": "You increase your maximum energy level by 600 more. Gettting above 100 does not strengthen most abilities. (1000 max)\nSkillSuccubusBaseLevel >= 80.0\n",
+                    "help": "You increase your maximum energy level by 600 more. Getting above 100 does not strengthen most abilities. (1000 max)\nSkillSuccubusBaseLevel >= 80.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1066,7 +1066,7 @@
                 {
                     "type": "text",
                     "text": "Polythrall4",
-                    "help": "You can have up to ten thralls and can enthrall people who don't activley dislike you.\nSkillSuccubusBaseLevel >= 100.0\n",
+                    "help": "You can have up to ten thralls and can enthrall people who don't actively dislike you.\nSkillSuccubusBaseLevel >= 100.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1135,7 +1135,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "Aggressive Negotation1",
+                    "text": "Aggressive Negotiation1",
                     "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\nSkillSuccubusBodyLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
@@ -1234,7 +1234,7 @@
                 {
                     "type": "text",
                     "text": "Dom of doom3",
-                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting. Those endevours always succeed.\nSkillSuccubusBodyLevel >= 80.0\n",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting. Those endeavours always succeed.\nSkillSuccubusBodyLevel >= 80.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1514,7 +1514,7 @@
                 {
                     "type": "text",
                     "text": "Drain Balls",
-                    "help": "You can ask men to be showered in cum to refresh your energy.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You can ask men to shower you in cum to refresh your energy.\nSkillSuccubusDrainLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1570,7 +1570,7 @@
                 {
                     "type": "text",
                     "text": "Energy Vampire",
-                    "help": "You gain the ability to drain energy from people in mundane converstations. Just ask them about their day!\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You gain the ability to drain energy from people in mundane conversations. Just ask them about their day!\nSkillSuccubusDrainLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1640,7 +1640,7 @@
                 {
                     "type": "text",
                     "text": "Stealth Drain4",
-                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and recieve no debuff.\nSkillSuccubusDrainLevel >= 80.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and receive no debuff.\nSkillSuccubusDrainLevel >= 80.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1695,7 +1695,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "Dissappear",
+                    "text": "Disappear",
                     "help": "You can sacrifice 20 energy to increase your speed and become ethereal.\nSkillSuccubusSeductionLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",

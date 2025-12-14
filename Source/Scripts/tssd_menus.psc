@@ -131,7 +131,7 @@ Function OpenGrandeMenu()
     b612_SelectList mySelectList = GetSelectList()
     String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
     if TSSD_MaxTraits.GetValue() > 0
-        myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type;Select Traits",";")
+        myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
     endif
     Int result
     if modifierKeyIsDown
@@ -153,17 +153,15 @@ Function OpenGrandeMenu()
         OpenSuccubusCosmetics()
     elseif myItems[result] == "Rechoose Type"
         SelectSuccubusType()
-    elseif myItems[result] == "Select Traits"
-        OpenSuccubusTraits()
     endif
 EndFunction 
 
 Function OpenExpansionMenu()
-    if MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","bSkipExplenations:Main") < 0
+    if MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","bSkipExplanations:Main") < 0
         lookedAtExplanationsOnce = true
     endif
     if !lookedAtExplanationsOnce
-        OpenExlanationMenu()
+        OpenExplanationMenu()
         return
     endif
     b612_SelectList mySelectList = GetSelectList()
@@ -189,7 +187,7 @@ Function OpenExpansionMenu()
     endif
 EndFunction
 
-Function OpenExlanationMenu()        
+Function OpenExplanationMenu()        
     String[] SUCCUBUSTATS = StringUtil.Split( "Base Skill;Drain;Seduction;Body;Perk Points",";")
     String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;\
     Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];\
@@ -224,33 +222,21 @@ Function OpenSkillTrainingsMenu(int index_of)
 
 Endfunction
 
-Function OpenSuccubusTraits()
+Function GainFreePerk()
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int index = 0
-    string[] succTraits = GetSuccubusTraitsAll()
-    bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succTraits.Length)
+    string[] succTraits = GetSuccubusStartPerksAll()
     while index < succTraits.Length
-        string succDesc =  JDB.solveStr(".tssdtraits." + succTraits[index] + ".description")
-        if chosenTraits[index]
-            TraitsMenu.AddItem( "> " + succTraits[index],  succDesc, "menus/tssd/"+succTraits[index]+".dds")
-        else
-            TraitsMenu.AddItem( succTraits[index], succDesc, "menus/tssd/"+succTraits[index]+".dds")   
-        endif
+        string succDesc =  JDB.solveStr(".tssdperks." + succTraits[index] + ".Desc")
+        string succName =   JDB.solveStr(".tssdperks." + succTraits[index] + ".Name")
+        TraitsMenu.AddItem( "Free Perk: " + succName, succDesc, "");"menus/tssd/"+succTraits[index]+".dds")
         index += 1
     EndWhile
-    String[] resultW = TraitsMenu.Show(aiMaxSelection = TSSD_MaxTraits.GetValue() as int, aiMinSelection = 0)
+    String[] resultW = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 1)
     if resultW.Length > 0
-        chosenTraits = Utility.CreateBoolArray(succTraits.Length, false)
-        index = 0
-        int j = 0
-        int chosenBinar = 0
-        while index < resultw.Length
-            int resInt = resultW[index] as int
-            chosenBinar += Math.Pow(2, resInt) as int
-            index += 1
-        EndWhile
-        TSSD_SuccubusTraits.SetValue(chosenBinar)
-        slsfListener.CheckFlagsSLSF()
+        int PerkID =  JDB.solveInt(".tssdperks." + succTraits[resultW[0] as int] + ".id")
+        PlayerRef.AddPerk(Game.GetFormFromFile(PerkID, "TintsOfASuccubusSecretDesires.esp") as Perk)
+        Debug.MessageBox(PerkID)
     endif
 EndFunction
 
@@ -260,7 +246,8 @@ Function SelectSuccubusType(int query = -1)
         b612_TraitsMenu TraitsMenu = GetTraitsMenu()
         string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
         while index < succKinds.Length
-            TraitsMenu.AddItem( succKinds[index], JDB.solveStr(".tssdkinds." + succKinds[index] + ".description"), "menus/tssd/"+succKinds[index]+".dds")
+            TraitsMenu.AddItem( succKinds[index], JDB.solveStr(".tssdkinds." + succKinds[index] + ".description"),\
+             "menus/tssd/"+succKinds[index]+".dds")
             index += 1
         EndWhile
 
@@ -294,6 +281,7 @@ Function SelectSuccubusType(int query = -1)
         tssd_enthrallDialogue.Start()
         PlayerRef.AddPerk(TSSD_Base_Explanations)
         tActions.RegisterSuccubusEvents()
+        GainFreePerk()
     endif
     slsfListener.CheckFlagsSLSF()
     ;if succubusType == 2
