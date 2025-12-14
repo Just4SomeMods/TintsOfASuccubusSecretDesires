@@ -1,3 +1,6 @@
+refMap:
+  pl1: 0x14|Skyrim.esm
+
 scripts:
   - script: "TSSDThrallDia.lua"
     type: 2
@@ -5,6 +8,92 @@ scripts:
     type: 1
   - script: "TSSDHumiliation.lua"
     type: 0
+
+topics:
+  # Drowsy
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xC5|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - GetFactionRank TSSD_EnthralledFaction == 1 OR
+      - GetGlobalValue SkillSuccubusBodyLevel >= 20 AND
+      - LocationHasKeyWord LocTypeInn == 1 AND
+      - GetFactionRank TSSD_EnthralledFaction == 1 OR
+      - GetActorValue Morality <= 2 AND
+      
+  # AggressivePro
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xD1|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Seduction_Kiss1 == 1 AND
+
+  # CumCover
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x9A|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
+      - LocationHasKeyWord LocTypeInn == 1 AND
+
+  # Findom
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xDF|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Body_Findom1 == 1 AND
+
+  # PAIN
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xAE|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Body_Subby1 == 1 AND
+
+  # Party
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xCA|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND #TODO
+      - LocationHasKeyWord LocTypeInn == 1 AND
+
+  # Puinsher
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xC3|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Body_Pain_Good1 == 1 AND
+      - LocationHasKeyWord LocTypeInn == 1 OR
+      - pl1 <> HasPerk TSSD_Body_Pain_Good2 == 1 AND
+
+  # Kiss
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x97|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Seduction_Kiss1 == 1 AND
+
+  # Rant
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xA5|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - GetRelationShipRank Player >= 2 AND
+      - GetGlobalValue TSSD_SuccubusTypeScarlet == 1 AND
+
+      
+
+
 
 #topicInfos:
 #  # Thrall topic Info

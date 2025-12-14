@@ -20,7 +20,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|056",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "PassiveEnergy", "OverPowerThem", "Filledup"
+          "links": [ "Overstuffed" , "FightMode", "EnergyConverter", "Prostitution", "OverPowerThem", "Filledup", "PainGood"
           ]
      },
      {
@@ -68,12 +68,25 @@
           "links": [
           ]
      },{
-          "id": "PassiveEnergy",
-          "perk": "TintsOfASuccubusSecretDesires.esp|052",
+          "id": "Prostitution",
+          "perk": "TintsOfASuccubusSecretDesires.esp|095",
           "x": -0.5,
           "y": -0.1,
-          "links": [
+          "links": [ "PainGood"
           ]
+     },{
+          "id": "PainGood",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0DE",
+          "x": -0.5,
+          "y": 0.3,
+          "links": [ "Findom"
+          ]
+     },{
+          "id": "Findom",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0E2",
+          "x": -0.5,
+          "y": 0.6,
+          "links": [        ]
      }
      ]
 }

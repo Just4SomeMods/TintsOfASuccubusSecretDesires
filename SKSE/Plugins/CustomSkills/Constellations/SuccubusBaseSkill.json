@@ -8,10 +8,10 @@
      "ratio": "TintsOfASuccubusSecretDesires.esp|020",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
      "experienceFormula": {
-          "useMult": 7.0,
+          "useMult": 1.0,
           "useOffset": 0.0,
-          "improveMult": 0.5,
-          "improveOffset": 120.0,
+          "improveMult": 1.0,
+          "improveOffset": 100.0,
           "enableXPPerRank": false
      },
      "nodes": [

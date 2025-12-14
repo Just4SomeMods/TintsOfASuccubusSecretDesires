@@ -2,12 +2,14 @@ local pools = {
   TSSD_00093 = {
     {"Yes my love?"},
     {"I am yours to command!"},
-    {"What do you want my pet?"}
+    {"What do you want my pet?"},
+    {"Just this once."}
   },
   TSSD_00096 = {
     {"Just how we like it."},
     {"Just how you like it."},
-    {"Just how I like it."}
+    {"Just how I like it."},
+    {"Just this once."}
   },
   TSSD_00098 = {
     {"Gladly"},
@@ -32,7 +34,12 @@ local pools = {
     "This is gonna be good."}
   },
   TSSD_000C7 = {
-    {},{},{},
+    {"ERROR"},{"ERROR"},{"ERROR"},
+    {"Eww.",
+    "No, thank you."}
+  },
+  TSSD_000B0 = {
+    {"Some pain is good!"},{"Some pain is good!"},{"Some pain is good!"},
     {"Eww.",
     "No, thank you."}
   },
@@ -42,7 +49,41 @@ local pools = {
     {"This is coming out of your stipend."},
     {"I really shouldn't but those hips don't lie!"}
 
+  },
+  TSSD_000DA = {
+    {"Whatevery you say!."},
+    {"Yeees!"},
+    {"Hit me how I like it!"},
+    {"I probably deserve that."}
+
+  },
+  TSSD_000A3 = {
+    {"ERROR"},{"ERROR"},{"ERROR"},
+    {"YAAAAY."}
+  },
+  TSSD_000A2 = {
+    {"ERROR"},{"ERROR"},{"ERROR"},
+    {"Yaaaay."}
+  },
+  TSSD_000A1 = {
+    {"ERROR"},{"ERROR"},{"ERROR"},
+    {"Yay."}
+  },
+  TSSD_000CD = {
+    {"Let's go have some fun!"},{"Let's go have some fun!"},{"Let's go have some fun!"},
+    {"Let's go have some fun!"}
+  },
+  TSSD_000B2 = {
+    {"You will look so beautiful!"},{"It's good for your skin!"},{"Everyone will now that you are mine!"},
+    {"I like your enthusiasm!"}
+  },
+  TSSD_000DD = {
+    {"Oh ok then."},{"Oh ok then."},{"Oh ok then."},{"Oh ok then."}
+  },
+  TSSD_000E1 = {
+    {"You've earned it."},{"Everything fir you my queen."},{"Are you to stupid to keep it? Ugh, fine."},{"Yeah sure."}
   }
+  
 }
 
 
@@ -68,6 +109,11 @@ function replace(text)
     local pool = pools[text]
     if pool then
       local thrallType = get_thrall_type(speaker_id)
+      if text ~= "TSSD_00093" then
+        send_mod_event("TSSD_DialogueFinished", text, 0.0, speaker_id)
+      end
+      nxtText = pool[thrallType][math.random(1, #pool[thrallType])]
+      log_info(nxtText)
       return pool[thrallType][math.random(1, #pool[thrallType])]
     end
     return text

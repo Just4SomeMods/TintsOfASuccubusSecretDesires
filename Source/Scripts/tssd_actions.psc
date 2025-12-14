@@ -9,6 +9,7 @@ Actor Property PlayerRef Auto
 
 
 tssd_slsfrscript Property slsfListener Auto
+tssd_dialogue Property tDialogue Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
@@ -48,7 +49,6 @@ GlobalVariable Property TSSD_TypeMahogany Auto
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
 GlobalVariable Property TSSD_InnocentsSlain Auto
-GlobalVariable Property TSSD_HumiliationDone Auto
 
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
@@ -65,7 +65,9 @@ Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Overstuffed Auto
 Spell Property TSSD_DrainHealth Auto
 Spell Property TSSD_DrainedMarker Auto
+Spell Property TSSD_Satiated Auto
 Spell Property TSSD_RejectionPoison Auto
+Spell Property TSSD_FuckingInvincible Auto
 
 bool Property deathModeActivated Auto
 bool modifierKeyIsDown = false
@@ -98,6 +100,7 @@ int lastUsedSub = -1
 int spellToggle
 int Property numHostileActors Auto
 int Property playerArousal Auto
+int lastPerc = -1
 
 string Property tssd_SpellDebugProp = "-1" Auto
 MagicEffect Property TSSD_DrainedDownSide Auto
@@ -131,8 +134,7 @@ EndFunction
 
 ; Function to adjust energy level
 Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated = false)
-
-    if  !tssd_dealwithcurseQuest.isobjectivefailed(24)
+    if  tssd_dealwithcurseQuest.IsRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24)
         upTo = 19
     endif
     float lastVal = SuccubusDesireLevel.GetValue()
@@ -140,8 +142,14 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     if (TSSD_TypeSundown.GetValue() as int) == 1
         lowerBound = 0
     endif
-    if lastVal < upTo && (lastVal > -100 || isDeathModeActivated)
+    if (lastVal > -100 || isDeathModeActivated)
         SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
+    endif
+    DBGTRACE(min(upTo, max( lowerBound,  lastVal + adjustBy) ))
+    int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
+    if nxtPerc != lastPerc
+        T_Show("", "menus/TSSD/" + nxtPerc + "H.dds" )
+        lastPerc = nxtPerc
     endif
 Endfunction
 
@@ -188,8 +196,14 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
     float succNeedVal = SuccubusDesireLevel.GetValue()
     int max_energy_level = 100
     int greed_mult = 1
-    SuccubusDesireLevel.Mod( Max (0,byValue - enegryLossReduction) / -10)
-    SuccubusXpAmount.Mod(byValue)
+    float energyLoss = Max (0,byValue - enegryLossReduction) / -10
+    if (succNeedVal + 10) > energyLoss * -1
+        RefreshEnergy( energyLoss )
+        SuccubusXpAmount.Mod(byValue)
+    else
+        SuccubusXpAmount.Mod(succNeedVal * -1)
+        RefreshEnergy( succNeedVal * -1 )
+    endif
     if CustomSkills.GetAPIVersion() >= 3
         CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
     endif
@@ -300,6 +314,8 @@ Actor Function searchForTargets()
 Endfunction
 
 Function actDefeated(actor tarRef)
+    
+    TSSD_FuckingInvincible.Cast(PlayerRef)
     if tarRef
         PlayerRef.PlayIdle(BleedOutStart)
         AzuraFadeToBlack.Apply()
@@ -323,11 +339,17 @@ Function RegisterSuccubusEvents()
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
     RegisterForTrackedStatsEvent()
-    RegisterForModEvent("TSSD_HumiliationDoneEvent","HumiDone") 
-    RegisterForModEvent("TSSD_RecejctedEvent","OnSuccRejected") 
+    RegisterForModEvent("SexLabClearCum", "CumAbsorb")
     ; RegisterForModEvent("SexLabOrgasmSeparate", "OnSexOrgasm")
 Endfunction
 
+Event CumAbsorb(form akTarget, int aiType)
+
+    if PlayerRef.IsSwimming() || (akTarget as Actor) != PlayerRef
+        return
+    endif
+    T_Show("I love the feeling of cum being absorbed through my skin!", "", 0)
+EndEvent
 
 int Function EvaluateCompleteScene(int inPutScene = -1)
     sslThreadController _thread
@@ -437,7 +459,7 @@ bool Function isDeathSuccableOverload(Actor ActorRef, bool ignoreMarker = false,
 EndFunction
 
 Function PlayerSceneStart(Form FormRef, int tid)
-    searchForTargets()
+    TSSD_FuckingInvincible.Cast(PlayerRef)
     playerArousal = playerref.GetFactionRank(sla_Arousal)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
@@ -446,36 +468,31 @@ Function PlayerSceneStart(Form FormRef, int tid)
         bool aggressiveY = false
         while indexIn < ActorsIn.length
             Actor consentingActor = ActorsIn[indexIn]
-            if consentingActor != PlayerRef && isSuccableOverload(consentingActor) >= 0
+            if consentingActor != PlayerRef && consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
                 aggressiveY = true
             endif
             indexIn += 1
         endwhile
         if aggressiveY
-            toggleDeathMode(false)
+            toggleDeathMode(true)
         endif
     endif
     indexIn = 0
-    while indexIn < ActorsIn.length
-        Actor consentingActor = ActorsIn[indexIn]
-        if consentingActor.GetRelationshipRank(PlayerRef) == 4 
-            T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
-            MySweetHeart = consentingActor
-            indexIn = 99
-        endif
-        indexIn += 1
-    endwhile
-    int nxtEnergy = EvaluateCompleteScene(tid)
+    if TSSD_TypeScarlet.GetValue() == 1 
+        while indexIn < ActorsIn.length
+            Actor consentingActor = ActorsIn[indexIn]
+            if consentingActor.GetRelationshipRank(PlayerRef) == 4 
+                T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
+                MySweetHeart = consentingActor
+                indexIn = 99
+            endif
+            indexIn += 1
+        endwhile
+    endif
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
-    if smooching > 0.0
-        Actor nonPlayer = ActorsIn[0]
-        if nonPlayer == PlayerRef
-            nonPlayer = ActorsIn[1]
-        endif
-        lastSmoochTimeWithThatPerson = GetLastTimeSuccd(nonPlayer, TimeOfDayGlobalProperty)        
-    endif
+    
     if Game.GetModByName("Tullius Eyes.esp") != 255 && (TSSD_TypeScarlet.GetValue() == 1 || cosmeticSettings[1] ) && cosmeticSettings[0]
         HeadPart tEyes = currentEyes()
         if tEyes
@@ -529,10 +546,13 @@ Function PlayerSceneStart(Form FormRef, int tid)
     endif
     if deathModeActivated
         BerserkerMainImod.ApplyCrossFade(1)
+    else        
+        gainSuccubusXP(EvaluateCompleteScene(tid))
     endif
 EndFunction
 
 Function PlayerSceneEnd(Form FormRef, int tid)
+    PlayerRef.DispelSpell(TSSD_FuckingInvincible)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions() 
     int index = 0
@@ -541,17 +561,15 @@ Function PlayerSceneEnd(Form FormRef, int tid)
         Actor WhoCums = ActorsIn[index]
         if deathModeActivated
             WhoCums.PlayIdle(BleedOutStart)
-        elseif WhoCums != PlayerRef
-            PlayerRef.PushActorAway(WhoCums, 1.0)
         endif
-        if  TSSD_TypeScarlet.GetValue() == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) == 4 && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
+        if  ((TSSD_TypeScarlet.GetValue() == 0 &&  WhoCums.GetRelationshipRank(PlayerRef) < 1) || \
+            (TSSD_TypeScarlet.GetValue() == 1 &&  WhoCums.GetRelationshipRank(PlayerRef) >= 1)) && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
             gainSuccubusXP(1000,1000)
             RefreshEnergy(100)
         endif
         index+=1
     EndWhile
-    int nxtEnergy = EvaluateCompleteScene(tid)
-    gainSuccubusXP(nxtEnergy)
+    ; gainSuccubusXP(EvaluateCompleteScene(tid))
     ; TSSD_DrainHealth.SetNthEffectMagnitude(1, min(ActorRef.GetActorValue("Health") - 10 ,new_drain_level))
     ; TSSD_DrainHealth.Cst(PlayerRef, ActorRef)
     if Actorsin.Length == 1 && PlayerRef.HasPerk(TSSD_DeityDibellaPerk) && searchForTargets() != PlayerRef
@@ -560,24 +578,27 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     index = 0
     while index < ActorsIn.Length
         Actor WhoCums = ActorsIn[index]
-        if (TSSD_TypeScarlet.GetValue() != 1.0 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isDeathSuccableOverload(WhoCums)
-            float succdVal = min(WhoCums.GetAV("Health"), getDrainLevel() )
-            ; updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   ) TODO change to only if evil?
-            TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
-            TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
-            int reduction = 10
-            if WhoCums.GetRelationshipRank(playerref) >= 0 && succdVal >= WhoCums.GetAV("Health") && !WhoCums.isHostileToActor(PlayerRef)
-                TSSD_EvilSuccubusQuest.ModObjectiveGlobal(1, TSSD_InnocentsSlain)
-                if !TSSD_EvilSuccubusQuest.IsRunning()
-                    TSSD_EvilSuccubusQuest.Start()
-                    TSSD_EvilSuccubusQuest.SetCurrentStageID(10)
-                endif
-            elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
-                reduction += 10
-            endif
-            gainSuccubusXP(succdVal, reduction)
-        endif
         if WhoCums != PlayerRef
+            if (TSSD_TypeScarlet.GetValue() != 1.0 || WhoCums.GetRelationshipRank(PlayerRef) < 4) && deathModeActivated && isDeathSuccableOverload(WhoCums)
+                float succdVal = min(WhoCums.GetAV("Health"), getDrainLevel() )
+                ; updateSuccyNeeds( succdVal, resetAfterEnd=false, isDeathModeActivated = true   ) TODO change to only if evil?
+                TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
+                TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
+                int reduction = 10
+                if WhoCums.GetRelationshipRank(playerref) >= 0 && succdVal >= WhoCums.GetAV("Health") && !WhoCums.isHostileToActor(PlayerRef)
+                    TSSD_EvilSuccubusQuest.ModObjectiveGlobal(1, TSSD_InnocentsSlain)
+                    if !TSSD_EvilSuccubusQuest.IsRunning()
+                        TSSD_EvilSuccubusQuest.Start()
+                        TSSD_EvilSuccubusQuest.SetCurrentStageID(10)
+                    endif
+                elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
+                    reduction += 10
+                endif
+                gainSuccubusXP(succdVal, reduction + TSSD_TypeMahogany.GetValue() * succdVal)
+                if TSSD_TypeMahogany.GetValue() == 1
+                    RefreshEnergy(succdVal)
+                endif
+            endif
             TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
         endif
         index+=1
@@ -585,20 +606,6 @@ Function PlayerSceneEnd(Form FormRef, int tid)
     if Game.GetModByName("Tullius Eyes.esp") != 255
         setHeartEyes(PlayerEyes, false)
     endif
-    
-    if targetsToAlert
-        int tarIndex = 0
-        while tarIndex < targetsToAlert.Length
-            Actor curRef = targetsToAlert[tarIndex]
-            if isEnabledAndNotPlayer(curRef) && curRef.isHostileToActor(PlayerRef)
-                curRef.StartCombat(PlayerRef)
-                curRef.PathToReference(PlayerRef, 0.9)
-            endif
-            tarIndex += 1
-        EndWhile
-    endif
-    targetsToAlert = new Actor[1]
-
     if deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
         toggleDeathMode(true)
     endif
@@ -666,16 +673,77 @@ String Function getAllNames(Actor[] inArr)
     return outString
 Endfunction
 
+
+
+bool Function GetHabitationCorrect(Location curLoc) 
+    return (\
+                (TSSD_TypeScarlet.GetValue() >= 1 && curLoc.HasKeyword(LocTypePlayerHouse)) ||\
+                (TSSD_TypeScarlet.GetValue() <= 0 && curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeHabitationHasInn)) ||\
+                (TSSD_TypeMahogany.GetValue() >= 1 && !curLoc.HasKeyword(LocTypeHabitation))    )
+            
+EndFunction
+
+Function onGameReload()
+    if SuccubusDesireLevel.GetValue() > -101
+        RegisterSuccubusEvents()
+    endif
+    ; RegisterForCrosshairRef()
+    isHoveringPrey = false
+    Maintenance()
+    cosmeticSettings = ReadInCosmeticSetting()
+    gainSuccubusXP(0)
+    if !spellToggle
+        toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
+    endif
+
+    int jArr = JDB.solveObj(".tssdspellids")
+    int index = 0
+    while index < JValue.count(jArr)
+        int innerJ = jArray.getObj(jArr, index)
+        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,\
+        MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
+        index += 1
+    endwhile
+
+    tDialogue.onGameReload()
+
+Endfunction
+
+Function addTSSDPerk(string perkToAdd)
+    Perk toAdd = Game.GetFormFromFile(perkToAdd as int, "TintsOfASuccubusSecretDesires.esp") as Perk    
+    if !PlayerRef.HasPerk(toAdd)
+        PlayerRef.AddPerk(toAdd)
+    else
+        PlayerRef.RemovePerk(toAdd)
+    endif
+Endfunction
+
+Function adjustSpell(bool isMag, string id, int index, string newValStr)
+    float newVal = newValStr as float
+    Spell toAdj = Game.GetFormFromFile(id as int, "TintsOfASuccubusSecretDesires.esp") as Spell
+    if newVal && toAdj
+        if playerref.hasspell(toAdj)
+            PlayerRef.RemoveSpell(toAdj) 
+            if isMag
+                toAdj.SetNthEffectMagnitude(index, newVal as float)
+            else
+                toAdj.SetNthEffectDuration(index, newVal as int)
+            endif
+            PlayerRef.AddSpell(toAdj, false)
+        endif
+    endif
+Endfunction
+
+Function NotificationSpam(string Displaying)
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bSpamNotifications:Main")
+        Debug.Notification( "You picked: " + Displaying )
+    endif
+Endfunction
+
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
-Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
-    TSSD_DrainedMarker.Cast(PlayerRef, (sender as Actor))
-    TSSD_RejectionPoison.Cast((sender as Actor), PlayerRef)
-    
-    T_Show("Getting rejected hurts!"  , "icon.dds", aiDelay = 0.0)
-endevent
   
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if  (TSSD_TypeScarlet.GetValue() as int) == 1 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
@@ -691,16 +759,9 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
 endEvent
 
 
-bool Function GetHabitationCorrect(Location curLoc) 
-    return (\
-                (TSSD_TypeScarlet.GetValue() >= 1 && curLoc.HasKeyword(LocTypePlayerHouse)) ||\
-                (TSSD_TypeScarlet.GetValue() <= 0 && curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeHabitationHasInn)) ||\
-                (TSSD_TypeMahogany.GetValue() >= 1 && !curLoc.HasKeyword(LocTypeHabitation))    )
-            
-EndFunction
 
 Event OnUpdateGameTime()
-    float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 24
+    float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 100
     if timeBetween > 1
         float valBefore = SuccubusDesireLevel.GetValue()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
@@ -722,7 +783,7 @@ Event OnUpdateGameTime()
         if energy_loss > 0
             energy_loss *= -1
             last_checked = TimeOfDayGlobalProperty.GetValue()
-            SuccubusDesireLevel.Mod(energy_loss)
+            RefreshEnergy(energy_loss)
         endif
     endif
     float succNeedVal = SuccubusDesireLevel.GetValue()
@@ -732,7 +793,6 @@ Event OnUpdateGameTime()
             toggleDeathMode()
         endif
     endif
-    T_Show("", "menus/TSSD/" + ((SuccubusDesireLevel.GetValue() / 20) as int) + "H.dds" )
 endEvent
 
 Event OnMenuOpen(String MenuName)
@@ -753,7 +813,8 @@ Event OnInit()
 	RegisterForModEvent("iWantWidgetsReset", "OniWantWidgetsReset")
     onGameReload()
 EndEvent
- 
+
+ ;/ 
 Event OnCrosshairRefChange(ObjectReference ref)
     SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
     Actor Aref = ref as Actor
@@ -794,64 +855,4 @@ Event OnUpdate()
         HoveredPrey = PlayerRef
     endif
 EndEvent
-
-Function onGameReload()
-    if SuccubusDesireLevel.GetValue() > -101
-        RegisterSuccubusEvents()
-    endif
-    RegisterForCrosshairRef()
-    isHoveringPrey = false
-    Maintenance()
-    cosmeticSettings = ReadInCosmeticSetting()
-    gainSuccubusXP(0)
-    if !spellToggle
-        toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
-    endif
-
-    int jArr = JDB.solveObj(".tssdspellids")
-    int index = 0
-    while index < JValue.count(jArr)
-        int innerJ = jArray.getObj(jArr, index)
-        adjustSpell( jArray.Getint(innerJ, 1) as bool, jArray.GetStr(innerJ, 2), jArray.GetInt(innerJ, 3)  ,\
-        MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
-        index += 1
-    endwhile
-
-Endfunction
-
-
-Event HumiDone(string eventName, string strArg, float numArg, Form sender)
-    Utility.Wait(1)
-    UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
-EndEvent
-
-Function addTSSDPerk(string perkToAdd)
-    Perk toAdd = Game.GetFormFromFile(perkToAdd as int, "TintsOfASuccubusSecretDesires.esp") as Perk    
-    if !PlayerRef.HasPerk(toAdd)
-        PlayerRef.AddPerk(toAdd)
-    else
-        PlayerRef.RemovePerk(toAdd)
-    endif
-Endfunction
-
-Function adjustSpell(bool isMag, string id, int index, string newValStr)
-    float newVal = newValStr as float
-    Spell toAdj = Game.GetFormFromFile(id as int, "TintsOfASuccubusSecretDesires.esp") as Spell
-    if newVal && toAdj
-        if playerref.hasspell(toAdj)
-            PlayerRef.RemoveSpell(toAdj) 
-            if isMag
-                toAdj.SetNthEffectMagnitude(index, newVal as float)
-            else
-                toAdj.SetNthEffectDuration(index, newVal as int)
-            endif
-            PlayerRef.AddSpell(toAdj, false)
-        endif
-    endif
-Endfunction
-
-Function NotificationSpam(string Displaying)
-    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bSpamNotifications:Main")
-        Debug.Notification( "You picked: " + Displaying )
-    endif
-Endfunction
+ /;

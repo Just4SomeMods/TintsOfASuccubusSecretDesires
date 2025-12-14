@@ -107,9 +107,7 @@ Function OpenIntmacyMenu(Actor targetRef)
         else
             SexLab.StartSceneQuick(targetRef, PlayerRef, asTags=tagsIn) 
         endif
-
     Endif
-
 EndFunction
 
 Function OpenGrandeMenu()
@@ -128,12 +126,6 @@ Function OpenGrandeMenu()
         endif
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
-    if _thread
-        int x = 1
-    elseif tActions.HoveredPrey != PlayerRef
-        OpenThrallMenu(tActions.HoveredPrey)
-        return
-    endif
     b612_SelectList mySelectList = GetSelectList()
     String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
     if TSSD_MaxTraits.GetValue() > 0
@@ -156,7 +148,7 @@ Function OpenGrandeMenu()
     elseif myItems[result] == "Upgrades"
         OpenExpansionMenu()    
     elseif myItems[result] == "Settings"
-        OpenSettingsMenu()
+        OpenSuccubusCosmetics()
     elseif myItems[result] == "Rechoose Type"
         SelectSuccubusType()
     elseif myItems[result] == "Select Traits"
@@ -197,7 +189,9 @@ EndFunction
 
 Function OpenExlanationMenu()        
     String[] SUCCUBUSTATS = StringUtil.Split( "Base Skill;Drain;Seduction;Body;Perk Points",";")
-    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];Perk Points give you perkpoint for the Trees in this mod.",";")
+    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;\
+    Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];\
+    Perk Points give you perkpoint for the Trees in this mod.",";")
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int index = 0
     while index < SUCCUBUSTATS.Length
@@ -279,77 +273,25 @@ Function SelectSuccubusType(int query = -1)
             query = 1
         endwhile
     endif
-    if query >= 0
-        if SuccubusDesireLevel.GetValue() == -101
-            SuccubusDesireLevel.SetValue(50)
-            TSSD_SuccubusBreakRank.SetValue(0)
-            tActions.RefreshEnergy(0)
-            int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
-            if startLevel > 0
-                SuccubusXpAmount.SetValue( startLevel * 10000 )
-                PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
-                PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
-                PlayerRef.AddPerk(TSSD_Body_PlayDead1)
-            endif
-            tssd_enthrallDialogue.Start()
-            PlayerRef.AddPerk(TSSD_Base_Explanations)
-            tActions.RegisterSuccubusEvents()
+    if query >= 0 && SuccubusDesireLevel.GetValue() == -101
+        SuccubusDesireLevel.SetValue(50)
+        TSSD_SuccubusBreakRank.SetValue(0)
+        tActions.RefreshEnergy(0)
+        int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
+        if startLevel > 0
+            SuccubusXpAmount.SetValue( startLevel * 10000 )
+            PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
+            PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
+            PlayerRef.AddPerk(TSSD_Body_PlayDead1)
         endif
-        slsfListener.CheckFlagsSLSF()
+        tssd_enthrallDialogue.Start()
+        PlayerRef.AddPerk(TSSD_Base_Explanations)
+        tActions.RegisterSuccubusEvents()
     endif
-        ;if succubusType == 2
-            ;DBGTrace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))
-            
-        ;Endif
-EndFunction
-
-Function OpenSettingsMenu()
-    modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
-    string itemString = ""
-    Actor Cross = Game.GetCurrentCrosshairRef() as Actor
-    if Cross || Sexlab.GetPlayerController()
-        itemString += "Evaluate Needs;"
-    endif
-    itemString += "Debug Climax Now;Succubus Cosmetics Menu (Toggles)"
-    String[] myItems = StringUtil.Split(itemString,";")
-    Int result 
-    bool canEssDie = false
-    
-    lastUsedSub > -1.0 ; FOR WHATEVER REASONS THIS NEEDS TO BE HERE
-    
-    if modifierKeyIsDown && (lastUsedSub > -1.0)
-            result = lastUsedSub
-    else
-        result = GetSelectList().Show(myItems)
-        lastUsedSub = result
-        if result == -1
-            return
-        endif
-    endif   
-    if result == -1
-        return
-    endif
-    tActions.NotificationSpam(myItems[result] )
-    if myItems[result] == "Evaluate Needs"
-        if Sexlab.GetPlayerController()
-            tActions.EvaluateCompleteScene(-1)
-        elseif Cross
-            string showboat = "I can't succ " + Cross.GetDisplayName() +"!"
-            if tActions.isSuccableOverload(Cross) > -1
-                int lasttime = (GetLastTimeSuccd(Cross, TimeOfDayGlobalProperty) * 300) as int
-                if lasttime > 100.0 || lasttime < 0.0
-                showboat = "This person is full of juicy energy!"
-                else
-                        showboat = "This person is only " + lasttime + "% ready."
-                    endif
-                endif
-            T_Show(showboat, "icon.dds", aiDelay = 2.0)
-        endif
-    elseif myItems[result] == "Debug Climax Now"
-        tActions.DebugForceOrgasm()
-    elseif myItems[result] == "Succubus Cosmetics Menu (Toggles)"
-        OpenSuccubusCosmetics()
-    endif
+    slsfListener.CheckFlagsSLSF()
+    ;if succubusType == 2
+        ;DBGTrace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))        
+    ;Endif
 EndFunction
 
 Function OpenSuccubusCosmetics()
@@ -395,24 +337,16 @@ bool Function checkAbilityDefeatThem(Actor tarRef)
     if !tarRef.isHostileToActor(playerRef) && tActions.isSuccableOverload(tarRef) > -1
         return true
     endif
-    if playerRef.HasPerk(TSSD_Body_DefeatThem1)
-        if !playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())
-            if PlayerRef.GetLevel() <= tarRef.GetLevel() 
+    if (playerRef.HasPerk(TSSD_Body_DefeatThem1))
+        if (!playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())) && PlayerRef.GetLevel() <= tarRef.GetLevel() 
                 return false
-            endif
         endif
         int max_targets = 1 + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk().GetNextPerk()) as int +\
                               playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk()) as int
-        if tActions.numHostileActors <= max_targets
-            if max_targets > 1 
-                return true
-            endif
-            if (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health"))
-                return true
-            endif 
-            if playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) 
-                return true
-            endif
+        if (tActions.numHostileActors <= max_targets) && \
+        max_targets > 1 || (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")) || \
+        playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) 
+            return true
         endif
     endif
     return false

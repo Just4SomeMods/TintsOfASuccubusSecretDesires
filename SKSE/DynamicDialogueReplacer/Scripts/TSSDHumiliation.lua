@@ -99,6 +99,7 @@ function replace(text)
         end
 
         saidStrings = {}
+        internalcounter = 0
         return nxtText
       end
       if #saidStrings >= 4 then
