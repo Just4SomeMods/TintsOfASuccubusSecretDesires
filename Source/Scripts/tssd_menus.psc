@@ -41,6 +41,7 @@ Perk Property TSSD_Seduction_Kiss1 Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PlayDead1 Auto
 Perk Property TSSD_Body_DefeatThem1 Auto
+Perk Property TSSD_Base_PolyThrall1 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 
@@ -60,6 +61,7 @@ int lastUsedSub = -1
 int spellToggle
 
 Quest Property tssd_enthrallDialogue Auto
+Quest Property tssd_queststart Auto
 
 Faction Property sla_Arousal Auto
 Faction Property TSSD_ThrallDominant Auto
@@ -267,11 +269,16 @@ Function SelectSuccubusType(int query = -1)
         TSSD_SuccubusTypes[0].SetValue(0.0)
         TSSD_SuccubusTypes[1].SetValue(0.0)
         TSSD_SuccubusTypes[2].SetValue(0.0)
+        PlayerRef.RemovePerk(TSSD_Base_PolyThrall1)
         while index < resultW.Length
             TSSD_SuccubusTypes[resultW[index] as int].SetValue(1.0)
             index += 1
             query = 1
         endwhile
+        if TSSD_TypeScarlet.GetValue() == 1
+            PlayerRef.Addperk(TSSD_Base_PolyThrall1)
+            tssd_queststart.SetStage(1)
+        endif
     endif
     if query >= 0 && SuccubusDesireLevel.GetValue() == -101
         SuccubusDesireLevel.SetValue(50)

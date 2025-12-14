@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000C5:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueActDrowsy",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "I think someone spiked my drink, I'm getting droooowsy."
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

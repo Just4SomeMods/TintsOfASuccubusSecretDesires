@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000CA:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueParty",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Let's grab some drinks (20 gold)"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

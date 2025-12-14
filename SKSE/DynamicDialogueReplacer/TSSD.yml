@@ -16,8 +16,7 @@ topics:
     inject:
       - 0xC5|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - GetFactionRank TSSD_EnthralledFaction == 1 OR
-      - GetGlobalValue SkillSuccubusBodyLevel >= 20 AND
+      - pl1 <> HasPerk TSSD_Body_Subby2 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
       - GetFactionRank TSSD_EnthralledFaction == 1 OR
       - GetActorValue Morality <= 2 AND
@@ -28,7 +27,8 @@ topics:
     inject:
       - 0xD1|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_Kiss1 == 1 AND
+      - pl1 <> HasPerk TSSD_Body_Findom2 == 1 AND
+      - LocationHasKeyWord LocTypeInn == 1 AND
 
   # CumCover
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -54,6 +54,11 @@ topics:
       - 0xAE|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Body_Subby1 == 1 AND
+      - GetFactionRank TSSD_EnthralledFaction == 1 OR
+      - IsGuard == 1 OR
+      - GetActorValue Morality <= 2 AND
+      - GetActorValue Confidence >= 2 OR
+      - GetFactionRank TSSD_EnthralledFaction == 1 OR
 
   # Party
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -61,7 +66,7 @@ topics:
     inject:
       - 0xCA|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND #TODO
+      - pl1 <> HasPerk TSSD_Seduction_Seductress1 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
 
   # Puinsher
@@ -89,8 +94,24 @@ topics:
       - 0xA5|TintsOfASuccubusSecretDesires.esp
     conditions:
       - GetRelationShipRank Player >= 2 AND
-      - GetGlobalValue TSSD_SuccubusTypeScarlet == 1 AND
+      - GetGlobalValue TSSD_TypeScarlet == 1 AND
 
+
+  # Praise
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xEE|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Seduction_PraiseKink1 == 1 AND
+
+  # Worship
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xF5|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Seduction_PraiseKink2 == 1 AND
       
 
 

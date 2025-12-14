@@ -13,6 +13,7 @@ tssd_dialogue Property tDialogue Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_succubusstageendblockhook Property stageEndHook Auto
+tssd_PlayerEventsScript Property tEvents Auto
 
 Faction Property sla_Arousal Auto
 Faction Property TSSD_EnthralledFaction Auto
@@ -706,6 +707,7 @@ Function onGameReload()
     endwhile
 
     tDialogue.onGameReload()
+    tEvents.onGameReload()
 
 Endfunction
 

@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000A5:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallRant",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Let me talk about my day."
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

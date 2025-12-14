@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000F3:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueWorship",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Worship me!"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

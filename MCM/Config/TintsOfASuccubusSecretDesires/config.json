@@ -151,6 +151,41 @@
             ]
         },
         {
+            "pageDisplayName": "DEBUG: Factions",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_EnthralledFaction",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_RevealingOutfit",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_ThrallAggressive",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_ThrallDominant",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_ThrallMain",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_ThrallSubmissive",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
             "pageDisplayName": "DEBUG: Globals",
             "content": [
                 {
@@ -323,6 +358,18 @@
                 },
                 {
                     "type": "slider",
+                    "text": "TSSD_HumiliationDone",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0C1"
+                    }
+                },
+                {
+                    "type": "slider",
                     "text": "TSSD_InnocentsSlain",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -395,6 +442,42 @@
                 },
                 {
                     "type": "slider",
+                    "text": "TSSD_ReverseBodySkill",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D4"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_ReverseDrainSkill",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0FA"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_ReverseSeductionSkill",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0F9"
+                    }
+                },
+                {
+                    "type": "slider",
                     "text": "TSSD_SuccubusBreakRank",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -451,6 +534,42 @@
                         "step": 1,
                         "sourceType": "GlobalValue",
                         "sourceForm": "TintsOfASuccubusSecretDesires.esp|04B"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_TypeMahogany",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D9"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_TypeScarlet",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D7"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_TypeSundown",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D8"
                     }
                 },
                 {
@@ -677,8 +796,18 @@
                 },
                 {
                     "type": "text",
+                    "text": "Distracted",
+                    "help": ""
+                },
+                {
+                    "type": "text",
                     "text": "FightModeEffect",
                     "help": "You gain a <mag> stamina, deal <2> more damage and your power attacks cost <mag>% less. "
+                },
+                {
+                    "type": "text",
+                    "text": "In the Zone",
+                    "help": ""
                 },
                 {
                     "type": "text",
@@ -699,6 +828,16 @@
                     "type": "text",
                     "text": "Full slowdown",
                     "help": ""
+                },
+                {
+                    "type": "text",
+                    "text": "Rejection Poison",
+                    "help": ""
+                },
+                {
+                    "type": "text",
+                    "text": "Satiated",
+                    "help": "You feel satiated. You lose less energy over time. Your magicka and stamina are increased by <mag> points."
                 },
                 {
                     "type": "text",
@@ -857,7 +996,7 @@
                 {
                     "type": "text",
                     "text": "Innocent",
-                    "help": "[Draining someone to death seems like an accident to bystanders.]\nSkillSuccubusBaseLevel >= 80.0\nTSSD_Base_HealthRegenFix None 1.0\n",
+                    "help": "Draining someone to death seems like an accident to bystanders.\nSkillSuccubusBaseLevel >= 80.0\nTSSD_Base_HealthRegenFix None 1.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -879,6 +1018,62 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "44"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Polythrall1",
+                    "help": "You can have up to one thrall. While you are satiated, you learn faster and ignore falling damage.\nSkillSuccubusBaseLevel >= 0\nTSSD_TypeScarlet >= 1.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "231"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Polythrall2",
+                    "help": "You can have up to three thralls.\nSkillSuccubusBaseLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "234"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Polythrall3",
+                    "help": "You can have up to ten thralls.\nSkillSuccubusBaseLevel >= 60.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "235"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Polythrall4",
+                    "help": "You can have up to ten thralls and can enthrall people who don't activley dislike you.\nSkillSuccubusBaseLevel >= 100.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "239"
                         ]
                     }
                 },
@@ -955,7 +1150,7 @@
                 {
                     "type": "text",
                     "text": "Energy To Mass1",
-                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 0\n",
+                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1010,6 +1205,48 @@
                 },
                 {
                     "type": "text",
+                    "text": "Findom1",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy.\nTSSD_Body_PainGood1 None 1.0\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "226"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Domdom2",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting.\nSkillSuccubusBodyLevel >= 60.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "227"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Dom of doom3",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting. Those endevours always succeed.\nSkillSuccubusBodyLevel >= 80.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "228"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Jailer Mode",
                     "help": "You can sacrifice 20 energy to gain increased power attack damage and armor for a minute.\nSkillSuccubusBodyLevel >= 20.0\n",
                     "action": {
@@ -1033,6 +1270,34 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "61"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Naughty Brat1",
+                    "help": "You can ask to punish submissive people indoors.\nSkillSuccubusBodyLevel >= 30.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "222"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Naughty Brat2",
+                    "help": "You can ask to punish submissive people in any safe location.\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "232"
                         ]
                     }
                 },
@@ -1089,6 +1354,34 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "86"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Subby1",
+                    "help": "You can ask to be punished to refresh your energy.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "149"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Very subby2",
+                    "help": "You can asked to be punished and you can try to get taken advantage of.\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "153"
                         ]
                     }
                 },
@@ -1220,6 +1513,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Drain Balls",
+                    "help": "You can ask men to be showered in cum to refresh your energy.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "207"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Greedy Drain1",
                     "help": "You refresh twice as much energy from your drain.\nSkillSuccubusDrainLevel >= 20.0\n",
                     "action": {
@@ -1262,8 +1569,36 @@
                 },
                 {
                     "type": "text",
-                    "text": "Nibbling Drain1",
-                    "help": "You can choose to nibble instead of ravage. You gain only a fifth of the benefits, but it is no longer detectable.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "text": "Energy Vampire",
+                    "help": "You gain the ability to drain energy from people in mundane converstations. Just ask them about their day!\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "148"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Extract Essence",
+                    "help": "If you let cum on your skin \"expire\" you gain a bit energy back.\nTSSD_Drain_AskForCum None 1.0\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "179"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Stronger Drain1",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after a day.\nSkillSuccubusDrainLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1277,7 +1612,7 @@
                 {
                     "type": "text",
                     "text": "Very Gentle Drain2",
-                    "help": "You can choose to very gently drain instead of ravage. You gain only a third of the benefits, but it is no longer detectable.\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only half of the time and the debuff is no longer as debilitating.\nSkillSuccubusDrainLevel >= 40.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1291,7 +1626,7 @@
                 {
                     "type": "text",
                     "text": "Gentle Drain3",
-                    "help": "You can choose to gently drain instead of ravage. You gain only half of the benefits, but it is no longer detectable.\nSkillSuccubusDrainLevel >= 60.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and the debuff is no longer as debilitating.\nSkillSuccubusDrainLevel >= 60.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1305,7 +1640,7 @@
                 {
                     "type": "text",
                     "text": "Stealth Drain4",
-                    "help": "Your Draining is no longer detectable.\nSkillSuccubusDrainLevel >= 80.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and recieve no debuff.\nSkillSuccubusDrainLevel >= 80.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1319,7 +1654,7 @@
                 {
                     "type": "text",
                     "text": "Force of Destruction",
-                    "help": "You can sacrifice 20 energy to get a destruction, illusion and magicka buff for a minute.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You can sacrifice 20 energy to get a destruction, illusion and magicka buff for a minute.\nTSSD_Drain_DrainSpellAimed None 1.0\nSkillSuccubusDrainLevel >= 40.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1327,6 +1662,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "91"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Healthy Drain",
+                    "help": "When you refresh your energy, you also regenerate to full health.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "208"
                         ]
                     }
                 },
@@ -1361,7 +1710,7 @@
                 {
                     "type": "text",
                     "text": "It started with a Kiss1",
-                    "help": "Gives you the ability to stealthily absorb some energy from people.\n",
+                    "help": "Gives you the ability to stealthily absorb some energy from people by convincing them to kiss you.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1417,7 +1766,7 @@
                 {
                     "type": "text",
                     "text": "DTF?",
-                    "help": "You can initiate sex with someone. If the scene would end without them climaxing, they start to rape you until they are satisfied.\nSkillSuccubusSeductionLevel >= 0\n",
+                    "help": "You can initiate sex with someone in a safe location to refresh your energy.\nSkillSuccubusSeductionLevel >= 0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1430,8 +1779,50 @@
                 },
                 {
                     "type": "text",
+                    "text": "Dominant Escort2",
+                    "help": "You can initiate sex with someone in a safe location to refresh your energy. With a successful intimidation check, they will also pay you for that.\nSkillSuccubusSeductionLevel >= 0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "219"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Praise Kink1",
+                    "help": "You can ask people to compliment you to regain energy.\nTSSD_Seduction_SexyHexy None 1.0\nSkillSuccubusSeductionLevel >= 50.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "240"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Praise Kink2",
+                    "help": "You can ask people to worship you to regain energy and a temporary buff.\nSkillSuccubusSeductionLevel >= 80.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "241"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Seductress1",
-                    "help": "You gain the ability to kiss people.\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You gain the ability to ask for a party.\nSkillSuccubusSeductionLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1445,7 +1836,7 @@
                 {
                     "type": "text",
                     "text": "Seductress2",
-                    "help": "\nSkillSuccubusSeductionLevel >= 40.0\n",
+                    "help": "You always succeed on your attempts to party.\nSkillSuccubusSeductionLevel >= 40.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1453,6 +1844,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "15"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Teasing Outift",
+                    "help": "While weaing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)\nTSSD_RevealingOutfit None 1.0\nSkillSuccubusSeductionLevel >= 50.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "233"
                         ]
                     }
                 },
@@ -1475,24 +1880,6 @@
         {
             "pageDisplayName": "DEBUG: Spells",
             "content": [
-                {
-                    "id": "sFavorJobsBeggarsAbilityDur1:Spells",
-                    "type": "input",
-                    "text": "The Gift of Charity Effect 1 Dur",
-                    "help": "Stendarr: Libido decreases faster 3600",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "adjustSpell",
-                        "params": [
-                            "{b}0",
-                            "978776",
-                            "{i}1",
-                            "{value}"
-                        ]
-                    }
-                },
                 {
                     "id": "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
                     "type": "input",
@@ -1692,6 +2079,24 @@
                     }
                 },
                 {
+                    "id": "sTSSD_EnergyLossWhileSneakingDur0:Spells",
+                    "type": "input",
+                    "text": "Losing Energy Effect 0 Dur",
+                    "help": "Distracted 60",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "167",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
                     "id": "sTSSD_FightModeSpellMag0:Spells",
                     "type": "input",
                     "text": "Flight Mode Effect 0 Mag",
@@ -1764,6 +2169,24 @@
                     }
                 },
                 {
+                    "id": "sTSSD_FuckingInvincibleDur0:Spells",
+                    "type": "input",
+                    "text": "Invincible Effect 0 Dur",
+                    "help": "In the Zone 3600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "159",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
                     "id": "sTSSD_MageFormMag0:Spells",
                     "type": "input",
                     "text": "Mageform Effect 0 Mag",
@@ -1794,6 +2217,78 @@
                         "params": [
                             "{b}0",
                             "88",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_PoisonForSuccubusMag0:Spells",
+                    "type": "input",
+                    "text": "RejectionPoison Effect 0 Mag",
+                    "help": "Rejection Poison 1",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "214",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_PoisonForSuccubusDur0:Spells",
+                    "type": "input",
+                    "text": "RejectionPoison Effect 0 Dur",
+                    "help": "Rejection Poison 10",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "214",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_SatiatedMag0:Spells",
+                    "type": "input",
+                    "text": "Satiated Effect 0 Mag",
+                    "help": "Satiated 50",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "164",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_SatiatedDur0:Spells",
+                    "type": "input",
+                    "text": "Satiated Effect 0 Dur",
+                    "help": "Satiated 3600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "164",
                             "{i}0",
                             "{value}"
                         ]

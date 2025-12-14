@@ -7,6 +7,8 @@ Faction Property TSSD_ThrallDominant Auto
 Faction Property TSSD_EnthralledFaction Auto
 Faction Property TSSD_ThrallSubmissive Auto
 Faction Property TSSD_ThrallMain Auto
+Faction Property PlayerFaction Auto
+Faction Property PlayerMarriedFaction Auto
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto  
 
@@ -19,11 +21,16 @@ Spell Property TSSD_PoisonForSuccubus Auto
 Actor Property PlayerRef Auto
 TSSD_Actions Property tActions Auto
 
+Perk Property TSSD_Base_PolyThrall2 Auto
+Perk Property TSSD_Base_PolyThrall3 Auto
+
 SexLabFramework Property SexLab Auto
 
 Spell Property TSSD_DrainedMarker Auto
 
 MiscObject Property Gold001 Auto
+
+Quest Property tssd_queststart Auto
 
 String lastDialogue
 Actor lastDialoguePartner
@@ -71,16 +78,49 @@ Event OnMenuClose(String MenuName)
         GenericRefreshPSex(lastDialoguePartner, true, "love")
     elseif StringUtil.Find( "TSSD_000C4 TSSD_00096", lastDialogue) >= 0
         GenericRefreshPSex(lastDialoguePartner, true, "kissing, limitedstrip, -sex")
-    elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA", lastDialogue) >= 0
+    elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
         GenericRefreshPSex(lastDialoguePartner, false, "")
-    elseif lastDialogue == "TSSD_000A1"
+    elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
+        int mxAmount = 1
+        if PlayerRef.HasPerk(TSSD_Base_PolyThrall3)
+            mxAmount = 10
+        elseif PlayerRef.HasPerk(TSSD_Base_PolyThrall2)
+            mxAmount = 3
+        endif
+        string outMessage = ""
+        while PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction).Length >= mxAmount
+            Actor cToDelete = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)[0]
+            cToDelete.RemoveFromFaction(TSSD_EnthralledFaction)
+            cToDelete.RemoveFromFaction(TSSD_ThrallMain)
+            cToDelete.RemoveFromFaction(TSSD_ThrallSubmissive)
+            cToDelete.RemoveFromFaction(PlayerFaction)
+            cToDelete.RemoveFromFaction(PlayerMarriedFaction)
+            cToDelete.SetRelationshipRank(PlayerRef, -1)
+            if outMessage == ""
+                outMessage = cToDelete.GetDisplayName()
+            else
+                outMessage = outMessage + " and " + cToDelete.GetDisplayName()
+            endif
+        endwhile 
+        if outMessage != ""
+            T_Show("I don't think " + outMessage + " loves me anymore!", "", 0)
+        endif       
+
+        if lastDialogue == "TSSD_000A1"
+            lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
+            lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
+        elseif lastDialogue == "TSSD_000A2"
+            lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
+            lastDialoguePartner.SetFactionRank(TSSD_ThrallMain, 1)
+            lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
+        elseif lastDialogue == "TSSD_000A3"
+            lastDialoguePartner.SetFactionRank(TSSD_ThrallSubmissive, 1)
+        endif
         lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
-    elseif lastDialogue == "TSSD_000A2"
-        lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
-        lastDialoguePartner.SetFactionRank(TSSD_ThrallMain, 1)
-    elseif lastDialogue == "TSSD_000A3"
-        lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
-        lastDialoguePartner.SetFactionRank(TSSD_ThrallSubmissive, 1)
+        lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
+        lastDialoguePartner.AddtoFaction(PlayerFaction)
+        lastDialoguePartner.AddtoFaction(PlayerMarriedFaction)
+        tssd_queststart.SetStage(10)
     elseif lastDialogue == "TSSD_000B2"
         GenericRefreshPSex(lastDialoguePartner, false, "")
         SexLab.AddCumFxLayers(PlayerRef, 0, 8)
@@ -112,18 +152,20 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     Actor akSpeaker = target as Actor
 
     AzuraFadeToBlack.Apply()
+    GameHour.Mod(1) 
     tActions.gainSuccubusXP(1000,1000)
     SuccubusDesireLevel.Mod( 100  )	
     Utility.Wait(2.5)
     ImageSpaceModifier.RemoveCrossFade(3)
-    GameHour.Mod(1) 
     int upTo = 100
     if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
         upTo = 19
     endif
-    TSSD_Satiated.Cast(PlayerRef,PlayerRef)
+    PlayerRef.DispelSpell(TSSD_Satiated)
     if startsSex
         SexLab.StartSceneQuick(PlayerRef, akSpeaker, asTags=sexTags)
     endif
+    Utility.Wait(2.5)
+    DBGTRACE(TSSD_Satiated.Cast(akSpeaker, PlayerRef))
 
 EndFunction

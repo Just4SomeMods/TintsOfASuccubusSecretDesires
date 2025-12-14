@@ -1,0 +1,12 @@
+{
+  "FormKey": "0000DC:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueNevermind",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Ehm, nevermind."
+  },
+  "Priority": 1.0,
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

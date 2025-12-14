@@ -1,0 +1,12 @@
+{
+  "FormKey": "0000AE:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialoguePain",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Can you punish me? I deserve it!"
+  },
+  "Priority": 60.0,
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000C3:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialoguePunisher",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "I'll vent my frustration on you! (Intimidation)"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

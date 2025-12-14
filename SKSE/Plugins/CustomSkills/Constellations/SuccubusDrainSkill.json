@@ -16,9 +16,9 @@
      },
      "nodes": [
           {
-               "id": "Gentle Drain",
+               "id": "GentleDrain",
                "perk": "TintsOfASuccubusSecretDesires.esp|014",
-               "x": 0.75,
+               "x": 0.0,
                "y": -0.5,
                "links": [ "EnergyVampire", "SFWDrain" , "Bukkake", "DrainMore"
                ]
@@ -47,7 +47,7 @@
                "id": "Bukkake",
                "perk": "TintsOfASuccubusSecretDesires.esp|0CF",
                "x": -0.75,
-               "y": 0.75,
+               "y": 1.25,
                "links": [ "SemenEnjoyer"
                ]
           },{
@@ -59,7 +59,7 @@
      }, {
           "id": "EnergyVampire",
           "perk": "TintsOfASuccubusSecretDesires.esp|094",
-          "x": 0.5,
+          "x": 1.0,
           "y": 0.25,
           "links": [
           ]
@@ -67,7 +67,7 @@
                "id": "SemenEnjoyer",
                "perk": "TintsOfASuccubusSecretDesires.esp|0B3",
                "x": -0.75,
-               "y": 1.5,
+               "y": 2.0,
                "links": [ 
                ]}
      ]

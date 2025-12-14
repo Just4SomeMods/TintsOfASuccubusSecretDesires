@@ -1,0 +1,11 @@
+{
+  "FormKey": "000093:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueEqual",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "We are equals."
+  },
+  "Branch": "00008C:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

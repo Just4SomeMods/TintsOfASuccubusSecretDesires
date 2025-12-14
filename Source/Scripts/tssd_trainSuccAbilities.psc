@@ -11,9 +11,12 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_SuccubusPerkPoints Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
 GlobalVariable Property TSSD_ReverseBodySkill Auto
+GlobalVariable Property TSSD_ReverseDrainSkill Auto
+GlobalVariable Property TSSD_ReverseSeductionSkill Auto
 Actor Property PlayerRef Auto
 Perk Property TSSD_Base_Explanations Auto
 Spell Property TSSD_BaseHealthBodyBuff Auto
+Tssd_Menus Property tMenus Auto
 
 Function SetSkillName(String newName)
     SkillName = newName
@@ -84,6 +87,10 @@ Function Train()
         if SkillName == "Body"
             PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
             TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
+        elseif SkillName == "Drain"            
+            TSSD_ReverseDrainSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
+        elseif SkillName == "Seduciton"
+            TSSD_ReverseSeductionSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
         endif
         PlayerRef.RemovePerk(TSSD_Base_Explanations)
         PlayerRef.AddPerk(TSSD_Base_Explanations)
@@ -91,3 +98,11 @@ Function Train()
 
 EndFunction
 
+
+Event Onb612_TrainingMenu_Close(string eventName, string strArg, float numArg, Form formArg)
+    UnregisterForModEvent("b612_TrainingMenu_Ready")
+    UnregisterForModEvent("b612_TrainingMenu_Train")
+    UnregisterForModEvent("b612_TrainingMenu_Close")
+    UI.CloseCustomMenu()
+    tMenus.OpenExpansionMenu()
+EndEvent

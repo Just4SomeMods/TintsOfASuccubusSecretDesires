@@ -18,22 +18,15 @@
           {
           "id": "Kiss",
           "perk": "TintsOfASuccubusSecretDesires.esp|023",
-          "x": 0.5,
+          "x": 0.0,
           "y": -0.5,
-          "links": [ "Leader", "DTF", "FlightMode" , "StealthMode"
+          "links": [ "DTF",  "StealthMode", "Seductress", "PraiseKink"
           ]
-     }, {
-          "id": "Leader",
-          "perk": "TintsOfASuccubusSecretDesires.esp|02E",
-          "x": 0.5,
-          "y": 0.5,
-          "links": [
-          ]
-     }, {
+     },  {
           "id": "DTF",
           "perk": "TintsOfASuccubusSecretDesires.esp|043",
           "x": 1.5,
-          "y": 0.5,
+          "y": 0.25,
           "links": [
           ]
      }, {
@@ -48,8 +41,28 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|05C",
           "x": 1.15,
           "y": 0.35,
+          "links": [ "FlightMode"
+          ]
+     }, {
+          "id": "Seductress",
+          "perk": "TintsOfASuccubusSecretDesires.esp|010",
+          "x": -1.15,
+          "y": 0.45,
           "links": [
           ]
+     }, {
+          "id": "SexyHexy",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0E9",
+          "x": -1.15,
+          "y": 0.45,
+          "links": [ 
+          ]
+     }, {
+          "id": "PraiseKink",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0F0",
+          "x": -0.55,
+          "y": 0.89,
+          "links": [           ]
      }
      ]
 }

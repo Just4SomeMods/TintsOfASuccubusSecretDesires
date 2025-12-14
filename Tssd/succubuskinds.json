@@ -64,8 +64,8 @@
                 "Haven't we met before?"
             ]
         },
-        "description": "If you choose Scarlet, you can only gain energy back from interactions with people that know and respect you.\nIf you deny Scarlet, you can only gain energy back from those who don't.",
-        "color": [
+        "description": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you."
+        ,"color": [
             255,
             36,
             0
@@ -107,7 +107,7 @@
                 "Predictable and tame."
             ]
         },
-        "description": "If you choose Mahogany, you can gain energy from hostile people.\nIf you deny Mahogany, you can bind willing people to you, to help you get your energy back.",
+        "description": "If you choose Mahogany, you can gain energy from hostile people, but you can no longer get energy from wholesome activities.",
         "color": [
             108,
             67,

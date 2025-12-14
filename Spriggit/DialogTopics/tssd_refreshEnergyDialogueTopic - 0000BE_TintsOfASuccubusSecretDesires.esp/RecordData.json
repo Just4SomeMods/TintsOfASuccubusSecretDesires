@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000BE:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_refreshEnergyDialogueTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "I am feeling exhausted, can you help me?"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

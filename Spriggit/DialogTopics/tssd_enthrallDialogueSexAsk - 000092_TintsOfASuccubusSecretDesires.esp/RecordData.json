@@ -1,0 +1,12 @@
+{
+  "FormKey": "000092:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueSexAsk",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Let's make love. (Seduction)"
+  },
+  "Priority": 51.0,
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

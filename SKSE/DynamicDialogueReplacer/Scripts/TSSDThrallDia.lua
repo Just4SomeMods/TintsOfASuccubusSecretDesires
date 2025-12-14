@@ -69,6 +69,10 @@ local pools = {
     {"ERROR"},{"ERROR"},{"ERROR"},
     {"Yay."}
   },
+  TSSD_000A6 = {
+    {"..."},{"..."},{"..."},
+    {"..."}
+  },
   TSSD_000CD = {
     {"Let's go have some fun!"},{"Let's go have some fun!"},{"Let's go have some fun!"},
     {"Let's go have some fun!"}
@@ -81,7 +85,13 @@ local pools = {
     {"Oh ok then."},{"Oh ok then."},{"Oh ok then."},{"Oh ok then."}
   },
   TSSD_000E1 = {
-    {"You've earned it."},{"Everything fir you my queen."},{"Are you to stupid to keep it? Ugh, fine."},{"Yeah sure."}
+    {"You've earned it."},{"Everything for you my queen."},{"Are you to stupid to keep it? Ugh, fine."},{"Yeah sure."}
+  },
+  TSSD_000EE = {
+    {"You are the love of my life."},{"You are the light of my life."},{"You are a good pet."},{"You are doing great keep it up!"}
+  },
+  TSSD_000F5 = {
+    {"You are the most perfcet person I have ever seen."},{"You are the meaning of my life!"},{"Without you, I'd be incomplete."},{"Your body is a gift from Dibella herself!"}
   }
   
 }

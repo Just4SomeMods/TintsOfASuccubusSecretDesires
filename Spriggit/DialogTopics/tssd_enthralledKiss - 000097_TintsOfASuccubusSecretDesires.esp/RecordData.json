@@ -1,0 +1,12 @@
+{
+  "FormKey": "000097:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthralledKiss",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Give me a kiss"
+  },
+  "Priority": 10.0,
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

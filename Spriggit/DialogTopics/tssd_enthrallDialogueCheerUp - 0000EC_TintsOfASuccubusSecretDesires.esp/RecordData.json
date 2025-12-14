@@ -1,0 +1,11 @@
+{
+  "FormKey": "0000EC:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueCheerUp",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Can you cheer me up a bit?"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}
