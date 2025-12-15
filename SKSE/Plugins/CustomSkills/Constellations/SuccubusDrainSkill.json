@@ -26,21 +26,21 @@
                "id": "SFWDrain",
                "perk": "TintsOfASuccubusSecretDesires.esp|061",
                "x": 0.25,
-               "y": 0.25,
+               "y": 0.55,
                "links": [ "MageMode", "SoulDrain"
                ]
           },{
                "id": "MageMode",
                "perk": "TintsOfASuccubusSecretDesires.esp|05B",
                "x": -0.25,
-               "y": 0.5,
+               "y": 1.5,
                "links": [
                ]
           }, {
                "id": "SoulDrain",
                "perk": "TintsOfASuccubusSecretDesires.esp|08B",
                "x": 0.75,
-               "y": 0.5,
+               "y": 1.5,
                "links": [
                ]
           },  {

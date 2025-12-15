@@ -114,6 +114,12 @@
         0
     ],
     [
+        "sTSSD_ParalyzeSpellDur0:Spells",
+        true,
+        "251",
+        0
+    ],
+    [
         "sTSSD_PoisonForSuccubusMag0:Spells",
         true,
         "214",

@@ -15,14 +15,14 @@ GlobalVariable Property TSSD_TypeMahogany Auto
 
 
 Function queueStringForAnnouncement(string inputStr)
-    nextAnnouncment += inputStr
+    nextAnnouncement += inputStr
 EndFunction
 
 
-string Property nextAnnouncment Auto
+string Property nextAnnouncement Auto
 
 float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = none)    
-    ; announceLogic -- 0 no announcment -- 1 announce self -- 2 add to next announcement
+    ; announceLogic -- 0 no announcement -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
     
     string[] succubusTraits = GetSuccubusTraitsAll()
@@ -34,7 +34,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
     float largestTime = 0
     float[] retVals = Utility.CreateFloatArray(3, 0)
-    int nextAnnouncmentLineLength = 0
+    int nextAnnouncementLineLength = 0
     float energyLosses = 0
     float retval = 0
 
@@ -50,7 +50,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
             if chosenTraits[index]
                 traitYes = traitLogic(index, _thread, WhoCums)
                 if index == 5
-                    nextAnnouncment += WhoCums.GetDisplayName()
+                    nextAnnouncement += WhoCums.GetDisplayName()
                 endif
                 if traitYes 
                     retval += SUCCUBUSTRAITSVALUESBONUS[index]
@@ -58,12 +58,12 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
                     retVals[2] = retVals[2] + SUCCUBUSTRAITSVALUESBONUS[index] 
                 endif
                 string announceDial = " " + GetTypeDial(succubusTraits[index], traitYes, true)
-                nextAnnouncmentLineLength += StringUtil.GetLength(announceDial)
-                if nextAnnouncmentLineLength > 100
-                    nextAnnouncment += "\n"
-                    nextAnnouncmentLineLength = 0
+                nextAnnouncementLineLength += StringUtil.GetLength(announceDial)
+                if nextAnnouncementLineLength > 100
+                    nextAnnouncement += "\n"
+                    nextAnnouncementLineLength = 0
                 endif
-                nextAnnouncment += announceDial
+                nextAnnouncement += announceDial
             endif
             index += 1
         EndWhile
@@ -75,7 +75,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
     endif
     retVal += energyLosses
     if output != ""
-        nextAnnouncment += output +""
+        nextAnnouncement += output +""
     endif
     retVals[0] = retVal
     return retVals

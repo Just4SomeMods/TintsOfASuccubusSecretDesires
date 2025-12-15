@@ -217,6 +217,6 @@ Function setHeartEyes(HeadPart PlayerEyes, bool on = true) Global
     endif
 Endfunction
 
-Function T_Show(String asText, String asImagePath, Float aiDelay = 2.0, String asKnot = "") Global
+Function T_Show(String asText, String asImagePath = "", Float aiDelay = 2.0, String asKnot = "") Global
     return GetAnnouncement().Show(asText, asImagePath, aiDelay, asKnot)
 EndFunction

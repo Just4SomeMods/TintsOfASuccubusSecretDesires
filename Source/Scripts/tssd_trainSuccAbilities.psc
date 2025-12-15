@@ -59,7 +59,7 @@ Int Function GetTrainCost()
     if SkillVal == TSSD_PerkPointsBought
         return 1000 + 100 * GetTimesTrained()
     Endif
-    Return 250 * (GetTimesTrained() + 1)
+    Return (Math.Pow((GetTimesTrained() * 5) + 1, 1.95) * 5) as int
 EndFunction
 
 ; how much money the player currently has

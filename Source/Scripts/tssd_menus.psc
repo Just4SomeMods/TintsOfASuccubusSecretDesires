@@ -44,6 +44,7 @@ Perk Property TSSD_Body_DefeatThem1 Auto
 Perk Property TSSD_Base_PolyThrall1 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
+Spell Property TSSD_Satiated Auto
 
 bool lookedAtExplanationsOnce = false
 bool modifierKeyIsDown = false
@@ -157,13 +158,9 @@ Function OpenGrandeMenu()
 EndFunction 
 
 Function OpenExpansionMenu()
-    if MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","bSkipExplanations:Main") < 0
+    ;if MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","bSkipExplanations:Main") < 0
         lookedAtExplanationsOnce = true
-    endif
-    if !lookedAtExplanationsOnce
-        OpenExplanationMenu()
-        return
-    endif
+    ;endif
     b612_SelectList mySelectList = GetSelectList()
     String[] myItems = StringUtil.Split("Perk Trees;Base Skill;Drain;Seduction;Body;Perk Points;Show Explanations again",";")
     Int result
@@ -282,6 +279,7 @@ Function SelectSuccubusType(int query = -1)
         PlayerRef.AddPerk(TSSD_Base_Explanations)
         tActions.RegisterSuccubusEvents()
         GainFreePerk()
+        TSSD_Satiated.Cast(PlayerRef,PlayerRef)
     endif
     slsfListener.CheckFlagsSLSF()
     ;if succubusType == 2

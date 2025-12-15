@@ -101,56 +101,6 @@
             ]
         },
         {
-            "pageDisplayName": "DEBUG: Activators",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "ShrineOfKynareth",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineOfZenithar",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofAkatosh",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofArkay",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofDibella",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofJulianos",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofMara",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofStendarr",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "ShrineofTalos",
-                    "help": "$showStuff"
-                }
-            ]
-        },
-        {
             "pageDisplayName": "DEBUG: Factions",
             "content": [
                 {
@@ -831,6 +781,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Paralyze",
+                    "help": "Targets that fail to resist are paralyzed for <dur> seconds."
+                },
+                {
+                    "type": "text",
                     "text": "Rejection Poison",
                     "help": ""
                 },
@@ -1121,22 +1076,8 @@
                 },
                 {
                     "type": "text",
-                    "text": "Body Art Lover1",
-                    "help": "If you have cum on your chest, you gain a 20% discount from merchants.\nSkillSuccubusSeductionLevel >= 20.0\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "39"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
                     "text": "Aggressive Negotiation1",
-                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\nTSSD_Body_Subby1 None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1150,7 +1091,7 @@
                 {
                     "type": "text",
                     "text": "Energy To Mass1",
-                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nTSSD_Body_Overstuffed None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1248,7 +1189,7 @@
                 {
                     "type": "text",
                     "text": "Jailer Mode",
-                    "help": "You can sacrifice 20 energy to gain increased power attack damage and armor for a minute.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can sacrifice 20 energy to gain increased power attack damage and armor for a minute.\nTSSD_Body_FightMode None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1682,7 +1623,7 @@
                 {
                     "type": "text",
                     "text": "Soul Drain",
-                    "help": "Draining a victim to death fills up a soul gem.\n",
+                    "help": "Draining a victim to death fills up a soul gem.\nTSSD_Drain_DrainSpellAimed None 1.0\nSkillSuccubusDrainLevel >= 40.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1690,6 +1631,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "139"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Body Art Lover1",
+                    "help": "If you have cum on your chest, you gain a 20% discount from merchants.\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "39"
                         ]
                     }
                 },
@@ -1704,6 +1659,48 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "96"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Hot Demon1",
+                    "help": "While talking to you, people have increased arousal.\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "237"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Hot Demon2",
+                    "help": "While talking to you, people have maximum arousal.\nSkillSuccubusSeductionLevel >= 60.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "242"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Hot Demon3",
+                    "help": "While talking to you, people have maximum arousal and they love you.\nSkillSuccubusSeductionLevel >= 100.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "246"
                         ]
                     }
                 },
@@ -1724,7 +1721,7 @@
                 {
                     "type": "text",
                     "text": "Take the lead",
-                    "help": "You gain the ability to increase the enjoyment of every participant. (Holding the modifier key during sex)\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You can gift a follower some of your energy to make them stronger for a time.\nSkillSuccubusSeductionLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1765,7 +1762,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "DTF?",
+                    "text": "DTF?1",
                     "help": "You can initiate sex with someone in a safe location to refresh your energy.\nSkillSuccubusSeductionLevel >= 0\n",
                     "action": {
                         "type": "CallFunction",
@@ -1793,8 +1790,22 @@
                 },
                 {
                     "type": "text",
+                    "text": "Paralyze",
+                    "help": "You gain a paralyze spell that costs energy.\nTSSD_Seduction_HotDemon1 None 1.0\nSkillSuccubusSeductionLevel >= 40.0\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "248"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Praise Kink1",
-                    "help": "You can ask people to compliment you to regain energy.\nTSSD_Seduction_SexyHexy None 1.0\nSkillSuccubusSeductionLevel >= 50.0\n",
+                    "help": "You can ask people to compliment you to regain energy.\nTSSD_Seduction_SexyHexy >= 1.0\nSkillSuccubusSeductionLevel >= 50.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2217,6 +2228,24 @@
                         "params": [
                             "{b}0",
                             "88",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_ParalyzeSpellDur0:Spells",
+                    "type": "input",
+                    "text": "Paralyzing Gaze Effect 0 Dur",
+                    "help": "Paralyze 10",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "251",
                             "{i}0",
                             "{value}"
                         ]
