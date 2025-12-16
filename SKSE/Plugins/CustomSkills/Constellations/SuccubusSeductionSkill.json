@@ -18,70 +18,88 @@
           {
           "id": "Kiss",
           "perk": "TintsOfASuccubusSecretDesires.esp|023",
-          "x": 0.0,
-          "y": -0.5,
-          "links": [ "DTF",  "StealthMode", "Seductress", "PraiseKink", "BodyArt", "HotDemon"
+          "x": -2.0,
+          "y": 0.25,
+          "links": [ "Paralyze"
           ]
+     }, {
+          "id": "Paralyze",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0F8",
+          "x": -0.25,
+          "y": -0.5,
+          "links": [          ]
      },  {
           "id": "DTF",
           "perk": "TintsOfASuccubusSecretDesires.esp|043",
-          "x": 1.5,
+          "x": 2.0,
           "y": 0.25,
-          "links": [
+          "links": [ "Leader"
+          ]
+     },{
+          "id": "Leader",
+          "perk": "TintsOfASuccubusSecretDesires.esp|02E",
+          "x": 0.25,
+          "y": -0.5,
+          "links": [          ]
+     },{
+          "id": "Party!",
+          "perk": "TintsOfASuccubusSecretDesires.esp|010",
+          "x": 1.25,
+          "y": 2,
+          "links": [ "SexyHexy",  "HotDemon", "ENDUP"
+          ]
+     },{
+          "id": "ENDUP",
+          "x": 0.8,
+          "y": 2.25,
+          "links": [ 
           ]
      }, {
+          "id": "SexyHexy",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0E9",
+          "x": 2.0,
+          "y": 1.5,
+          "links": [  "HotDemon"
+          ]
+     }, {
+          "id": "ENDSIDE",
+          "x": 0,
+          "y": 1.25,
+          "links": [ 
+          ]
+     },{
+          "id": "HotDemon",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0ED",
+          "x": 0.5,
+          "y": 1.5,
+          "links": [  "ENDSIDE"      ]
+     }, {
+          "id": "Voyeur!",
+          "perk": "TintsOfASuccubusSecretDesires.esp|10B",
+          "x": -1.25,
+          "y": 2,
+          "links": [ "StealthMode",  "FlightMode", "ENDUP2"
+          ]
+     },{
+          "id": "ENDUP2",
+          "x": -0.8,
+          "y": 2.25,
+          "links": [ 
+          ]
+     },   {
           "id": "FlightMode",
           "perk": "TintsOfASuccubusSecretDesires.esp|060",
-          "x": 2.25,
-          "y": 0.5,
-          "links": [
+          "x": -0.5,
+          "y": 1.5,
+          "links": [ "StealthMode", "ENDSIDE"
           ]
      }, {
           "id": "StealthMode",
           "perk": "TintsOfASuccubusSecretDesires.esp|05C",
-          "x": 1.15,
-          "y": 0.35,
-          "links": [ "FlightMode"
-          ]
-     }, {
-          "id": "Seductress",
-          "perk": "TintsOfASuccubusSecretDesires.esp|010",
-          "x": -2.15,
-          "y": 0.45,
+          "x": -2,
+          "y": 1.5,
           "links": [
           ]
-     }, {
-          "id": "BodyArt",
-          "perk": "TintsOfASuccubusSecretDesires.esp|027",
-          "x": -1.15,
-          "y": 0.45,
-          "links": [  "SexyHexy"
-          ] 
-     },  {
-          "id": "SexyHexy",
-          "perk": "TintsOfASuccubusSecretDesires.esp|0E9",
-          "x": -1.15,
-          "y": 1.45,
-          "links": [ 
-          ]
-     },{
-          "id": "PraiseKink",
-          "perk": "TintsOfASuccubusSecretDesires.esp|0F0",
-          "x": -0.55,
-          "y": 0.89,
-          "links": [           ]
-     },{
-          "id": "HotDemon",
-          "perk": "TintsOfASuccubusSecretDesires.esp|0ED",
-          "x": 0.0,
-          "y": 1.0,
-          "links": [     "Paralyze"      ]
-     },{
-          "id": "Paralyze",
-          "perk": "TintsOfASuccubusSecretDesires.esp|0F8",
-          "x": 0.0,
-          "y": 2.0,
-          "links": [          ]
      }
      ]
 }

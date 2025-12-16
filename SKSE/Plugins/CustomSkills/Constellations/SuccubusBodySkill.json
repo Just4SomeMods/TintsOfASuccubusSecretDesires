@@ -16,67 +16,95 @@
           "enableXPPerRank": false
      },
      "nodes": [{
-          "id": "Prostitution",
+          "id": "Subby",
           "perk": "TintsOfASuccubusSecretDesires.esp|095",
-          "x": 0.0,
-          "y": -0.5,
-          "links": [ "Overstuffed" , "FightMode", "OverPowerThem", "Filledup", "PainGood"
+          "x": 1.0,
+          "y": 1.5,
+          "links": [ "Invitation", "LT"
           ]
+     },{
+          "id": "Invitation",
+          "perk": "TintsOfASuccubusSecretDesires.esp|056",
+          "x": 1.25,
+          "y": 1.0,
+          "links": [ "AggressiveNego"
+          ]
+     },{
+          "id": "AggressiveNego",
+          "perk": "TintsOfASuccubusSecretDesires.esp|04E",
+          "x": 2.0,
+          "y": 0.25,
+          "links": [          ]
+     },{
+          "id": "RT",
+          "x": -1.5,
+          "y": 1.75,
+          "links": [          ]
+     },{
+          "id": "LT",
+          "x": 1.5,
+          "y": 1.75,
+          "links": [          ]
+     },{
+          "id": "Grope",
+          "perk": "TintsOfASuccubusSecretDesires.esp|10C",
+          "x": -1.0,
+          "y": 1.5,
+          "links": [ "EnergyConverter", "RT"
+          ]
+     },{
+          "id": "EnergyConverter",
+          "perk": "TintsOfASuccubusSecretDesires.esp|011",
+          "x": -1.25,
+          "y": 1.0,
+          "links": [ "Overstuffed"
+          ]
+     },{
+          "id": "Overstuffed",
+          "perk": "TintsOfASuccubusSecretDesires.esp|03D",
+          "x": -2.0,
+          "y": 0.25,
+          "links": [          ]
      },
      {
           "id": "OverPowerThem",
           "perk": "TintsOfASuccubusSecretDesires.esp|04E",
-          "x": 1.9,
-          "y": 0.2,
+          "x": -1.0,
+          "y": 1.75,
           "links": [
           ]
      },
      {
           "id": "Filledup",
           "perk": "TintsOfASuccubusSecretDesires.esp|026",
-          "x": 0.9,
-          "y": 2.2,
+          "x": 1,
+          "y": 1.75,
           "links": []
-     },
-          {
-          "id": "EnergyConverter",
-          "perk": "TintsOfASuccubusSecretDesires.esp|011",
-          "x": 1.0,
-          "y": 0.15,
-          "links": [ 
-          ]
-     },{
-          "id": "Overstuffed",
-          "perk": "TintsOfASuccubusSecretDesires.esp|03D",
-          "x": 0.5,
-          "y": 0.0,
-          "links": [  "EnergyConverter"          ]
-     },{
-          "id": "FightMode",
-          "perk": "TintsOfASuccubusSecretDesires.esp|05D",
-          "x": -1.5,
-          "y": 0.5,
-          "links": [ "JailerMode" 
-          ]
-     },{
-          "id": "JailerMode",
-          "perk": "TintsOfASuccubusSecretDesires.esp|062",
-          "x": -2.0,
-          "y": 1.0,
-          "links": [
-          ]
-     },{
-          "id": "PainGood",
-          "perk": "TintsOfASuccubusSecretDesires.esp|0DE",
-          "x": -0.75,
-          "y": 1.3,
-          "links": [ "Findom"
-          ]
      },{
           "id": "Findom",
           "perk": "TintsOfASuccubusSecretDesires.esp|0E2",
-          "x": -0.25,
-          "y": 2.6,
+          "x": -1.0,
+          "y": 2.0,
+          "links": [     "JailerMode" , "RT"  ]
+     },{
+          "id": "JailerMode",
+          "perk": "TintsOfASuccubusSecretDesires.esp|062",
+          "x": -1.25,
+          "y": 2.25,
+          "links": [
+          ]
+     },{
+          "id": "NaughtyBrat",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0DE",
+          "x": 1.0,
+          "y": 2.0,
+          "links": [ "FightMode" , "LT"
+          ]
+     },{
+          "id": "FightMode",
+          "perk": "TintsOfASuccubusSecretDesires.esp|05D",
+          "x": 1.25,
+          "y": 2.25,
           "links": [        ]
      }
      ]

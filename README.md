@@ -68,3 +68,35 @@ Ending a scene where you came less than the mean you gain more energy else less.
 
 * Ask for cum outside
 * Cum inside no longer cum on skin
+
+
+
+# New Logic
+
+What I want:
+- A reason to go to town
+  - A reason to have sex in safe locations
+    - Penalties for not having sex
+- Orgasm and arousal fun
+- Sub/Dom relationships with the player in full control narrative-wise
+- Being able to play a "nice" succubus, who tries to do good with their curse which is not easy, but also not really punishing
+- Integrations with lots of mods for fun
+- maybe a money sink?
+- succubus powers and abilities
+- Fetishes:
+  - Succubi (obv.), so lust, orgasm (denial?) and a bit of hypnosis
+  - Sub/Dom - SM mostly without bondage and also CnC
+  - cumplay and futa
+  - some "relationship" with non-followers
+  - humiliation and praise
+  - transformation and tattoos
+  - body morph and milk?
+
+
+# New Names
+
+# Fluids
+
+# Physical
+
+# Looks

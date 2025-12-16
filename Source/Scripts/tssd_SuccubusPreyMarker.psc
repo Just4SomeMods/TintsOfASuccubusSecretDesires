@@ -3,7 +3,6 @@ Scriptname tssd_SuccubusPreyMarker extends activemagiceffect
 
 import tssd_utils
 GlobalVariable Property TimeOfDayGlobalProperty Auto
-tssd_succubusstageendblockhook Property stageEndHook Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 Actor Property ThisThing Auto
 Actor Property PlayerRef Auto
@@ -21,7 +20,6 @@ endEvent
 
 Event OnActivate(ObjectReference akActionRef)
     if ThisThing && akActionRef == PlayerRef && SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
-        Sexlab.RegisterHook( stageEndHook)
         ThisThing.SendAssaultAlarm()
         Faction CrimeFaction = ThisThing.GetCrimeFaction()
         if CrimeFaction

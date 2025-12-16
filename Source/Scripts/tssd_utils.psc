@@ -186,9 +186,11 @@ Function Maintenance() Global
     ReadInCosmeticSetting()
 Endfunction
 
-Headpart Function currentEyes() Global
-    Actor playerRef = Game.GetPlayer()
-    ActorBase Base = PlayerRef.GetBaseObject() as ActorBase
+Headpart Function currentEyes(Actor TargetOf = none) Global
+    if TargetOf == none
+        TargetOf = Game.GetPlayer()
+    endif
+    ActorBase Base = TargetOf.GetBaseObject() as ActorBase
     int parts = Base.GetNumHeadParts()
     HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
     While parts > 0
@@ -204,16 +206,18 @@ Headpart Function currentEyes() Global
     return none
 Endfunction
 
-Function setHeartEyes(HeadPart PlayerEyes, bool on = true) Global
-    Actor playerRef = Game.GetPlayer()
+Function setHeartEyes(HeadPart PlayerEyes, bool on = true, Actor TargetOf = none) Global
+    if TargetOf == none
+        TargetOf = Game.GetPlayer()
+    endif
     HeadPart HeartEyes = HeadPart.GetHeadPart("TSSD_FemaleEyesHeart2")
     if PlayerEyes
         if !on
-            playerRef.ChangeHeadPart( PlayerEyes)
+            TargetOf.ChangeHeadPart( PlayerEyes)
         else
-            playerRef.ChangeHeadPart( HeartEyes )
+            TargetOf.ChangeHeadPart( HeartEyes )
         endif
-        playerRef.QueueNiNodeUpdate()
+        TargetOf.QueueNiNodeUpdate()
     endif
 Endfunction
 

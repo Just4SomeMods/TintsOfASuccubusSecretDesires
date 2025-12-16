@@ -1,0 +1,12 @@
+{
+  "FormKey": "00010D:TintsOfASuccubusSecretDesires.esp",
+  "VersionControl": 13200,
+  "EditorID": "tssd_enthrallDialogueVoyeur",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Go ahead and have some fun, I want to watch!"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

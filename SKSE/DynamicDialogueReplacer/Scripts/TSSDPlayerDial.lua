@@ -20,7 +20,6 @@ function replace(text)
 
     if internalcounter > 0 then 
        nxtText = pools["TSSD_000B2"][math.random(1, #pools["TSSD_000B2"])]
-      log_info(nxtText)
     end
 
 

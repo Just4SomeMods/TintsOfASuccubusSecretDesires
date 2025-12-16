@@ -10,7 +10,6 @@ tssd_slsfrscript Property slsfListener Auto
 
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
-tssd_succubusstageendblockhook Property stageEndHook Auto
 tssd_actions Property tActions Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
@@ -233,7 +232,6 @@ Function GainFreePerk()
     if resultW.Length > 0
         int PerkID =  JDB.solveInt(".tssdperks." + succTraits[resultW[0] as int] + ".id")
         PlayerRef.AddPerk(Game.GetFormFromFile(PerkID, "TintsOfASuccubusSecretDesires.esp") as Perk)
-        Debug.MessageBox(PerkID)
     endif
 EndFunction
 
@@ -323,7 +321,7 @@ Endfunction
 
 
 bool Function checkAbilityDefeatThem(Actor tarRef)
-    if tActions.isHoveringPrey && tarRef == playerRef
+    if tarRef == playerRef
         tarRef = Game.GetCurrentCrosshairRef() as Actor
         tactions.cell_ac[0] = tarRef
     endif
@@ -368,7 +366,7 @@ Function OpenSuccubusAbilities()
         endif
     endif
 
-    itemsAsString += ";Look for Prey"
+    itemsAsString += ";Look for Prey;Cum now!"
     int indexOfA = 1
     while indexOfA < SuccubusAbilitiesNames.length
         if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && spellToggle < 2
@@ -411,15 +409,13 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
     elseif myItems[result] == "Ask for Sex" && Cross
-            Sexlab.RegisterHook( stageEndHook)
             Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
     elseif myItems[result] == "Act defeated"
-        tActions.actDefeated(tarRef)
+        tActions.actDefeated(tarRef, true)
     elseif myItems[result] == "Rape them!"
         if !tactions.deathModeActivated
             tactions.toggleDeathMode(true)
         endif
-        Sexlab.RegisterHook( tactions.stageEndHook)
         if !Sexlab.StartSceneA(akPositions = PapyrusUtil.PushActor(tactions.cell_ac, PlayerRef), asTags = "", akSubmissives = tactions.cell_ac)
             if !Sexlab.StartScene(akPositions = PapyrusUtil.PushActor(tactions.cell_ac, PlayerRef), asTags = "")
                 int tarIndex = 0
@@ -434,6 +430,19 @@ Function OpenSuccubusAbilities()
                 EndWhile
             endif
         endif
+    elseif myItems[result] == "Cum Now!"
+        Game.ShakeCamera(none, 0.1, 0.1 + 1.0)
+        Sexlab.GetPlayerController().ActorAlias(PlayerRef)
+		int eid = ModEvent.Create("SexLabOrgasm")
+		ModEvent.PushForm(eid, PlayerRef)
+		ModEvent.PushInt(eid, 100)
+		ModEvent.PushInt(eid, 1)
+		ModEvent.Send(eid)
+		Int handle = ModEvent.Create("SexlabOrgasmSeparate")
+		ModEvent.PushForm(handle, PlayerRef)
+		ModEvent.PushInt(handle, 0)
+		ModEvent.Send(handle)
+
 
     elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1

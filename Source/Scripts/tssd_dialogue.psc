@@ -58,8 +58,8 @@ Event DialogueFinished(string eventName, string strArg, float numArg, Form sende
 EndEvent
 
 Event OnMenuClose(String MenuName)
+    UnRegisterForMenu("Dialogue Menu")
     if lastDialogue == ""
-        UnRegisterForMenu("Dialogue Menu")
         return
     elseif lastDialogue == "TSSD_000C7"
         lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
@@ -126,9 +126,18 @@ Event OnMenuClose(String MenuName)
         SexLab.AddCumFxLayers(PlayerRef, 0, 8)
         SexLab.AddCumFxLayers(PlayerRef, 1, 8)
         SexLab.AddCumFxLayers(PlayerRef, 2, 8)
+    elseif lastDialogue == "TSSD_000F7"
+        GenericRefreshPSex(lastDialoguePartner, true, "facesit")
+    elseif lastDialogue == "TSSD_00103"
+        GenericRefreshPSex(lastDialoguePartner, true, "aircum", true)
+    elseif lastDialogue == "TSSD_00111"
+        GenericRefreshPSex(lastDialoguePartner, true, "grope", true)
+    elseif lastDialogue == "TSSD_0010E"
+        GenericRefreshPSex(lastDialoguePartner, false)
+        Sexlab.StartSceneQuick(lastDialoguePartner)
     endif
+
     DBGTRACE(lastDialogue)
-    UnRegisterForMenu("Dialogue Menu")
     lastDialogue = ""
     lastDialoguePartner = none
 EndEvent
@@ -137,7 +146,7 @@ Event HumiDone(string eventName, string strArg, float numArg, Form sender)
     Utility.Wait(1)
     UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
     TSSD_Satiated.Cast(sender as Actor, PlayerRef)
-    tActions.RefreshEnergy(100)
+    tActions.gainSuccubusXP(1000)
 EndEvent
 
 
@@ -148,12 +157,12 @@ Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
 endevent
 
 
-Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "" )
+Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "", bool playerActive = false )
     Actor akSpeaker = target as Actor
-
+    DBGTRACE(target.GetDisplayName())
     AzuraFadeToBlack.Apply()
     GameHour.Mod(1) 
-    tActions.gainSuccubusXP(1000,1000)
+    tActions.gainSuccubusXP(1000)
     SuccubusDesireLevel.Mod( 100  )	
     Utility.Wait(2.5)
     ImageSpaceModifier.RemoveCrossFade(3)
@@ -163,9 +172,13 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     endif
     PlayerRef.DispelSpell(TSSD_Satiated)
     if startsSex
-        SexLab.StartSceneQuick(PlayerRef, akSpeaker, asTags=sexTags)
+        Actor[] Pos = new Actor[2]
+        Pos[0] = PlayerRef
+        Pos[1] = akSpeaker
+
+        SexLab.StartScene(Pos, asTags=sexTags)
     endif
     Utility.Wait(2.5)
-    DBGTRACE(TSSD_Satiated.Cast(akSpeaker, PlayerRef))
+    TSSD_Satiated.Cast(akSpeaker, PlayerRef)
 
 EndFunction

@@ -98,7 +98,17 @@ local pools = {
   },
   TSSD_000F7 = { bimboDialogue, bimboDialogue, bimboDialogue, bimboDialogue
     
+  },
+  TSSD_00103 = { {"Sure"},{"Sure"},{"Sure"},{"Sure"}
+    
+  },
+  TSSD_00111 = { {"I never get tired of that!"},{"I can lose myself in your body!"},{"I wanted to sample the merchandise for quite some time now."},{"Sure"}
+    
+  },
+  TSSD_00111 = { {"If your okay with that I'll let you watch"},{"I'll put on a good show!"},{"It was getting predictable with you anyway."},{"Sure"}
+    
   }
+  
   
 }
 

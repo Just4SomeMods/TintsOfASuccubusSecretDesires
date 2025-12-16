@@ -14,61 +14,82 @@
           "improveOffset": 120.0,
           "enableXPPerRank": false
      },
-     "nodes": [
-          {
-               "id": "GentleDrain",
-               "perk": "TintsOfASuccubusSecretDesires.esp|014",
+     "nodes": [{
+               
+               "id": "HealthyDrain",
+               "perk": "TintsOfASuccubusSecretDesires.esp|0D0",
                "x": 0.0,
-               "y": -0.5,
-               "links": [ "EnergyVampire", "SFWDrain" , "Bukkake", "DrainMore"
+               "y": 0.8,
+               "links": [ "EnergyVampire", "SuckChamp" , "PraiseKink"
                ]
           }, {
-               "id": "SFWDrain",
-               "perk": "TintsOfASuccubusSecretDesires.esp|061",
-               "x": 0.25,
-               "y": 0.55,
-               "links": [ "MageMode", "SoulDrain"
+               "id": "Bukkake",
+               "perk": "TintsOfASuccubusSecretDesires.esp|0CF",
+               "x": 0.0,
+               "y": 3.0,
+               "links": [ "SemenEnjoyer", "BodyArtLover"
                ]
           },{
+          "id": "EnergyVampire",
+          "perk": "TintsOfASuccubusSecretDesires.esp|094",
+          "x": 0.0,
+          "y": -0.25,
+          "links": [ "MageMode", "DrainMore"
+          ]
+     },{
+          "id": "BodyArtLover",
+          "perk": "TintsOfASuccubusSecretDesires.esp|027",
+          "x": 0.25,
+          "y": 2.75,
+          "links": [ 
+          ]
+     },{
+          "id": "SuckChamp",
+          "perk": "TintsOfASuccubusSecretDesires.esp|10A",
+          "x": 0.0,
+          "y": 1.85,
+          "links": [ "SoulDrain", "EvilCollared"
+          ]
+     },
+          {
                "id": "MageMode",
                "perk": "TintsOfASuccubusSecretDesires.esp|05B",
-               "x": -0.25,
-               "y": 1.5,
-               "links": [
+               "x": 0.25,
+               "y": -0.5,
+               "links": [ 
                ]
           }, {
                "id": "SoulDrain",
                "perk": "TintsOfASuccubusSecretDesires.esp|08B",
-               "x": 0.75,
-               "y": 1.5,
+               "x": -0.5,
+               "y": 2.3,
                "links": [
                ]
-          },  {
-               "id": "Bukkake",
-               "perk": "TintsOfASuccubusSecretDesires.esp|0CF",
-               "x": -0.75,
-               "y": 1.25,
-               "links": [ "SemenEnjoyer"
-               ]
-          },{
+          }, {
           "id": "DrainMore",
           "perk": "TintsOfASuccubusSecretDesires.esp|012",
-          "x": -0.5,
-          "y": 0.0,
-          "links": [           ]
-     }, {
-          "id": "EnergyVampire",
-          "perk": "TintsOfASuccubusSecretDesires.esp|094",
-          "x": 1.0,
-          "y": 0.25,
-          "links": [
-          ]
-     }, {
+          "x": -0.25,
+          "y": -0.5,
+          "links": [     "MageMode"      ]
+     },  {
                "id": "SemenEnjoyer",
                "perk": "TintsOfASuccubusSecretDesires.esp|0B3",
-               "x": -0.75,
-               "y": 2.0,
+               "x": -0.25,
+               "y": 2.75,
                "links": [ 
-               ]}
+               ]}, {
+               "id": "EvilCollared",
+               "perk": "TintsOfASuccubusSecretDesires.esp|0FE",
+               "x": 0.5,
+               "y": 2.3,
+               "links": [ "SoulDrain"
+               ]},{
+          "id": "PraiseKink",
+          "perk": "TintsOfASuccubusSecretDesires.esp|094",
+          "x": 0.0,
+          "y": 1.5,
+          "links": [ 
+          ]
+     }
      ]
 }

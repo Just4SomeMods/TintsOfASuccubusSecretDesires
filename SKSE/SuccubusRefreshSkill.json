@@ -1,0 +1,106 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
+    "id": "SuccubusRefreshSkill",
+    "name": "$SuccubusRefreshSkillName",
+    "description": "$SuccubusRefreshSkillDescription",
+    "level": "TintsOfASuccubusSecretDesires.esp|01F",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|048",
+    "experienceFormula": {
+        "useMult": 7.0,
+        "useOffset": 0.0,
+        "improveMult": 0.5,
+        "improveOffset": 120.0,
+        "enableXPPerRank": false
+    },
+    "nodes": [
+        {
+            "id": "Start",
+            "perk": "TintsOfASuccubusSecretDesires.esp|029",
+            "x": 0,
+            "y": -0.5,
+            "links": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "id": "9",
+            "perk": "TintsOfASuccubusSecretDesires.esp|095",
+            "x": 0,
+            "y": 1.6,
+            "links": []
+        },
+        {
+            "id": "0",
+            "x": -0.649839392465813,
+            "y": -0.08713228931239991,
+            "links": [
+                "2"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|095"
+        },
+        {
+            "id": "1",
+            "x": 0.649839392465813,
+            "y": -0.08713228931239991,
+            "links": [
+                "3"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0DE"
+        },
+        {
+            "id": "2",
+            "x": -2.7527638409423476,
+            "y": 0.9100813061875581,
+            "links": [
+                "4"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0E2"
+        },
+        {
+            "id": "3",
+            "x": 2.7527638409423476,
+            "y": 0.9100813061875581,
+            "links": [
+                "5"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0CF"
+        },
+        {
+            "id": "4",
+            "x": -2.7527638409423467,
+            "y": 2.0371322893124004,
+            "links": [
+                "6"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|104"
+        },
+        {
+            "id": "5",
+            "x": 2.7527638409423467,
+            "y": 2.0371322893124004,
+            "links": [
+                "7"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|023"
+        },
+        {
+            "id": "6",
+            "x": -0.6498393924658127,
+            "y": 2.1399186938124424,
+            "links": [
+                "9"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|010"
+        },
+        {
+            "id": "7",
+            "x": 0.6498393924658127,
+            "y": 2.1399186938124424,
+            "links": [
+                "9"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0F0"
+        }
+    ]
+}

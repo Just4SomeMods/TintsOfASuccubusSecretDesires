@@ -38,6 +38,7 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
+      - GetFactionRank SOS_SchlongifiedFaction >= 1 AND
 
   # Findom
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -113,14 +114,39 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Seduction_PraiseKink2 == 1 AND
 
+  # CumShower
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x101|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Drain_SemenDemon >= 1 AND
+      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+
+  # Grope
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x110|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Body_Grope >= 1 AND
+
+  # Voyeur
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x10D|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Seduction_Voyeur >= 1 AND
+
   # Bimbo
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
     inject:
       - 0xF4|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - GetFactionRank CC_NPCCurrentBimboStage >= 1 AND
-      
+      - GetFactionRank CC_NPCCurrentBimboStage >= 15 AND
+
 
 
 
