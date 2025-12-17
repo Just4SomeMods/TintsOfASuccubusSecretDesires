@@ -1,37 +1,52 @@
 {
-    "TSSD_Drain_AskForCum": {
-        "id": 207,
-        "Desc": "You can ask men to shower you in cum to refresh your energy.",
-        "Name": "Drain Balls"
-    },
     "TSSD_Body_Findom1": {
         "id": 226,
         "Desc": "You can try to get paid to be eyecandy and refresh your energy.",
         "Name": "Findom"
     },
-    "TSSD_Body_Subby1": {
-        "id": 149,
-        "Desc": "You can ask to be punished to refresh your energy.",
-        "Name": "Subby"
-    },
-    "TSSD_Seduction_Seductress1": {
-        "id": 16,
-        "Desc": "You gain the ability to ask for a party.",
-        "Name": "Seductress"
+    "TSSD_Body_Grope": {
+        "id": 268,
+        "Desc": "You can ask to be groped to refresh your energy.",
+        "Name": "Grabby"
     },
     "TSSD_Body_PainGood1": {
         "id": 222,
         "Desc": "You can ask to punish submissive people indoors.",
         "Name": "Naughty Brat"
     },
+    "TSSD_Body_Subby1": {
+        "id": 149,
+        "Desc": "You can ask to be punished to refresh your energy.",
+        "Name": "Subby"
+    },
+    "TSSD_Drain_AskForCum": {
+        "id": 207,
+        "Desc": "You can ask for some cum play.",
+        "Name": "Drain Balls"
+    },
+    "TSSD_Drain_PraiseKink1": {
+        "id": 240,
+        "Desc": "You can ask people to compliment you to regain energy.",
+        "Name": "Praise Kink"
+    },
     "TSSD_Seduction_Kiss1": {
         "id": 35,
         "Desc": "Gives you the ability to stealthily absorb some energy from people by convincing them to kiss you.",
         "Name": "It started with a Kiss"
     },
-    "TSSD_Seduction_PraiseKink1": {
-        "id": 240,
-        "Desc": "You can ask people to compliment you to regain energy.",
-        "Name": "Praise Kink"
+    "TSSD_Seduction_OfferSex1": {
+        "id": 67,
+        "Desc": "You can initiate sex with someone in a safe location to refresh your energy.",
+        "Name": "DTF?"
+    },
+    "TSSD_Seduction_Seductress1": {
+        "id": 16,
+        "Desc": "You gain the ability to ask for a party.",
+        "Name": "Seductress"
+    },
+    "TSSD_Seduction_Voyeur": {
+        "id": 267,
+        "Desc": "You can ask people to have sex without you to refresh your energy.",
+        "Name": "Voyeur"
     }
 }

@@ -12,6 +12,9 @@ Faction Property TSSD_Collared Auto
 
 bool isActingDefeated = false
 
+String Property FILE_SCHLONGS_OF_SKYRIM = "Schlongs of Skyrim.esp" AutoReadOnly Hidden 
+Faction Property SOS_SchlongifiedFaction Auto Hidden
+
 ; BEGIN AND
 
 String Property FILE_AND = "Advanced Nudity Detection.esp" AutoReadOnly Hidden 
@@ -102,6 +105,12 @@ Function onGameReload()
 		DDAssetsFound = False
 		zad_DeviousCollar = none
 	EndIf
+
+	If (Game.GetModByName(FILE_SCHLONGS_OF_SKYRIM) != 255)
+		SOS_SchlongifiedFaction = Game.GetFormFromFile(0xAFF8, FILE_SCHLONGS_OF_SKYRIM) as Faction
+	Else
+		SOS_SchlongifiedFaction = none
+	EndIf
 EndFunction
 
 
@@ -185,3 +194,5 @@ Bool Property IsShowingGenitals = False Auto Conditional Hidden
 Bool Property IsShowingAss = False Auto Conditional Hidden
 Bool Property IsArmed = False Auto Conditional Hidden 
 Bool Property IsArmored = False Auto Conditional Hidden 
+
+

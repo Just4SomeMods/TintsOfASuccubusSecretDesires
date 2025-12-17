@@ -1,26 +1,31 @@
 {
-    "SuccubusKinds":
-    [
+    "SuccubusKinds": [
         "Scarlet",
         "Sundown",
         "Mahogany"
     ],
-    "SuccubusTraits":
-    [
+    "SuccubusTraits": [
         "Razzmatazz",
         "Cupid",
         "Lavenderblush",
         "Carnation",
         "Tosca",
-        "Blush"
+        "Blush",
+        "Collared",
+        "Pink",
+        "Maroon",
+        "Pink\u00b2"
     ],
-    "SuccubusSPerks":[
+    "SuccubusSPerks": [
+        "TSSD_Seduction_OfferSex1",
         "TSSD_Drain_AskForCum",
         "TSSD_Body_Findom1",
         "TSSD_Body_Subby1",
         "TSSD_Seduction_Seductress1",
         "TSSD_Body_PainGood1",
         "TSSD_Seduction_Kiss1",
-        "TSSD_Seduction_PraiseKink1"
+        "TSSD_Drain_PraiseKink1",
+        "TSSD_Body_Grope",
+        "TSSD_Seduction_Voyeur"
     ]
 }

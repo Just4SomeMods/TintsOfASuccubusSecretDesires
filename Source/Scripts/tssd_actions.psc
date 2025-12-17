@@ -517,6 +517,18 @@ Function toggleSpells(int newToggle = -1)
     spellToggle = newToggle
 Endfunction
 
+Function gainAllPerks()
+    
+    int index = 0
+    string[] succTraits = GetSuccubusStartPerksAll()
+    while index < succTraits.Length
+        int PerkID =  JDB.solveInt(".tssdperks." + succTraits[index] + ".id")
+        PlayerRef.AddPerk(Game.GetFormFromFile(PerkID, "TintsOfASuccubusSecretDesires.esp") as Perk)
+        index += 1
+    EndWhile
+
+EndFunction
+
 String Function getAllNames(Actor[] inArr)
     int index = 0
     string outString = ""

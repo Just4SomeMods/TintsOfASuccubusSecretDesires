@@ -41,6 +41,7 @@ Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PlayDead1 Auto
 Perk Property TSSD_Body_DefeatThem1 Auto
 Perk Property TSSD_Base_PolyThrall1 Auto
+Perk Property TSSD_Seduction_Kiss2 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Satiated Auto
@@ -129,10 +130,8 @@ Function OpenGrandeMenu()
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
-    if TSSD_MaxTraits.GetValue() > 0
-        myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type",";")
-    endif
+    String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type;TraitsLel",";")
+    
     Int result
     if modifierKeyIsDown
         result = lastUsed
@@ -153,6 +152,8 @@ Function OpenGrandeMenu()
         OpenSuccubusCosmetics()
     elseif myItems[result] == "Rechoose Type"
         SelectSuccubusType()
+    elseif myItems[result] == "TraitsLel"
+        GetTraitsLel()
     endif
 EndFunction 
 
@@ -354,9 +355,6 @@ Function OpenSuccubusAbilities()
     if Game.GetCurrentCrosshairRef() as Actor
         Cross = Game.GetCurrentCrosshairRef() as Actor
     endif
-    if PlayerRef.HasPerk(TSSD_Seduction_OfferSex)
-        itemsAsString += ";Ask for Sex"
-    endif
     tarRef = tActions.searchForTargets()
     if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
             if tarRef && tarRef != PlayerRef
@@ -368,6 +366,9 @@ Function OpenSuccubusAbilities()
 
     itemsAsString += ";Look for Prey;Cum now!"
     int indexOfA = 1
+    if (PlayerRef.HasPerk(TSSD_Seduction_Kiss2) || true) && Sexlab.GetPlayerController()
+        itemsAsString += ";Steal"
+    endif
     while indexOfA < SuccubusAbilitiesNames.length
         if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && spellToggle < 2
                 itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
@@ -442,6 +443,14 @@ Function OpenSuccubusAbilities()
 		ModEvent.PushForm(handle, PlayerRef)
 		ModEvent.PushInt(handle, 0)
 		ModEvent.Send(handle)
+    elseif myItems[result] == "Steal"
+        sslThreadController _thread = Sexlab.GetPlayerController()
+        Actor toSteal = _thread.GetPositions()[0]
+        if toSteal == PlayerRef
+            toSteal = _thread.GetPositions()[1]
+        endif
+        toSteal.ShowGiftMenu(false, none, true, false) 
+
 
 
     elseif SuccubusDesireLevel.GetValue() > 0
@@ -468,3 +477,26 @@ Function OpenSuccubusAbilities()
     endif
 EndFunction
 
+
+
+Function ShowSuccubusTrait(int num)
+    
+    b612_TraitsMenu TraitsMenu = GetTraitsMenu()
+    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
+    TraitsMenu.AddItem("Embrace: " + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
+            "menus/tssd/"+succKinds[num]+".dds")
+    String ResText = "Resist: "
+    if num == 9
+        ResText = "EMBRACEHARD: "
+    endif
+    TraitsMenu.AddItem(ResText + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
+            "menus/tssd/"+succKinds[num]+".dds")
+    TraitsMenu.Show()
+            
+EndFunction
+
+Function GetTraitsLel()
+    b612_QuantitySlider qS = GetQuantitySlider()
+    int outInt = qS.Show("Num", 0,  JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits")).Length -1)
+    ShowSuccubusTrait(outInt)
+EndFunction

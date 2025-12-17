@@ -30,6 +30,16 @@ topics:
       - pl1 <> HasPerk TSSD_Body_Findom2 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
 
+  # SexAsk
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x92|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Seduction_OfferSex1 == 1 AND
+      - LocationHasKeyWord LocTypeInn == 1 OR
+      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+
   # CumCover
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -37,8 +47,10 @@ topics:
       - 0x9A|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 AND
-      - GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+      - LocationHasKeyWord LocTypeInn == 1 OR
+      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
+      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
   # Findom
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -104,7 +116,7 @@ topics:
     inject:
       - 0xEC|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_PraiseKink1 == 1 AND
+      - pl1 <> HasPerk TSSD_Drain_PraiseKink1 == 1 AND
 
   # Worship
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -112,16 +124,7 @@ topics:
     inject:
       - 0xF3|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_PraiseKink2 == 1 AND
-
-  # CumShower
-  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
-    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
-    inject:
-      - 0x101|TintsOfASuccubusSecretDesires.esp
-    conditions:
-      - pl1 <> HasPerk TSSD_Drain_SemenDemon >= 1 AND
-      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+      - pl1 <> HasPerk TSSD_Drain_PraiseKink2 == 1 AND
 
   # Grope
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp

@@ -2,6 +2,8 @@ Scriptname tssd_dialogue extends Quest
 
 import tssd_utils
 
+tssd_PlayerEventsScript Property tPEvents Auto
+
 Faction Property TSSD_ThrallAggressive Auto
 Faction Property TSSD_ThrallDominant Auto
 Faction Property TSSD_EnthralledFaction Auto
@@ -74,10 +76,10 @@ Event OnMenuClose(String MenuName)
     elseif lastDialogue == "TSSD_000E1"
         PlayerRef.RemoveItem(Gold001, 50)
         GenericRefreshPSex(lastDialoguePartner, true)
-    elseif lastDialogue == "TSSD_00096"
+    elseif lastDialogue == "TSSD_00098"
         GenericRefreshPSex(lastDialoguePartner, true, "love")
-    elseif StringUtil.Find( "TSSD_000C4 TSSD_00096", lastDialogue) >= 0
-        GenericRefreshPSex(lastDialoguePartner, true, "kissing, limitedstrip, -sex")
+    elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
+        GenericRefreshPSex(lastDialoguePartner, true, "kissing")
     elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
         GenericRefreshPSex(lastDialoguePartner, false, "")
     elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
@@ -122,16 +124,21 @@ Event OnMenuClose(String MenuName)
         lastDialoguePartner.AddtoFaction(PlayerMarriedFaction)
         tssd_queststart.SetStage(10)
     elseif lastDialogue == "TSSD_000B2"
-        GenericRefreshPSex(lastDialoguePartner, false, "")
-        SexLab.AddCumFxLayers(PlayerRef, 0, 8)
-        SexLab.AddCumFxLayers(PlayerRef, 1, 8)
-        SexLab.AddCumFxLayers(PlayerRef, 2, 8)
+        GenericRefreshPSex(lastDialoguePartner, true, "aircum", true)
+        if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+            SexLab.AddCumFxLayers(PlayerRef, 0, 1)
+            SexLab.AddCumFxLayers(PlayerRef, 1, 1)
+            SexLab.AddCumFxLayers(PlayerRef, 2, 1)
+        endif
+        if    PlayerRef.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+            SexLab.AddCumFxLayers(lastDialoguePartner, 0, 1)
+            SexLab.AddCumFxLayers(lastDialoguePartner, 1, 1)
+            SexLab.AddCumFxLayers(lastDialoguePartner, 2, 1)
+        endif
     elseif lastDialogue == "TSSD_000F7"
         GenericRefreshPSex(lastDialoguePartner, true, "facesit")
-    elseif lastDialogue == "TSSD_00103"
-        GenericRefreshPSex(lastDialoguePartner, true, "aircum", true)
     elseif lastDialogue == "TSSD_00111"
-        GenericRefreshPSex(lastDialoguePartner, true, "grope", true)
+        GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~holding", true)
     elseif lastDialogue == "TSSD_0010E"
         GenericRefreshPSex(lastDialoguePartner, false)
         Sexlab.StartSceneQuick(lastDialoguePartner)

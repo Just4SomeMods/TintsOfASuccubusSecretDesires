@@ -27,3 +27,4 @@ CC/*
 .stignore
 .stfolder
 *.ods
+*.csv

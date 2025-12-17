@@ -1,0 +1,152 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
+    "id": "SuccubusDrainSkill",
+    "name": "Tints",
+    "description": "",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|048",
+    "nodes": [
+        {
+            "id": "Start",
+            "perk": "TintsOfASuccubusSecretDesires.esp|029",
+            "x": 0,
+            "y": -0.5,
+            "links": [
+                "2",
+                "3"
+            ]
+        },
+        {
+            "id": "32",
+            "perk": "TintsOfASuccubusSecretDesires.esp|124",
+            "x": 0,
+            "y": 0.30000000000000004,
+            "links": []
+        },
+        {
+            "id": "2",
+            "x": -0.08966830583359311,
+            "y": -0.4390300481924642,
+            "links": [
+                "6"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|117"
+        },
+        {
+            "id": "3",
+            "x": 0.08966830583359311,
+            "y": -0.4390300481924642,
+            "links": [
+                "7"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11D"
+        },
+        {
+            "id": "6",
+            "x": -0.5656854249492381,
+            "y": -0.18033008588991056,
+            "links": [
+                "10"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|115"
+        },
+        {
+            "id": "7",
+            "x": 0.5656854249492381,
+            "y": -0.18033008588991056,
+            "links": [
+                "11"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|116"
+        },
+        {
+            "id": "10",
+            "x": -1.26172881195958,
+            "y": 0.13564451100819996,
+            "links": [
+                "14"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11B"
+        },
+        {
+            "id": "11",
+            "x": 1.26172881195958,
+            "y": 0.13564451100819996,
+            "links": [
+                "15"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11F"
+        },
+        {
+            "id": "14",
+            "x": -1.6,
+            "y": 0.5,
+            "links": [
+                "18"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11A"
+        },
+        {
+            "id": "15",
+            "x": 1.6,
+            "y": 0.5,
+            "links": [
+                "19"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|114"
+        },
+        {
+            "id": "18",
+            "x": -1.26172881195958,
+            "y": 0.8179088795850737,
+            "links": [
+                "22"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11E"
+        },
+        {
+            "id": "19",
+            "x": 1.26172881195958,
+            "y": 0.8179088795850737,
+            "links": [
+                "23"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|118"
+        },
+        {
+            "id": "22",
+            "x": -0.5656854249492379,
+            "y": 0.8803300858899106,
+            "links": [
+                "26"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|120"
+        },
+        {
+            "id": "23",
+            "x": 0.5656854249492379,
+            "y": 0.8803300858899106,
+            "links": [
+                "27"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|121"
+        },
+        {
+            "id": "26",
+            "x": -0.08966830583359303,
+            "y": 0.6854766575991906,
+            "links": [
+                "32"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|122"
+        },
+        {
+            "id": "27",
+            "x": 0.08966830583359303,
+            "y": 0.6854766575991906,
+            "links": [
+                "32"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|123"
+        }
+    ]
+}
