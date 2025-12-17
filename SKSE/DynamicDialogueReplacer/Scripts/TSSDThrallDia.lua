@@ -1,6 +1,6 @@
 local bimboDialogue = { "Uhhm my pimp... what does that mean? Oh drain as in suck as in sex? Yesyesyesyes!",
   "Ohh that always feels so good when I haven't done that in a while!",
-  "Everything for you, you made me into the best thing I could ever be!" }
+  "Everything for you, you made me into the bestest thing I could ever be!" }
 
 
 local pools = {
@@ -96,8 +96,6 @@ local pools = {
     { "You are the love of my life." }, { "You are the light of my life." }, { "You are a good pet." }, { "You are doing great keep it up!" }
   },
   TSSD_000F5 = {
-    { "Let's go have some fun!" }, { "Let's go have some fun!" }, { "Let's go have some fun!" },
-    { "Let's go have some fun!" },
     { "You are the most perfect person I have ever seen." },
     { "You are the meaning of my life!" },
     { "Without you, I'd be incomplete." },

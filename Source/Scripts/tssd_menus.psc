@@ -5,7 +5,7 @@ import b612
 import tssd_utils
 
 Actor Property PlayerRef Auto
-
+Quest Property tssd_tints_tracker Auto
 tssd_slsfrscript Property slsfListener Auto
 
 SexLabFramework Property SexLab Auto
@@ -14,6 +14,7 @@ tssd_actions Property tActions Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
+Perk[] Property SuccubusTintPerks  Auto
 String[] Property SuccubusAbilitiesNames  Auto    
 
 GlobalVariable Property TimeOfDayGlobalProperty Auto
@@ -60,6 +61,8 @@ MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 int lastUsed  = -1
 int lastUsedSub = -1
 int spellToggle
+
+int colorToAdd
 
 Quest Property tssd_enthrallDialogue Auto
 Quest Property tssd_queststart Auto
@@ -478,20 +481,49 @@ Function OpenSuccubusAbilities()
 EndFunction
 
 
+Event OnUpdateGameTime()
+    UnregisterForUpdateGameTime()
+    ShowSuccubusTrait(colorToAdd)
+EndEvent
+
 
 Function ShowSuccubusTrait(int num)
+
+    if PlayerRef.IsInCombat()
+        colorToAdd = num
+        RegisterForSingleUpdateGameTime(0.1)
+        return
+    endif
+
+
     
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
+    
     TraitsMenu.AddItem("Embrace: " + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
     String ResText = "Resist: "
     if num == 9
-        ResText = "EMBRACEHARD: "
+        ResText = "OHYESIWANTTHISTHISISWHOIAM : "
     endif
+    int indexIN = 0
+    while indexIN < succKinds.Length
+        DBGTRACE(indexIN +" " +succKinds[indexIN])
+        indexIN += 1
+    endwhile
+
     TraitsMenu.AddItem(ResText + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
-    TraitsMenu.Show()
+    String[] resultW = TraitsMenu.Show()
+    tssd_tints_tracker.SetObjectiveDisplayed(num, true)
+    if resultW[0] == "0"
+        PlayerRef.AddPerk(SuccubusTintPerks[num])
+		tssd_tints_tracker.SetObjectiveCompleted(num, true)
+        tssd_tints_tracker.SetObjectiveFailed(num, false)
+    else
+        tssd_tints_tracker.SetObjectiveFailed(num, true)
+    endif
+
             
 EndFunction
 

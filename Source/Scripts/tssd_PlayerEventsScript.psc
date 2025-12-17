@@ -1,16 +1,23 @@
 Scriptname tssd_PlayerEventsScript extends ReferenceAlias
 
 tssd_actions Property tActions Auto
+tssd_menus Property tMenus Auto
+Quest Property tssd_tints_tracker Auto
 Actor Property PlayerRef Auto
 GlobalVariable Property TSSD_TypeMahogany Auto
 Spell Property tssd_Satiated Auto
 MagicEffect Property TSSD_SatiatedEffect Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
 
+int[] colorsToAdd
+
 Faction Property TSSD_RevealingOutfit Auto
 Faction Property TSSD_Collared Auto
 
 bool isActingDefeated = false
+float totalDamageTaken = 0.0
+bool[] Property colorsChecked Auto Hidden 
+bool crimsonDone = false
 
 String Property FILE_SCHLONGS_OF_SKYRIM = "Schlongs of Skyrim.esp" AutoReadOnly Hidden 
 Faction Property SOS_SchlongifiedFaction Auto Hidden
@@ -49,8 +56,6 @@ import tssd_utils
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
     Weapon akW = akSource as Weapon
-    
-	DBGTRACE( "Is Acting Defeated? " + isActingDefeated )
     if TSSD_TypeMahogany.GetValue() == 1.0 && akW && !abHitBlocked
         tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
     endif
@@ -63,10 +68,17 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
         Endif
 		isActingDefeated = false
     endif
+
+	totalDamageTaken += akW.GetBaseDamage()
+	if !crimsonDone && totalDamageTaken >= 5
+		crimsonDone = true
+		tMenus.ShowSuccubusTrait(14)
+	endif
 EndEvent
 
 Function onGameReload()
 	isActingDefeated = false
+	crimsonDone = false
     If (Game.GetModByName(FILE_AND) != 255)
 		ANDFound = True
 		AND_NudeActorFaction = Game.GetFormFromFile(0x831, FILE_AND) as Faction

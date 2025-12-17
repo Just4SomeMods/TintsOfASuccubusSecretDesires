@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "mineLel",
+    "title": "TintSchema",
+    "description": "Defines TSSD Tints",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "Tints": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "positive": {
+                        "type": "array"
+                    },
+                    "negative": {
+                        "type": "array"
+                    },
+                    "description" : {"type": "string"},
+                    "name" : {"type": "string"},
+                    "famecat" : {"type":"array"},
+                    "color": {"type": "array"}
+                },
+                "required": [
+                    "description", "name"
+                ]
+            }
+        }
+    },
+    "required": [
+        "Tints"
+    ]
+}

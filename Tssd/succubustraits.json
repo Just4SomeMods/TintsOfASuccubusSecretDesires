@@ -163,7 +163,7 @@
         "description": "Maroon is the new black! You start each day with a new tattoo, these make you more intriguing, increasing your speech by 10.",
         "famecat": null
     },
-    "Pink²": {
+    "Pink2": {
         "positive": [
             " needed that!"
         ],
@@ -241,6 +241,26 @@
             " did not need that."
         ],
         "description": "You are bad with money like a plum. Selling prices are reduced to a quarter. This has made you more aware of the world around you, increasing your learning rate by 100%. If you recently had sex with a shopkeep, you reduce their prices by half of your seduction level.",
+        "famecat": null
+    },
+    "Pompadour": {
+        "positive": [
+            " needed that!"
+        ],
+        "negative": [
+            " did not need that."
+        ],
+        "description": "Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. Being in combat less revealing clothes makes them weaker.",
+        "famecat": null
+    },
+    "Tolopea": {
+        "positive": [
+            " needed that!"
+        ],
+        "negative": [
+            " did not need that."
+        ],
+        "description": "Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
         "famecat": null
     }
 }

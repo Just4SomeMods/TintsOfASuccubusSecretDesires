@@ -172,7 +172,7 @@ EndFunction
 
 Function Maintenance() Global
     int jval = JValue.readFromFile("Data/Tssd/succubustraits.json")
-    JDB.SetObj("tssdtraits", jval)
+    JDB.SetObj("tssdtraits",  jval  )
     jval = JValue.readFromFile("Data/Tssd/succubusEnergyPerks.json")
     JDB.SetObj("tssdperks", jval)
     jval = JValue.readFromFile("Data/Tssd/succubuskinds.json")
