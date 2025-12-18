@@ -8,6 +8,7 @@ import CustomSkills
 Actor Property PlayerRef Auto
 tssd_slsfrscript Property slsfListener Auto
 tssd_dialogue Property tDialogue Auto
+tssd_menus Property tMenus Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_PlayerEventsScript Property tEvents Auto
@@ -664,6 +665,14 @@ Event OnUpdateGameTime()
         T_Show("I love the feeling of cum being absorbed through my skin!", "", 0)
 
         RefreshEnergy(10)
+    endif
+    DBGTRACE(PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]))
+    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]) && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
+        
+        int eid = ModEvent.Create("slaUpdateExposure")
+        ModEvent.PushForm(eid, PlayerRef)
+        ModEvent.PushFloat(eid, 99)
+        ModEvent.Send(eid)
     endif
 endEvent
 

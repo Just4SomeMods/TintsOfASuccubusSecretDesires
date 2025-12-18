@@ -3,9 +3,6 @@
      "id": "SuccubusSeductionSkill",
      "name": "$SuccubusDeitySkillName",
      "description": "$SuccubusDeitySkillDescription",
-     "legendary": "TintsOfASuccubusSecretDesires.esp|01E",
-     "level": "TintsOfASuccubusSecretDesires.esp|01F",
-     "ratio": "TintsOfASuccubusSecretDesires.esp|020",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
      "experienceFormula": {
           "useMult": 7.0,
