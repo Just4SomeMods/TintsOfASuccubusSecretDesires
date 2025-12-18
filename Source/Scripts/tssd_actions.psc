@@ -118,7 +118,7 @@ float _updateTimer = 0.5
 
 String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
 String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
-String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
+String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly 
 
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -319,10 +319,12 @@ Endfunction
 
 bool Function playerInSafeHaven()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
+        if !curLoc return false endif
         bool safeHaven = (curLoc.HasKeyword(LocTypePlayerHouse)) || curLoc.HasKeyword(LocTypeInn) \
         || curLoc.HasKeyword(LocTypeHabitationHasInn)
         return safeHaven
 EndFunction
+
 
 Function actDefeated(actor tarRef, bool changeGameTime = true)
     
@@ -716,12 +718,6 @@ Event OnMenuClose(String MenuName)
     endif    
 EndEvent
 
-Event OnInit()
-    onGameReload()
-EndEvent
-
-
-
 Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
 
@@ -732,7 +728,7 @@ Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
         endif
         return
     endif
-
+    tEvents.OnOrgasmAny(ActorRef, Thread)
     if ActorRef == PlayerRef
         if _thread.getOrgasmCount(PlayerRef) < 2
             RefreshEnergy(100)

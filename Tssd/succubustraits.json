@@ -21,7 +21,8 @@
         "description": "Because you love the warm embrace of cum on your skin you gain the tint of razzmatazz. You gain 50 max health, and having cum on your skin increases your confidence which increases your two-handed damage. If you haven't had cum on your skin in a day, you can no longer talk to people who do not produce cum.",
         "famecat": [
             "Nasty"
-        ]
+        ],
+        "index": 0
     },
     "Cupid": {
         "positive": [
@@ -44,7 +45,8 @@
             "Oral",
             "Anal",
             "Cum Dump"
-        ]
+        ],
+        "index": 1
     },
     "Lavenderblush": {
         "positive": [
@@ -65,10 +67,11 @@
         "negative": [
             ""
         ],
-        "description": "You long for the destruction of trus, so your new tint is Lavenderblush! Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet.",
+        "description": "You long for the destruction of trust, so your new tint is Lavenderblush! Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet.",
         "famecat": [
             "Unfaithful"
-        ]
+        ],
+        "index": 2
     },
     "Carnation": {
         "positive": [
@@ -97,10 +100,11 @@
             "No sighs of blissful surrender.",
             "Wishing for soft whispers of love."
         ],
-        "description": "You love love! So your color is carnation. As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against humans if you haven't had a romantic interaction in a while.",
+        "description": "You love love! So your color is carnation. As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against people if you haven't had a romantic interaction in a while.",
         "famecat": [
             "Gentle"
-        ]
+        ],
+        "index": 3
     },
     "Tosca": {
         "positive": [
@@ -120,8 +124,9 @@
             "Not my scene.",
             "I prefer my own kind."
         ],
-        "description": "You're gay, good for you! Your color is tosca, which triples xp from interactions with your gender, but halves it in other cases.",
-        "famecat": null
+        "description": "You're gay, good for you! Your color is tosca, which triples xp from interactions with your gender, but halves it otherwise.",
+        "famecat": null,
+        "index": 4
     },
     "Blush": {
         "positive": [
@@ -130,8 +135,9 @@
         "negative": [
             " did not need that."
         ],
-        "description": "You love to the feel of arousal, you color is blush, on your face and your desire. You are permanently maximally aroused if you are not satiated. Friendly people who get you off, gain a strong buff to all their stats.",
-        "famecat": null
+        "description": "You love to the feel of arousal, you color is blush, on your face and your desire. You are permanently maximally aroused. Friendly people who get you off, gain a strong buff to all their stats.",
+        "famecat": null,
+        "index": 5
     },
     "Lilac": {
         "positive": [
@@ -141,7 +147,8 @@
             " did not need that."
         ],
         "description": "COLOR. While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people. If you take of your collar, you lose 50% energy and are sad for a day.",
-        "famecat": null
+        "famecat": null,
+        "index": 6
     },
     "Pink": {
         "positive": [
@@ -175,7 +182,8 @@
             "Airhead",
             "Slut",
             "Group"
-        ]
+        ],
+        "index": 7
     },
     "Maroon": {
         "positive": [
@@ -185,7 +193,8 @@
             " did not need that."
         ],
         "description": "Maroon is the new black! You start each day with a new tattoo, these make you more intriguing, increasing your speech by 10.",
-        "famecat": null
+        "famecat": null,
+        "index": 8
     },
     "Pink2": {
         "positive": [
@@ -194,8 +203,9 @@
         "negative": [
             " did not need that."
         ],
-        "description": "Oh oh, you are now a bimbo! You can no longer become satiated, but you also can no longer fall below 0 energy. This color is so strong, it removes all of your other colors.",
-        "famecat": null
+        "description": "Oh oh, you are now a bimbo! You can no longer become satiated, but you also can no longer fall below 0 energy.",
+        "famecat": null,
+        "index": 9
     },
     "Crusta": {
         "positive": [
@@ -205,7 +215,8 @@
             " did not need that."
         ],
         "description": "Your color is crusta! Sneaking no longer costs energy, but you can only regain energy indoors or at night.",
-        "famecat": null
+        "famecat": null,
+        "index": 10
     },
     "Sangria": {
         "positive": [
@@ -215,7 +226,8 @@
             " did not need that."
         ],
         "description": "You favourite color is sangria. You gain 20% ice resistance and when you consume alcohol, you gain 50 max stamina for a while. If you haven't had a drink in a while, you find something to drink which costs a lot more than usual.",
-        "famecat": null
+        "famecat": null,
+        "index": 11
     },
     "Mystic": {
         "positive": [
@@ -225,7 +237,8 @@
             " did not need that."
         ],
         "description": "You love swalloing mystical things. Your potions and poisons are 10% stronger and while you are digesting cum or have eaten an ingredient or drank a potion recently, you increase your chance of picking an additional ingredient by 10%. Professional alchemists dislike you and charge you 20% worse prices.",
-        "famecat": null
+        "famecat": null,
+        "index": 12
     },
     "Geraldine": {
         "positive": [
@@ -235,7 +248,8 @@
             " did not need that."
         ],
         "description": "Your ass is geraldine colored like from all that spanking! You have increased max health due to getting used to the pain. When you get your ass spanked, you learn faster for a while. If your ass is unspanked for to long, it makes a loud noise when you start sneaking.",
-        "famecat": null
+        "famecat": null,
+        "index": 13
     },
     "Crimson": {
         "positive": [
@@ -244,8 +258,9 @@
         "negative": [
             " did not need that."
         ],
-        "description": "You are addicted to seeing your own crimson colored blood. You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources. This penalty increases to triples or sextuples, if you haven't been below 200 health or spanked/bitten in a while.",
-        "famecat": null
+        "description": "You are addicted to seeing your own crimson colored blood. You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources. This penalty increases triples or sextuples, if you haven't been below 200 health or spanked in a while.",
+        "famecat": null,
+        "index": 14
     },
     "Cerise": {
         "positive": [
@@ -255,7 +270,8 @@
             " did not need that."
         ],
         "description": "COLOR. You restoration skill increases 20% faster. They also cost twice as much. If you have been praised recently, they also heal twice as much.",
-        "famecat": null
+        "famecat": null,
+        "index": 15
     },
     "Plum": {
         "positive": [
@@ -265,7 +281,8 @@
             " did not need that."
         ],
         "description": "You are bad with money like a plum. Selling prices are reduced to a quarter. This has made you more aware of the world around you, increasing your learning rate by 100%. If you recently had sex with a shopkeep, you reduce their prices by half of your seduction level.",
-        "famecat": null
+        "famecat": null,
+        "index": 16
     },
     "Pompadour": {
         "positive": [
@@ -275,7 +292,8 @@
             " did not need that."
         ],
         "description": "Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. Being in combat less revealing clothes makes them weaker.",
-        "famecat": null
+        "famecat": null,
+        "index": 17
     },
     "Tolopea": {
         "positive": [
@@ -285,7 +303,8 @@
             " did not need that."
         ],
         "description": "Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
-        "famecat": null
+        "famecat": null,
+        "index": 18
     },
     "Scarlet": {
         "positive": [
@@ -327,7 +346,8 @@
             255,
             36,
             0
-        ]
+        ],
+        "index": 19
     },
     "Mahogany": {
         "positive": [
@@ -362,6 +382,35 @@
             "Masochist",
             "Bound",
             "Submissive"
-        ]
+        ],
+        "index": 20
+    },
+    "Tutu": {
+        "positive": [],
+        "negative": [],
+        "description": "Your tutu color makes you incredibly strong, but also completely cum dependent. Your two-handed damage doubles while cum is on you, stacking with Razzmatazz, your destruction damage doubles while cum is in you. You can only talk to non-cum producers and refresh energy if you have had cum on you recently and have currently cum in you.",
+        "color": [
+            108,
+            67,
+            36
+        ],
+        "famecat": [
+            "Nasty"
+        ],
+        "index": 21
+    },
+    "Tamarind": {
+        "positive": [],
+        "negative": [],
+        "description": "You are mostly seeing tamarind during sex. Your love for being choked makes you light headed, increasing your carry weight by 100. If you have not been choked in a while, you can no longer shout.",
+        "color": [
+            108,
+            67,
+            36
+        ],
+        "famecat": [
+            "Masochist"
+        ],
+        "index": 22
     }
 }

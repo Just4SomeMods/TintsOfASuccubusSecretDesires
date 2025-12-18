@@ -1,15 +1,27 @@
 Scriptname tssd_PlayerEventsScript extends ReferenceAlias
 
+
+import tssd_utils
+
+float lastGameHour = 999.0
+
 tssd_actions Property tActions Auto
 tssd_menus Property tMenus Auto
 Quest Property tssd_tints_tracker Auto
+tssd_tints_variables Property tVals Auto
 Actor Property PlayerRef Auto
 GlobalVariable Property TSSD_TypeMahogany Auto
 Spell Property tssd_Satiated Auto
 MagicEffect Property TSSD_SatiatedEffect Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
+SexLabFramework Property SexLab Auto
+Form Property Gold001 Auto
+GlobalVariable Property gamehour Auto
 
 int[] colorsToAdd
+
+float[] Property targetNums Auto
+float[] Property currentVals Auto
 
 Faction Property TSSD_RevealingOutfit Auto
 Faction Property TSSD_Collared Auto
@@ -18,6 +30,10 @@ bool isActingDefeated = false
 float totalDamageTaken = 0.0
 bool[] Property colorsChecked Auto Hidden 
 bool crimsonDone = false
+
+; Begin Blush
+Faction Property sla_Arousal Auto
+; End Blush
 
 String Property FILE_SCHLONGS_OF_SKYRIM = "Schlongs of Skyrim.esp" AutoReadOnly Hidden 
 Faction Property SOS_SchlongifiedFaction Auto Hidden
@@ -51,7 +67,101 @@ Bool Property DDAssetsFound = False Auto Hidden Conditional
 Keyword Property zad_DeviousCollar Auto Hidden 
 ; END DD
 
-import tssd_utils
+
+; BEGIN BIMBO
+
+String Property FILE_CC = "CustomComments.esp" AutoReadOnly Hidden 
+bool bimboFound
+Quest Property CC_BimbofyPlayer Auto Hidden
+
+; END BIMBO
+
+
+; BEGIN CUPID
+import storageutil
+
+String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
+String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly hidden
+String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
+String Property INFLATION_AMOUNT = "sr.inflater.amount" autoreadonly hidden
+
+GlobalVariable Property TSSD_CumAmountAV Auto
+
+Function calcCumAmountPlayer()
+	float infAmount = GetFloatValue(PlayerRef, INFLATION_AMOUNT) 
+	TSSD_CumAmountAV.SetValue( max(0.5, 1 / max(1,infAmount/ 3 )))
+	tVals.cupidFilledUpAmount = infAmount
+	
+EndFunction
+
+; END CUPID
+
+
+
+Function incrValAndCheck(int numOf, float incrBy)
+	currentVals[numOf] += incrBy
+	checkValOf(numOf)
+	if numOf == 0 tVals.lastCumOnTime = 0.1 endif
+	if numOf == 1 tVals.lastCumInMe = 0.1 endif
+	if numOf == 3 tVals.lastRomanticTime = 0.1 endif
+	if numOf == 13 tVals.lastSpankedTime = 0.1 endif
+	if numOf == 15 tVals.lastPraiseTime = 0.1 endif
+	if numOf == 22 tVals.lastRoughTime = 0.1 endif
+EndFunction
+
+Function checkValOf( int numOf )
+	if !tVals.canTakeBools[numOf] && currentVals[numOf] >= targetNums[numOf]
+		tMenus.ShowSuccubusTrait(numOf)
+	endif
+endfunction
+
+
+Function OnOrgasmAny(Actor WhoCums, int Thread)
+	
+    sslThreadController _thread =  Sexlab.GetController(Thread)
+	if WhoCums != PlayerRef 
+		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
+			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
+				incrValAndCheck(12,1)
+				incrValAndCheck(1,1)
+			elseif _thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")
+				incrValAndCheck(1,1)
+			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
+				incrValAndCheck(0,1)
+			endif
+			calcCumAmountPlayer()
+		endif
+		if WhoCums.GetHighestRelationshiprank() == 3 && !tVals.canTake02Lavenderblush
+			tMenus.ShowSuccubusTrait(2)
+		endif
+		if _thread.HasSceneTag("love") || _thread.HasSceneTag("loving") || _thread.HasSceneTag("romance")
+			incrValAndCheck(3,1)
+		endif
+		if _thread.SameSexThread()
+			incrValAndCheck(4,1)
+		endif
+
+	else
+		if _thread.HasSceneTag("spanking")
+			incrValAndCheck(13,1)
+		endif
+		if _thread.GetSubmissive(PlayerRef)
+			incrValAndCheck(20,1)
+		endif
+		if _thread.HasSceneTag("rough")
+			incrValAndCheck(22,1)
+		endif
+	endif
+EndFunction
+
+;/ Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
+    if UI.IsMenuOpen("Dialogue Menu") || UI.IsMenuOpen("Barter Menu")
+		incrValAndCheck(16, aiItemCount)
+    endif
+
+endEvent /;
+
+
 
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
@@ -68,12 +178,8 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
         Endif
 		isActingDefeated = false
     endif
-
-	totalDamageTaken += akW.GetBaseDamage()
-	if !crimsonDone && totalDamageTaken >= 5
-		crimsonDone = true
-		tMenus.ShowSuccubusTrait(14)
-	endif
+	incrValAndCheck(14, akW.GetBaseDamage())
+	
 EndEvent
 
 Function onGameReload()
@@ -105,6 +211,7 @@ Function onGameReload()
 	If (Game.GetModByName(FILE_ZAZ_ANIMATION_PACK) != 255)
 		ZaZAnimationPackFound = True
 		zbfWornCollar = Game.GetFormFromFile(0x8A4E, FILE_ZAZ_ANIMATION_PACK) as Keyword
+		PO3_Events_Form.RegisterForShoutAttack(PlayerRef)
 	Else
 		ZaZAnimationPackFound = False
 		zbfWornCollar = none
@@ -113,6 +220,7 @@ Function onGameReload()
 	If (Game.GetModByName(FILE_DD_ASSETS) != 255)
 		DDAssetsFound = True
 		zad_DeviousCollar = Game.GetFormFromFile(0x3DF7, FILE_DD_ASSETS) as Keyword
+		PO3_Events_Form.RegisterForShoutAttack(PlayerRef)
 	Else
 		DDAssetsFound = False
 		zad_DeviousCollar = none
@@ -123,12 +231,90 @@ Function onGameReload()
 	Else
 		SOS_SchlongifiedFaction = none
 	EndIf
+	If (Game.GetModByName(FILE_CC) != 255)
+		CC_BimbofyPlayer = Game.GetFormFromFile(0x303FAE, FILE_CC) as Quest
+		bimboFound = true
+	endif
+	if !tVals.canTakeBools[21] && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]) && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[1])
+		tMenus.ShowSuccubusTrait(21)
+	endif
+
+
+	RegisterForUpdateGameTime(0.5)
+	RegisterForTrackedStatsEvent()
+	RegisterForMenu("BarterMenu")
 EndFunction
 
+Event OnMenuOpen(String MenuName)
+	if MenuName == "BarterMenu"
+		incrValAndCheck(16,1)
+	endif
+EndEvent
 
+Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
+	DBGTRACE(asStatFilter)
+    if (asStatFilter == "Ingredients Eaten")
+		Debug.MessageBox("YUM")
+    endif
+endEvent
+
+
+Event OnUpdateGameTime()
+	if !tssd_tints_tracker.IsStageDone(5) && PlayerRef.GetFactionRank(sla_Arousal) > 90
+		incrValAndCheck(5,1)
+	else
+		currentVals[5] = 0
+	endif
+
+	if bimboFound && CC_BimbofyPlayer.IsStageDone(20)
+		tMenus.ShowSuccubusTrait(9)
+	endif
+
+	if IsTopless && IsBottomless
+		incrValAndCheck(7, 1)
+	else
+		currentVals[7] = 0
+	endif
+
+	if IsSkimpilyClothed
+		incrValAndCheck(17, 1)
+	else
+		currentVals[17] = 0
+	endif
+
+	int indexIn = 0
+	string outPut = ""
+	while indexIN < currentVals.Length
+		outPut += indexIN + ": " + currentVals[indexIN] + "/" + targetNums[indexIN] + " || "
+		indexIN += 1
+	endwhile
+	DBGTRACE(outPut)
+	calcCumAmountPlayer()
+	float gameTimeDiff = gamehour.GetValue() - lastGameHour
+	tVals.cupidFilledUpAmount += gameTimeDiff
+	tVals.lastCumOnTime += gameTimeDiff
+	tVals.lastPraiseTime += gameTimeDiff
+	tVals.lastRoughTime += gameTimeDiff
+	tVals.lastSpankedTime += gameTimeDiff
+	tVals.lastRomanticTime += gameTimeDiff
+	tVals.lastCumInMe += gameTimeDiff
+	lastGameHour += gameTimeDiff
+EndEvent
+
+Event OnInit()
+	
+	lastGameHour = gamehour.GetValue()
+endEvent
+
+
+Event OnPlayerShoutAttack(Shout akShout)
+	if !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
+		tMenus.ShowSuccubusTrait(6)
+	endif
+EndEvent
 
 Bool Function IsPlayerSkimpy()
-    return (IsNaked && (IsShowingChest || IsShowingGenitals || IsShowingAss || IsTopless || IsBottomless || IsShowingBra || IsShowingUnderwear))
+    return (!IsNaked && (IsShowingChest || IsShowingGenitals || IsShowingAss || IsTopless || IsBottomless || IsShowingBra || IsShowingUnderwear))
 EndFunction
 
 

@@ -82,6 +82,9 @@ Event OnMenuClose(String MenuName)
         GenericRefreshPSex(lastDialoguePartner, true, "kissing")
     elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
         GenericRefreshPSex(lastDialoguePartner, false, "")
+        if lastDialogue == "TSSD_000C7"
+            tPEvents.incrValAndCheck(15,1)
+        endif
     elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
         int mxAmount = 1
         if PlayerRef.HasPerk(TSSD_Base_PolyThrall3)

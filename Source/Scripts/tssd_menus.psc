@@ -27,6 +27,7 @@ GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_MaxTraits Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
+tssd_tints_variables Property tVals Auto
 
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable[] Property TSSD_SuccubusTypes Auto
@@ -62,7 +63,7 @@ int lastUsed  = -1
 int lastUsedSub = -1
 int spellToggle
 
-int colorToAdd
+int colorToAdd = -1
 
 Quest Property tssd_enthrallDialogue Auto
 Quest Property tssd_queststart Auto
@@ -123,17 +124,14 @@ Function OpenGrandeMenu()
     endif
     if SuccubusDesireLevel.GetValue() <= -101
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
-        SelectSuccubusType(dbgSuccy)
-        int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
-        ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
-        ModEvent.Send(EventHandle)
-        if dbgSuccy < 0
-            return
-        endif
+        ;SelectSuccubusType(dbgSuccy)
+        startSuccubusLife() 
+        ShowSuccubusTrait(19)
+        return
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;Rechoose Type;TraitsLel",";")
+    String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;TraitsLel",";")
     
     Int result
     if modifierKeyIsDown
@@ -153,8 +151,6 @@ Function OpenGrandeMenu()
         OpenExpansionMenu()    
     elseif myItems[result] == "Settings"
         OpenSuccubusCosmetics()
-    elseif myItems[result] == "Rechoose Type"
-        SelectSuccubusType()
     elseif myItems[result] == "TraitsLel"
         GetTraitsLel()
     endif
@@ -239,6 +235,30 @@ Function GainFreePerk()
     endif
 EndFunction
 
+Function startSuccubusLife()    
+    SuccubusDesireLevel.SetValue(50)
+    TSSD_SuccubusBreakRank.SetValue(0)
+    tActions.RefreshEnergy(0)
+    int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
+    if startLevel > 0
+        SuccubusXpAmount.SetValue( startLevel * 10000 )
+        PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
+        PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
+        PlayerRef.AddPerk(TSSD_Body_PlayDead1)
+    endif
+    tssd_enthrallDialogue.Start()
+    PlayerRef.AddPerk(TSSD_Base_Explanations)
+    tActions.onGameReload()
+    TSSD_Satiated.Cast(PlayerRef,PlayerRef)
+    slsfListener.CheckFlagsSLSF()    
+    int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
+    ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+    ModEvent.Send(EventHandle)
+    tssd_tints_tracker.start()
+    tssd_queststart.Start()
+EndFunction
+
+;/ 
 Function SelectSuccubusType(int query = -1)
     int index = 0
     if query < 0
@@ -265,29 +285,16 @@ Function SelectSuccubusType(int query = -1)
             PlayerRef.Addperk(TSSD_Base_PolyThrall1)
             tssd_queststart.SetStage(1)
         endif
+        tssd_tints_tracker.start()
     endif
     if query >= 0 && SuccubusDesireLevel.GetValue() == -101
-        SuccubusDesireLevel.SetValue(50)
-        TSSD_SuccubusBreakRank.SetValue(0)
-        tActions.RefreshEnergy(0)
-        int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
-        if startLevel > 0
-            SuccubusXpAmount.SetValue( startLevel * 10000 )
-            PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
-            PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
-            PlayerRef.AddPerk(TSSD_Body_PlayDead1)
-        endif
-        tssd_enthrallDialogue.Start()
-        PlayerRef.AddPerk(TSSD_Base_Explanations)
-        tActions.RegisterSuccubusEvents()
-        GainFreePerk()
-        TSSD_Satiated.Cast(PlayerRef,PlayerRef)
+        startSuccubusLife()
     endif
     slsfListener.CheckFlagsSLSF()
     ;if succubusType == 2
         ;DBGTrace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))        
     ;Endif
-EndFunction
+EndFunction /;
 
 Function OpenSuccubusCosmetics()
     int jArr = JDB.solveObj(".tssdsettings")
@@ -483,18 +490,24 @@ EndFunction
 
 Event OnUpdateGameTime()
     UnregisterForUpdateGameTime()
-    ShowSuccubusTrait(colorToAdd)
+    if colorToAdd >= 0
+        ShowSuccubusTrait(colorToAdd)
+    endif
 EndEvent
 
 
 Function ShowSuccubusTrait(int num)
-
+    if tVals.canTakeBools[num]
+        return
+    endif
     if PlayerRef.IsInCombat()
         colorToAdd = num
         RegisterForSingleUpdateGameTime(0.1)
         return
     endif
 
+    tVals.canTakeBools[num] = true
+    setNonArrBool(num)
 
     
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
@@ -506,23 +519,14 @@ Function ShowSuccubusTrait(int num)
     if num == 9
         ResText = "OHYESIWANTTHISTHISISWHOIAM : "
     endif
-    int indexIN = 0
-    while indexIN < succKinds.Length
-        DBGTRACE(indexIN +" " +succKinds[indexIN])
-        indexIN += 1
-    endwhile
-
     TraitsMenu.AddItem(ResText + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
     String[] resultW = TraitsMenu.Show()
     tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     if resultW[0] == "0"
         PlayerRef.AddPerk(SuccubusTintPerks[num])
-		tssd_tints_tracker.SetObjectiveCompleted(num, true)
-        tssd_tints_tracker.SetObjectiveFailed(num, false)
-    else
-        tssd_tints_tracker.SetObjectiveFailed(num, true)
     endif
+
 
             
 EndFunction
@@ -531,4 +535,28 @@ Function GetTraitsLel()
     b612_QuantitySlider qS = GetQuantitySlider()
     int outInt = qS.Show("Num", 0,  JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits")).Length -1)
     ShowSuccubusTrait(outInt)
+EndFunction
+
+Function setNonArrBool(int n)
+    if n == 0 tVals.canTake00Razzmatazz = true endif
+    if n == 1 tVals.canTake01Cupid = true endif
+    if n == 2 tVals.canTake02Lavenderblush = true endif
+    if n == 3 tVals.canTake03Carnation = true endif
+    if n == 4 tVals.canTake04Tosca = true endif
+    if n == 5 tVals.canTake05Blush = true endif
+    if n == 6 tVals.canTake06Lilac = true endif
+    if n == 7 tVals.canTake07Pink = true endif
+    if n == 8 tVals.canTake08Maroon = true endif
+    if n == 9 tVals.canTake09Pink2 = true endif
+    if n == 10 tVals.canTake10Crusta = true endif
+    if n == 11 tVals.canTake11Sangria = true endif
+    if n == 12 tVals.canTake12Mystic = true endif
+    if n == 13 tVals.canTake13Geraldine = true endif
+    if n == 14 tVals.canTake14Crimson = true endif
+    if n == 15 tVals.canTake15Cerise = true endif
+    if n == 16 tVals.canTake16Plum = true endif
+    if n == 17 tVals.canTake17Pompadour = true endif
+    if n == 18 tVals.canTake18Tolopea = true endif
+    if n == 19 tVals.canTake19Scarlet = true endif
+    if n == 20 tVals.canTake20Mahogany = true endif
 EndFunction

@@ -21,7 +21,7 @@ Quest Property RelationshipMarriage Auto
 
 Event OnInit()
 
-    AddInventoryEventFilter(Gold001)
+    AddInventoryEventFilter(Game.GetFormFromFile(0xf,"skyrim.esm"))
     RegisterForTrackedStatsEvent()
     if RelationshipMarriage.GetStage() >= 100
 		GetOwningQuest().ModObjectiveGlobal(1, TSSD_deityblessquestmaglobal, 21, 1)
