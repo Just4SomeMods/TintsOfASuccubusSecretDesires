@@ -1,13 +1,15 @@
 Scriptname tssd_tints_variables extends Quest  Conditional
 
+tssd_PlayerEventsScript Property tEvents Auto conditional
 
-float Property cupidFilledUpAmount Auto Conditional hidden
-float Property lastCumOnTime Auto Conditional hidden
-float Property lastPraiseTime Auto Conditional hidden
-float Property lastRoughTime Auto Conditional hidden
-float Property lastSpankedTime Auto Conditional hidden
-float Property lastRomanticTime Auto Conditional hidden
-float Property lastCumInMe Auto Conditional hidden
+float Property cupidFilledUpAmount Auto Conditional
+float Property lastCumOnTime Auto Conditional
+float Property lastPraiseTime Auto Conditional
+float Property lastRoughTime Auto Conditional
+float Property lastSpankedTime Auto Conditional
+float Property lastRomanticTime Auto Conditional
+float Property lastCumInMe Auto Conditional
+float Property lastWolfSex Auto Conditional
 
 bool Property canTake00Razzmatazz Auto Conditional
 bool Property canTake01Cupid Auto Conditional

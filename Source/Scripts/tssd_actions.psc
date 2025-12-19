@@ -573,8 +573,8 @@ Function onGameReload()
         index += 1
     endwhile
 
-    tDialogue.onGameReload()
     tEvents.onGameReload()
+    tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
 Endfunction
 

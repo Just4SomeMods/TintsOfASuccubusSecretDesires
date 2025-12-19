@@ -1,6 +1,7 @@
 local bimboDialogue = { "Uhhm my pimp... what does that mean? Oh drain as in suck as in sex? Yesyesyesyes!",
   "Ohh that always feels so good when I haven't done that in a while!",
   "Everything for you, you made me into the bestest thing I could ever be!" }
+local doggieDialogue = { "Let's put you in your place!", "Who's a good doggie? Now stay still while I...", "Yes, I will fuck you, just how you need it.", "Aww look who's in heat?" }
 
 
 local pools = {
@@ -112,7 +113,8 @@ local pools = {
   },
   TSSD_0010E = { { "If your okay with that I'll let you watch" }, { "I'll put on a good show!" }, { "It was getting predictable with you anyway." }, { "Sure" }
 
-  }
+  },
+  TSSD_00133 = { doggieDialogue,doggieDialogue,doggieDialogue,doggieDialogue  }
 
 
 }

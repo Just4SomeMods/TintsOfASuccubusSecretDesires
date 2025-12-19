@@ -67,6 +67,17 @@ Bool Property DDAssetsFound = False Auto Hidden Conditional
 Keyword Property zad_DeviousCollar Auto Hidden 
 ; END DD
 
+; BEGIN LILAC
+
+Faction Property CompanionsCirclePlusKodlak Auto
+Faction Property WereWolfFaction Auto
+Faction Property WolfFaction Auto
+bool isLilac
+
+Race Property WolfRace Auto
+Race Property WereWolfBeastRace Auto
+
+; END LILAC
 
 ; BEGIN BIMBO
 
@@ -120,6 +131,11 @@ Function OnOrgasmAny(Actor WhoCums, int Thread)
 	
     sslThreadController _thread =  Sexlab.GetController(Thread)
 	if WhoCums != PlayerRef 
+		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
+				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 
+			tVals.lastWolfSex = 0.1
+		endif
+
 		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
 			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
 				incrValAndCheck(12,1)
@@ -211,7 +227,7 @@ Function onGameReload()
 	If (Game.GetModByName(FILE_ZAZ_ANIMATION_PACK) != 255)
 		ZaZAnimationPackFound = True
 		zbfWornCollar = Game.GetFormFromFile(0x8A4E, FILE_ZAZ_ANIMATION_PACK) as Keyword
-		PO3_Events_Form.RegisterForShoutAttack(PlayerRef)
+		PO3_Events_Alias.RegisterForShoutAttack(self)
 	Else
 		ZaZAnimationPackFound = False
 		zbfWornCollar = none
@@ -220,7 +236,8 @@ Function onGameReload()
 	If (Game.GetModByName(FILE_DD_ASSETS) != 255)
 		DDAssetsFound = True
 		zad_DeviousCollar = Game.GetFormFromFile(0x3DF7, FILE_DD_ASSETS) as Keyword
-		PO3_Events_Form.RegisterForShoutAttack(PlayerRef)
+		PO3_Events_Alias.RegisterForShoutAttack(self)
+		DBGTRACE("GOTHERE")
 	Else
 		DDAssetsFound = False
 		zad_DeviousCollar = none
@@ -238,12 +255,33 @@ Function onGameReload()
 	if !tVals.canTakeBools[21] && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]) && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[1])
 		tMenus.ShowSuccubusTrait(21)
 	endif
-
+	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[6])
+		addToLilac()
+	endif
 
 	RegisterForUpdateGameTime(0.5)
 	RegisterForTrackedStatsEvent()
 	RegisterForMenu("BarterMenu")
+
+
+	RegisterForModEvent("RapeTattoos_addTattoo","addTattooEvent")
+	RegisterForModEvent("RapeTattoos_addTattooV2","addTattooEventV2")
+
 EndFunction
+
+Function addToLilac()
+	isLilac = true
+	PO3_Events_Alias.RegisterForShoutAttack(self)
+EndFunction
+
+
+event addTattooEvent(string eventName, string argString, float argNum, form sender)
+	addTattooEventV2(PlayerRef, 1)
+endevent
+
+event addTattooEventV2(Form targetActor, int count)
+	incrValAndCheck(8,1)
+endevent
 
 Event OnMenuOpen(String MenuName)
 	if MenuName == "BarterMenu"
@@ -290,7 +328,7 @@ Event OnUpdateGameTime()
 	endwhile
 	DBGTRACE(outPut)
 	calcCumAmountPlayer()
-	float gameTimeDiff = gamehour.GetValue() - lastGameHour
+	float gameTimeDiff = max(0.5, gamehour.GetValue() - lastGameHour)
 	tVals.cupidFilledUpAmount += gameTimeDiff
 	tVals.lastCumOnTime += gameTimeDiff
 	tVals.lastPraiseTime += gameTimeDiff
@@ -298,6 +336,7 @@ Event OnUpdateGameTime()
 	tVals.lastSpankedTime += gameTimeDiff
 	tVals.lastRomanticTime += gameTimeDiff
 	tVals.lastCumInMe += gameTimeDiff
+	tVals.lastWolfSex += gameTimeDiff
 	lastGameHour += gameTimeDiff
 EndEvent
 
@@ -308,8 +347,12 @@ endEvent
 
 
 Event OnPlayerShoutAttack(Shout akShout)
-	if !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
+	if isLilac
+		T_Show("Bark Bark!")
+	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
+		PO3_Events_Alias.UnregisterForShoutAttack(self)
 		tMenus.ShowSuccubusTrait(6)
+
 	endif
 EndEvent
 

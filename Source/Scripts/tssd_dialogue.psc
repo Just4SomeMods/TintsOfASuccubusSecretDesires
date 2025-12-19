@@ -141,10 +141,18 @@ Event OnMenuClose(String MenuName)
     elseif lastDialogue == "TSSD_000F7"
         GenericRefreshPSex(lastDialoguePartner, true, "facesit")
     elseif lastDialogue == "TSSD_00111"
-        GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~holding", true)
+        GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~holding")
     elseif lastDialogue == "TSSD_0010E"
         GenericRefreshPSex(lastDialoguePartner, false)
         Sexlab.StartSceneQuick(lastDialoguePartner)
+    elseif lastDialogue == "TSSD_00133"
+        if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+            GenericRefreshPSex(lastDialoguePartner, true, "~doggystyle, ~doggy" )
+        else
+            
+            GenericRefreshPSex(lastDialoguePartner, true, "dildo", true )
+        endif
+
     endif
 
     DBGTRACE(lastDialogue)

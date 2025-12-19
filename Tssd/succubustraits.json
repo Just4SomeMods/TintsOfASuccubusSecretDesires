@@ -148,6 +148,7 @@
         ],
         "description": "COLOR. While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people. If you take of your collar, you lose 50% energy and are sad for a day.",
         "famecat": null,
+        "color": [200,162,200],
         "index": 6
     },
     "Pink": {
@@ -225,9 +226,10 @@
         "negative": [
             " did not need that."
         ],
-        "description": "You favourite color is sangria. You gain 20% ice resistance and when you consume alcohol, you gain 50 max stamina for a while. If you haven't had a drink in a while, you find something to drink which costs a lot more than usual.",
+        "description": "You like most reds anyway. When you get offered a tint you have to take it, but you gain twice the succubus xp from now on. This tint can not be taken later.",
         "famecat": null,
-        "index": 11
+        "index": 11,
+        "color": [101, 36, 46]
     },
     "Mystic": {
         "positive": [
