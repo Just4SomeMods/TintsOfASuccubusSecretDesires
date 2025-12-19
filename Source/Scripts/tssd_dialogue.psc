@@ -147,10 +147,9 @@ Event OnMenuClose(String MenuName)
         Sexlab.StartSceneQuick(lastDialoguePartner)
     elseif lastDialogue == "TSSD_00133"
         if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
-            GenericRefreshPSex(lastDialoguePartner, true, "~doggystyle, ~doggy" )
+            GenericRefreshPSex(lastDialoguePartner, true, "~doggystyle, ~doggy, -furniture, -zaz" )
         else
-            
-            GenericRefreshPSex(lastDialoguePartner, true, "dildo", true )
+            GenericRefreshPSex(lastDialoguePartner, true, "dildo, aggressive", true )
         endif
 
     endif
@@ -171,7 +170,7 @@ EndEvent
 Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
         TSSD_DrainedMarker.Cast(PlayerRef, (sender as Actor))
         TSSD_PoisonForSuccubus.Cast((sender as Actor), PlayerRef)        
-        T_Show("Getting rejected hurts!"  , "icon.dds", aiDelay = 0.0)
+        T_Show("Getting rejected hurts!"  , "menus/tssd/HeartBreak.dds", aiDelay = 0.0)
 endevent
 
 

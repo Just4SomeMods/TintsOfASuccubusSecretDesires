@@ -125,8 +125,9 @@ Function OpenGrandeMenu()
     if SuccubusDesireLevel.GetValue() <= -101
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         ;SelectSuccubusType(dbgSuccy)
-        ShowSuccubusTrait(19)
         startSuccubusLife() 
+        ShowSuccubusTrait(19)
+        GainFreePerk()
         return
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
