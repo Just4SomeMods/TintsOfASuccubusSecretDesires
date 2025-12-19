@@ -107,7 +107,7 @@ topics:
       - 0xA5|TintsOfASuccubusSecretDesires.esp
     conditions:
       - GetRelationShipRank Player >= 2 AND
-      - GetGlobalValue TSSD_TypeScarlet == 1 AND
+      - pl1 <> HasPerk TSSD_Tint_Scarlet == 1 AND
 
 
   # Praise

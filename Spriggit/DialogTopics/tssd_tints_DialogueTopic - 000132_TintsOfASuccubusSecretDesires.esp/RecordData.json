@@ -1,0 +1,12 @@
+{
+  "FormKey": "000132:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_tints_DialogueTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "[Woof, woof, whine!]"
+  },
+  "Priority": 99.0,
+  "Branch": "000131:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "000113:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

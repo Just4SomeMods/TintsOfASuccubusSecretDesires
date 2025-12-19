@@ -48,5 +48,10 @@
         "id": 267,
         "Desc": "You can ask people to have sex without you to refresh your energy.",
         "Name": "Voyeur"
+    },
+    "TSSD_Tint_Scarlet": {
+        "id": 298,
+        "Desc": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you.",
+        "Name": "Scarlet"
     }
 }

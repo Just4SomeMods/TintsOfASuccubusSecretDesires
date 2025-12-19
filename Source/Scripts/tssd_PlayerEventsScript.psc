@@ -73,6 +73,8 @@ Faction Property CompanionsCirclePlusKodlak Auto
 Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
 bool isLilac
+bool isCollared
+float lastTimeNeededCollar = 0.0
 
 Race Property WolfRace Auto
 Race Property WereWolfBeastRace Auto
@@ -272,6 +274,8 @@ EndFunction
 Function addToLilac()
 	isLilac = true
 	PO3_Events_Alias.RegisterForShoutAttack(self)
+	PlayerRef.SetFactionRank(WereWolfFaction, 0)
+	PlayerRef.SetFactionRank(WolfFaction, 0 )
 EndFunction
 
 
@@ -338,6 +342,10 @@ Event OnUpdateGameTime()
 	tVals.lastCumInMe += gameTimeDiff
 	tVals.lastWolfSex += gameTimeDiff
 	lastGameHour += gameTimeDiff
+	
+	if isLilac && !isCollared
+		T_Show("I miss my collar...", "menus/TSSD/small/lilac.dds")
+	endif
 EndEvent
 
 Event OnInit()
@@ -348,7 +356,7 @@ endEvent
 
 Event OnPlayerShoutAttack(Shout akShout)
 	if isLilac
-		T_Show("Bark Bark!")
+		T_Show("Bark Bark!", "menus/TSSD/small/lilac.dds")
 	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
 		tMenus.ShowSuccubusTrait(6)
@@ -372,8 +380,10 @@ Event OnANDUpdate()
     IsTopless =         IsActorTopless(PlayerRef)
     IsBottomless =      IsActorBottomless(PlayerRef)
     IsSkimpilyClothed = IsPlayerSkimpy()
+	isCollared = IsActorCollared(PlayerRef)
     PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
-    PlayerRef.SetFactionRank(TSSD_Collared, IsActorCollared(PlayerRef) as int )
+    PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
+
 EndEvent
 
 
