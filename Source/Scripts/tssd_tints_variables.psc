@@ -10,6 +10,8 @@ float Property lastSpankedTime Auto Conditional
 float Property lastRomanticTime Auto Conditional
 float Property lastCumInMe Auto Conditional
 float Property lastWolfSex Auto Conditional
+float Property lastHypnoSession Auto Conditional
+float Property lastFadeTat Auto Conditional
 
 bool Property canTake00Razzmatazz Auto Conditional
 bool Property canTake01Cupid Auto Conditional

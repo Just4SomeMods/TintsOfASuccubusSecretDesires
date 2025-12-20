@@ -37,14 +37,21 @@ Quest Property tssd_queststart Auto
 String lastDialogue
 Actor lastDialoguePartner
 
+Faction Property TSSD_HypnoMaster Auto
+
 ; Functions
 Function onGameReload()
     RegisterForModEvent("TSSD_HumiliationDoneEvent","HumiDone") 
     RegisterForModEvent("TSSD_RecejctedEvent","OnSuccRejected") 
     RegisterForModEvent("TSSD_DialogueFinished","DialogueFinished") 
+    RegisterForModEvent("TSSD_AskedForTraining","TrainingAsked") 
 Endfunction
 
 ; Events
+
+Event TrainingAsked(string eventName, string strArg, float numArg, Form sender)
+    tPEvents.incrValAndCheck(18, 1)
+endevent
 
 Event DialogueFinished(string eventName, string strArg, float numArg, Form sender)
     if StringUtil.Find( strArg, "TSSD_") >= 0
@@ -61,6 +68,9 @@ EndEvent
 
 Event OnMenuClose(String MenuName)
     UnRegisterForMenu("Dialogue Menu")
+    if lastDialoguePartner && lastDialoguePartner.GetFactionRank(TSSD_HypnoMaster) >= 1
+        tPEvents.tVals.lastHypnoSession = 0.1
+    endif
     if lastDialogue == ""
         return
     elseif lastDialogue == "TSSD_000C7"
@@ -79,10 +89,10 @@ Event OnMenuClose(String MenuName)
     elseif lastDialogue == "TSSD_00098"
         GenericRefreshPSex(lastDialoguePartner, true, "love")
     elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
-        GenericRefreshPSex(lastDialoguePartner, true, "kissing")
+        GenericRefreshPSex(lastDialoguePartner, true, "kissing, -sex")
     elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
         GenericRefreshPSex(lastDialoguePartner, false, "")
-        if lastDialogue == "TSSD_000C7"
+        if lastDialogue == "TSSD_000EE"
             tPEvents.incrValAndCheck(15,1)
         endif
     elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
@@ -141,20 +151,33 @@ Event OnMenuClose(String MenuName)
     elseif lastDialogue == "TSSD_000F7"
         GenericRefreshPSex(lastDialoguePartner, true, "facesit")
     elseif lastDialogue == "TSSD_00111"
-        GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~holding")
+        GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~leadIn, ~holding, -sex, ~hugging, ~cuddle")
     elseif lastDialogue == "TSSD_0010E"
         GenericRefreshPSex(lastDialoguePartner, false)
         Sexlab.StartSceneQuick(lastDialoguePartner)
     elseif lastDialogue == "TSSD_00133"
         if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
-            GenericRefreshPSex(lastDialoguePartner, true, "~doggystyle, ~doggy, -furniture, -zaz" )
+            GenericRefreshPSex(lastDialoguePartner, true, "~doggystyle, ~doggy, -furniture, -zaz, -bound, -DeviousDevice" )
         else
             GenericRefreshPSex(lastDialoguePartner, true, "dildo, aggressive", true )
         endif
-
+    elseif lastDialogue == "TSSD_00139"
+        GenericRefreshPSex(lastDialoguePartner, false, "")
+        SexLab.StartSceneQuick(PlayerRef)
+    elseif lastDialogue == "TSSD_00142"        
+        tPEvents.tVals.lastHypnoSession = 0.1
+        if lastDialoguePartner.GetFactionRank(TSSD_HypnoMaster) < 1
+            lastDialoguePartner.SetFactionRank(TSSD_HypnoMaster, 1)
+        endif
+        Actor[] pos = new Actor[2]
+        pos[0] = lastDialoguePartner
+        pos[1] = PlayerRef
+        if SexlabRegistry.LookupScenes(pos, "magic", none, 1, none).Length > 0
+            GenericRefreshPSex(lastDialoguePartner, true, "magic")
+        else
+            GenericRefreshPSex(lastDialoguePartner, true, "aggressive")
+        endif
     endif
-
-    DBGTRACE(lastDialogue)
     lastDialogue = ""
     lastDialoguePartner = none
 EndEvent

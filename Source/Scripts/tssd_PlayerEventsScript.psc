@@ -79,7 +79,13 @@ float lastTimeNeededCollar = 0.0
 Race Property WolfRace Auto
 Race Property WereWolfBeastRace Auto
 
+Perk Property Tssd_tint_Lilac2 Auto
+
 ; END LILAC
+
+; BEGIN CARNATION
+Faction Property TSSD_BellyWithEggs Auto
+; END CARNATION
 
 ; BEGIN BIMBO
 
@@ -109,7 +115,15 @@ EndFunction
 
 ; END CUPID
 
+; BEGIN TOLOPEA
+Faction Property TSSD_HypnoMaster Auto
+; END TOLPEA
 
+; BEGIN MAROON
+
+String Property FILE_FADE_TATS = "FadeTattoos.esp" AutoReadOnly  
+
+; END MAROON
 
 Function incrValAndCheck(int numOf, float incrBy)
 	currentVals[numOf] += incrBy
@@ -117,13 +131,18 @@ Function incrValAndCheck(int numOf, float incrBy)
 	if numOf == 0 tVals.lastCumOnTime = 0.1 endif
 	if numOf == 1 tVals.lastCumInMe = 0.1 endif
 	if numOf == 3 tVals.lastRomanticTime = 0.1 endif
+	
 	if numOf == 13 tVals.lastSpankedTime = 0.1 endif
 	if numOf == 15 tVals.lastPraiseTime = 0.1 endif
 	if numOf == 22 tVals.lastRoughTime = 0.1 endif
 EndFunction
 
 Function checkValOf( int numOf )
-	if !tVals.canTakeBools[numOf] && currentVals[numOf] >= targetNums[numOf]
+	int toAdd = 0
+	if numOf == 12
+		toAdd += Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
+	endif
+	if !tVals.canTakeBools[numOf] && (currentVals[numOf] + toAdd) >= targetNums[numOf]
 		tMenus.ShowSuccubusTrait(numOf)
 	endif
 endfunction
@@ -136,6 +155,9 @@ Function OnOrgasmAny(Actor WhoCums, int Thread)
 		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
 				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 
 			tVals.lastWolfSex = 0.1
+		endif
+		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
+			incrValAndCheck(19,1)
 		endif
 
 		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
@@ -150,7 +172,7 @@ Function OnOrgasmAny(Actor WhoCums, int Thread)
 			calcCumAmountPlayer()
 		endif
 		if WhoCums.GetHighestRelationshiprank() == 3 && !tVals.canTake02Lavenderblush
-			tMenus.ShowSuccubusTrait(2)
+			incrValAndCheck(2,1)
 		endif
 		if _thread.HasSceneTag("love") || _thread.HasSceneTag("loving") || _thread.HasSceneTag("romance")
 			incrValAndCheck(3,1)
@@ -165,6 +187,9 @@ Function OnOrgasmAny(Actor WhoCums, int Thread)
 		endif
 		if _thread.GetSubmissive(PlayerRef)
 			incrValAndCheck(20,1)
+			if Game.GetModByName(FILE_FADE_TATS) != 255
+				incrValAndCheck(8,1)
+			endif
 		endif
 		if _thread.HasSceneTag("rough")
 			incrValAndCheck(22,1)
@@ -183,11 +208,7 @@ endEvent /;
 
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
-    Weapon akW = akSource as Weapon
-    if TSSD_TypeMahogany.GetValue() == 1.0 && akW && !abHitBlocked
-        tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
-    endif
-    if PlayerRef.GetAV("Health") < 100 && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect) && (akAggressor as Actor) && \
+    if PlayerRef.GetAV("Health") < 100 && PlayerRef.HasMagicEffect(TSSD_SatiatedEffect) && (akAggressor as Actor) && \
         (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated
 		isActingDefeated = true
         Actor tar = tActions.getLonelyTarget()
@@ -196,6 +217,10 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
         Endif
 		isActingDefeated = false
     endif
+    Weapon akW = akSource as Weapon
+    if TSSD_TypeMahogany.GetValue() == 1.0 && akW != none && !abHitBlocked
+        tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
+    endif
 	incrValAndCheck(14, akW.GetBaseDamage())
 	
 EndEvent
@@ -203,6 +228,7 @@ EndEvent
 Function onGameReload()
 	isActingDefeated = false
 	crimsonDone = false
+	lastGameHour = gamehour.GetValue()
     If (Game.GetModByName(FILE_AND) != 255)
 		ANDFound = True
 		AND_NudeActorFaction = Game.GetFormFromFile(0x831, FILE_AND) as Faction
@@ -239,7 +265,6 @@ Function onGameReload()
 		DDAssetsFound = True
 		zad_DeviousCollar = Game.GetFormFromFile(0x3DF7, FILE_DD_ASSETS) as Keyword
 		PO3_Events_Alias.RegisterForShoutAttack(self)
-		DBGTRACE("GOTHERE")
 	Else
 		DDAssetsFound = False
 		zad_DeviousCollar = none
@@ -265,11 +290,33 @@ Function onGameReload()
 	RegisterForTrackedStatsEvent()
 	RegisterForMenu("BarterMenu")
 
-
-	RegisterForModEvent("RapeTattoos_addTattoo","addTattooEvent")
-	RegisterForModEvent("RapeTattoos_addTattooV2","addTattooEventV2")
+	if !tVals.canTakeBools[10]
+		RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
+	endif
+	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
+		RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
+	endif
 
 EndFunction
+
+
+function OnCOLUpdated(form t)
+  actor victim = t as actor
+  int isFull = (StorageUtil.GetFloatValue(none, "CurseOfLife_BellyCurrentSize", 0.0) > 0) as int
+  isFull += (StorageUtil.GetFloatValue(none, "CurseOfLife_CharusCurrentSize", 0.0) + StorageUtil.GetFloatValue(none, "CurseOfLife_SpiderCurrentSize", 0.0) > 0) as int
+  PlayerRef.SetFactionRank(TSSD_BellyWithEggs, isFull)
+  
+endfunction
+
+Function EggLaid(form actorFrom, form egg, int numReleased)
+	if  actorFrom as actor == PlayerRef
+		incrValAndCheck(10, 1)
+		UnregisterForModEvent("CurseOfLife_EggLaid")
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
+			RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
+		endif
+	endif
+endfunction
 
 Function addToLilac()
 	isLilac = true
@@ -277,15 +324,6 @@ Function addToLilac()
 	PlayerRef.SetFactionRank(WereWolfFaction, 0)
 	PlayerRef.SetFactionRank(WolfFaction, 0 )
 EndFunction
-
-
-event addTattooEvent(string eventName, string argString, float argNum, form sender)
-	addTattooEventV2(PlayerRef, 1)
-endevent
-
-event addTattooEventV2(Form targetActor, int count)
-	incrValAndCheck(8,1)
-endevent
 
 Event OnMenuOpen(String MenuName)
 	if MenuName == "BarterMenu"
@@ -327,13 +365,17 @@ Event OnUpdateGameTime()
 	int indexIn = 0
 	string outPut = ""
 	while indexIN < currentVals.Length
-		outPut += indexIN + ": " + currentVals[indexIN] + "/" + targetNums[indexIN] + " || "
+		int toAdd = 0
+		if indexIn == 12
+			toAdd = Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
+		endif
+		outPut += indexIN + ": " + ((currentVals[indexIN] as int) + toAdd) + "/" + (targetNums[indexIN] as int) + " || "
 		indexIN += 1
 	endwhile
 	DBGTRACE(outPut)
 	calcCumAmountPlayer()
 	float gameTimeDiff = max(0.5, gamehour.GetValue() - lastGameHour)
-	tVals.cupidFilledUpAmount += gameTimeDiff
+	;tVals.cupidFilledUpAmount += gameTimeDiff
 	tVals.lastCumOnTime += gameTimeDiff
 	tVals.lastPraiseTime += gameTimeDiff
 	tVals.lastRoughTime += gameTimeDiff
@@ -341,10 +383,31 @@ Event OnUpdateGameTime()
 	tVals.lastRomanticTime += gameTimeDiff
 	tVals.lastCumInMe += gameTimeDiff
 	tVals.lastWolfSex += gameTimeDiff
-	lastGameHour += gameTimeDiff
-	
+	tVals.lastHypnoSession += gameTimeDiff
+	tVals.lastFadeTat += gameTimeDiff
+
+	if tVals.lastFadeTat > 24
+		int handle = ModEvent.Create("RapeTattoos_addTattooV2")
+		if (handle)
+			ModEvent.PushForm(handle, PlayerRef)
+			ModEvent.PushInt(handle, 1)
+			ModEvent.Send(handle)
+		endIf
+	endif
+
 	if isLilac && !isCollared
 		T_Show("I miss my collar...", "menus/TSSD/small/lilac.dds")
+	endif
+	if isLilac  && tVals.lastWolfSex > 7 * 24 && PlayerRef.HasPerk(Tssd_tint_Lilac2)
+		T_Needs(6)
+	endIf
+	DBGTRACE(tVals.lastHypnoSession + " " + lastGameHour)
+	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && tVals.lastHypnoSession > 24 && !PlayerRef.IsInCombat()
+		Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
+		DBGTRACE(allActs.Length)
+		Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length-1)]
+		T_Needs(18, cTarget.GetDisplayName())
+		Sexlab.StartSceneQuick(PlayerRef)
 	endif
 EndEvent
 
@@ -359,7 +422,8 @@ Event OnPlayerShoutAttack(Shout akShout)
 		T_Show("Bark Bark!", "menus/TSSD/small/lilac.dds")
 	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
-		tMenus.ShowSuccubusTrait(6)
+		
+		incrValAndCheck(6, 1)
 
 	endif
 EndEvent

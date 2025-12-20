@@ -24,14 +24,24 @@
         "Desc": "You can ask for some cum play.",
         "Name": "Drain Balls"
     },
+    "TSSD_Drain_EnergyVampire": {
+        "id": 148,
+        "Desc": "You gain the ability to drain energy from people in mundane conversations.",
+        "Name": "Energy Vampire"
+    },
     "TSSD_Drain_PraiseKink1": {
         "id": 240,
         "Desc": "You can ask people to compliment you to regain energy.",
         "Name": "Praise Kink"
     },
+    "TSSD_Drain_Sucking": {
+        "id": 266,
+        "Desc": "You can ask to suck dick / suckle on some tits to refresh your energy.",
+        "Name": "Sucking Champ"
+    },
     "TSSD_Seduction_Kiss1": {
         "id": 35,
-        "Desc": "Gives you the ability to stealthily absorb some energy from people by convincing them to kiss you.",
+        "Desc": "You can ask for a kiss to refresh your energy.",
         "Name": "It started with a Kiss"
     },
     "TSSD_Seduction_OfferSex1": {
@@ -48,10 +58,5 @@
         "id": 267,
         "Desc": "You can ask people to have sex without you to refresh your energy.",
         "Name": "Voyeur"
-    },
-    "TSSD_Tint_Scarlet": {
-        "id": 298,
-        "Desc": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you.",
-        "Name": "Scarlet"
     }
 }

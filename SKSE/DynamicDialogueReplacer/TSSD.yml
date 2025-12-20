@@ -52,6 +52,27 @@ topics:
       - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
       - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
+  # CumCover
+  - id: 0x9A|TintsOfASuccubusSecretDesires.esp
+    text: "Let's cover us both in cum!"
+    conditions:
+      - GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
+
+  # CumCover
+  - id: 0x9A|TintsOfASuccubusSecretDesires.esp
+    text: "Cover me in your seed!"
+    conditions:
+      - GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+      
+
+  # CumCover
+  - id: 0x9A|TintsOfASuccubusSecretDesires.esp
+    text: "I need to cover you in my seed!"
+    conditions:
+      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+
+
   # Findom
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -90,7 +111,6 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Body_PainGood1 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - pl1 <> HasPerk TSSD_Body_PainGood2 == 1 AND
 
   # Kiss
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -145,6 +165,51 @@ topics:
       - LocationHasKeyWord LocTypeInn == 1 OR
       - LocationHasKeyWord LocTypePlayerHome == 1 AND
 
+  # SuckChamp
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x13C|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
+      - LocationHasKeyWord LocTypeInn == 1 OR
+      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+
+  # SuckChamp
+  - id: 0x13C|TintsOfASuccubusSecretDesires.esp
+    text: "I want to suck your dick!"
+    conditions:
+      - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
+
+
+  # Rant
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0xA5|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Drain_EnergyVampire >= 1 AND
+
+  # Bark
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x134|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Tint_Lilac >= 1 AND
+
+  # Hypnosis Session
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x140|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - pl1 <> HasPerk TSSD_Tint_Tolopae >= 1 AND
+      - GetFactionRank JobTrainerFaction >= 0 AND
+
+
+
+
   # Bimbo
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -154,4 +219,3 @@ topics:
       - GetFactionRank CC_NPCCurrentBimboStage >= 15 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
       - LocationHasKeyWord LocTypePlayerHome == 1 AND
-

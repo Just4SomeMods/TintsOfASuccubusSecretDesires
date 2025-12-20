@@ -271,7 +271,7 @@ Actor Function getLonelyTarget()
         ac_index += 1
     endwhile
     cell_ac = tempArr
-    if nearestActor && !nearestActor.HasKeyword(IsCreature) && numHostileActors == 1 
+    if nearestActor &&  numHostileActors == 1 
         isFading = true
         tarRef = nearestActor
         return nearestActor
@@ -359,9 +359,13 @@ Function RegisterSuccubusEvents()
 Endfunction
 
 Event CumAbsorb(form akTarget, int aiType)
-
-    if PlayerRef.IsSwimming() || (akTarget as Actor) != PlayerRef || !PlayerRef.HasPerk(TSSD_Drain_ExtractSemen)
-        return
+    if !PlayerRef.IsSwimming() && (akTarget as Actor) == PlayerRef
+        tEvents.incrValAndCheck(0, 1)
+    endif
+    if PlayerRef.IsSwimming() || (akTarget as Actor) != PlayerRef 
+        if !PlayerRef.HasPerk(TSSD_Drain_ExtractSemen)
+            return
+        endif
     endif
     hasAbsorbedCum = true
 EndEvent
@@ -640,7 +644,7 @@ Event OnUpdateGameTime()
         if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1)
             energy_loss *= 0.5
         endif
-        if curLoc && valBefore > 0 && valBefore < 50 && PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1) && GetHabitationCorrect(curLoc) && timeBetween >= 1
+        if curLoc && valBefore > 0 && valBefore < 50  && GetHabitationCorrect(curLoc) && timeBetween >= 1
             if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
                 RefreshEnergy(energy_loss * 20, 50)
             elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())

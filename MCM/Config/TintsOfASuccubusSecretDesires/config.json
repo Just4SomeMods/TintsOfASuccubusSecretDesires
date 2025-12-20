@@ -1651,7 +1651,7 @@
                 {
                     "type": "text",
                     "text": "Energy Vampire",
-                    "help": "You gain the ability to drain energy from people in mundane conversations. Just ask them about their day!\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You gain the ability to drain energy from people in mundane conversations.\nSkillSuccubusDrainLevel >= 20.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1903,7 +1903,7 @@
                 {
                     "type": "text",
                     "text": "It started with a Kiss1",
-                    "help": "Gives you the ability to stealthily absorb some energy from people by convincing them to kiss you.\n",
+                    "help": "You can ask for a kiss to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1917,7 +1917,7 @@
                 {
                     "type": "text",
                     "text": "It started with a Kiss2",
-                    "help": "Gives you the ability to stealthily absorb some energy from people by convincing them to kiss you. While kissing someone, you can take what you want from their inventory.\nSkillSuccubusSeductionLevel >= 50.0\n",
+                    "help": "You can ask for a kiss to refresh your energy. While kissing someone, you can take what you want from their inventory.\nSkillSuccubusSeductionLevel >= 50.0\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

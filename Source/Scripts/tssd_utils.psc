@@ -224,3 +224,18 @@ Endfunction
 Function T_Show(String asText, String asImagePath = "", Float aiDelay = 2.0, String asKnot = "") Global
     return GetAnnouncement().Show(asText, asImagePath, aiDelay, asKnot)
 EndFunction
+
+Function T_Needs(int succTrait, string replacement="") Global    
+    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
+    string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtraits." + succKinds[succTrait] + ".needyText"))
+    if succNeedy.Length > 0
+        String nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length-1)]
+        if replacement != "" && StringUtil.Find(nxText, ";") > 0
+            String[] texts = StringUtil.Split(nxText, ";")
+            nxText = texts[0] + replacement + texts[1]
+        endif
+        T_Show( nxText , "menus/tssd/small/" + succKinds[succTrait]+".dds" )
+    endif
+
+    
+EndFunction

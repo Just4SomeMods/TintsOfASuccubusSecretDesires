@@ -11,6 +11,7 @@ tssd_slsfrscript Property slsfListener Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_actions Property tActions Auto
+tssd_PlayerEventsScript Property tEvents Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
@@ -126,7 +127,7 @@ Function OpenGrandeMenu()
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         ;SelectSuccubusType(dbgSuccy)
         startSuccubusLife() 
-        ShowSuccubusTrait(19)
+        ;ShowSuccubusTrait(19)
         GainFreePerk()
         return
     endif
@@ -243,9 +244,6 @@ Function startSuccubusLife()
     int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
     if startLevel > 0
         SuccubusXpAmount.SetValue( startLevel * 10000 )
-        PlayerRef.AddPerk(TSSD_Drain_GentleDrain1)
-        PlayerRef.AddPerk(TSSD_Seduction_Kiss1)
-        PlayerRef.AddPerk(TSSD_Body_PlayDead1)
     endif
     tssd_enthrallDialogue.Start()
     PlayerRef.AddPerk(TSSD_Base_Explanations)
@@ -259,43 +257,6 @@ Function startSuccubusLife()
     tssd_queststart.Start()
 EndFunction
 
-;/ 
-Function SelectSuccubusType(int query = -1)
-    int index = 0
-    if query < 0
-        b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-        string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
-        while index < succKinds.Length
-            TraitsMenu.AddItem( succKinds[index], JDB.solveStr(".tssdkinds." + succKinds[index] + ".description"),\
-             "menus/tssd/"+succKinds[index]+".dds")
-            index += 1
-        EndWhile
-
-        String[] resultw = TraitsMenu.Show(aiMaxSelection = 3, aiMinSelection = 0)
-        index = 0
-        TSSD_SuccubusTypes[0].SetValue(0.0)
-        TSSD_SuccubusTypes[1].SetValue(0.0)
-        TSSD_SuccubusTypes[2].SetValue(0.0)
-        PlayerRef.RemovePerk(TSSD_Base_PolyThrall1)
-        while index < resultW.Length
-            TSSD_SuccubusTypes[resultW[index] as int].SetValue(1.0)
-            index += 1
-            query = 1
-        endwhile
-        if TSSD_TypeScarlet.GetValue() == 1
-            PlayerRef.Addperk(TSSD_Base_PolyThrall1)
-            tssd_queststart.SetStage(1)
-        endif
-        tssd_tints_tracker.start()
-    endif
-    if query >= 0 && SuccubusDesireLevel.GetValue() == -101
-        startSuccubusLife()
-    endif
-    slsfListener.CheckFlagsSLSF()
-    ;if succubusType == 2
-        ;DBGTrace(slavetats.simple_add_tattoo(PlayerRef, "Bofs Bimbo Tats Butt", "Butt (Lower) - Sex Doll"))        
-    ;Endif
-EndFunction /;
 
 Function OpenSuccubusCosmetics()
     int jArr = JDB.solveObj(".tssdsettings")
@@ -526,6 +487,7 @@ Function ShowSuccubusTrait(int num)
     tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     if resultW[0] == "0"
         PlayerRef.AddPerk(SuccubusTintPerks[num])
+        tEvents.incrValAndCheck(11,1)
     endif
 
 

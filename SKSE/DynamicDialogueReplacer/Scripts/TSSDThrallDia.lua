@@ -114,7 +114,9 @@ local pools = {
   TSSD_0010E = { { "If your okay with that I'll let you watch" }, { "I'll put on a good show!" }, { "It was getting predictable with you anyway." }, { "Sure" }
 
   },
-  TSSD_00133 = { doggieDialogue,doggieDialogue,doggieDialogue,doggieDialogue  }
+  TSSD_00133 = { doggieDialogue  },
+  TSSD_00139 = { {"Sure"}, {"Sure"},{"Sure"},{"Sure"}  },
+  TSSD_00142 = { {"Yes, keep coming back for it!", "You always love it!", "You are the most obedient student I ever had!"}  }
 
 
 }
@@ -145,9 +147,15 @@ function replace(text)
     if text ~= "TSSD_00093" then
       send_mod_event("TSSD_DialogueFinished", text, 0.0, speaker_id)
     end
-    local nxtText = pool[thrallType][math.random(1, #pool[thrallType])]
+    local nxtText
+    if #pool == 1 then
+      nxtText = pool[1][math.random(1, #pool[1])]
+    else
+      nxtText = pool[thrallType][math.random(1, #pool[thrallType])]
+    end
+
     log_info(nxtText)
-    return pool[thrallType][math.random(1, #pool[thrallType])]
+    return nxtText
   end
   return text
 end

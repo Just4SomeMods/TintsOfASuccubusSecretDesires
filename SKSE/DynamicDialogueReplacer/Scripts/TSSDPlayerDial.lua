@@ -9,6 +9,7 @@ local pools = {
 savedStrings = {}
 
 internalcounter = 0
+trainingCounter = 0.0
 
 function replace(text)
     local pool = pools[text]
@@ -22,7 +23,10 @@ function replace(text)
        nxtText = pools["TSSD_000B2"][math.random(1, #pools["TSSD_000B2"])]
     end
 
-
+    if string.find(text, "training in ") then
+      trainingCounter = trainingCounter + 1
+      send_mod_event("TSSD_AskedForTraining", text, trainingCounter, target_id)
+    end
 
     if text == "TSSD_000B2" then
       internalcounter = 1
