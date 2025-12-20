@@ -11,11 +11,6 @@ GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 
-
-GlobalVariable Property TSSD_TypeScarlet Auto
-GlobalVariable Property TSSD_TypeSundown Auto
-GlobalVariable Property TSSD_TypeMahogany Auto
-
 STRING PROPERTY SUCCUBUSLIBIDOINCREASE = "tssd.Libido.Rate" autoreadonly hidden
 MagicEffect Property TSSD_BeggarLibidoDecrease Auto  
 MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
@@ -35,7 +30,7 @@ Keyword Property LocTypeHabitationHasInn Auto
 
 Message Property TSSD_GameOverMessage Auto
 
-
+;/ 
 Event OnInit()
 	PO3_Events_Alias.RegisterForBookRead(self)
 	RegisterForTrackedStatsEvent()
@@ -77,9 +72,8 @@ Function changeLibido(float toChange)
 			GetOwningQuest().ModObjectiveGlobal(curVal * -1, TSSD_SuccubusLibido, 0, -1, true, true, updatesQues && toChange <= -1)
 		endif
 	endif
-Endfunction
-
-
+Endfunction /;
+;/ 
 Event OnUpdateGameTime()
 	if TSSD_SuccubusLibido.GetValue() >= 0
 		int succubusType = TSSD_TypeScarlet.GetValue() as int
@@ -122,4 +116,4 @@ Event OnUpdateGameTime()
 		;endif
 	endIf
 	gameTimePassed = GameHours.GetValue()
-  endEvent
+  endEvent /;

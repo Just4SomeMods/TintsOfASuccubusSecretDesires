@@ -144,14 +144,7 @@
             "Breaking stereotypes with each moan.",
             "Our chemistry defies convention."
         ],
-        "needyText": [
-            "This is too straight.",
-            "Straight sex is just... boring.",
-            "Mixed genders lack the chemistry.",
-            "Struggling with a mismatched connection.",
-            "Not my scene.",
-            "I prefer my own kind."
-        ],
+        "needyText": [],
         "description": "You're gay, good for you! Your color is tosca, which triples xp from interactions with your gender, but halves it otherwise.",
         "famecat": null,
         "unlockMethod": "Orgasm to gay sex 10 times",
@@ -204,19 +197,7 @@
             "Your first time with me is unforgettable.",
             "Let's make memories!"
         ],
-        "needyText": [
-            "Boring!",
-            "Boring... been there, done that.",
-            "I prefer fresh adventures.",
-            "Why repeat old mistakes?",
-            "This is so... predictable.",
-            "Move along, nothing new to see here.",
-            "Not worth the calories.",
-            "What am I even doing?",
-            "Are you sure we haven't already done this?",
-            "Isn't it time for something new?",
-            "Haven't we met before?"
-        ],
+        "needyText": [ ],
         "description": "Your color is pink, like the inside of your body. You become exhibitionistic and gain 50 stamina. While you are top and bottomless you gain increased armor. But if you put on clothes again, your speed decreases.",
         "famecat": [
             "Airhead",
@@ -259,7 +240,7 @@
         "kink": "bimbofication",
         "index": 9
     },
-    "Crusta": {"positive" : [],"needyText" : [],
+    "Crusta": {"positive" : [],"needyText" : ["I feel so empty."],
         "description": "Your color is crusta! If you have eggs in your belly, you create an additional potion to help feed your kids. If these kids are spiders or chaurus, your poisons deal more damage based on your drain level. If your belly is empty, all spells cost twice as much.",
         "famecat": null,
         "unlockMethod": "Lay eggs.",
@@ -343,7 +324,7 @@
         "kink": "",
         "index": 17
     },
-    "Tolopea": {"positive" : [],"needyText" : ["I need the touch of ;!"],
+    "Tolopea": {"positive" : [],"needyText" : ["I need the touch of ;!", "; is waiting for me!", "I feel so weak..."],
         "description": "Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
         "famecat": null,
         "color": [70, 2, 69],

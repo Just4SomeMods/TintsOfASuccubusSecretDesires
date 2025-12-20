@@ -116,6 +116,7 @@ local pools = {
   },
   TSSD_00133 = { doggieDialogue  },
   TSSD_00139 = { {"Sure"}, {"Sure"},{"Sure"},{"Sure"}  },
+  TSSD_0013D = { {"Sure"}, {"Sure"},{"Sure"},{"Sure"}  },
   TSSD_00142 = { {"Yes, keep coming back for it!", "You always love it!", "You are the most obedient student I ever had!"}  }
 
 

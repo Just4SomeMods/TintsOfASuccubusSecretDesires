@@ -26,16 +26,12 @@ GlobalVariable Property SkillSuccubusBaseLevel Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
-GlobalVariable Property TSSD_MaxTraits Auto
-GlobalVariable Property TSSD_SuccubusTraits Auto
+
 tssd_tints_variables Property tVals Auto
 
 GlobalVariable Property TSSD_SuccubusBreakRank Auto
-GlobalVariable[] Property TSSD_SuccubusTypes Auto
 
-GlobalVariable Property TSSD_TypeScarlet Auto
-GlobalVariable Property TSSD_TypeSundown Auto
-GlobalVariable Property TSSD_TypeMahogany Auto
+
 
 Perk Property TSSD_Base_Explanations Auto
 Perk Property TSSD_Drain_GentleDrain1 Auto
@@ -478,14 +474,18 @@ Function ShowSuccubusTrait(int num)
     TraitsMenu.AddItem("Embrace: " + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
     String ResText = "Resist: "
+    
     if num == 9
         ResText = "OHYESIWANTTHISTHISISWHOIAM : "
+    elseif PlayerRef.HasPerk(SuccubusTintPerks[11])
+        ResText = "Embrace: "
     endif
+
     TraitsMenu.AddItem(ResText + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
     String[] resultW = TraitsMenu.Show()
     tssd_tints_tracker.SetObjectiveDisplayed(num, true)
-    if resultW[0] == "0"
+    if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(SuccubusTintPerks[11])
         PlayerRef.AddPerk(SuccubusTintPerks[num])
         tEvents.incrValAndCheck(11,1)
     endif

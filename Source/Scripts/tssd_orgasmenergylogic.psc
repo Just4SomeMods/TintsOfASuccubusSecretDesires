@@ -7,11 +7,6 @@ Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
 Faction Property sla_Arousal Auto
 GlobalVariable Property TSSD_SuccubusTraits Auto
-int smooching
-
-GlobalVariable Property TSSD_TypeScarlet Auto
-GlobalVariable Property TSSD_TypeSundown Auto
-GlobalVariable Property TSSD_TypeMahogany Auto
 
 
 Function queueStringForAnnouncement(string inputStr)
@@ -24,7 +19,7 @@ string Property nextAnnouncement Auto
 float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = none)    
     ; announceLogic -- 0 no announcement -- 1 announce self -- 2 add to next announcement
     float dateCheck = TimeOfDayGlobalProperty.GetValue()
-    
+    ; TODO
     string[] succubusTraits = GetSuccubusTraitsAll()
     int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 20)
     SUCCUBUSTRAITSVALUESBONUS[2] = 100
@@ -37,7 +32,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
     int nextAnnouncementLineLength = 0
     float energyLosses = 0
     float retval = 0
-
+;/ 
     if isEnabledAndNotPlayer(WhoCums)
         lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
         if (lastmet  < 0.0) || (lastmet > 1.0)
@@ -69,15 +64,11 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
         EndWhile
     endif
     String output = ""
-    if isEnabledAndNotPlayer(WhoCums) && smooching > 0.0
-        retval = smooching * lastMet
-        output += "Smooch!"
-    endif
     retVal += energyLosses
     if output != ""
         nextAnnouncement += output +""
     endif
-    retVals[0] = retVal
+    retVals[0] = retVal /;
     return retVals
 
 Endfunction
@@ -100,7 +91,7 @@ bool Function traitLogic(int index, sslThreadController _thread, Actor WhoCums)
             endif
         endif
     elseif index == 2
-        if WhoCums.GetHighestRelationshiprank() == 4 && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0
+        if !isSingle(WhoCums) && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0
             return true
         endif
     elseif index == 3

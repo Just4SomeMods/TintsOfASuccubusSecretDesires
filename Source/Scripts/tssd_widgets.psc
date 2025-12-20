@@ -11,9 +11,6 @@ int[] Property new_Bar_Vals Auto
 iWant_Widgets Property  iWidgets Auto
 
 GlobalVariable Property SuccubusDesireLevel Auto
-GlobalVariable Property TSSD_TypeScarlet Auto
-GlobalVariable Property TSSD_TypeSundown Auto
-GlobalVariable Property TSSD_TypeMahogany Auto
 
 bool Property shouldFadeOut Auto
 

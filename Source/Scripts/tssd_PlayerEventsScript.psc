@@ -10,7 +10,7 @@ tssd_menus Property tMenus Auto
 Quest Property tssd_tints_tracker Auto
 tssd_tints_variables Property tVals Auto
 Actor Property PlayerRef Auto
-GlobalVariable Property TSSD_TypeMahogany Auto
+
 Spell Property tssd_Satiated Auto
 MagicEffect Property TSSD_SatiatedEffect Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
@@ -125,6 +125,11 @@ String Property FILE_FADE_TATS = "FadeTattoos.esp" AutoReadOnly
 
 ; END MAROON
 
+
+bool hadAnnouncement = false
+int[] possibleAnnouncements
+
+
 Function incrValAndCheck(int numOf, float incrBy)
 	currentVals[numOf] += incrBy
 	checkValOf(numOf)
@@ -135,6 +140,9 @@ Function incrValAndCheck(int numOf, float incrBy)
 	if numOf == 13 tVals.lastSpankedTime = 0.1 endif
 	if numOf == 15 tVals.lastPraiseTime = 0.1 endif
 	if numOf == 22 tVals.lastRoughTime = 0.1 endif
+	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
+		possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
+	endif
 EndFunction
 
 Function checkValOf( int numOf )
@@ -164,7 +172,7 @@ Function OnOrgasmAny(Actor WhoCums, int Thread)
 			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
 				incrValAndCheck(12,1)
 				incrValAndCheck(1,1)
-			elseif _thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")
+			elseif (_thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")) &&  !_thread.HasSceneTag("lesbian")
 				incrValAndCheck(1,1)
 			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
 				incrValAndCheck(0,1)
@@ -195,6 +203,11 @@ Function OnOrgasmAny(Actor WhoCums, int Thread)
 			incrValAndCheck(22,1)
 		endif
 	endif
+	if !hadAnnouncement && possibleAnnouncements.Length > 1
+		int getRando = possibleAnnouncements[Utility.RandomInt(1, possibleAnnouncements.Length)]
+		T_Needs(getRando, "", false)
+		hadAnnouncement = true
+	endif
 EndFunction
 
 ;/ Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
@@ -218,7 +231,7 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 		isActingDefeated = false
     endif
     Weapon akW = akSource as Weapon
-    if TSSD_TypeMahogany.GetValue() == 1.0 && akW != none && !abHitBlocked
+    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) && akW != none && !abHitBlocked
         tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
     endif
 	incrValAndCheck(14, akW.GetBaseDamage())
@@ -296,8 +309,14 @@ Function onGameReload()
 	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
 		RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 	endif
-
+	RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStartEvent")
 EndFunction
+
+
+Event PlayerSceneStartEvent(Form FormRef, int tid)
+	hadAnnouncement = false
+	possibleAnnouncements = new int[1]
+EndEvent
 
 
 function OnCOLUpdated(form t)
@@ -386,7 +405,7 @@ Event OnUpdateGameTime()
 	tVals.lastHypnoSession += gameTimeDiff
 	tVals.lastFadeTat += gameTimeDiff
 
-	if tVals.lastFadeTat > 24
+	if tVals.lastFadeTat > 24 && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[8])
 		int handle = ModEvent.Create("RapeTattoos_addTattooV2")
 		if (handle)
 			ModEvent.PushForm(handle, PlayerRef)
@@ -398,16 +417,17 @@ Event OnUpdateGameTime()
 	if isLilac && !isCollared
 		T_Show("I miss my collar...", "menus/TSSD/small/lilac.dds")
 	endif
-	if isLilac  && tVals.lastWolfSex > 7 * 24 && PlayerRef.HasPerk(Tssd_tint_Lilac2)
+	if isLilac  && tVals.lastWolfSex > 24 && PlayerRef.HasPerk(Tssd_tint_Lilac2) && ((tVals.lastWolfSex / 24) - ((tVals.lastWolfSex / 24) as int)) * 24 < 1
 		T_Needs(6)
 	endIf
-	DBGTRACE(tVals.lastHypnoSession + " " + lastGameHour)
-	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && tVals.lastHypnoSession > 24 && !PlayerRef.IsInCombat()
+	
+	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && tVals.lastHypnoSession > 24 * 7 && !PlayerRef.IsInCombat()
 		Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
 		DBGTRACE(allActs.Length)
 		Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length-1)]
 		T_Needs(18, cTarget.GetDisplayName())
 		Sexlab.StartSceneQuick(PlayerRef)
+		tVals.lastHypnoSession = 0.1
 	endif
 EndEvent
 
@@ -422,9 +442,7 @@ Event OnPlayerShoutAttack(Shout akShout)
 		T_Show("Bark Bark!", "menus/TSSD/small/lilac.dds")
 	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
-		
 		incrValAndCheck(6, 1)
-
 	endif
 EndEvent
 

@@ -137,15 +137,13 @@ bool[] Function GetSuccubusTraitsChosen(GlobalVariable TSSD_SuccubusTraits, int 
 
 Endfunction
 
-String Function GetTypeDial(string type, bool isPositive, bool isTrait = false) Global
+String Function GetTintDial(string type, bool isPositive = true) Global
     string is_pos = "positive"
     if !isPositive
         is_pos = "negative"
     endif
-    string isType = "kinds"
-    if isTrait
-        isType = "traits"
-    endif
+    string isType = "traits"
+    
     int jsolve = JDB.solveObj(".tssd"+isType+"."+type+"."+is_pos)
     if !ReadInCosmeticSetting()[3]
         return JArray.getStr(jsolve, Utility.RandomInt(0, JValue.count(jsolve) - 1 )) + " "
@@ -225,17 +223,28 @@ Function T_Show(String asText, String asImagePath = "", Float aiDelay = 2.0, Str
     return GetAnnouncement().Show(asText, asImagePath, aiDelay, asKnot)
 EndFunction
 
-Function T_Needs(int succTrait, string replacement="") Global    
+Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global    
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
-    string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtraits." + succKinds[succTrait] + ".needyText"))
+    string txtSource = ".needyText"
+    if !isBad
+        txtSource = ".positive"
+    endif
+    string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtraits." + succKinds[succTrait] + txtSource))
+    String nxText = ""
     if succNeedy.Length > 0
-        String nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length-1)]
+        nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length-1)]
         if replacement != "" && StringUtil.Find(nxText, ";") > 0
             String[] texts = StringUtil.Split(nxText, ";")
             nxText = texts[0] + replacement + texts[1]
-        endif
-        T_Show( nxText , "menus/tssd/small/" + succKinds[succTrait]+".dds" )
-    endif
+        Endif
+    Endif
+    T_Show( nxText , "menus/tssd/small/" + succKinds[succTrait]+".dds" )
 
     
 EndFunction
+
+bool Function isSingle(Actor ak) Global
+    AssociationType akCourting = Game.GetFormFromFile(0x1EE23, "skyrim.esm") as AssociationType
+    AssociationType akSpouse = Game.GetFormFromFile(0x142CA, "skyrim.esm") as AssociationType
+    return !(ak.HasAssociation(akCourting) || ak.HasAssociation(akSpouse))
+Endfunction

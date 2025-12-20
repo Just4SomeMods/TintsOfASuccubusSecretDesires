@@ -164,6 +164,12 @@ Event OnMenuClose(String MenuName)
     elseif lastDialogue == "TSSD_00139"
         GenericRefreshPSex(lastDialoguePartner, false, "")
         SexLab.StartSceneQuick(PlayerRef)
+    elseif lastDialogue == "TSSD_0013D"
+        if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+            GenericRefreshPSex(lastDialoguePartner, true, "blowjob")
+        else
+            GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding")
+        endif
     elseif lastDialogue == "TSSD_00142"        
         tPEvents.tVals.lastHypnoSession = 0.1
         if lastDialoguePartner.GetFactionRank(TSSD_HypnoMaster) < 1
@@ -204,7 +210,6 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     GameHour.Mod(1) 
     tActions.gainSuccubusXP(1000)
     SuccubusDesireLevel.Mod( 100  )	
-    Utility.Wait(2.5)
     ImageSpaceModifier.RemoveCrossFade(3)
     int upTo = 100
     if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
@@ -215,10 +220,8 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
         Actor[] Pos = new Actor[2]
         Pos[0] = PlayerRef
         Pos[1] = akSpeaker
-
         SexLab.StartScene(Pos, asTags=sexTags)
     endif
-    Utility.Wait(2.5)
+    Utility.Wait(0.1)
     TSSD_Satiated.Cast(akSpeaker, PlayerRef)
-
 EndFunction

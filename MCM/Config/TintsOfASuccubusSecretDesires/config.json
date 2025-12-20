@@ -132,12 +132,22 @@
             "content": [
                 {
                     "type": "text",
+                    "text": "TSSD_BellyWithEggs",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_Collared",
                     "help": "$showStuff"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_EnthralledFaction",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_HypnoMaster",
                     "help": "$showStuff"
                 },
                 {
@@ -559,54 +569,6 @@
                 },
                 {
                     "type": "slider",
-                    "text": "TSSD_SuccubusType",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": -1,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|04B"
-                    }
-                },
-                {
-                    "type": "slider",
-                    "text": "TSSD_TypeMahogany",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": 0,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D9"
-                    }
-                },
-                {
-                    "type": "slider",
-                    "text": "TSSD_TypeScarlet",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": 0,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D7"
-                    }
-                },
-                {
-                    "type": "slider",
-                    "text": "TSSD_TypeSundown",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": 0,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D8"
-                    }
-                },
-                {
-                    "type": "slider",
                     "text": "TSSD_deityblessquestakglobal",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -879,11 +841,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "Smooch!",
-                    "help": ""
-                },
-                {
-                    "type": "text",
                     "text": "Speedmod",
                     "help": "You are ethereal and move <mag>% faster."
                 },
@@ -954,6 +911,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "TSSD_RefreshEnergy",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_ZenitharDonationQuestion",
                     "help": "$showStuff"
                 }
@@ -965,7 +927,7 @@
                 {
                     "type": "text",
                     "text": "Overflow1",
-                    "help": "You increase your maximum energy level by 100. Getting above 100 does not strengthen most abilities.\nSkillSuccubusBaseLevel >= 20.0\n",
+                    "help": "You increase your maximum energy level by 100. Getting above 100 does not strengthen most abilities.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -979,7 +941,7 @@
                 {
                     "type": "text",
                     "text": "Overflow2",
-                    "help": "You increase your maximum energy level by 200 more. Getting above 100 does not strengthen most abilities. (400 max)\nSkillSuccubusBaseLevel >= 50.0\n",
+                    "help": "You increase your maximum energy level by 200 more. Getting above 100 does not strengthen most abilities. (400 max)\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -993,7 +955,7 @@
                 {
                     "type": "text",
                     "text": "Overflow3",
-                    "help": "You increase your maximum energy level by 600 more. Getting above 100 does not strengthen most abilities. (1000 max)\nSkillSuccubusBaseLevel >= 80.0\n",
+                    "help": "You increase your maximum energy level by 600 more. Getting above 100 does not strengthen most abilities. (1000 max)\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1021,7 +983,7 @@
                 {
                     "type": "text",
                     "text": "Healthregen",
-                    "help": "You can regenerate health again at 50 or more energy.\nTSSD_Base_MagickaRegenFix None 1.0\nTSSD_Base_StaminaRegenFix None 1.0\nSkillSuccubusBaseLevel >= 50.0\n",
+                    "help": "You can regenerate health again at 50 or more energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1035,7 +997,7 @@
                 {
                     "type": "text",
                     "text": "Sharper Senses1",
-                    "help": "You increase your prey detection range by 10 meter.\nSkillSuccubusBaseLevel >= 20.0\n",
+                    "help": "You increase your prey detection range by 10 meter.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1049,7 +1011,7 @@
                 {
                     "type": "text",
                     "text": "Innocent",
-                    "help": "Draining someone to death seems like an accident to bystanders.\nSkillSuccubusBaseLevel >= 80.0\nTSSD_Base_HealthRegenFix None 1.0\n",
+                    "help": "Draining someone to death seems like an accident to bystanders.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1063,7 +1025,7 @@
                 {
                     "type": "text",
                     "text": "Magickaregen",
-                    "help": "You can regenerate Magicka again at low energy.\nSkillSuccubusBaseLevel >= 30.0\n",
+                    "help": "You can regenerate Magicka again at low energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1077,7 +1039,7 @@
                 {
                     "type": "text",
                     "text": "Polythrall1",
-                    "help": "You can have up to one thrall. While you are satiated, you learn faster and ignore falling damage.\nSkillSuccubusBaseLevel >= 0\nTSSD_TypeScarlet >= 1.0\n",
+                    "help": "You can have up to one thrall. While you are satiated, you learn faster and ignore falling damage.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1091,7 +1053,7 @@
                 {
                     "type": "text",
                     "text": "Polythrall2",
-                    "help": "You can have up to three thralls.\nSkillSuccubusBaseLevel >= 20.0\n",
+                    "help": "You can have up to three thralls.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1105,7 +1067,7 @@
                 {
                     "type": "text",
                     "text": "Polythrall3",
-                    "help": "You can have up to ten thralls.\nSkillSuccubusBaseLevel >= 60.0\n",
+                    "help": "You can have up to ten thralls.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1119,7 +1081,7 @@
                 {
                     "type": "text",
                     "text": "Polythrall4",
-                    "help": "You can have up to ten thralls and can enthrall people who don't actively dislike you.\nSkillSuccubusBaseLevel >= 100.0\n",
+                    "help": "You can have up to ten thralls and can enthrall people who don't actively dislike you.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1147,7 +1109,7 @@
                 {
                     "type": "text",
                     "text": "Staminaregen",
-                    "help": "You can regenerate Stamina again at low energy.\nSkillSuccubusBaseLevel >= 30.0\n",
+                    "help": "You can regenerate Stamina again at low energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1161,7 +1123,7 @@
                 {
                     "type": "text",
                     "text": "Aggressive Negotiation1",
-                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\nTSSD_Body_Subby1 None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1175,7 +1137,7 @@
                 {
                     "type": "text",
                     "text": "Energy To Mass1",
-                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nTSSD_Body_Overstuffed None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1189,7 +1151,7 @@
                 {
                     "type": "text",
                     "text": "Energy To Mass2",
-                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\nSkillSuccubusBodyLevel >= 0\n",
+                    "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1203,7 +1165,7 @@
                 {
                     "type": "text",
                     "text": "Fight or Fight",
-                    "help": "You can sacrifice 20 energy to gain increased stamina, weapon damage and your power attacks cost less for a minute.\nTSSD_Body_PainGood1 None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can sacrifice 20 energy to gain increased stamina, weapon damage and your power attacks cost less for a minute.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1217,7 +1179,7 @@
                 {
                     "type": "text",
                     "text": "Creampie Lover1",
-                    "help": "While you are digesting semen, you gain stamina regeneration.\nSkillSuccubusBodyLevel >= 0\n",
+                    "help": "While you are digesting semen, you gain stamina regeneration.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1231,7 +1193,7 @@
                 {
                     "type": "text",
                     "text": "Findom1",
-                    "help": "You can try to get paid to be eyecandy and refresh your energy.\nTSSD_Body_PainGood1 None 1.0\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1245,7 +1207,7 @@
                 {
                     "type": "text",
                     "text": "Domdom2",
-                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting.\nSkillSuccubusBodyLevel >= 60.0\n",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1259,7 +1221,7 @@
                 {
                     "type": "text",
                     "text": "Dom of doom3",
-                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting. Those endeavours always succeed.\nSkillSuccubusBodyLevel >= 80.0\n",
+                    "help": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting. Those endeavours always succeed.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1273,7 +1235,7 @@
                 {
                     "type": "text",
                     "text": "Grabby",
-                    "help": "You can ask to be groped to refresh your energy.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can ask to be groped to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1287,7 +1249,7 @@
                 {
                     "type": "text",
                     "text": "Jailer Mode",
-                    "help": "You can sacrifice 20 energy to gain increased power attack damage and armor for a minute.\nTSSD_Body_HornyJail None 1.0\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can sacrifice 20 energy to gain increased power attack damage and armor for a minute.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1301,7 +1263,7 @@
                 {
                     "type": "text",
                     "text": "Overstuffed",
-                    "help": "When you get overstuffed with energy, you gain a bonus to health equal to the points you are above 100 and 10% of that as a slow. (You need the base Cap Increase Perk to select this.)\nTSSD_Body_EnergyConverter1 None 1.0\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "help": "When you get overstuffed with energy, you gain a bonus to health equal to the points you are above 100 and 10% of that as a slow. (You need the base Cap Increase Perk to select this.)\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1315,7 +1277,7 @@
                 {
                     "type": "text",
                     "text": "Naughty Brat1",
-                    "help": "You can ask to punish submissive people indoors.\nSkillSuccubusBodyLevel >= 30.0\n",
+                    "help": "You can ask to punish submissive people indoors.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1329,7 +1291,7 @@
                 {
                     "type": "text",
                     "text": "Naughty Brat2",
-                    "help": "You can ask to punish submissive people in any safe location.\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "help": "You can ask to punish submissive people in any safe location.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1343,7 +1305,7 @@
                 {
                     "type": "text",
                     "text": "Passive Energy1",
-                    "help": "Depending on your succubus type, you do not lose energy while waiting in specific circumstances.\nSkillSuccubusBodyLevel >= 10.0\n",
+                    "help": "Depending on your succubus type, you do not lose energy while waiting in specific circumstances.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1357,7 +1319,7 @@
                 {
                     "type": "text",
                     "text": "Passive Energy2",
-                    "help": "Depending on your succubus type, you refresh 10 energy oer hour while waiting in specific circumstances.\nSkillSuccubusBodyLevel >= 10.0\n",
+                    "help": "Depending on your succubus type, you refresh 10 energy oer hour while waiting in specific circumstances.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1371,7 +1333,7 @@
                 {
                     "type": "text",
                     "text": "Passive Energy3",
-                    "help": "Depending on your succubus type, you refresh 20 energy oer hour while waiting in specific circumstances.\nSkillSuccubusBodyLevel >= 10.0\n",
+                    "help": "Depending on your succubus type, you refresh 20 energy oer hour while waiting in specific circumstances.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1385,7 +1347,7 @@
                 {
                     "type": "text",
                     "text": "Invitation1",
-                    "help": "You can act exhausted and lure ne'er-do-wellers into having their way with you. This only works outside of combat and alerts their teammates after the deed.\nTSSD_Body_Subby1 None 1.0\nSkillSuccubusBodyLevel >= 30.0\n",
+                    "help": "You can act exhausted and lure ne'er-do-wellers into having their way with you. This only works outside of combat and alerts their teammates after the deed.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1399,7 +1361,7 @@
                 {
                     "type": "text",
                     "text": "Subby1",
-                    "help": "You can ask to be punished to refresh your energy.\nSkillSuccubusBodyLevel >= 20.0\n",
+                    "help": "You can ask to be punished to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1413,7 +1375,7 @@
                 {
                     "type": "text",
                     "text": "Very subby2",
-                    "help": "You can asked to be punished and you can try to get taken advantage of.\nSkillSuccubusBodyLevel >= 40.0\n",
+                    "help": "You can asked to be punished and you can try to get taken advantage of.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1427,7 +1389,7 @@
                 {
                     "type": "text",
                     "text": "A blessing from the gods",
-                    "help": "Through your devotion, you cut your gained libido in half.\nTSSD_DeityArkayPerk None 1.0\nTSSD_DeityDibellaPerk None 1.0\nTSSD_DeityMaraPerk None 1.0\nTSSD_DeityStendarrPerk None 1.0\nTSSD_DeityZenitharPerk None 1.0\n",
+                    "help": "Through your devotion, you cut your gained libido in half.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1441,7 +1403,7 @@
                 {
                     "type": "text",
                     "text": "Arkay's gift",
-                    "help": "Your libido increase by draining someone to death is cut in half.\nTSSD_deityblessquestakglobal >= 100.0\n",
+                    "help": "Your libido increase by draining someone to death is cut in half.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1455,7 +1417,7 @@
                 {
                     "type": "text",
                     "text": "Dibella's gift",
-                    "help": "Your libido decreases more if you masturbate in a public place.\nTSSD_deityblessquestdbglobal >= 1000.0\n",
+                    "help": "Your libido decreases more if you masturbate in a public place.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1469,7 +1431,7 @@
                 {
                     "type": "text",
                     "text": "Mara's gift",
-                    "help": "Your libido decreases faster in a home.\nTSSD_deityblessquestmaglobal >= 1.0\n",
+                    "help": "Your libido decreases faster in a home.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1483,7 +1445,7 @@
                 {
                     "type": "text",
                     "text": "Stendarr's gift",
-                    "help": "Your libido decreases when you give money to the poor.\nTSSD_deityblessqueststglobal >= 10.0\n",
+                    "help": "Your libido decreases when you give money to the poor.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1497,7 +1459,7 @@
                 {
                     "type": "text",
                     "text": "Zenithar's Acquired Goods",
-                    "help": "You can pray to Zenithar to reduce your libido for a small donation.\nTSSD_deityblessquestztglobal >= 10000.0\n",
+                    "help": "You can pray to Zenithar to reduce your libido for a small donation.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1553,7 +1515,7 @@
                 {
                     "type": "text",
                     "text": "Drain Balls",
-                    "help": "You can ask for some cum play.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You can ask for some cum play.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1567,7 +1529,7 @@
                 {
                     "type": "text",
                     "text": "Body Art Lover1",
-                    "help": "If you have cum on your chest, you gain a 20% discount from merchants.\nTSSD_Drain_AskForCum None 1.0\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "If you have cum on your chest, you gain a 20% discount from merchants.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1581,7 +1543,7 @@
                 {
                     "type": "text",
                     "text": "Power Collar1",
-                    "help": "You lose less energy while wearing a collar. (You can only buy this perk if you are currently wearing one)\nTSSD_Drain_Sucking None 1.0\nSkillSuccubusDrainLevel >= 20.0\nTSSD_Collared None 1.0\n",
+                    "help": "You lose less energy while wearing a collar. (You can only buy this perk if you are currently wearing one)\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1595,7 +1557,7 @@
                 {
                     "type": "text",
                     "text": "Power Collar2",
-                    "help": "While wearing a collar you lose less energy, deal more physical damage to noble and dominant people and have a greater chance at intimidating those. \nSkillSuccubusDrainLevel >= 60.0\nTSSD_Collared None 1.0\n",
+                    "help": "While wearing a collar you lose less energy, deal more physical damage to noble and dominant people and have a greater chance at intimidating those. \n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1609,7 +1571,7 @@
                 {
                     "type": "text",
                     "text": "Greedy Drain1",
-                    "help": "You refresh twice as much energy from your drain.\nTSSD_Drain_EnergyVampire None 1.0\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You refresh twice as much energy from your drain.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1623,7 +1585,7 @@
                 {
                     "type": "text",
                     "text": "Greedy Drain2",
-                    "help": "You refresh three times as much energy from your drain.\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "help": "You refresh three times as much energy from your drain.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1637,7 +1599,7 @@
                 {
                     "type": "text",
                     "text": "SFW Draining Powers",
-                    "help": "You gain a health absorb spell that costs energy.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You gain a health absorb spell that costs energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1651,7 +1613,7 @@
                 {
                     "type": "text",
                     "text": "Energy Vampire",
-                    "help": "You gain the ability to drain energy from people in mundane conversations.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You gain the ability to drain energy from people in mundane conversations.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1665,7 +1627,7 @@
                 {
                     "type": "text",
                     "text": "Extract Essence",
-                    "help": "If you let cum on your skin \"expire\" you gain a bit energy back.\nTSSD_Drain_AskForCum None 1.0\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "help": "If you let cum on your skin \"expire\" you gain a bit energy back.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1679,7 +1641,7 @@
                 {
                     "type": "text",
                     "text": "Stronger Drain1",
-                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after a day.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after a day.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1693,7 +1655,7 @@
                 {
                     "type": "text",
                     "text": "Very Gentle Drain2",
-                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only half of the time and the debuff is no longer as debilitating.\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only half of the time and the debuff is no longer as debilitating.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1707,7 +1669,7 @@
                 {
                     "type": "text",
                     "text": "Gentle Drain3",
-                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and the debuff is no longer as debilitating.\nSkillSuccubusDrainLevel >= 60.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and the debuff is no longer as debilitating.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1721,7 +1683,7 @@
                 {
                     "type": "text",
                     "text": "Stealth Drain4",
-                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and receive no debuff.\nSkillSuccubusDrainLevel >= 80.0\n",
+                    "help": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and receive no debuff.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1735,7 +1697,7 @@
                 {
                     "type": "text",
                     "text": "Force of Destruction",
-                    "help": "You can sacrifice 20 energy to get a destruction, illusion and magicka buff for a minute.\nTSSD_Drain_EnergyVampire None 1.0\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "help": "You can sacrifice 20 energy to get a destruction, illusion and magicka buff for a minute.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1763,7 +1725,7 @@
                 {
                     "type": "text",
                     "text": "Praise Kink2",
-                    "help": "You can ask people to worship you to regain energy and a temporary buff.\nSkillSuccubusDrainLevel >= 80.0\n",
+                    "help": "You can ask people to worship you to regain energy and a temporary buff.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1777,7 +1739,7 @@
                 {
                     "type": "text",
                     "text": "Healthy Drain",
-                    "help": "When you refresh your energy, you also regenerate to full health.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "When you refresh your energy, you also regenerate to full health.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1791,7 +1753,7 @@
                 {
                     "type": "text",
                     "text": "Semen Demon",
-                    "help": "You can ask to cover others in your cum.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You can ask to cover others in your cum.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1805,7 +1767,7 @@
                 {
                     "type": "text",
                     "text": "Soul Drain",
-                    "help": "Draining a victim to death fills up a soul gem.\nTSSD_Drain_Sucking None 1.0\nSkillSuccubusDrainLevel >= 40.0\n",
+                    "help": "Draining a victim to death fills up a soul gem.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1819,7 +1781,7 @@
                 {
                     "type": "text",
                     "text": "Sucking Champ",
-                    "help": "You can ask to suck dick / suckle on some tits to refresh your energy.\nSkillSuccubusDrainLevel >= 20.0\n",
+                    "help": "You can ask to suck dick / suckle on some tits to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1847,7 +1809,7 @@
                 {
                     "type": "text",
                     "text": "Disappear",
-                    "help": "You can sacrifice 20 energy to increase your speed and become ethereal.\nTSSD_Seduction_Voyeur None 1.0\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You can sacrifice 20 energy to increase your speed and become ethereal.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1861,7 +1823,7 @@
                 {
                     "type": "text",
                     "text": "Hot Demon1",
-                    "help": "While talking to you, people have increased arousal.\nTSSD_Seduction_Seductress1 None 1.0\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "While talking to you, people have increased arousal.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1875,7 +1837,7 @@
                 {
                     "type": "text",
                     "text": "Hot Demon2",
-                    "help": "While talking to you, people have maximum arousal.\nSkillSuccubusSeductionLevel >= 60.0\n",
+                    "help": "While talking to you, people have maximum arousal.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1889,7 +1851,7 @@
                 {
                     "type": "text",
                     "text": "Hot Demon3",
-                    "help": "While talking to you, people have maximum arousal and they love you.\nSkillSuccubusSeductionLevel >= 100.0\n",
+                    "help": "While talking to you, people have maximum arousal and they love you.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1917,7 +1879,7 @@
                 {
                     "type": "text",
                     "text": "It started with a Kiss2",
-                    "help": "You can ask for a kiss to refresh your energy. While kissing someone, you can take what you want from their inventory.\nSkillSuccubusSeductionLevel >= 50.0\n",
+                    "help": "You can ask for a kiss to refresh your energy. While kissing someone, you can take what you want from their inventory.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1931,7 +1893,7 @@
                 {
                     "type": "text",
                     "text": "Take the lead",
-                    "help": "You can gift a follower some of your energy to make them stronger for a time.\nTSSD_Seduction_OfferSex1 None 1.0\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You can gift a follower some of your energy to make them stronger for a time.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1945,7 +1907,7 @@
                 {
                     "type": "text",
                     "text": "Mental Fortitude1",
-                    "help": "You can control yourself to not orgasm whilst being raped.\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You can control yourself to not orgasm whilst being raped.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1959,7 +1921,7 @@
                 {
                     "type": "text",
                     "text": "Mental Fortitude2",
-                    "help": "You can control yourself to not orgasm whenever you have sex.\nSkillSuccubusSeductionLevel >= 40.0\n",
+                    "help": "You can control yourself to not orgasm whenever you have sex.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1973,7 +1935,7 @@
                 {
                     "type": "text",
                     "text": "DTF?1",
-                    "help": "You can initiate sex with someone in a safe location to refresh your energy.\nSkillSuccubusSeductionLevel >= 0\n",
+                    "help": "You can initiate sex with someone in a safe location to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1987,7 +1949,7 @@
                 {
                     "type": "text",
                     "text": "Paralyze",
-                    "help": "You gain a paralyze spell that costs energy.\nTSSD_Seduction_Kiss1 None 1.0\nSkillSuccubusSeductionLevel >= 40.0\n",
+                    "help": "You gain a paralyze spell that costs energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2001,7 +1963,7 @@
                 {
                     "type": "text",
                     "text": "Seductress1",
-                    "help": "You gain the ability to ask for a party.\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You gain the ability to ask for a party.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2015,7 +1977,7 @@
                 {
                     "type": "text",
                     "text": "Seductress2",
-                    "help": "You always succeed on your attempts to party.\nSkillSuccubusSeductionLevel >= 40.0\n",
+                    "help": "You always succeed on your attempts to party.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2029,7 +1991,7 @@
                 {
                     "type": "text",
                     "text": "Teasing Outift",
-                    "help": "While weaing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)\nTSSD_Seduction_Seductress1 None 1.0\nTSSD_RevealingOutfit None 1.0\nSkillSuccubusSeductionLevel >= 50.0\n",
+                    "help": "While weaing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2043,7 +2005,7 @@
                 {
                     "type": "text",
                     "text": "Stealth Mode",
-                    "help": "You can sacrifice 20 energy to get better at sneaking and melee sneak attacks for a minute.\nTSSD_Seduction_Voyeur None 1.0\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You can sacrifice 20 energy to get better at sneaking and melee sneak attacks for a minute.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2057,7 +2019,7 @@
                 {
                     "type": "text",
                     "text": "Voyeur",
-                    "help": "You can ask people to have sex without you to refresh your energy.\nSkillSuccubusSeductionLevel >= 20.0\n",
+                    "help": "You can ask people to have sex without you to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2127,7 +2089,7 @@
                 {
                     "type": "text",
                     "text": "Crusta",
-                    "help": "Sneaking no longer costs energy, but you can only regain energy indoors or at night.\n",
+                    "help": "If you have eggs in your belly, you create an additional potion to help feed your kids. If these kids are spiders or chaurus, your poisons deal more damage based on your drain level. If your belly is empty, all spells cost twice as much.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2407,7 +2369,7 @@
                 {
                     "type": "text",
                     "text": "Traits",
-                    "help": "You can buy these perks to get the tine you previously rejected. These perks costs 5 perk points.\nTSSD_SuccubusPerkPoints >= 5.0\nTSSD_SuccubusPerkPoints None 5.0\n",
+                    "help": "You can buy these perks to get the tint you previously rejected.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
