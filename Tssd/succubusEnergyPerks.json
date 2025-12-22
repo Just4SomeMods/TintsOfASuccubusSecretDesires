@@ -58,15 +58,5 @@
         "id": 267,
         "Desc": "You can ask people to have sex without you to refresh your energy.",
         "Name": "Voyeur"
-    },
-    "TSSD_Tint_Lilac": {
-        "id": 304,
-        "Desc": "While you are collared, you halve the time between your barks. If you recently had sex with somone who has wolves blood, you learn warrior skills 50% faster. You are a confused dog without your collar and can not learn any skills without it.",
-        "Name": "Lilac"
-    },
-    "TSSD_Tint_Tolopae": {
-        "id": 297,
-        "Desc": "Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
-        "Name": "Tolopae"
     }
 }

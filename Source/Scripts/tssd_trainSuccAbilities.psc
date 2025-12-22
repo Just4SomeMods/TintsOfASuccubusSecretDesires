@@ -37,6 +37,9 @@ EndFunction
 
 ; shows trainer's skill level
 String Function GetTrainerSkill()
+    if SkillVal == TSSD_PerkPointsBought
+        return ""
+    endif
     Return "5 increases each"
 EndFunction
 
@@ -46,12 +49,18 @@ EndFunction
 
 ; how many times the player has trained this skill
 Int Function GetTimesTrained()
+    if SkillVal == TSSD_PerkPointsBought
+        return SkillVal.GetValue() as int
+    endif
     return (SkillVal.GetValue()/5) as int
 EndFunction
 
 ; how many times the player can train this skill
 Int Function GetAvailableTraining()
-    Return 999
+    if SkillVal == TSSD_PerkPointsBought
+        Return 99
+    endif
+    return 20
 EndFunction
 
 ; how much training for the next skill up costs
@@ -95,7 +104,6 @@ Function Train()
         PlayerRef.RemovePerk(TSSD_Base_Explanations)
         PlayerRef.AddPerk(TSSD_Base_Explanations)
     endif
-
 EndFunction
 
 

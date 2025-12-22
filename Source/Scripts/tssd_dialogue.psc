@@ -73,9 +73,19 @@ Event OnMenuClose(String MenuName)
     endif
     if lastDialogue == ""
         return
-    elseif lastDialogue == "TSSD_000C7"
+    else
+        TSSD_DrainedMarker.Cast(PlayerRef, lastDialoguePartner)
+    endif
+    if lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
+        tPEvents.incrValAndCheck(19,1)
+    endif
+    if lastDialogue !=  "TSSD_000C7"
+        Game.GetPlayer().RestoreActorValue("health", 100)
+    endif
+    if lastDialogue == "TSSD_000C7"
         lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
     elseif lastDialogue == "TSSD_000C6"
+        tPEvents.incrValAndCheck(20,1)
         GenericRefreshPSex(lastDialoguePartner, true, "aggressive")
     elseif lastDialogue == "TSSD_000D2"
         PlayerRef.AddItem(Gold001, 50)
@@ -87,8 +97,10 @@ Event OnMenuClose(String MenuName)
         PlayerRef.RemoveItem(Gold001, 50)
         GenericRefreshPSex(lastDialoguePartner, true)
     elseif lastDialogue == "TSSD_00098"
+        tPEvents.incrValAndCheck(3,1)
         GenericRefreshPSex(lastDialoguePartner, true, "love")
     elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
+        tPEvents.incrValAndCheck(3,1)
         GenericRefreshPSex(lastDialoguePartner, true, "kissing, -sex")
     elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
         GenericRefreshPSex(lastDialoguePartner, false, "")
@@ -137,6 +149,7 @@ Event OnMenuClose(String MenuName)
         lastDialoguePartner.AddtoFaction(PlayerMarriedFaction)
         tssd_queststart.SetStage(10)
     elseif lastDialogue == "TSSD_000B2"
+        tPEvents.incrValAndCheck(0,1)
         GenericRefreshPSex(lastDialoguePartner, true, "aircum", true)
         if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
             SexLab.AddCumFxLayers(PlayerRef, 0, 1)
@@ -151,6 +164,7 @@ Event OnMenuClose(String MenuName)
     elseif lastDialogue == "TSSD_000F7"
         GenericRefreshPSex(lastDialoguePartner, true, "facesit")
     elseif lastDialogue == "TSSD_00111"
+        tPEvents.incrValAndCheck(7,1)
         GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~leadIn, ~holding, -sex, ~hugging, ~cuddle")
     elseif lastDialogue == "TSSD_0010E"
         GenericRefreshPSex(lastDialoguePartner, false)
@@ -166,6 +180,7 @@ Event OnMenuClose(String MenuName)
         SexLab.StartSceneQuick(PlayerRef)
     elseif lastDialogue == "TSSD_0013D"
         if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+        tPEvents.incrValAndCheck(1,1)
             GenericRefreshPSex(lastDialoguePartner, true, "blowjob")
         else
             GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding")
@@ -197,15 +212,13 @@ EndEvent
 
 
 Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
-        TSSD_DrainedMarker.Cast(PlayerRef, (sender as Actor))
-        TSSD_PoisonForSuccubus.Cast((sender as Actor), PlayerRef)        
-        T_Show("Getting rejected hurts!"  , "menus/tssd/HeartBreak.dds", aiDelay = 0.0)
+    TSSD_PoisonForSuccubus.Cast((sender as Actor), PlayerRef)        
+    T_Show("Getting rejected hurts!"  , "menus/tssd/HeartBreak.dds", aiDelay = 0.0)
 endevent
 
 
 Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "", bool playerActive = false )
     Actor akSpeaker = target as Actor
-    DBGTRACE(target.GetDisplayName())
     AzuraFadeToBlack.Apply()
     GameHour.Mod(1) 
     tActions.gainSuccubusXP(1000)

@@ -24,12 +24,11 @@ GlobalVariable Property SkillSuccubusSeductionLevel Auto
 GlobalVariable Property SkillSuccubusBodyLevel Auto
 GlobalVariable Property SkillSuccubusBaseLevel Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
+GlobalVariable Property TSSD_SuccubusPerkPoints Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 
 tssd_tints_variables Property tVals Auto
-
-GlobalVariable Property TSSD_SuccubusBreakRank Auto
 
 
 
@@ -39,7 +38,6 @@ Perk Property TSSD_Seduction_Kiss1 Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PlayDead1 Auto
 Perk Property TSSD_Body_DefeatThem1 Auto
-Perk Property TSSD_Base_PolyThrall1 Auto
 Perk Property TSSD_Seduction_Kiss2 Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
@@ -124,7 +122,8 @@ Function OpenGrandeMenu()
         ;SelectSuccubusType(dbgSuccy)
         startSuccubusLife() 
         ;ShowSuccubusTrait(19)
-        GainFreePerk()
+        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
+
         return
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
@@ -235,7 +234,6 @@ EndFunction
 
 Function startSuccubusLife()    
     SuccubusDesireLevel.SetValue(50)
-    TSSD_SuccubusBreakRank.SetValue(0)
     tActions.RefreshEnergy(0)
     int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
     if startLevel > 0
@@ -487,6 +485,7 @@ Function ShowSuccubusTrait(int num)
     tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(SuccubusTintPerks[11])
         PlayerRef.AddPerk(SuccubusTintPerks[num])
+        TSSD_SuccubusPerkPoints.Mod(1)
         tEvents.incrValAndCheck(11,1)
     endif
 

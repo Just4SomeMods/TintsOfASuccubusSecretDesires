@@ -377,18 +377,6 @@
                 },
                 {
                     "type": "slider",
-                    "text": "TSSD_CumCravingTimer",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": 0,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|125"
-                    }
-                },
-                {
-                    "type": "slider",
                     "text": "TSSD_HumiliationDone",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -421,30 +409,6 @@
                         "step": 1,
                         "sourceType": "GlobalValue",
                         "sourceForm": "TintsOfASuccubusSecretDesires.esp|033"
-                    }
-                },
-                {
-                    "type": "slider",
-                    "text": "TSSD_LustLevel",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": 0,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|086"
-                    }
-                },
-                {
-                    "type": "slider",
-                    "text": "TSSD_MaxTraits",
-                    "help": "$globalSettingHelp",
-                    "valueOptions": {
-                        "min": 1,
-                        "max": 999999,
-                        "step": 1,
-                        "sourceType": "GlobalValue",
-                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|034"
                     }
                 },
                 {
@@ -548,7 +512,7 @@
                     "text": "TSSD_SuccubusPerkPoints",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 1,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -969,7 +933,7 @@
                 {
                     "type": "text",
                     "text": "Base Explanation",
-                    "help": "You can no longer regenerate health. Below 0 Energy you can no longer regenerate stamina and magicka. At -100 Energy you enter a feeding frenzy, which increases damage taken by an insane amount and you force yourself onto the first person you can drain.\n",
+                    "help": "You can no longer regenerate health. Below 0 Energy you can no longer regenerate stamina and magicka.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1038,20 +1002,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "Polythrall1",
-                    "help": "You can have up to one thrall. While you are satiated, you learn faster and ignore falling damage.\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "231"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
                     "text": "Polythrall2",
                     "help": "You can have up to three thralls.\n",
                     "action": {
@@ -1089,6 +1039,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "239"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Power Grows",
+                    "help": "At -100 Energy you enter a feeding frenzy, which increases damage taken by an insane amount and you force yourself onto the first person you can drain. You gain double the amount of xp.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "231"
                         ]
                     }
                 },
@@ -1179,7 +1143,7 @@
                 {
                     "type": "text",
                     "text": "Creampie Lover1",
-                    "help": "While you are digesting semen, you gain stamina regeneration.\n",
+                    "help": "While you have semen in you, your power attacks cost 50% less stamina.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1557,7 +1521,7 @@
                 {
                     "type": "text",
                     "text": "Power Collar2",
-                    "help": "While wearing a collar you lose less energy, deal more physical damage to noble and dominant people and have a greater chance at intimidating those. \n",
+                    "help": "While wearing a collar you lose less energy, deal more physical damage to noble and immoral people and have a greater chance at intimidating those. \n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2257,7 +2221,7 @@
                 {
                     "type": "text",
                     "text": "Pompadour",
-                    "help": "Wearing revealing clothing make your illusion, destruction and alteration spells more potent based on your seduction level and increase your armor by half of that. Being in combat in less revealing clothes makes them weaker.\n",
+                    "help": "Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. You are so used to enemies being distracted by your choice of clothes, that these spells get weaker if you wear less revealing clothin.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2299,7 +2263,7 @@
                 {
                     "type": "text",
                     "text": "Scarlet",
-                    "help": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you.\n",
+                    "help": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you. You also gain a succubus perk point.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2369,7 +2333,7 @@
                 {
                     "type": "text",
                     "text": "Traits",
-                    "help": "You can buy these perks to get the tint you previously rejected.\n",
+                    "help": "You can buy these tint to get the tint you previously rejected. When you accept a tint when you can, you gain a perk point.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

@@ -1,5 +1,5 @@
 Scriptname tssd_orgasmenergylogic extends Quest  
-
+;/ 
 import b612
 import tssd_utils
 GlobalVariable Property TimeOfDayGlobalProperty Auto
@@ -32,7 +32,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
     int nextAnnouncementLineLength = 0
     float energyLosses = 0
     float retval = 0
-;/ 
+
     if isEnabledAndNotPlayer(WhoCums)
         lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
         if (lastmet  < 0.0) || (lastmet > 1.0)
@@ -68,7 +68,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
     if output != ""
         nextAnnouncement += output +""
     endif
-    retVals[0] = retVal /;
+    retVals[0] = retVal 
     return retVals
 
 Endfunction
@@ -110,4 +110,4 @@ bool Function traitLogic(int index, sslThreadController _thread, Actor WhoCums)
         endif
     endif
     return  false
-Endfunction
+Endfunction /;

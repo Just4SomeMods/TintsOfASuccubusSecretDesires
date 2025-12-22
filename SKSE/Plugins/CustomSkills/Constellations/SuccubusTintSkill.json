@@ -16,52 +16,52 @@
             ]
         },
         {
-            "id": "44",
-            "perk": "TintsOfASuccubusSecretDesires.esp|12F",
+            "id": "46",
+            "perk": "TintsOfASuccubusSecretDesires.esp|12A",
             "x": 0,
-            "y": 0.30000000000000004,
+            "y": 1.1,
             "links": []
         },
         {
             "id": "2",
-            "x": -0.28577923846801234,
-            "y": -0.4892684933127843,
+            "x": -0.31284347935435897,
+            "y": -0.4884980509547674,
             "links": [
                 "6"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|119"
-        },
-        {
-            "id": "3",
-            "x": 0.28577923846801234,
-            "y": -0.4892684933127843,
-            "links": [
-                "7"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|117"
-        },
-        {
-            "id": "6",
-            "x": -0.5028404041943443,
-            "y": -0.33215699672080345,
-            "links": [
-                "10"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|11D"
-        },
-        {
-            "id": "7",
-            "x": 0.5028404041943443,
-            "y": -0.33215699672080345,
-            "links": [
-                "11"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|115"
         },
         {
+            "id": "3",
+            "x": 0.31284347935435897,
+            "y": -0.4884980509547674,
+            "links": [
+                "7"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|130"
+        },
+        {
+            "id": "6",
+            "x": -0.69886646473261,
+            "y": -0.19675819523745836,
+            "links": [
+                "10"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11B"
+        },
+        {
+            "id": "7",
+            "x": 0.69886646473261,
+            "y": -0.19675819523745836,
+            "links": [
+                "11"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|117"
+        },
+        {
             "id": "10",
-            "x": -0.9406431622428709,
-            "y": -0.12623147209850727,
+            "x": -1.4991359588066564,
+            "y": 0.19072845696083474,
             "links": [
                 "14"
             ],
@@ -69,98 +69,98 @@
         },
         {
             "id": "11",
-            "x": 0.9406431622428709,
-            "y": -0.12623147209850727,
+            "x": 1.4991359588066564,
+            "y": 0.19072845696083474,
             "links": [
                 "15"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|11B"
-        },
-        {
-            "id": "14",
-            "x": -1.4542514171619942,
-            "y": 0.1048618695873097,
-            "links": [
-                "18"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|11F"
-        },
-        {
-            "id": "15",
-            "x": 1.4542514171619942,
-            "y": 0.1048618695873097,
-            "links": [
-                "19"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|11A"
-        },
-        {
-            "id": "18",
-            "x": -1.801638528398927,
-            "y": 0.3637644205842415,
-            "links": [
-                "22"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|114"
-        },
-        {
-            "id": "19",
-            "x": 1.801638528398927,
-            "y": 0.3637644205842415,
-            "links": [
-                "23"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|11E"
-        },
-        {
-            "id": "22",
-            "x": -1.8016385283989265,
-            "y": 0.6318567129398893,
-            "links": [
-                "26"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|118"
-        },
-        {
-            "id": "23",
-            "x": 1.8016385283989265,
-            "y": 0.6318567129398893,
-            "links": [
-                "27"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|120"
-        },
-        {
-            "id": "26",
-            "x": -1.4542514171619938,
-            "y": 0.8367999812126614,
-            "links": [
-                "30"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|121"
-        },
-        {
-            "id": "27",
-            "x": 1.4542514171619938,
-            "y": 0.8367999812126614,
-            "links": [
-                "31"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|122"
-        },
-        {
-            "id": "30",
-            "x": -0.9406431622428709,
-            "y": 0.8933381885965996,
-            "links": [
-                "34"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|123"
         },
         {
+            "id": "14",
+            "x": -2.4898578434426977,
+            "y": 0.6256063840167685,
+            "links": [
+                "18"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|114"
+        },
+        {
+            "id": "15",
+            "x": 2.4898578434426977,
+            "y": 0.6256063840167685,
+            "links": [
+                "19"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|122"
+        },
+        {
+            "id": "18",
+            "x": -3.2533777248459286,
+            "y": 1.1105214550394638,
+            "links": [
+                "22"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|12F"
+        },
+        {
+            "id": "19",
+            "x": 3.2533777248459286,
+            "y": 1.1105214550394638,
+            "links": [
+                "23"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11A"
+        },
+        {
+            "id": "22",
+            "x": -3.427672316203152,
+            "y": 1.6284575842679847,
+            "links": [
+                "26"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|129"
+        },
+        {
+            "id": "23",
+            "x": 3.427672316203152,
+            "y": 1.6284575842679847,
+            "links": [
+                "27"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|12E"
+        },
+        {
+            "id": "26",
+            "x": -2.9270933731135154,
+            "y": 2.0737374207785266,
+            "links": [
+                "30"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|119"
+        },
+        {
+            "id": "27",
+            "x": 2.9270933731135154,
+            "y": 2.0737374207785266,
+            "links": [
+                "31"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|118"
+        },
+        {
+            "id": "30",
+            "x": -1.9948903262994413,
+            "y": 2.287278811374822,
+            "links": [
+                "34"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|121"
+        },
+        {
             "id": "31",
-            "x": 0.9406431622428709,
-            "y": 0.8933381885965996,
+            "x": 1.9948903262994413,
+            "y": 2.287278811374822,
             "links": [
                 "35"
             ],
@@ -168,39 +168,57 @@
         },
         {
             "id": "34",
-            "x": -0.502840404194344,
-            "y": 0.7899355636143888,
+            "x": -1.0543028916606265,
+            "y": 2.1904308090862044,
             "links": [
                 "38"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|12B"
+        },
+        {
+            "id": "35",
+            "x": 1.0543028916606265,
+            "y": 2.1904308090862044,
+            "links": [
+                "39"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11E"
+        },
+        {
+            "id": "38",
+            "x": -0.4523538779359231,
+            "y": 1.890946439250032,
+            "links": [
+                "42"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|11F"
+        },
+        {
+            "id": "39",
+            "x": 0.4523538779359231,
+            "y": 1.890946439250032,
+            "links": [
+                "43"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|128"
         },
         {
-            "id": "35",
-            "x": 0.502840404194344,
-            "y": 0.7899355636143888,
+            "id": "42",
+            "x": -0.25807908595399864,
+            "y": 1.637548885417591,
             "links": [
-                "39"
+                "46"
             ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|129"
+            "perk": "TintsOfASuccubusSecretDesires.esp|120"
         },
         {
-            "id": "38",
-            "x": -0.28577923846801234,
-            "y": 0.6271002255970051,
+            "id": "43",
+            "x": 0.25807908595399864,
+            "y": 1.637548885417591,
             "links": [
-                "44"
+                "46"
             ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|12A"
-        },
-        {
-            "id": "39",
-            "x": 0.28577923846801234,
-            "y": 0.6271002255970051,
-            "links": [
-                "44"
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|12B"
+            "perk": "TintsOfASuccubusSecretDesires.esp|11D"
         }
     ]
 }

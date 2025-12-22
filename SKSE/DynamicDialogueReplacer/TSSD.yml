@@ -38,7 +38,7 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Seduction_OfferSex1 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
 
   # CumCover
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -48,7 +48,7 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
       - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
       - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
@@ -153,7 +153,7 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Body_Grope >= 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
 
   # Voyeur
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -163,7 +163,7 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Seduction_Voyeur >= 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
 
   # SuckChamp
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -173,7 +173,7 @@ topics:
     conditions:
       - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
 
   # SuckChamp
   - id: 0x13C|TintsOfASuccubusSecretDesires.esp
@@ -218,4 +218,4 @@ topics:
     conditions:
       - GetFactionRank CC_NPCCurrentBimboStage >= 15 AND
       - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHome == 1 AND
+      - LocationHasKeyWord LocTypePlayerHouse == 1 AND

@@ -20,9 +20,15 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|022",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "StamRegen" , "MagRegen", "CapIncrease", "ScentRangeIncrease"
+          "links": [ "StamRegen" , "MagRegen", "CapIncrease"
           ]
-     }, {
+     },{
+          "id": "PowerGrowing",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0E7",
+          "x": -2.0,
+          "y": -0.5,
+          "links": [ "ScentRangeIncrease"]
+     },  {
           "id": "ScentRangeIncrease",
           "perk": "TintsOfASuccubusSecretDesires.esp|057",
           "x": -2.0,

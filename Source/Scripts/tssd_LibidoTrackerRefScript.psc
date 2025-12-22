@@ -7,7 +7,6 @@ Float Property gameTimePassed Auto
 Int Property BookNumTracker Auto
 Actor Property PlayerRef Auto
 GlobalVariable Property TSSD_SuccubusLibido Auto
-GlobalVariable Property TSSD_SuccubusBreakRank Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 
