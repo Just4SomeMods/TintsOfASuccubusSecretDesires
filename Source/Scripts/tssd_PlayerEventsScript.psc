@@ -18,6 +18,9 @@ SexLabFramework Property SexLab Auto
 Form Property Gold001 Auto
 GlobalVariable Property gamehour Auto
 
+Perk Property TSSD_Body_ArousingBody Auto
+Perk Property TSSD_Body_StunningBody Auto
+
 int[] colorsToAdd
 
 float[] Property targetNums Auto
@@ -34,6 +37,7 @@ bool crimsonDone = false
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
 Keyword Property LocTypeStore Auto
+Keyword Property ActorTypeCreature Auto
 
 Perk Property TSSD_DeityArkayPerk Auto
 
@@ -42,6 +46,7 @@ Quest Property TSSD_EvilSuccubusQuest Auto
 GlobalVariable Property TSSD_InnocentsSlain Auto
 
 Spell Property TSSD_DrainHealth Auto
+Spell Property TSSD_InLoveBuff Auto
 
 Faction Property TSSD_MarkedForDeathFaction Auto
 
@@ -193,6 +198,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
 			incrValAndCheck(19,1)
+			TSSD_InLoveBuff.Cast(PlayerRef,PlayerRef)
 		endif
 
 		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
@@ -278,6 +284,7 @@ endEvent /;
 
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
+	ACtor ak = akAggressor as Actor
     if PlayerRef.GetAV("Health") < 100 && PlayerRef.HasMagicEffect(TSSD_SatiatedEffect) && (akAggressor as Actor) && \
         (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 20
 		isActingDefeated = true
@@ -291,6 +298,23 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
     if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[14]) && akW != none && !abHitBlocked
         tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
     endif
+	if ak && ak.isHostileToActor(PlayerRef)
+		if playerRef.HasPerk(TSSD_Body_ArousingBody)
+		
+			int eid = ModEvent.Create("slaUpdateExposure")
+			ModEvent.PushForm(eid, ak)
+			float arousalPush = 10.0
+			ModEvent.PushFloat(eid, arousalPush)
+			ModEvent.Send(eid)
+		endif
+		if playerRef.HasPerk(TSSD_Body_StunningBody) && Utility.RandomInt(21, 200) < ak.GetFactionRank(sla_Arousal)
+			if ak.GetRace().HasKeyword(ActorTypeCreature)
+				ak.ModAV("Health", -100)
+			else
+				Sexlab.StartSceneQuick(ak)
+			endif
+		endif
+	endif
 	incrValAndCheck(14, akW.GetBaseDamage())
 	
 EndEvent

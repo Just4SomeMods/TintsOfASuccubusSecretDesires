@@ -27,8 +27,20 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|0E7",
           "x": -2.0,
           "y": -0.5,
+          "links": [ "AggressiveNegotiations", "Invitation"]
+     },{
+          "id": "Invitation",
+          "perk": "TintsOfASuccubusSecretDesires.esp|056",
+          "x": -1.5,
+          "y": 0.0,
           "links": [ "ScentRangeIncrease"]
-     },  {
+     }, {
+          "id": "AggressiveNegotiations",
+          "perk": "TintsOfASuccubusSecretDesires.esp|04E",
+          "x": -2.5,
+          "y": 0.0,
+          "links": [ "ScentRangeIncrease"]
+     },   {
           "id": "ScentRangeIncrease",
           "perk": "TintsOfASuccubusSecretDesires.esp|057",
           "x": -2.0,

@@ -805,6 +805,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Scarlet Effect",
+                    "help": "You gain <mag>% magic damage resist and have <mag> increased speechcraft."
+                },
+                {
+                    "type": "text",
                     "text": "Speedmod",
                     "help": "You are ethereal and move <mag>% faster."
                 },
@@ -932,8 +937,22 @@
                 },
                 {
                     "type": "text",
+                    "text": "Aggressive Negotiation1",
+                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "78"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Base Explanation",
-                    "help": "You can no longer regenerate health. Below 0 Energy you can no longer regenerate stamina and magicka.\n",
+                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Below 0 Energy you can no longer regenerate stamina and magicka.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -997,6 +1016,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "44"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Invitation1",
+                    "help": "You can act exhausted and lure ne'er-do-wellers into having their way with you. This only works outside of combat and alerts their teammates after the deed.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "86"
                         ]
                     }
                 },
@@ -1072,6 +1105,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Restore Sneak attack",
+                    "help": "You deal your normal sneak attack damage again.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "134"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Staminaregen",
                     "help": "You can regenerate Stamina again at low energy.\n",
                     "action": {
@@ -1086,15 +1133,15 @@
                 },
                 {
                     "type": "text",
-                    "text": "Aggressive Negotiation1",
-                    "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\n",
+                    "text": "Arousing Body",
+                    "help": "When enemies attack you in melee, they gain a bit of arousal. You deal more melee damage to enemies based on your body skill level that are at least at 50 arousal.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
                         "scriptName": "tssd_actions",
                         "function": "addTSSDPerk",
                         "params": [
-                            "78"
+                            "65"
                         ]
                     }
                 },
@@ -1310,15 +1357,15 @@
                 },
                 {
                     "type": "text",
-                    "text": "Invitation1",
-                    "help": "You can act exhausted and lure ne'er-do-wellers into having their way with you. This only works outside of combat and alerts their teammates after the deed.\n",
+                    "text": "Stunning Body",
+                    "help": "When enemies attack in melee you, they have a small chance  baesed on their arousal to start masturbating, or if it's a creature it takes massive damage instead.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
                         "scriptName": "tssd_actions",
                         "function": "addTSSDPerk",
                         "params": [
-                            "86"
+                            "52"
                         ]
                     }
                 },
@@ -2193,7 +2240,7 @@
                 {
                     "type": "text",
                     "text": "Pink\u00b22",
-                    "help": "You can no longer become satiated, but you also can no longer fall below 0 energy. This color is so strong, it removes all of your other colors.\n",
+                    "help": "Bimbos can not become satiated, but they also can not fall below 0 energy. \n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2263,7 +2310,7 @@
                 {
                     "type": "text",
                     "text": "Scarlet",
-                    "help": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you. You also gain a succubus perk point.\n",
+                    "help": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants magic resist and speechcraft for a while. You can also enthrall people who would die for you. You also gain a succubus perk point.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2650,6 +2697,42 @@
                         "params": [
                             "{b}0",
                             "159",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_InLoveBuffMag0:Spells",
+                    "type": "input",
+                    "text": "Scarlet Effect 0 Mag",
+                    "help": "Scarlet Effect 15",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "75",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_InLoveBuffDur0:Spells",
+                    "type": "input",
+                    "text": "Scarlet Effect 0 Dur",
+                    "help": "Scarlet Effect 3600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "75",
                             "{i}0",
                             "{value}"
                         ]

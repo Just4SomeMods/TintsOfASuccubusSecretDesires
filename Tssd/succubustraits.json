@@ -240,17 +240,6 @@
     },
     "Pink": {
         "positive": [
-            "New one!",
-            "Oooh, new experiences!",
-            "I love feeling naughty with someone new.",
-            "This exciting touch, so exhilarating.",
-            "The first time always leaves a lasting impression.",
-            "First times are the most thrilling.",
-            "New conquest!",
-            "Fresh blood!",
-            "You're mine now.",
-            "Your first time with me is unforgettable.",
-            "Let's make memories!"
         ],
         "needyText": [
             "My skin feels suffocated under fabric. Stupid clothes. Stupid me for wearing them.",
@@ -321,7 +310,7 @@
         "kink": "tattoos",
         "index": 8
     },
-    "Pink2": {
+    "HotPink": {
         "positive": [],
         "needyText": [],
         "description": "Oh oh, you are now a bimbo! You can no longer become satiated, but you also can no longer fall below 0 energy.",
@@ -636,7 +625,7 @@
             "You are a gift from Mara!"
         ],
         "needyText": [],
-        "description": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants you strong temporary buffs. You can also enthrall people who would die for you. You also gain a succubus perk point.",
+        "description": "If you choose Scarlet, you can only gain energy from people that like you. Feeding on them grants magic resist and speechcraft for a while. You can also enthrall people who would die for you. You also gain a succubus perk point.",
         "color": [
             255,
             36,

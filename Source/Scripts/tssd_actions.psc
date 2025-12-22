@@ -89,7 +89,6 @@ Keyword Property LocTypeCity Auto
 Keyword Property LocTypeClearable Auto
 Keyword Property LocTypeHabitation Auto
 Keyword Property LocTypeHabitationHasInn Auto
-Keyword Property IsCreature Auto
 
 HeadPart PlayerEyes
 HeadPart ThrallEyes
@@ -290,7 +289,7 @@ Actor Function searchForTargets()
     while ac_index < cell_ac.Length
         curRef = cell_ac[ac_index]        
         if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled() && !curRef.isDead()
-            if (!nearestActor || min_distance > PlayerRef.GetDistance(curRef) ) && !curRef.HasKeyword(IsCreature)
+            if (!nearestActor || min_distance > PlayerRef.GetDistance(curRef) )
                 nearestActor = curRef
                 min_distance = PlayerRef.GetDistance(curRef)
             endif

@@ -102,6 +102,18 @@
         0
     ],
     [
+        "sTSSD_InLoveBuffMag0:Spells",
+        true,
+        "75",
+        0
+    ],
+    [
+        "sTSSD_InLoveBuffDur0:Spells",
+        true,
+        "75",
+        0
+    ],
+    [
         "sTSSD_MageFormMag0:Spells",
         true,
         "88",

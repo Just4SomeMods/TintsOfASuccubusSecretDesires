@@ -20,18 +20,18 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|095",
           "x": 1.0,
           "y": 1.5,
-          "links": [ "Invitation", "LT"
+          "links": [ "ArousingBody", "LT"
           ]
      },{
-          "id": "Invitation",
-          "perk": "TintsOfASuccubusSecretDesires.esp|056",
+          "id": "ArousingBody",
+          "perk": "TintsOfASuccubusSecretDesires.esp|041",
           "x": 1.25,
           "y": 1.0,
-          "links": [ "AggressiveNego"
+          "links": [ "StunningBody"
           ]
      },{
-          "id": "AggressiveNego",
-          "perk": "TintsOfASuccubusSecretDesires.esp|04E",
+          "id": "StunningBody",
+          "perk": "TintsOfASuccubusSecretDesires.esp|034",
           "x": 2.0,
           "y": 0.25,
           "links": [          ]

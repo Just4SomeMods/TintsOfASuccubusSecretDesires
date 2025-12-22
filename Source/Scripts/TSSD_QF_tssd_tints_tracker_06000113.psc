@@ -11,6 +11,7 @@ ReferenceAlias Property Alias_PlayerAlias Auto
 Function Fragment_16()
 ;BEGIN CODE
 SetObjectiveDisplayed(9, true)
+SetObjectiveCompleted(9, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
