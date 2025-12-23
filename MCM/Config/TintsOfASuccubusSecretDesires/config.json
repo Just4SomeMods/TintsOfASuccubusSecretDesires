@@ -108,6 +108,19 @@
                         "scriptName": "tssd_actions",
                         "function": "gainAllPerks"
                     }
+                },
+                {
+                    "id": "iSuccubusNeedsTimer:Main",
+                    "text": "Need Timer",
+                    "help": "How many hours it takes to feel needy towards a tint again",
+                    "type": "slider",
+                    "valueOptions": {
+                        "min": 3,
+                        "max": 168,
+                        "step": 1,
+                        "formatString": "{0}",
+                        "sourceType": "ModSettingInt"
+                    }
                 }
             ]
         },
@@ -952,7 +965,7 @@
                 {
                     "type": "text",
                     "text": "Base Explanation",
-                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Below 0 Energy you can no longer regenerate stamina and magicka.\n",
+                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Below 0 Energy you can no longer regenerate stamina and magicka. Your sex partners gain increased enjoyment based on all of your succubus skill levels.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1358,7 +1371,7 @@
                 {
                     "type": "text",
                     "text": "Stunning Body",
-                    "help": "When enemies attack in melee you, they have a small chance  baesed on their arousal to start masturbating, or if it's a creature it takes massive damage instead.\n",
+                    "help": "When enemies attack you in melee, they have a small chance  based on their arousal to start masturbating, or if it's a creature it takes massive damage instead.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1400,7 +1413,7 @@
                 {
                     "type": "text",
                     "text": "A blessing from the gods",
-                    "help": "Through your devotion, you cut your gained libido in half.\n",
+                    "help": "Through your devotion, your minimum energy level is now 0.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1414,7 +1427,7 @@
                 {
                     "type": "text",
                     "text": "Arkay's gift",
-                    "help": "Your libido increase by draining someone to death is cut in half.\n",
+                    "help": "You gain a small amount of energy back for every undead slain.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1428,7 +1441,7 @@
                 {
                     "type": "text",
                     "text": "Dibella's gift",
-                    "help": "Your libido decreases more if you masturbate in a public place.\n",
+                    "help": "Asking to be watched while masturbating always succeeds and can be done in public as a devotion to the arts.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1442,7 +1455,7 @@
                 {
                     "type": "text",
                     "text": "Mara's gift",
-                    "help": "Your libido decreases faster in a home.\n",
+                    "help": "When you refresh energy with a loved one, you also gain \"lovers comfort\".\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1456,7 +1469,7 @@
                 {
                     "type": "text",
                     "text": "Stendarr's gift",
-                    "help": "Your libido decreases when you give money to the poor.\n",
+                    "help": "Stendarr protects you partially from harm.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1470,7 +1483,7 @@
                 {
                     "type": "text",
                     "text": "Zenithar's Acquired Goods",
-                    "help": "You can pray to Zenithar to reduce your libido for a small donation.\n",
+                    "help": "Zenithar blesses your work, increasing your ability to temper weapons and armor.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1805,20 +1818,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "You shoudln't see this!",
-                    "help": "A\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "265"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
                     "text": "Disappear",
                     "help": "You can sacrifice 20 energy to increase your speed and become ethereal.\n",
                     "action": {
@@ -2002,7 +2001,7 @@
                 {
                     "type": "text",
                     "text": "Teasing Outift",
-                    "help": "While weaing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)\n",
+                    "help": "While wearing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2100,7 +2099,7 @@
                 {
                     "type": "text",
                     "text": "Crusta",
-                    "help": "If you have eggs in your belly, you create an additional potion to help feed your kids. If these kids are spiders or chaurus, your poisons deal more damage based on your drain level. If your belly is empty, all spells cost twice as much.\n",
+                    "help": "If you have eggs in your belly, you find more ingredients to eat for your spawn. If these kids are spiders or chaurus, your poisons deal more damage based on your drain level. If your belly is empty, all spells cost twice as much.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2170,7 +2169,7 @@
                 {
                     "type": "text",
                     "text": "Lilac2",
-                    "help": "While you are collared, you halve the time between your barks. If you recently had sex with somone who has wolves blood, you learn warrior skills 50% faster. You are a confused dog without your collar and can not learn any skills without it.\n",
+                    "help": "While you are collared, you halve the time between your barks. If you recently had sex with someone who has wolves blood, you learn warrior skills 50% faster. You are a confused dog without your collar and can not learn any skills without it.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2268,7 +2267,7 @@
                 {
                     "type": "text",
                     "text": "Pompadour",
-                    "help": "Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. You are so used to enemies being distracted by your choice of clothes, that these spells get weaker if you wear less revealing clothin.\n",
+                    "help": "Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. You are so used to enemies being distracted by your choice of clothes, that these spells get weaker if you wear less revealing clothing.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

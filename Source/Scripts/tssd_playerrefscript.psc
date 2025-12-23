@@ -39,7 +39,7 @@ Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
 EndEvent
 
 Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akSourceContainer)
-    if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25)
+    if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25) && aiItemCount < 1000
         int lostMoney = ((aiItemCount + 1) / 2) as int
         PlayerRef.RemoveItem(akBaseItem,  lostMoney )
         Debug.Notification("Zenithar takes half your cut!")

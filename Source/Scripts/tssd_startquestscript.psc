@@ -7,6 +7,7 @@ String Property deityName Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 
 Event OnActivate(ObjectReference akActionRef)
+    deityName = StringUtil.Split( GetDisplayName(), " of ")[1]
     if SuccubusDesireLevel.GetValue() > -101 && Input.IsKeyPressed(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main"))
         if !tssd_dealwithcurseQuest.IsRunning()
             tssd_dealwithcurseQuest.Start()

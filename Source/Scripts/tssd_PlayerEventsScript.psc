@@ -13,9 +13,14 @@ Actor Property PlayerRef Auto
 
 Spell Property tssd_Satiated Auto
 MagicEffect Property TSSD_SatiatedEffect Auto
+MagicEffect Property EnchReligiousMara Auto
+GlobalVariable Property SkillSuccubusBaseLevel Auto
+GlobalVariable Property SkillSuccubusBodyLevel Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
+GlobalVariable Property SkillSuccubusSeductionLevel Auto
 SexLabFramework Property SexLab Auto
 Form Property Gold001 Auto
+Form Property ReligiousMaraLove Auto
 GlobalVariable Property gamehour Auto
 
 Perk Property TSSD_Body_ArousingBody Auto
@@ -128,10 +133,9 @@ String Property INFLATION_AMOUNT = "sr.inflater.amount" autoreadonly hidden
 GlobalVariable Property TSSD_CumAmountAV Auto
 
 Function calcCumAmountPlayer()
-	float infAmount = GetFloatValue(PlayerRef, INFLATION_AMOUNT) 
+	float infAmount = GetFloatValue(PlayerRef, INFLATION_AMOUNT) + GetFloatValue(PlayerRef, CUM_ORAL) + GetFloatValue(PlayerRef, CUM_ANAL) + GetFloatValue(PlayerRef, CUM_VAGINAL)
 	TSSD_CumAmountAV.SetValue( max(0.5, 1 / max(1,infAmount/ 3 )))
-	tVals.cupidFilledUpAmount = infAmount
-	
+	tVals.cupidFilledUpAmount = infAmount	
 EndFunction
 
 ; END CUPID
@@ -164,6 +168,7 @@ Function incrValAndCheck(int numOf, float incrBy)
 	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
 		if numOf != 19 && numOf != 18
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
+			DBGTRACE("Player enjoys perk " + numOf + " currently!" + possibleAnnouncements[possibleAnnouncements.Length-1])
 			tssd_tints_tracker.SetObjectiveFailed(numOf, false)
 			tssd_tints_tracker.SetObjectiveDisplayed(numOf, true)
 		endif
@@ -196,6 +201,9 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 
 			tVals.lastWolfSex = 0.1
 		endif
+		if WhoCums.GetFactionRank(TSSD_HypnoMaster) >=0 
+			tVals.lastHypnoSession = 0.1
+		endif
 		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
 			incrValAndCheck(19,1)
 			TSSD_InLoveBuff.Cast(PlayerRef,PlayerRef)
@@ -210,7 +218,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
 				incrValAndCheck(0,1)
 			endif
-			calcCumAmountPlayer()
 		endif
 		if !issingle( WhoCums)
 			incrValAndCheck(2,1)
@@ -264,13 +271,15 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		incrValAndCheck(3,1)
 	endif
 
-	if !hadAnnouncement && possibleAnnouncements.Length > 1
-		int getRando = possibleAnnouncements[Utility.RandomInt(1, possibleAnnouncements.Length)]
-		DBGTRACE(getRando)
+	if (!hadAnnouncement || hadAnnouncement) && possibleAnnouncements.Length > 1
+		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length-1)
+		int getRando = possibleAnnouncements[randOmGGG]
+		DBGTRACE(getRando +" " + possibleAnnouncements[1] + " random Index " + randOmGGG)
 		T_Needs(getRando, "", false)
 		hadAnnouncement = true
 	endif
-
+	Utility.Wait(0.1)
+	calcCumAmountPlayer()
 EndFunction
 
 ;/ Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
@@ -288,7 +297,7 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
     if PlayerRef.GetAV("Health") < 100 && PlayerRef.HasMagicEffect(TSSD_SatiatedEffect) && (akAggressor as Actor) && \
         (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 20
 		isActingDefeated = true
-        Actor tar = tActions.getLonelyTarget()
+        Actor tar = tActions.getCombatTarget(true)
         if tar && tar != PlayerRef
             tActions.actDefeated(tar, false)
         Endif
@@ -394,6 +403,11 @@ Function onGameReload()
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
 EndFunction
 
+Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
+	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[2]) && akBaseObject == ReligiousMaraLove
+		PlayerRef.UnequipItem(ReligiousMaraLove, true, false)
+	endif
+EndEvent
 
 Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
     sslThreadController _thread =  Sexlab.GetController(Thread)
@@ -418,9 +432,14 @@ Event PlayerSceneStartEvent(Form FormRef, int tid)
 	
     sslThreadController _thread =  Sexlab.GetController(tid)
 	Actor[] aIn = _thread.GetPositions()
+	if aIn.Length == 1
+		_thread.SetEnjoyment(PlayerRef, 100)
+	endif
 	while indexIn < aIn.Length
-		if !aIn[indexIn].GetRace().IsPlayable()
+		if aIn[indexIn].GetRace().HasKeyword(ActorTypeCreature)
 			_thread.SetEnjoyment(aIn[indexIN], 100)
+		elseif aIn[indexIN] != PlayerRef
+			_thread.ModEnjoymentMult(aIn[indexIN], (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 100, true )
 		endif
 		indexIn += 1
 	endwhile
@@ -500,7 +519,6 @@ Event OnUpdateGameTime()
 		outPut += indexIN + ": " + ((currentVals[indexIN] as int) + toAdd) + "/" + (targetNums[indexIN] as int) + " || "
 		indexIN += 1
 	endwhile
-	DBGTRACE(outPut)
 	calcCumAmountPlayer()
 	float gameTimeDiff = max(0.5, gamehour.GetValue() - lastGameHour)
 	tVals.lastCumOnTime += gameTimeDiff
@@ -513,46 +531,49 @@ Event OnUpdateGameTime()
 	tVals.lastHypnoSession += gameTimeDiff
 	tVals.lastFadeTat += gameTimeDiff
 	lastNeedsAnnouncement += gameTimeDiff
+	DBGTRACE(gameTimeDiff)
 	int[] tN = new int[1]
-	if lastNeedsAnnouncement > 24
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0])  && (tVals.lastCumOnTime > 24)
+	int needsTimerMax =  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusNeedsTimer:Main")
+	if lastNeedsAnnouncement > needsTimerMax  && !PlayerRef.isInCombat()
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0])  && (tVals.lastCumOnTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 0)
 			tssd_tints_tracker.SetObjectiveFailed(0, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[15]) && (tVals.lastPraiseTime > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[15]) && (tVals.lastPraiseTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 15)
 			tssd_tints_tracker.SetObjectiveFailed(15, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[22]) && (tVals.lastRoughTime > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[22]) && (tVals.lastRoughTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 22)
 			tssd_tints_tracker.SetObjectiveFailed(22, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[13]) && (tVals.lastSpankedTime > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[13]) && (tVals.lastSpankedTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 13)
 			tssd_tints_tracker.SetObjectiveFailed(13, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[3])  && (tVals.lastRomanticTime > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[3])  && (tVals.lastRomanticTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 3)
 			tssd_tints_tracker.SetObjectiveFailed(3, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[1])  && (tVals.lastCumInMe > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[1])  && (tVals.lastCumInMe > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 1)
 			tssd_tints_tracker.SetObjectiveFailed(1, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[6])  && (tVals.lastWolfSex > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[6])  && (tVals.lastWolfSex > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 6)
 			tssd_tints_tracker.SetObjectiveFailed(6, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > 24)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 18)
 			Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
 			Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length-1)]
+			DBGTRACE(cTarget.GetDisplayName())
 			T_Needs(18, cTarget.GetDisplayName())
-			if !PlayerRef.isInCombat()
-				Sexlab.StartSceneQuick(PlayerRef)
+			if !PlayerRef.isInCombat() && !Sexlab.IsActorActive(PlayerRef)
+				Sexlab.StartSceneQuick(PlayerRef) 
+				tVals.lastHypnoSession = 0.1
+				lastNeedsAnnouncement = 0.1
 			endif
-			tVals.lastHypnoSession = 0.1
-			lastNeedsAnnouncement = 0.1
 		elseif tN.Length > 1
 			int nxAnnounce = tN[Utility.RandomInt(1, tN.Length)]
 			DBGTRACE(tN[1] + " " + nxAnnounce)
@@ -572,7 +593,7 @@ Event OnUpdateGameTime()
 		tVals.lastFadeTat = 0.1
 	endif
 
-	if isLilac && !isCollared
+	if isLilac && !isCollared && !PlayerRef.isInCombat() && !Sexlab.IsActorActive(PlayerRef)
 		T_Show("I miss my collar...", "menus/TSSD/small/lilac.dds")
 	endif
 EndEvent

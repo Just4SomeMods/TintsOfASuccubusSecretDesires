@@ -23,6 +23,7 @@ int prevRelRankHotDemon = 0
 
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
+Perk Property TSSD_DeityAllPerk Auto
 String[] Property SuccubusAbilitiesNames  Auto    
 
 Idle property BleedOutStart auto
@@ -107,6 +108,7 @@ MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto
 float last_checked
 float timer_internal = 0.0
 float _updateTimer = 0.5
+float lastScarletTalk = 999.0
 
 String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
 String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
@@ -126,22 +128,27 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     endif
     float lastVal = SuccubusDesireLevel.GetValue()
     int lowerBound = -100
-    ;/ 
-    if (TSSD_TypeSundown.GetValue() as int) == 1
+    if PlayerRef.HasPerk(TSSD_DeityAllPerk)
         lowerBound = 0
-    endif /;
+    endif
     if playerRef.HasPerk(TSSD_Drain_RefreshHealth) && adjustBy > 0
         PlayerRef.RestoreActorValue("Health", adjustBy)
     endif
     if (lastVal > -100 || isDeathModeActivated)
         SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
     endif
+    updateHeartMeter()
+Endfunction
+
+Function updateHeartMeter()
+    
+    int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
-    if nxtPerc != lastPerc
+    if nxtPerc != lastPerc || SuccubusDesireLevel.GetValue() >= 99
         T_Show("", "menus/TSSD/" + nxtPerc + "H.dds" )
         lastPerc = nxtPerc
     endif
-Endfunction
+EndFunction
 
 float Function getDrainLevel(bool isGentle = false)
     float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
@@ -236,7 +243,7 @@ Function advanceStageTwenty()
     endif
 Endfunction
 
-Actor Function getLonelyTarget()
+Actor Function getCombatTarget(bool onlyLonely = false);/ 
     int radius = getScanRange()
     cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
     int ac_index = 0
@@ -266,51 +273,31 @@ Actor Function getLonelyTarget()
         ac_index += 1
     endwhile
     cell_ac = tempArr
+
+    string outTest = "" /;
+
+    Actor[] cT = PO3_SKSEFunctions.GetCombatTargets(PlayerRef)
+    if cT.Length == 1 || !onlyLonely
+        return cT[0]
+    endif
+;/ 
+    int cIndex = 0
+    while cIndex < cT.Length
+        outTest += cT[cIndex].GetDisplayName() + " || "
+        cIndex += 1
+    endwhile
+
     if nearestActor &&  numHostileActors == 1 
         isFading = true
         tarRef = nearestActor
         return nearestActor
-    endif
+    endif /;
+
+
+
     return PlayerRef
 EndFunction
 
-Actor Function searchForTargets()
-    int radius = getScanRange()
-    cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
-    int ac_index = 0
-    bool isFading = false
-    Actor curRef
-    Actor tarRef
-    Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
-    numHostileActors = 0
-    float min_distance
-    Actor nearestActor
-    Actor[] tempArr = new Actor[1]
-    while ac_index < cell_ac.Length
-        curRef = cell_ac[ac_index]        
-        if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled() && !curRef.isDead()
-            if (!nearestActor || min_distance > PlayerRef.GetDistance(curRef) )
-                nearestActor = curRef
-                min_distance = PlayerRef.GetDistance(curRef)
-            endif
-            isHostileArr[ac_index] = true
-            if numHostileActors == 0
-                tempArr[0] = curRef
-            else
-                tempArr = PapyrusUtil.PushActor(tempArr,curRef )
-            endif
-            numHostileActors += 1
-        endif
-        ac_index += 1
-    endwhile
-    cell_ac = tempArr
-    if nearestActor
-        isFading = true
-        tarRef = nearestActor
-        return nearestActor
-    endif
-    return PlayerRef
-Endfunction
 
 bool Function playerInSafeHaven()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
@@ -486,6 +473,7 @@ Function onGameReload()
     tEvents.onGameReload()
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
+    RegisterForCrosshairRef()
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)
@@ -522,7 +510,7 @@ Endfunction
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-    if  PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
+    if !PlayerRef.isInCombat() && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && lastScarletTalk > 24 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
         int toIncrease = 2
         Actor[] myThralls = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)
         if myThralls.Length >= 1
@@ -532,6 +520,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
             toIncrease += 2
         endif
         SuccubusXpAmount.Mod(10)
+        lastScarletTalk = 0.1
     endif
 endEvent
 
@@ -539,6 +528,7 @@ endEvent
 
 Event OnUpdateGameTime()
     float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 100
+    lastScarletTalk += timeBetween
     if timeBetween > 1
         float valBefore = SuccubusDesireLevel.GetValue()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
@@ -586,6 +576,7 @@ Event OnUpdateGameTime()
         ModEvent.PushFloat(eid, 99)
         ModEvent.Send(eid)
     endif
+    updateHeartMeter()
 endEvent
 
 Event OnMenuOpen(String MenuName)
@@ -702,9 +693,11 @@ Event PlayerSceneStart(Form FormRef, int tid)
             int index = 0
             while index < ActorsIn.length
                 Actor WhoCums = ActorsIn[index]
-                float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-                if WhoCums.GetHighestRelationshiprank() >= 3 && lstTime < 0
-                    increaseGlobalDeity(5, 1, 5)
+                if WhoCums != PlayerRef
+                    float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
+                    if !issingle(WhoCums) && lstTime < 0
+                        increaseGlobalDeity(5, 1, 5)
+                    endif
                 endif
                 index+=1
             EndWhile
@@ -739,46 +732,14 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     DBGTRACE("PLAYERSCENEENDFIN")
 EndEvent
 
- ;/ 
+
 Event OnCrosshairRefChange(ObjectReference ref)
     SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-    Actor Aref = ref as Actor
-
-    if Aref && Aref.GetFactionRank(TSSD_EnthralledFaction) >= 1
-        myBinding.Add("tssd_getTargetCross", "Thrall Actions", 47)
-        HoveredPrey = Aref
-    else
-        HoveredPrey = PlayerRef
-    endif
-
-	If Aref && isSuccableOverload(Aref) > 0 && !Aref.isDead()
-        myBinding.Add("tssd_getTargetCross", "Succubus Actions " + isSuccableOverload(Aref), 47)
-        int lasttime = (GetLastTimeSuccd(Aref, TimeOfDayGlobalProperty) * 300) as int
-        if lasttime > 100.0 || lasttime < 0.0
-            lasttime = 100
-        endif
-        if lasttime > 50
-            myBinding.Add("tssd_getTargetPct", lasttime + "%",-1)
-            isHoveringPrey = true
-        endif
-        RegisterForSingleUpdate(1)
-    else
-        myBinding.Remove("tssd_getTargetCross")
-        myBinding.Remove("tssd_getTargetPct")
-        isHoveringPrey = false
-	EndIf
+    if ref && StringUtil.Find(ref.GetDisplayName(), "hrine of ") > 0
+        myBinding.Add("tssd_getTargetCross", "Pray", 47)
+        Utility.Wait(3)
+    EndIf
+    myBinding.Remove("tssd_getTargetCross")
 EndEvent
 
-Event OnUpdate()
-    if  Game.GetCurrentCrosshairRef() && Game.GetCurrentCrosshairRef() == HoveredPrey
-        RegisterForSingleUpdate(1)
-    else
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-        myBinding.Remove("tssd_getTargetCross")
-        myBinding.Remove("tssd_getTargetPct")
-        isHoveringPrey = false
-        HoveredPrey = PlayerRef
-    endif
-EndEvent
- /;
 

@@ -20,7 +20,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|022",
           "x": 0.0,
           "y": -0.5,
-          "links": [ "StamRegen" , "MagRegen", "CapIncrease"
+          "links": [ "StamRegen", "SneakAttack" , "MagRegen", "CapIncrease"
           ]
      },{
           "id": "PowerGrowing",
@@ -45,7 +45,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|057",
           "x": -2.0,
           "y": 0.5,
-          "links": [ ]
+          "links": [ "Harmless"]
      }, {
           "id": "StamRegen",
           "perk": "TintsOfASuccubusSecretDesires.esp|02B",
@@ -54,6 +54,13 @@
           "links": [ "HPRegen"
           ]
      }, {
+          "id": "SneakAttack",
+          "perk": "TintsOfASuccubusSecretDesires.esp|086",
+          "x": 1.5,
+          "y": 1.5,
+          "links": [ "HPRegen"
+          ]
+     },{
           "id": "MagRegen",
           "perk": "TintsOfASuccubusSecretDesires.esp|02C",
           "x": 2.0,
@@ -66,7 +73,7 @@
           "x": 1.5,
           "y": 2.5,
           "links": [ 
-               "Harmless"
+               
           ]
      }, {
           "id": "CapIncrease",
@@ -78,7 +85,7 @@
      }, {
           "id": "Harmless",
           "perk": "TintsOfASuccubusSecretDesires.esp|02D",
-          "x": 1.5,
+          "x": -2.0,
           "y": 3.5,
           "links": [
           ]

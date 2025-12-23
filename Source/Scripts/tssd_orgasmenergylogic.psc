@@ -1,8 +1,9 @@
 Scriptname tssd_orgasmenergylogic extends Quest  
-;/ 
+
 import b612
 import tssd_utils
 GlobalVariable Property TimeOfDayGlobalProperty Auto
+;/ 
 Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
 Faction Property sla_Arousal Auto

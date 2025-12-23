@@ -30,7 +30,7 @@ GlobalVariable Property SuccubusXpAmount Auto
 
 tssd_tints_variables Property tVals Auto
 
-
+Quest Property tssd_dealwithcurseQuest Auto
 
 Perk Property TSSD_Base_Explanations Auto
 Perk Property TSSD_Drain_GentleDrain1 Auto
@@ -48,7 +48,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "0.03.03"
+string currentVersion = "1.00.00"
 
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -112,6 +112,40 @@ Function OpenIntmacyMenu(Actor targetRef)
     Endif
 EndFunction
 
+
+bool Function toggleQuestCurses(String deityName)
+    if SuccubusDesireLevel.GetValue() > -101
+        if !tssd_dealwithcurseQuest.IsRunning()
+            tssd_dealwithcurseQuest.Start()
+            ;tssd_dealwithcurseQuest.setstage(10)
+            tssd_dealwithcurseQuest.setstage(20)
+        else
+            int objectiveSub = 0
+            if deityName == "Arkay"
+                objectiveSub = 23
+            elseif deityName == "Mara"
+                objectiveSub = 21
+            elseif deityName == "Zenithar"
+                objectiveSub = 25
+            elseif deityName == "Stendarr"
+                objectiveSub = 22
+            elseif deityName == "Dibella"
+                objectiveSub = 24
+            endif
+            if objectiveSub > 0   
+                tssd_dealwithcurseQuest.SetObjectiveFailed(objectiveSub, !tssd_dealwithcurseQuest.isobjectivefailed(objectiveSub))
+                tssd_dealwithcurseQuest.SetObjectiveDisplayed(objectiveSub)
+                (tssd_dealwithcurseQuest as tssd_curequestvariables).toggleCurse(deityName)
+                return true
+            endif
+        endif
+
+    endif
+    return false
+endfunction
+
+
+
 Function OpenGrandeMenu()
     modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if !SafeProcess()
@@ -125,6 +159,12 @@ Function OpenGrandeMenu()
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
 
         return
+    endif
+    if Game.GetCurrentCrosshairRef() && StringUtil.find(Game.GetCurrentCrosshairRef().GetDisplayName(), "hrine of") >= 0
+        String deityName = StringUtil.Split( Game.GetCurrentCrosshairRef().GetDisplayName(), " of ")[1]
+        if toggleQuestCurses(deityName)
+            return
+        endif
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
@@ -321,7 +361,7 @@ Function OpenSuccubusAbilities()
     if Game.GetCurrentCrosshairRef() as Actor
         Cross = Game.GetCurrentCrosshairRef() as Actor
     endif
-    tarRef = tActions.searchForTargets()
+    tarRef = tActions.getCombatTarget(false)
     if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
             if tarRef && tarRef != PlayerRef
                 itemsAsString += ";Act defeated"
@@ -481,12 +521,18 @@ Function ShowSuccubusTrait(int num)
 
     TraitsMenu.AddItem(ResText + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
+    ;/ int indexIn = 0
+    while indexIn < succKinds.Length
+        TraitsMenu.AddItem(succKinds[indexIn], JDB.solveStr(".tssdtraits." + succKinds[indexIn] + ".description"),\
+            "menus/tssd/"+succKinds[indexIn]+".dds")
+        indexIn += 1
+    endwhile /;
     String[] resultW = TraitsMenu.Show()
-    tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(SuccubusTintPerks[11])
         PlayerRef.AddPerk(SuccubusTintPerks[num])
         TSSD_SuccubusPerkPoints.Mod(1)
         tEvents.incrValAndCheck(11,1)
+        tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     endif
 
 

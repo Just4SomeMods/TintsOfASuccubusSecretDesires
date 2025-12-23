@@ -122,7 +122,7 @@ Event OnMenuClose(String MenuName)
             cToDelete.RemoveFromFaction(TSSD_ThrallSubmissive)
             cToDelete.RemoveFromFaction(PlayerFaction)
             cToDelete.RemoveFromFaction(PlayerMarriedFaction)
-            cToDelete.SetRelationshipRank(PlayerRef, -1)
+            cToDelete.SetRelationshipRank(PlayerRef, 3)
             if outMessage == ""
                 outMessage = cToDelete.GetDisplayName()
             else
