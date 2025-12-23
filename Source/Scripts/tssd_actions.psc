@@ -71,6 +71,7 @@ Spell Property TSSD_Satiated Auto
 Spell Property TSSD_RejectionPoison Auto
 Spell Property TSSD_FuckingInvincible Auto
 Spell Property TSSD_DebugToFaction Auto
+Spell Property TSSD_SuccubusBaseChanges Auto
 
 bool Property deathModeActivated Auto Hidden
 bool modifierKeyIsDown = false
@@ -142,11 +143,11 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     updateHeartMeter()
 Endfunction
 
-Function updateHeartMeter()
+Function updateHeartMeter(bool forceShow = false)
     
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
-    if nxtPerc != lastPerc || SuccubusDesireLevel.GetValue() >= 99
+    if nxtPerc != lastPerc || SuccubusDesireLevel.GetValue() >= 99 || forceShow
         T_Show("", "menus/TSSD/" + nxtPerc + "H.dds" )
         lastPerc = nxtPerc
     endif
@@ -282,7 +283,7 @@ Function actDefeated(actor tarRef, bool changeGameTime = true)
 Endfunction
 
 Function RegisterSuccubusEvents()
-    RegisterForUpdateGameTime(0.4)
+    RegisterForSingleUpdateGameTime(0.4)
     RegisterForMenu("Dialogue Menu")
     RegisterForMenu("StatsMenu")
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
@@ -430,6 +431,7 @@ Function onGameReload()
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
     RegisterForCrosshairRef()
+    last_checked = Utility.GetCurrentGameTime() * 24
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)
@@ -483,35 +485,35 @@ endEvent
 
 
 Event OnUpdateGameTime()
-    float timeBetween = (TimeOfDayGlobalProperty.GetValue() - last_checked) * 100
+    float timeBetween = (Utility.GetCurrentGameTime() * 24 - last_checked)
     lastScarletTalk += timeBetween
-    if timeBetween > 1
-        float valBefore = SuccubusDesireLevel.GetValue()
-        Location curLoc = Game.GetPlayer().GetCurrentLocation()
-        float chVal = 1
-        float energy_loss = timeBetween * chVal
-        if PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
-            energy_loss *= 0.1
-        endif
-        if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1)
-            energy_loss *= 0.5
-        endif
-        if curLoc && valBefore > 0 && valBefore < 50  && GetHabitationCorrect(curLoc) && timeBetween >= 1
-            if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
-                RefreshEnergy(energy_loss * 20, 50)
-            elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
-                RefreshEnergy(energy_loss * 10, 50)
-            endif
-            float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
-            AddToStatistics(changeAmount)
-            energy_loss = 0
-        endif
-        if energy_loss > 0
-            energy_loss *= -1
-            last_checked = TimeOfDayGlobalProperty.GetValue()
-            RefreshEnergy(energy_loss)
-        endif
+    DBGTrace(timeBetween)
+    float valBefore = SuccubusDesireLevel.GetValue()
+    Location curLoc = Game.GetPlayer().GetCurrentLocation()
+    float chVal = 1
+    float energy_loss = timeBetween * chVal
+    if PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
+        energy_loss *= 0.1
     endif
+    if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1) && PlayerRef.GetFactionRank(tEvents.TSSD_Collared) >= 1
+        energy_loss *= 0.5
+    endif
+    ;/ if curLoc && valBefore > 0 && valBefore < 50  && GetHabitationCorrect(curLoc) && timeBetween >= 1
+        if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
+            RefreshEnergy(energy_loss * 20, 50)
+        elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
+            RefreshEnergy(energy_loss * 10, 50)
+        endif
+        float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
+        AddToStatistics(changeAmount)
+        energy_loss = 0
+    endif /;
+    energy_loss *= -1
+    last_checked = Utility.GetCurrentGameTime() * 24
+    RefreshEnergy(energy_loss)
+    DBGTrace("ENERGY LOSS: " + energy_loss + " val Before " + valBefore as int + "/" + SuccubusDesireLevel.GetValue() as int )
+        
+
     float succNeedVal = SuccubusDesireLevel.GetValue()
     if succNeedVal <= TSSD_ravanousNeedLevel.GetValue() && succNeedVal > -101 && PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
@@ -524,14 +526,11 @@ Event OnUpdateGameTime()
 
         RefreshEnergy(10)
     endif
-    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]) && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
-        
-        int eid = ModEvent.Create("slaUpdateExposure")
-        ModEvent.PushForm(eid, PlayerRef)
-        ModEvent.PushFloat(eid, 99)
-        ModEvent.Send(eid)
-    endif
-    updateHeartMeter()
+    PlayerRef.DispelSpell(TSSD_SuccubusBaseChanges)
+    Utility.Wait(0.1)
+    PlayerRef.AddSpell(TSSD_SuccubusBaseChanges, false)
+    updateHeartMeter(true)
+    RegisterForSingleUpdateGameTime(0.4)
 endEvent
 
 Event OnMenuOpen(String MenuName)

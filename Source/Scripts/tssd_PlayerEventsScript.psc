@@ -146,7 +146,7 @@ EndFunction
 
 ; BEGIN TOLOPEA
 Faction Property TSSD_HypnoMaster Auto
-Actor Property DLC1SeranaRef Auto
+
 ; END TOLPEA
 
 ; BEGIN MAROON
@@ -365,7 +365,7 @@ EndEvent
 Function onGameReload()
 	isActingDefeated = false
 	crimsonDone = false
-	lastGameHour = gamehour.GetValue()
+	lastGameHour = Utility.GetCurrentGameTime() * 24
     If (Game.GetModByName(FILE_AND) != 255)
 		ANDFound = True
 		AND_NudeActorFaction = Game.GetFormFromFile(0x831, FILE_AND) as Faction
@@ -552,7 +552,7 @@ Event OnUpdateGameTime()
 		indexIN += 1
 	endwhile
 	calcCumAmountPlayer()
-	float gameTimeDiff = max(0.5, gamehour.GetValue() - lastGameHour)
+	float gameTimeDiff = max(0.5, Utility.GetCurrentGameTime() * 24 - lastGameHour)
 	tVals.lastCumOnTime += gameTimeDiff
 	tVals.lastPraiseTime += gameTimeDiff
 	tVals.lastRoughTime += gameTimeDiff
@@ -628,8 +628,8 @@ Event OnUpdateGameTime()
 EndEvent
 
 Event OnInit()	
-	lastGameHour = gamehour.GetValue()
-	DLC1SeranaRef.SetFactionRank(TSSD_HypnoMaster, 1)
+	lastGameHour = gamehour.GetValue() * 24
+	(Game.GetFormFromFile(0x002B74,"Dawnguard.esm") as Actor).SetFactionRank(TSSD_HypnoMaster, 1)
 endEvent
 
 

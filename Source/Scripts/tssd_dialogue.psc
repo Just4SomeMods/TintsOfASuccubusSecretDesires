@@ -230,12 +230,12 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     AzuraFadeToBlack.Apply()
     GameHour.Mod(1) 
     tActions.gainSuccubusXP(1000)
-    SuccubusDesireLevel.Mod( 100  )	
     ImageSpaceModifier.RemoveCrossFade(3)
     int upTo = 100
     if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
-        upTo = 19
+        upTo = 35
     endif
+    SuccubusDesireLevel.SetValue( min( upTo, SuccubusDesireLevel.GetValue() + 100 ) )	
     PlayerRef.DispelSpell(TSSD_Satiated)
     if startsSex
         Actor[] Pos = new Actor[2]

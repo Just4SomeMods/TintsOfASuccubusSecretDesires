@@ -94,6 +94,8 @@ Function Train()
     endif
     if PlayerRef.HasPerk(TSSD_Base_Explanations)
         if SkillName == "Body"
+            PlayerRef.RemoveSpell(TSSD_BaseHealthBodyBuff)
+            Utility.Wait(0.1)
             PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
             TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
         elseif SkillName == "Drain"            
