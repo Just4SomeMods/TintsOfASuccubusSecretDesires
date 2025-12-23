@@ -243,58 +243,12 @@ Function advanceStageTwenty()
     endif
 Endfunction
 
-Actor Function getCombatTarget(bool onlyLonely = false);/ 
-    int radius = getScanRange()
-    cell_ac = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
-    int ac_index = 0
-    bool isFading = false
-    Actor curRef
-    Actor tarRef
-    Bool[] isHostileArr = Utility.CreateBoolArray(cell_ac.Length, false)
-    numHostileActors = 0
-    float min_distance
-    Actor nearestActor
-    Actor[] tempArr = new Actor[1]
-    while ac_index < cell_ac.Length
-        curRef = cell_ac[ac_index]        
-        if curRef && curRef != PlayerRef && curRef.isHostileToActor(PlayerRef) && curRef.IsEnabled()
-            if !nearestActor || min_distance > PlayerRef.GetDistance(curRef)
-                nearestActor = curRef
-                min_distance = PlayerRef.GetDistance(curRef)
-            endif
-            isHostileArr[ac_index] = true
-            if numHostileActors == 0
-                tempArr[0] = curRef
-            else
-                tempArr = PapyrusUtil.PushActor(tempArr,curRef )
-            endif
-            numHostileActors += 1
-        endif
-        ac_index += 1
-    endwhile
-    cell_ac = tempArr
-
-    string outTest = "" /;
+Actor Function getCombatTarget(bool onlyLonely = false)
 
     Actor[] cT = PO3_SKSEFunctions.GetCombatTargets(PlayerRef)
     if cT.Length == 1 || !onlyLonely
         return cT[0]
     endif
-;/ 
-    int cIndex = 0
-    while cIndex < cT.Length
-        outTest += cT[cIndex].GetDisplayName() + " || "
-        cIndex += 1
-    endwhile
-
-    if nearestActor &&  numHostileActors == 1 
-        isFading = true
-        tarRef = nearestActor
-        return nearestActor
-    endif /;
-
-
-
     return PlayerRef
 EndFunction
 
@@ -568,7 +522,6 @@ Event OnUpdateGameTime()
 
         RefreshEnergy(10)
     endif
-    DBGTRACE(PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]))
     if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]) && !PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
         
         int eid = ModEvent.Create("slaUpdateExposure")
@@ -587,8 +540,7 @@ Event OnMenuOpen(String MenuName)
             UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
             T_Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
         elseif PlayerRef.HasPerk(TSSD_Seduction_HotDemon1)
-            if !tempActor.IsChild() && HotDemonTarget == PlayerRef 
-                DBGTRACE(tempActor.GetDisplayName())
+            if !tempActor.IsChild() && HotDemonTarget == PlayerRef
                 HotDemonTarget = tempActor
                 int eid = ModEvent.Create("slaUpdateExposure")
                 ModEvent.PushForm(eid, HotDemonTarget)
@@ -622,7 +574,6 @@ EndEvent
 
 
 Event PlayerSceneStart(Form FormRef, int tid)
-    DBGTRACE("PLAYERSCENESTARTBEGIN")
     TSSD_FuckingInvincible.Cast(PlayerRef)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
@@ -706,11 +657,9 @@ Event PlayerSceneStart(Form FormRef, int tid)
     if deathModeActivated
         BerserkerMainImod.ApplyCrossFade(1)
     endif
-    DBGTRACE("PLAYERSCENESTARTFIN")
 EndEvent
 
 Event PlayerSceneEnd(Form FormRef, int tid)
-    DBGTRACE("PLAYERSCENEENDBEGIN")
     PlayerRef.DispelSpell(TSSD_FuckingInvincible)
     if Game.GetModByName("Tullius Eyes.esp") != 255
         setHeartEyes(PlayerEyes, false)
@@ -729,7 +678,6 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     if deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
         toggleDeathMode(true)
     endif
-    DBGTRACE("PLAYERSCENEENDFIN")
 EndEvent
 
 

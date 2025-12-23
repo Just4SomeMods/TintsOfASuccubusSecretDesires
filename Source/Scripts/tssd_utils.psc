@@ -160,7 +160,6 @@ Endfunction
 
 
 Bool Function CheckFileExists(String fullPath) Global
-    DBGTrace(!JContainers.fileExistsAtPath(fullPath))
     If !JContainers.fileExistsAtPath(fullPath)
         String msg = "Could not find or read file '" + fullPath + "'"
         Return False

@@ -45,6 +45,8 @@ Keyword Property LocTypeStore Auto
 Keyword Property ActorTypeCreature Auto
 
 Perk Property TSSD_DeityArkayPerk Auto
+Perk Property TSSD_DeityMaraPerk Auto
+Perk Property TSSD_Tint_Scarlet Auto
 
 Quest Property TSSD_EvilSuccubusQuest Auto
 
@@ -52,6 +54,7 @@ GlobalVariable Property TSSD_InnocentsSlain Auto
 
 Spell Property TSSD_DrainHealth Auto
 Spell Property TSSD_InLoveBuff Auto
+Spell Property MarriageRested Auto
 
 Faction Property TSSD_MarkedForDeathFaction Auto
 
@@ -168,9 +171,12 @@ Function incrValAndCheck(int numOf, float incrBy)
 	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
 		if numOf != 19 && numOf != 18
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
-			DBGTRACE("Player enjoys perk " + numOf + " currently!" + possibleAnnouncements[possibleAnnouncements.Length-1])
 			tssd_tints_tracker.SetObjectiveFailed(numOf, false)
 			tssd_tints_tracker.SetObjectiveDisplayed(numOf, true)
+		endif
+		if numOf == 19
+			
+			TSSD_InLoveBuff.Cast(PlayerRef,PlayerRef)
 		endif
 	endif
 EndFunction
@@ -206,7 +212,11 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
 			incrValAndCheck(19,1)
-			TSSD_InLoveBuff.Cast(PlayerRef,PlayerRef)
+		endif
+		if WhoCums.GetRelationshipRank(PlayerRef) >= 4
+			if PlayerRef.HasPerk(TSSD_DeityMaraPerk)
+				MarriageRested.Cast(PlayerRef,PlayerRef)
+			endif
 		endif
 
 		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
@@ -274,7 +284,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 	if (!hadAnnouncement || hadAnnouncement) && possibleAnnouncements.Length > 1
 		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length-1)
 		int getRando = possibleAnnouncements[randOmGGG]
-		DBGTRACE(getRando +" " + possibleAnnouncements[1] + " random Index " + randOmGGG)
 		T_Needs(getRando, "", false)
 		hadAnnouncement = true
 	endif
@@ -401,21 +410,20 @@ Function onGameReload()
 	endif
 	RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStartEvent")
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
+	PO3_Events_Alias.RegisterForActorKilled(self)
 EndFunction
+
+Event OnActorKilled(Actor akVictim, Actor akKiller)
+	if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
+		tActions.RefreshEnergy(5)
+	endif
+EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[2]) && akBaseObject == ReligiousMaraLove
 		PlayerRef.UnequipItem(ReligiousMaraLove, true, false)
 	endif
 EndEvent
-
-Event OnSexOrgasm(Form ActorRef_Form, Int Thread)
-    sslThreadController _thread =  Sexlab.GetController(Thread)
-
-    Actor ActorRef = ActorRef_Form as Actor    
-    ;;; NEW EVENT
-EndEvent
-
 
 Event PlayerSceneStartEvent(Form FormRef, int tid)
 	hadAnnouncement = false
@@ -479,7 +487,6 @@ Event OnMenuOpen(String MenuName)
 EndEvent
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-	DBGTRACE(asStatFilter)
     if (asStatFilter == "Ingredients Eaten")
 		Debug.MessageBox("YUM")
     endif
@@ -531,7 +538,6 @@ Event OnUpdateGameTime()
 	tVals.lastHypnoSession += gameTimeDiff
 	tVals.lastFadeTat += gameTimeDiff
 	lastNeedsAnnouncement += gameTimeDiff
-	DBGTRACE(gameTimeDiff)
 	int[] tN = new int[1]
 	int needsTimerMax =  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusNeedsTimer:Main")
 	if lastNeedsAnnouncement > needsTimerMax  && !PlayerRef.isInCombat()
@@ -567,7 +573,6 @@ Event OnUpdateGameTime()
 			tN = PapyrusUtil.PushInt(tN, 18)
 			Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
 			Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length-1)]
-			DBGTRACE(cTarget.GetDisplayName())
 			T_Needs(18, cTarget.GetDisplayName())
 			if !PlayerRef.isInCombat() && !Sexlab.IsActorActive(PlayerRef)
 				Sexlab.StartSceneQuick(PlayerRef) 
@@ -576,7 +581,6 @@ Event OnUpdateGameTime()
 			endif
 		elseif tN.Length > 1
 			int nxAnnounce = tN[Utility.RandomInt(1, tN.Length)]
-			DBGTRACE(tN[1] + " " + nxAnnounce)
 			T_Needs( nxAnnounce )
 			lastNeedsAnnouncement = 0.1
 		endif
