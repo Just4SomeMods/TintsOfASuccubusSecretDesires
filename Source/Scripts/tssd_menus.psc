@@ -48,7 +48,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.00.000"
+string currentVersion = "1.00.01"
 
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -125,8 +125,11 @@ Function OpenGrandeMenu()
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Abilities;Upgrades;Settings;TraitsLel",";")
-    
+    string toSplit = "Abilities;Upgrades;Settings"
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
+        toSplit += ";TraitsLel"
+    endif
+    String[] myItems = StringUtil.Split(toSplit,";")
     Int result
     if modifierKeyIsDown
         result = lastUsed

@@ -13,7 +13,7 @@ Actor Property PlayerRef Auto
 
 Spell Property tssd_Satiated Auto
 MagicEffect Property TSSD_SatiatedEffect Auto
-MagicEffect Property EnchReligiousMara Auto
+
 GlobalVariable Property SkillSuccubusBaseLevel Auto
 GlobalVariable Property SkillSuccubusBodyLevel Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
@@ -146,6 +146,7 @@ EndFunction
 
 ; BEGIN TOLOPEA
 Faction Property TSSD_HypnoMaster Auto
+Actor Property DLC1SeranaRef Auto
 ; END TOLPEA
 
 ; BEGIN MAROON
@@ -178,14 +179,13 @@ Function incrValAndCheck(int numOf, float incrBy)
 	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
 		if numOf != 19 && numOf != 18
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
-			tssd_tints_tracker.SetObjectiveFailed(numOf, false)
-			DBGTrace(tssd_tints_tracker.IsObjectiveDisplayed(numOf))
-			if !tssd_tints_tracker.IsObjectiveDisplayed(numOf)
-				tssd_tints_tracker.SetObjectiveDisplayed(numOf, true)
-				endif
+			if !tssd_tints_tracker.IsObjectiveFailed(numOf)
+				tssd_tints_tracker.SetObjectiveFailed(numOf, false)
+			endif
 		endif
 		if numOf == 19
-			
+			PlayerRef.DispelSpell(TSSD_InLoveBuff)
+			Utility.Wait(0.1)
 			TSSD_InLoveBuff.Cast(PlayerRef,PlayerRef)
 		endif
 	endif
@@ -213,7 +213,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
     endif
 	
 	if WhoCums != PlayerRef 
-		if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 			if !_thread.GetSubmissive(PlayerRef)
 				tActions.increaseGlobalDeity(3,10,1000)
 			else
@@ -284,7 +284,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 		if _thread.GetSubmissive(PlayerRef)
 			incrValAndCheck(20,1)
-        	if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+        	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 				tActions.increaseGlobalDeity(8,10,500)
 			endif
 			if Game.GetModByName(FILE_FADE_TATS) != 255
@@ -594,7 +594,7 @@ Event OnUpdateGameTime()
 			tN = PapyrusUtil.PushInt(tN, 6)
 			tssd_tints_tracker.SetObjectiveFailed(6, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax)
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax) * 3
 			tN = PapyrusUtil.PushInt(tN, 18)
 			Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
 			Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length-1)]
@@ -629,6 +629,7 @@ EndEvent
 
 Event OnInit()	
 	lastGameHour = gamehour.GetValue()
+	DLC1SeranaRef.SetFactionRank(TSSD_HypnoMaster, 1)
 endEvent
 
 
