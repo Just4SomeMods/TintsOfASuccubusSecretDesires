@@ -75,6 +75,10 @@ local pools = {
     { "ERROR" }, { "ERROR" }, { "ERROR" },
     { "Yay." }
   },
+  TSSD_00109 = {
+    { "ERROR" }, { "ERROR" }, { "ERROR" },
+    { "Oh ok then." }
+  },
   TSSD_000A6 = {
     { "..." }, { "..." }, { "..." },
     { "..." }

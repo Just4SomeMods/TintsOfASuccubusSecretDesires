@@ -1,0 +1,26 @@
+[
+    {
+        "FormKey": 315,
+        "Name": "HypnoMaster"
+    },
+    {
+        "FormKey": 168,
+        "Name": "ThrallSubmissive"
+    },
+    {
+        "FormKey": 143,
+        "Name": "Enthralled Faction"
+    },
+    {
+        "FormKey": 145,
+        "Name": "IsThrallAggressive"
+    },
+    {
+        "FormKey": 144,
+        "Name": "IsActivePartner"
+    },
+    {
+        "FormKey": 170,
+        "Name": "ThrallDominant"
+    }
+]

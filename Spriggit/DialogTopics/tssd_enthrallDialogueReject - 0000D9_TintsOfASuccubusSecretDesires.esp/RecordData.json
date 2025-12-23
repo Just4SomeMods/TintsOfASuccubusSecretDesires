@@ -1,0 +1,13 @@
+{
+  "FormKey": "0000D9:TintsOfASuccubusSecretDesires.esp",
+  "VersionControl": 13207,
+  "EditorID": "tssd_enthrallDialogueReject",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "But I don't and I never will!"
+  },
+  "Priority": 2.0,
+  "Branch": "00008C:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "00007A:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

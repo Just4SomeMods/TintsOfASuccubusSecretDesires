@@ -49,6 +49,7 @@ Perk Property TSSD_DeityMaraPerk Auto
 Perk Property TSSD_Tint_Scarlet Auto
 
 Quest Property TSSD_EvilSuccubusQuest Auto
+Quest Property tssd_dealwithcurseQuest Auto
 
 GlobalVariable Property TSSD_InnocentsSlain Auto
 
@@ -113,7 +114,7 @@ Perk Property Tssd_tint_Lilac2 Auto
 ; END LILAC
 
 ; BEGIN CARNATION
-Faction Property TSSD_BellyWithEggs Auto
+
 ; END CARNATION
 
 ; BEGIN BIMBO
@@ -157,6 +158,12 @@ String Property FILE_FADE_TATS = "FadeTattoos.esp" AutoReadOnly
 bool hadAnnouncement = false
 int[] possibleAnnouncements
 
+; BEGIN MARA
+
+bool maraSuccess = false
+
+; END MARA
+
 
 Function incrValAndCheck(int numOf, float incrBy)
 	currentVals[numOf] += incrBy
@@ -172,7 +179,10 @@ Function incrValAndCheck(int numOf, float incrBy)
 		if numOf != 19 && numOf != 18
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
 			tssd_tints_tracker.SetObjectiveFailed(numOf, false)
-			tssd_tints_tracker.SetObjectiveDisplayed(numOf, true)
+			DBGTrace(tssd_tints_tracker.IsObjectiveDisplayed(numOf))
+			if !tssd_tints_tracker.IsObjectiveDisplayed(numOf)
+				tssd_tints_tracker.SetObjectiveDisplayed(numOf, true)
+				endif
 		endif
 		if numOf == 19
 			
@@ -203,6 +213,14 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
     endif
 	
 	if WhoCums != PlayerRef 
+		if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+			if !_thread.GetSubmissive(PlayerRef)
+				tActions.increaseGlobalDeity(3,10,1000)
+			else
+				tActions.increaseGlobalDeity(8,5,1000)
+			endif
+		endif
+			
 		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
 				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 
 			tVals.lastWolfSex = 0.1
@@ -266,9 +284,14 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 		if _thread.GetSubmissive(PlayerRef)
 			incrValAndCheck(20,1)
+        	if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+				tActions.increaseGlobalDeity(8,10,500)
+			endif
 			if Game.GetModByName(FILE_FADE_TATS) != 255
 				incrValAndCheck(8,1)
 			endif
+		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
+			tActions.increaseGlobalDeity(3,5,1000)
 		endif
 		if _thread.HasSceneTag("rough")
 			incrValAndCheck(22,1)
@@ -333,7 +356,9 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 			endif
 		endif
 	endif
-	incrValAndCheck(14, akW.GetBaseDamage())
+	if akw
+		incrValAndCheck(14, akW.GetBaseDamage())
+	endif
 	
 EndEvent
 
@@ -402,12 +427,8 @@ Function onGameReload()
 	RegisterForTrackedStatsEvent()
 	RegisterForMenu("BarterMenu")
 
-	if !tVals.canTakeBools[10]
-		RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
-	endif
-	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
-		RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
-	endif
+	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
+	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 	RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStartEvent")
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
 	PO3_Events_Alias.RegisterForActorKilled(self)
@@ -459,14 +480,18 @@ function OnCOLUpdated(form t)
   actor victim = t as actor
   int isFull = (StorageUtil.GetFloatValue(none, "CurseOfLife_BellyCurrentSize", 0.0) > 0) as int
   isFull += (StorageUtil.GetFloatValue(none, "CurseOfLife_CharusCurrentSize", 0.0) + StorageUtil.GetFloatValue(none, "CurseOfLife_SpiderCurrentSize", 0.0) > 0) as int
-  PlayerRef.SetFactionRank(TSSD_BellyWithEggs, isFull)
+  tVals.hasEggs = isFull
+  if !maraSuccess && StorageUtil.GetFloatValue(none, "CurseOfLife_BlessingCurrentSize", 0.0) >= 5.0
+	tActions.increaseGlobalDeity(0,1,1)
+	maraSuccess = true
+  endif
   
 endfunction
 
 Function EggLaid(form actorFrom, form egg, int numReleased)
+	DBGTrace(egg.GetName())
 	if  actorFrom as actor == PlayerRef
 		incrValAndCheck(10, 1)
-		UnregisterForModEvent("CurseOfLife_EggLaid")
 		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
 			RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 		endif

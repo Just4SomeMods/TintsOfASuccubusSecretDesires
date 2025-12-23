@@ -65,52 +65,9 @@ Quest Property tssd_queststart Auto
 
 Faction Property sla_Arousal Auto
 Faction Property TSSD_ThrallDominant Auto
-Faction Property TSSD_ThrallAggressive Auto
 
 
 ;MENUS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-Function OpenThrallMenu(Actor targetRef)
-    b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Intimacy;Inventory;Release",";")
-    int result = mySelectList.Show(myItems)
-    if result == 0
-        OpenIntmacyMenu(targetRef)
-    endif
-
-EndFunction
-
-Function OpenIntmacyMenu(Actor targetRef)
-    b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("> Thrall passive;> Thrall non-aggressive;Kiss;Vaginal",";")
-    if targetRef.GetFactionRank(TSSD_ThrallDominant) == 1
-        myItems[0] = "> Thrall Active"
-    endif
-    if targetRef.GetFactionRank(TSSD_ThrallAggressive) == 1
-        myItems[1] = "> Thrall aggressive"
-    endif
-    int result = mySelectList.Show(myItems)
-    if result <= 2 && result > -1
-        if result == 0
-            targetRef.SetFactionRank(TSSD_ThrallDominant, 1-targetRef.GetFactionRank(TSSD_ThrallDominant))
-        else
-            targetRef.SetFactionRank(TSSD_ThrallAggressive, 1-targetRef.GetFactionRank(TSSD_ThrallAggressive))
-        endif
-        OpenIntmacyMenu(targetRef)
-    elseif result == 2
-        SexLab.StartSceneQuick(PlayerRef, targetRef, asTags="kissing, limitedstrip, -sex")
-    elseif result == 3
-        string tagsIn = "vaginal"
-        if targetRef.GetFactionRank(TSSD_ThrallAggressive) > 0
-            tagsIn += ",aggressive"
-        endif
-        if targetRef.GetFactionRank(TSSD_ThrallDominant) > 0
-            SexLab.StartSceneQuick(PlayerRef, targetRef, asTags=tagsIn) 
-        else
-            SexLab.StartSceneQuick(targetRef, PlayerRef, asTags=tagsIn) 
-        endif
-    Endif
-EndFunction
 
 
 bool Function toggleQuestCurses(String deityName)

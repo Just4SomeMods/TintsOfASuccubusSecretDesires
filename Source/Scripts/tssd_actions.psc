@@ -44,6 +44,7 @@ GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
 GlobalVariable Property TSSD_InnocentsSlain Auto
+GlobalVariable Property TSSD_DebugMode Auto
 
 Perk Property TSSD_Body_Overstuffed Auto
 Perk Property TSSD_Base_CapIncrease1 Auto
@@ -69,6 +70,7 @@ Spell Property TSSD_DrainedMarker Auto
 Spell Property TSSD_Satiated Auto
 Spell Property TSSD_RejectionPoison Auto
 Spell Property TSSD_FuckingInvincible Auto
+Spell Property TSSD_DebugToFaction Auto
 
 bool Property deathModeActivated Auto Hidden
 bool modifierKeyIsDown = false
@@ -691,3 +693,14 @@ Event OnCrosshairRefChange(ObjectReference ref)
 EndEvent
 
 
+Function toggleDebug(bool turnOn)
+    TSSD_DebugMode.SetValue(MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main") as int)
+Endfunction
+
+Function toggleDebugFaction(bool turnOn)
+    if PlayerRef.HasSpell(TSSD_DebugToFaction)
+        PlayerRef.RemoveSpell(TSSD_DebugToFaction)
+    else
+        PlayerRef.AddSpell(TSSD_DebugToFaction)
+    endif
+EndFunction

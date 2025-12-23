@@ -29,33 +29,22 @@
                     "help": "$SuperKeyDesc."
                 },
                 {
-                    "id": "bKillEssentials:Main",
+                    "id": "bDebugCheats:Main",
                     "type": "toggle",
-                    "text": "$Kill_Essential_with_drain",
-                    "help": "$Kill_Essential_with_drain_Desc",
+                    "text": "$DebugMode_text",
+                    "help": "$DebugMode_desc",
                     "valueOptions": {
                         "sourceType": "ModSettingBool",
                         "defaultValue": false
-                    }
-                },
-                {
-                    "id": "bDebugNoEnergyLoss:Main",
-                    "type": "toggle",
-                    "text": "$DebugNoEnergyLoss_text",
-                    "help": "$DebugNoEnergyLoss_desc",
-                    "valueOptions": {
-                        "sourceType": "ModSettingBool",
-                        "defaultValue": false
-                    }
-                },
-                {
-                    "id": "bSpamNotifications:Main",
-                    "type": "toggle",
-                    "text": "$Debug_notes",
-                    "help": "$Debug_notes_desc",
-                    "valueOptions": {
-                        "sourceType": "ModSettingBool",
-                        "defaultValue": false
+                    },
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "toggleDebug",
+                        "params": [
+                            "{b}-1"
+                        ]
                     }
                 },
                 {
@@ -121,6 +110,25 @@
                         "formatString": "{0}",
                         "sourceType": "ModSettingInt"
                     }
+                },
+                {
+                    "id": "bDebugFactionSpell:Main",
+                    "type": "toggle",
+                    "text": "$DebugFactionMode_text",
+                    "help": "$DebugFactionMode_desc",
+                    "valueOptions": {
+                        "sourceType": "ModSettingBool",
+                        "defaultValue": false
+                    },
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "toggleDebugFaction",
+                        "params": [
+                            "{b}-1"
+                        ]
+                    }
                 }
             ]
         },
@@ -143,11 +151,6 @@
         {
             "pageDisplayName": "DEBUG: Factions",
             "content": [
-                {
-                    "type": "text",
-                    "text": "TSSD_BellyWithEggs",
-                    "help": "$showStuff"
-                },
                 {
                     "type": "text",
                     "text": "TSSD_Collared",
@@ -175,17 +178,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "TSSD_ThrallAggressive",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
                     "text": "TSSD_ThrallDominant",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "TSSD_ThrallMain",
                     "help": "$showStuff"
                 },
                 {
@@ -386,6 +379,18 @@
                         "step": 1,
                         "sourceType": "GlobalValue",
                         "sourceForm": "TintsOfASuccubusSecretDesires.esp|12D"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_DebugMode",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|0D8"
                     }
                 },
                 {
@@ -745,6 +750,11 @@
                     "type": "text",
                     "text": "Drain Health",
                     "help": "Absorb <mag> points of health per second from the target."
+                },
+                {
+                    "type": "text",
+                    "text": "[TSSD] Faction Adding",
+                    "help": "Use this debug spell to add npcs to factions, or remove them from factions from this mod."
                 },
                 {
                     "type": "text",
