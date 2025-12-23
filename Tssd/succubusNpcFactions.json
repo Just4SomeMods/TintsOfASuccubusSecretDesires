@@ -12,15 +12,7 @@
         "Name": "Enthralled Faction"
     },
     {
-        "FormKey": 145,
-        "Name": "IsThrallAggressive"
-    },
-    {
         "FormKey": 144,
         "Name": "IsActivePartner"
-    },
-    {
-        "FormKey": 170,
-        "Name": "ThrallDominant"
     }
 ]
