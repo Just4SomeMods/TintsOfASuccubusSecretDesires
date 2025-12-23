@@ -3,7 +3,7 @@
 Very Outdated
 
 <details>
-<summary><h1>Tint colors</h1></summary>
+<summary><h1>Tint colors and how to unlock them</h1></summary>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -170,12 +170,6 @@ Very Outdated
 * Free Use
 * Kiss, invite
 * Battle Stuff
-
-## General Abilities
-
-* Ask for cum outside
-* Cum inside no longer cum on skin
-
 
 
 # New Logic
