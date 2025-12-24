@@ -2,7 +2,407 @@ Scriptname tssd_orgasmenergylogic extends Quest
 
 import b612
 import tssd_utils
+
+
+Spell Property TSSD_FuckingInvincible Auto
+Spell Property tssd_Satiated Auto
+Spell Property TSSD_DrainedMarker Auto
+Spell Property TSSD_SuccubusDetectJuice Auto
+Spell Property TSSD_DrainHealth Auto
+Spell Property TSSD_InLoveBuff Auto
+Spell Property MarriageRested Auto
+
 GlobalVariable Property TimeOfDayGlobalProperty Auto
+GlobalVariable Property SuccubusDesireLevel Auto
+GlobalVariable Property SkillSuccubusDrainLevel Auto
+GlobalVariable Property SkillSuccubusSeductionLevel Auto
+GlobalVariable Property SkillSuccubusBodyLevel Auto
+GlobalVariable Property SkillSuccubusBaseLevel Auto
+GlobalVariable Property TSSD_InnocentsSlain Auto
+
+
+Keyword Property LocTypeInn Auto
+Keyword Property LocTypePlayerHouse Auto
+Keyword Property LocTypeCity Auto
+Keyword Property LocTypeClearable Auto
+Keyword Property LocTypeHabitation Auto
+Keyword Property LocTypeHabitationHasInn Auto
+Keyword Property LocTypeStore Auto
+Keyword Property ActorTypeCreature Auto
+
+Actor Property PlayerRef Auto
+
+Faction Property TSSD_MarkedForDeathFaction Auto
+Faction Property TSSD_EnthralledFaction Auto
+Faction Property sla_Arousal Auto
+
+SexLabFramework Property SexLab Auto
+
+tssd_actions Property tActions Auto
+tssd_PlayerEventsScript Property tEvents Auto
+tssd_menus Property tMenus Auto
+tssd_tints_variables Property tVals Auto
+
+
+Quest Property tssd_dealwithcurseQuest Auto
+Quest Property TSSD_EvilSuccubusQuest Auto
+
+
+ImageSpaceModifier Property AzuraFadeToBlack  Auto
+ImageSpaceModifier Property BerserkerMainImod  Auto  
+
+HeadPart PlayerEyes
+
+bool hadAnnouncement = false
+int[] possibleAnnouncements
+
+
+Perk Property TSSD_DeityArkayPerk Auto
+Perk Property TSSD_DeityMaraPerk Auto
+Perk Property TSSD_Tint_Scarlet Auto
+
+;;;; BEGIN TINTS
+
+; Begin Blush
+
+; End Blush
+
+String Property FILE_SCHLONGS_OF_SKYRIM = "Schlongs of Skyrim.esp" AutoReadOnly Hidden 
+Faction Property SOS_SchlongifiedFaction Auto Hidden
+
+; BEGIN ZAD
+
+Keyword Property zbfWornCollar Auto Hidden
+String Property FILE_ZAZ_ANIMATION_PACK = "ZaZAnimationPack.esm" AutoReadOnly  
+Bool Property ZaZAnimationPackFound = False Auto Hidden Conditional
+
+; END ZAD
+
+
+; BEGIN LILAC
+
+Faction Property CompanionsCirclePlusKodlak Auto
+Faction Property WereWolfFaction Auto
+Faction Property WolfFaction Auto
+bool isLilac
+bool isCollared
+float lastTimeNeededCollar = 0.0
+
+Race Property WolfRace Auto
+Race Property WereWolfBeastRace Auto
+
+; END LILAC
+
+; BEGIN CARNATION
+
+; END CARNATION
+
+
+
+; BEGIN CUPID
+import storageutil
+
+String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
+String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly hidden
+String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly hidden
+String Property INFLATION_AMOUNT = "sr.inflater.amount" autoreadonly hidden
+
+GlobalVariable Property TSSD_CumAmountAV Auto
+
+Function calcCumAmountPlayer()
+	float infAmount = GetFloatValue(PlayerRef, INFLATION_AMOUNT) + GetFloatValue(PlayerRef, CUM_ORAL) + GetFloatValue(PlayerRef, CUM_ANAL) + GetFloatValue(PlayerRef, CUM_VAGINAL)
+	TSSD_CumAmountAV.SetValue( max(0.5, 1 / max(1,infAmount/ 3 )))
+	tVals.cupidFilledUpAmount = infAmount	
+EndFunction
+
+; END CUPID
+
+; BEGIN TOLOPEA
+Faction Property TSSD_HypnoMaster Auto
+
+; END TOLPEA
+
+; BEGIN MAROON
+
+String Property FILE_FADE_TATS = "FadeTattoos.esp" AutoReadOnly  
+
+; END MAROON
+
+
+bool hadAnnouncement = false
+int[] possibleAnnouncements
+
+; BEGIN MARA
+
+bool maraSuccess = false
+
+; END MARA
+
+
+
+Function onGameReload()
+    RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
+    RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
+	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
+
+EndFunction
+
+
+
+Event PlayerSceneStart(Form FormRef, int tid)
+    TSSD_FuckingInvincible.Cast(PlayerRef)
+    sslThreadController _thread =  Sexlab.GetController(tid)
+    Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
+    int indexIn = 0
+    if !tActions.deathModeActivated && _thread.GetSubmissive(PlayerRef)
+        bool aggressiveY = false
+        while indexIn < ActorsIn.length
+            Actor consentingActor = ActorsIn[indexIn]
+            if consentingActor != PlayerRef 
+                if consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
+                    aggressiveY = true
+                endif
+                if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
+                    T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
+                endif                
+                TSSD_DrainedMarker.Cast(PlayerRef, consentingActor)
+            endif
+            indexIn += 1
+        endwhile
+        if aggressiveY
+            tActions.toggleDeathMode(true)
+        endif
+    endif
+    if SuccubusDesireLevel.GetValue() > -100.0
+        PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
+    endif
+    
+    if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
+        HeadPart tEyes = currentEyes()
+        if tEyes
+            PlayerEyes = tEyes
+        endif
+        setHeartEyes(PlayerEyes, true)
+    endif
+    if tssd_dealwithcurseQuest.GetStage() == 20
+        int outerIndex = 0
+        bool conSent = true
+        actor consentingActor
+        while outerIndex < ActorsIn.Length
+            consentingActor = ActorsIn[outerIndex]
+            if _thread.GetSubmissive(consentingActor)
+                conSent = false
+            endif
+            outerIndex += 1
+        endwhile
+        if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+            int index = 0
+            int val_to_increase = 0
+            int deityNum = 3
+            int toVal = 1000
+            if !conSent
+                deityNum = 8
+                toVal = 500
+            endif
+            while index < ActorsIn.Length
+                Actor WhoCums = ActorsIn[index]
+                float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
+                if WhoCums != PlayerRef && (lstTime < 0 || lstTime > 7)
+                    val_to_increase += 25
+                elseif WhoCums != PlayerRef
+                    val_to_increase += 5
+                endif
+                index+=1
+            EndWhile
+            tActions.increaseGlobalDeity(deityNum, val_to_increase, toVal)
+        endif
+        if !tssd_dealwithcurseQuest.isobjectivefailed(21) ; Mara
+            int index = 0
+            while index < ActorsIn.length
+                Actor WhoCums = ActorsIn[index]
+                if WhoCums != PlayerRef
+                    float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
+                    if !issingle(WhoCums) && lstTime < 0
+                        tActions.increaseGlobalDeity(5, 1, 5)
+                    endif
+                endif
+                index+=1
+            EndWhile
+        endif
+    endif
+    if tActions.deathModeActivated
+        BerserkerMainImod.ApplyCrossFade(1)
+    endif
+
+    ; PEventScript 
+
+    
+	hadAnnouncement = false
+	possibleAnnouncements = new int[1]	
+	Location curLoc = Game.GetPlayer().GetCurrentLocation()
+	if curLoc 
+		bool safeHaven = (curLoc.HasKeyword(LocTypePlayerHouse)) || curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeStore)
+		if safeHaven
+			tActions.RefreshEnergy(100)
+    		TSSD_Satiated.Cast(PlayerRef, PlayerRef)
+		endif
+	endif
+	indexIn = 0
+	
+	Actor[] aIn = _thread.GetPositions()
+	if aIn.Length == 1
+		_thread.SetEnjoyment(PlayerRef, 100)
+	endif
+	while indexIn < aIn.Length
+		if aIn[indexIn].GetRace().HasKeyword(ActorTypeCreature)
+			_thread.SetEnjoyment(aIn[indexIN], 100)
+		elseif aIn[indexIN] != PlayerRef
+			_thread.ModEnjoymentMult(aIn[indexIN], (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 100, true )
+		endif
+		indexIn += 1
+	endwhile
+
+EndEvent
+
+
+
+
+Event PlayerSceneEnd(Form FormRef, int tid)
+    PlayerRef.DispelSpell(TSSD_FuckingInvincible)
+    if Game.GetModByName("Tullius Eyes.esp") != 255
+        setHeartEyes(PlayerEyes, false)
+    endif
+
+    sslThreadController _thread =   Sexlab.GetController(tid)
+    Actor[] ActorsIn = _thread.GetPositions()
+    int indexIn = 0
+    while indexIn < ActorsIn.length
+        Actor consentingActor = ActorsIn[indexIn]
+        if consentingActor.GetFactionRank(TSSD_MarkedForDeathFaction) >= 1
+            consentingActor.Kill(PlayerRef)
+        endif
+        indexIn += 1
+    endwhile   
+    if tActions.deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
+        tActions.toggleDeathMode(true)
+    endif
+EndEvent
+
+
+Function OnOrgasmAny(Form ActorRef_Form, int Thread)
+	
+    Actor WhoCums = ActorRef_Form as Actor
+    sslThreadController _thread =  Sexlab.GetController(Thread)
+    if _thread != Sexlab.GetPlayerController()
+        if PlayerRef.GetDistance(WhoCums) < 100
+            tActions.gainSuccubusXP(100)
+        endif
+        return
+    endif
+	
+	if WhoCums != PlayerRef 
+		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+			if !_thread.GetSubmissive(PlayerRef)
+				tActions.increaseGlobalDeity(3,10,1000)
+			else
+				tActions.increaseGlobalDeity(8,5,1000)
+			endif
+		endif
+			
+		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
+				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 
+			tVals.lastWolfSex = 0.1
+		endif
+		if WhoCums.GetFactionRank(TSSD_HypnoMaster) >=0 
+			tVals.lastHypnoSession = 0.1
+		endif
+		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
+			tEvents.incrValAndCheck(19,1)
+		endif
+		if WhoCums.GetRelationshipRank(PlayerRef) >= 4
+			if PlayerRef.HasPerk(TSSD_DeityMaraPerk)
+				MarriageRested.Cast(PlayerRef,PlayerRef)
+			endif
+		endif
+
+		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
+			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
+				tEvents.incrValAndCheck(12,1)
+				tEvents.incrValAndCheck(1,1)
+			elseif (_thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")) &&  !_thread.HasSceneTag("lesbian")
+				tEvents.incrValAndCheck(1,1)
+			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
+				tEvents.incrValAndCheck(0,1)
+			endif
+		endif
+		if !issingle( WhoCums)
+			tEvents.incrValAndCheck(2,1)
+		endif
+		if tActions.deathModeActivated
+			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
+			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+			float drainLevel = tActions.getDrainLevel()
+			float succdVal = min(WhoCums.GetAV("Health"), drainLevel )
+			if succdVal <= drainLevel
+				WhoCums.setAV("Health", 10000)
+				WhoCums.SetFactionRank(TSSD_MarkedForDeathFaction, 1)
+				WhoCums.SetAv("Confidence", 0)
+			endif
+			TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
+			TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
+			int reduction = 10
+			if WhoCums.GetRelationshipRank(playerref) >= 0 && succdVal >= WhoCums.GetAV("Health") && !WhoCums.isHostileToActor(PlayerRef)
+				TSSD_EvilSuccubusQuest.ModObjectiveGlobal(1, TSSD_InnocentsSlain)
+				if !TSSD_EvilSuccubusQuest.IsRunning()
+					TSSD_EvilSuccubusQuest.Start()
+					TSSD_EvilSuccubusQuest.SetCurrentStageID(10)
+				endif
+			elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
+				reduction += 10
+			endif
+			tActions.gainSuccubusXP(succdVal, reduction + PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) * succdVal)
+			while  Stage_in < StageCount 
+				_thread.AdvanceStage()
+				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+			EndWhile
+		endif
+	else
+		if _thread.HasSceneTag("spanking")
+			tEvents.incrValAndCheck(13,1)
+		endif
+		if _thread.GetSubmissive(PlayerRef)
+			tEvents.incrValAndCheck(20,1)
+        	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+				tActions.increaseGlobalDeity(8,10,500)
+			endif
+			if Game.GetModByName(FILE_FADE_TATS) != 255
+				tEvents.incrValAndCheck(8,1)
+			endif
+		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
+			tActions.increaseGlobalDeity(3,5,1000)
+		endif
+		if _thread.HasSceneTag("rough")
+			tEvents.incrValAndCheck(22,1)
+		endif
+	endif
+	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
+		tEvents.incrValAndCheck(4,1)
+	endif
+	if _thread.HasSceneTag("love") || _thread.HasSceneTag("loving") || _thread.HasSceneTag("romance")
+		tEvents.incrValAndCheck(3,1)
+	endif
+
+	if (!hadAnnouncement || hadAnnouncement) && possibleAnnouncements.Length > 1
+		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length-1)
+		int getRando = possibleAnnouncements[randOmGGG]
+		T_Needs(getRando, "", false)
+		hadAnnouncement = true
+	endif
+	Utility.Wait(0.1)
+	tEvents.calcCumAmountPlayer()
+EndFunction
+
+
 ;/ 
 Actor Property PlayerRef Auto
 SexLabFramework Property SexLab Auto
@@ -26,7 +426,7 @@ float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = 
     SUCCUBUSTRAITSVALUESBONUS[2] = 100
     SUCCUBUSTRAITSVALUESBONUS[5] =  0
     float lastMet = 1
-    bool[] cosmeticSettings = ReadInCosmeticSetting()
+    bool[] tActions.cosmeticSettings = ReadInCosmeticSetting()
     bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
     float largestTime = 0
     float[] retVals = Utility.CreateFloatArray(3, 0)

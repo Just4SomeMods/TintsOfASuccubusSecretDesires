@@ -11,15 +11,9 @@ Quest Property tssd_tints_tracker Auto
 tssd_tints_variables Property tVals Auto
 Actor Property PlayerRef Auto
 
-Spell Property tssd_Satiated Auto
 MagicEffect Property TSSD_SatiatedEffect Auto
 
-GlobalVariable Property SkillSuccubusBaseLevel Auto
-GlobalVariable Property SkillSuccubusBodyLevel Auto
-GlobalVariable Property SkillSuccubusDrainLevel Auto
-GlobalVariable Property SkillSuccubusSeductionLevel Auto
 SexLabFramework Property SexLab Auto
-Form Property Gold001 Auto
 Form Property ReligiousMaraLove Auto
 GlobalVariable Property gamehour Auto
 
@@ -36,28 +30,13 @@ Faction Property TSSD_Collared Auto
 
 bool isActingDefeated = false
 float totalDamageTaken = 0.0
-bool[] Property colorsChecked Auto Hidden 
 bool crimsonDone = false
 
-Keyword Property LocTypeInn Auto
-Keyword Property LocTypePlayerHouse Auto
-Keyword Property LocTypeStore Auto
 Keyword Property ActorTypeCreature Auto
 
 Perk Property TSSD_DeityArkayPerk Auto
-Perk Property TSSD_DeityMaraPerk Auto
-Perk Property TSSD_Tint_Scarlet Auto
 
-Quest Property TSSD_EvilSuccubusQuest Auto
-Quest Property tssd_dealwithcurseQuest Auto
-
-GlobalVariable Property TSSD_InnocentsSlain Auto
-
-Spell Property TSSD_DrainHealth Auto
 Spell Property TSSD_InLoveBuff Auto
-Spell Property MarriageRested Auto
-
-Faction Property TSSD_MarkedForDeathFaction Auto
 
 float lastNeedsAnnouncement
 
@@ -99,15 +78,11 @@ Keyword Property zad_DeviousCollar Auto Hidden
 
 ; BEGIN LILAC
 
-Faction Property CompanionsCirclePlusKodlak Auto
 Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
 bool isLilac
 bool isCollared
 float lastTimeNeededCollar = 0.0
-
-Race Property WolfRace Auto
-Race Property WereWolfBeastRace Auto
 
 Perk Property Tssd_tint_Lilac2 Auto
 
@@ -148,12 +123,6 @@ EndFunction
 Faction Property TSSD_HypnoMaster Auto
 
 ; END TOLPEA
-
-; BEGIN MAROON
-
-String Property FILE_FADE_TATS = "FadeTattoos.esp" AutoReadOnly  
-
-; END MAROON
 
 
 bool hadAnnouncement = false
@@ -201,118 +170,6 @@ Function checkValOf( int numOf )
 	endif
 endfunction
 
-Function OnOrgasmAny(Form ActorRef_Form, int Thread)
-	
-    Actor WhoCums = ActorRef_Form as Actor
-    sslThreadController _thread =  Sexlab.GetController(Thread)
-    if _thread != Sexlab.GetPlayerController()
-        if PlayerRef.GetDistance(WhoCums) < 100
-            tActions.gainSuccubusXP(100)
-        endif
-        return
-    endif
-	
-	if WhoCums != PlayerRef 
-		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-			if !_thread.GetSubmissive(PlayerRef)
-				tActions.increaseGlobalDeity(3,10,1000)
-			else
-				tActions.increaseGlobalDeity(8,5,1000)
-			endif
-		endif
-			
-		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
-				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 
-			tVals.lastWolfSex = 0.1
-		endif
-		if WhoCums.GetFactionRank(TSSD_HypnoMaster) >=0 
-			tVals.lastHypnoSession = 0.1
-		endif
-		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
-			incrValAndCheck(19,1)
-		endif
-		if WhoCums.GetRelationshipRank(PlayerRef) >= 4
-			if PlayerRef.HasPerk(TSSD_DeityMaraPerk)
-				MarriageRested.Cast(PlayerRef,PlayerRef)
-			endif
-		endif
-
-		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
-			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
-				incrValAndCheck(12,1)
-				incrValAndCheck(1,1)
-			elseif (_thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")) &&  !_thread.HasSceneTag("lesbian")
-				incrValAndCheck(1,1)
-			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
-				incrValAndCheck(0,1)
-			endif
-		endif
-		if !issingle( WhoCums)
-			incrValAndCheck(2,1)
-		endif
-		if tActions.deathModeActivated
-			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
-			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-			float drainLevel = tActions.getDrainLevel()
-			float succdVal = min(WhoCums.GetAV("Health"), drainLevel )
-			if succdVal <= drainLevel
-				WhoCums.setAV("Health", 10000)
-				WhoCums.SetFactionRank(TSSD_MarkedForDeathFaction, 1)
-				WhoCums.SetAv("Confidence", 0)
-			endif
-			TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
-			TSSD_DrainHealth.Cast(PlayerRef, WhoCums)
-			int reduction = 10
-			if WhoCums.GetRelationshipRank(playerref) >= 0 && succdVal >= WhoCums.GetAV("Health") && !WhoCums.isHostileToActor(PlayerRef)
-				TSSD_EvilSuccubusQuest.ModObjectiveGlobal(1, TSSD_InnocentsSlain)
-				if !TSSD_EvilSuccubusQuest.IsRunning()
-					TSSD_EvilSuccubusQuest.Start()
-					TSSD_EvilSuccubusQuest.SetCurrentStageID(10)
-				endif
-			elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
-				reduction += 10
-			endif
-			tActions.gainSuccubusXP(succdVal, reduction + PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) * succdVal)
-			while  Stage_in < StageCount 
-				_thread.AdvanceStage()
-				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-			EndWhile
-		endif
-	else
-		if _thread.HasSceneTag("spanking")
-			incrValAndCheck(13,1)
-		endif
-		if _thread.GetSubmissive(PlayerRef)
-			incrValAndCheck(20,1)
-        	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-				tActions.increaseGlobalDeity(8,10,500)
-			endif
-			if Game.GetModByName(FILE_FADE_TATS) != 255
-				incrValAndCheck(8,1)
-			endif
-		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
-			tActions.increaseGlobalDeity(3,5,1000)
-		endif
-		if _thread.HasSceneTag("rough")
-			incrValAndCheck(22,1)
-		endif
-	endif
-	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
-		incrValAndCheck(4,1)
-	endif
-	if _thread.HasSceneTag("love") || _thread.HasSceneTag("loving") || _thread.HasSceneTag("romance")
-		incrValAndCheck(3,1)
-	endif
-
-	if (!hadAnnouncement || hadAnnouncement) && possibleAnnouncements.Length > 1
-		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length-1)
-		int getRando = possibleAnnouncements[randOmGGG]
-		T_Needs(getRando, "", false)
-		hadAnnouncement = true
-	endif
-	Utility.Wait(0.1)
-	calcCumAmountPlayer()
-EndFunction
 
 ;/ Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
     if UI.IsMenuOpen("Dialogue Menu") || UI.IsMenuOpen("Barter Menu")
@@ -430,7 +287,6 @@ Function onGameReload()
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 	RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStartEvent")
-	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
 	PO3_Events_Alias.RegisterForActorKilled(self)
 EndFunction
 
@@ -447,31 +303,6 @@ Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 EndEvent
 
 Event PlayerSceneStartEvent(Form FormRef, int tid)
-	hadAnnouncement = false
-	possibleAnnouncements = new int[1]	
-	Location curLoc = Game.GetPlayer().GetCurrentLocation()
-	if curLoc 
-		bool safeHaven = (curLoc.HasKeyword(LocTypePlayerHouse)) || curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeStore)
-		if safeHaven
-			tActions.RefreshEnergy(100)
-    		TSSD_Satiated.Cast(PlayerRef, PlayerRef)
-		endif
-	endif
-	int indexIn = 0
-	
-    sslThreadController _thread =  Sexlab.GetController(tid)
-	Actor[] aIn = _thread.GetPositions()
-	if aIn.Length == 1
-		_thread.SetEnjoyment(PlayerRef, 100)
-	endif
-	while indexIn < aIn.Length
-		if aIn[indexIn].GetRace().HasKeyword(ActorTypeCreature)
-			_thread.SetEnjoyment(aIn[indexIN], 100)
-		elseif aIn[indexIN] != PlayerRef
-			_thread.ModEnjoymentMult(aIn[indexIN], (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 100, true )
-		endif
-		indexIn += 1
-	endwhile
 
 EndEvent
 

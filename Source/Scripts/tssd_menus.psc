@@ -9,7 +9,7 @@ Quest Property tssd_tints_tracker Auto
 tssd_slsfrscript Property slsfListener Auto
 
 SexLabFramework Property SexLab Auto
-sslActorStats Property sslStats Auto
+; sslActorStats Property sslStats Auto
 tssd_actions Property tActions Auto
 tssd_PlayerEventsScript Property tEvents Auto
 
@@ -33,9 +33,9 @@ tssd_tints_variables Property tVals Auto
 Quest Property tssd_dealwithcurseQuest Auto
 
 Perk Property TSSD_Base_Explanations Auto
-Perk Property TSSD_Drain_GentleDrain1 Auto
-Perk Property TSSD_Seduction_Kiss1 Auto
-Perk Property TSSD_Seduction_OfferSex Auto
+;Perk Property TSSD_Drain_GentleDrain1 Auto
+;Perk Property TSSD_Seduction_Kiss1 Auto
+;Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PlayDead1 Auto
 Perk Property TSSD_Body_DefeatThem1 Auto
 Perk Property TSSD_Seduction_Kiss2 Auto
@@ -51,8 +51,8 @@ bool [] cosmeticSettings
 string currentVersion = "1.00.01a"
 
 
-ImageSpaceModifier Property AzuraFadeToBlack  Auto 
-MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
+; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
+; MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 
 int lastUsed  = -1
 int lastUsedSub = -1
@@ -63,8 +63,9 @@ int colorToAdd = -1
 Quest Property tssd_enthrallDialogue Auto
 Quest Property tssd_queststart Auto
 
-Faction Property sla_Arousal Auto
-Faction Property TSSD_ThrallDominant Auto
+; Faction Property sla_Arousal Auto
+; Faction Property TSSD_ThrallDominant Auto
+; Faction Property CrimeFactionWhiterun Auto
 
 
 ;MENUS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -290,7 +291,6 @@ Endfunction
 bool Function checkAbilityDefeatThem(Actor tarRef)
     if tarRef == playerRef
         tarRef = Game.GetCurrentCrosshairRef() as Actor
-        tactions.cell_ac[0] = tarRef
     endif
     if !tarRef.isHostileToActor(playerRef) && tActions.isSuccableOverload(tarRef) > -1
         return true
@@ -330,7 +330,7 @@ Function OpenSuccubusAbilities()
         endif
     endif
 
-    itemsAsString += ";Look for Prey;Cum now!"
+    itemsAsString += ";Look for Prey"
     int indexOfA = 1
     if (PlayerRef.HasPerk(TSSD_Seduction_Kiss2) || true) && Sexlab.GetPlayerController()
         itemsAsString += ";Steal"
@@ -341,8 +341,9 @@ Function OpenSuccubusAbilities()
         endif
         indexOfA += 1
     endwhile
-    if checkAbilityDefeatThem(tarRef)
-        itemsAsString += ";Rape them!"
+    
+    if false ; && MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
+        itemsAsString += ";BimbofyWhiterun"
     endif
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
@@ -375,10 +376,26 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, 5)
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
-    elseif myItems[result] == "Ask for Sex" && Cross
-            Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = Cross)
+        
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef, true)
+    elseif myItems[result] == "BimbofyWhiterun"        
+        int bimboIndex = 0
+        Actor[] whiterRunTargets = PO3_SKSEFunctions.GetActorsByProcessingLevel(3)
+        DBGTrace("In whiterun there are " + whiterRunTargets.Length + " People!")
+        
+        while bimboIndex < whiterRunTargets.Length
+            Actor cAct = whiterRunTargets[bimboIndex]
+            if !cAct.IsChild() && cAct.GetActorBase().IsUnique() && cAct.GetActorBase().GetSex() == 1 && cAct.GetRace().IsPlayable()
+                DBGTrace("Corrupting " + cAct.GetDisplayName() + " now! "  + bimboIndex +"/" + whiterRunTargets.Length)
+                int modActorCorruptHandle = ModEvent.Create("CC_ModActorCorruption")
+                ModEvent.PushForm(modActorCorruptHandle , cAct)
+                ModEvent.PushInt(modActorCorruptHandle , 105)
+                ModEvent.Send(modActorCorruptHandle)
+            endif
+            bimboIndex += 1
+        endwhile
+    ;/ 
     elseif myItems[result] == "Rape them!"
         if !tactions.deathModeActivated
             tactions.toggleDeathMode(true)
@@ -396,19 +413,8 @@ Function OpenSuccubusAbilities()
                     tarIndex += 1
                 EndWhile
             endif
-        endif
-    elseif myItems[result] == "Cum Now!"
-        Game.ShakeCamera(none, 0.1, 0.1 + 1.0)
-        Sexlab.GetPlayerController().ActorAlias(PlayerRef)
-		int eid = ModEvent.Create("SexLabOrgasm")
-		ModEvent.PushForm(eid, PlayerRef)
-		ModEvent.PushInt(eid, 100)
-		ModEvent.PushInt(eid, 1)
-		ModEvent.Send(eid)
-		Int handle = ModEvent.Create("SexlabOrgasmSeparate")
-		ModEvent.PushForm(handle, PlayerRef)
-		ModEvent.PushInt(handle, 0)
-		ModEvent.Send(handle)
+        endif /;
+        
     elseif myItems[result] == "Steal"
         sslThreadController _thread = Sexlab.GetPlayerController()
         Actor toSteal = _thread.GetPositions()[0]
@@ -453,7 +459,7 @@ EndEvent
 
 
 Function ShowSuccubusTrait(int num)
-    if tVals.canTakeBools[num] && false
+    if tVals.canTakeBools[num]
         return
     endif
     if PlayerRef.IsInCombat()

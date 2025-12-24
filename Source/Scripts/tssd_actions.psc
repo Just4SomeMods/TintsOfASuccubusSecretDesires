@@ -12,10 +12,11 @@ tssd_menus Property tMenus Auto
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_PlayerEventsScript Property tEvents Auto
+tssd_orgasmenergylogic Property tOrgasmLogic Auto
 
-Faction Property sla_Arousal Auto
+;Faction Property sla_Arousal Auto
 Faction Property TSSD_EnthralledFaction Auto
-Faction Property TSSD_MarkedForDeathFaction Auto
+;Faction Property TSSD_MarkedForDeathFaction Auto
 
 Actor HotDemonTarget
 
@@ -29,44 +30,43 @@ String[] Property SuccubusAbilitiesNames  Auto
 Idle property BleedOutStart auto
 
 Quest Property tssd_dealwithcurseQuest Auto
-Quest Property TSSD_EvilSuccubusQuest Auto
+;Quest Property TSSD_EvilSuccubusQuest Auto
 
 GlobalVariable[] Property tssd_deityTrackers Auto
 
-GlobalVariable Property TimeOfDayGlobalProperty Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
-GlobalVariable Property SkillSuccubusSeductionLevel Auto
-GlobalVariable Property SkillSuccubusBodyLevel Auto
-GlobalVariable Property SkillSuccubusBaseLevel Auto
+;GlobalVariable Property SkillSuccubusSeductionLevel Auto
+;GlobalVariable Property SkillSuccubusBodyLevel Auto
+;GlobalVariable Property SkillSuccubusBaseLevel Auto
 GlobalVariable Property TSSD_PerkPointsBought Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property GameHours Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
-GlobalVariable Property TSSD_InnocentsSlain Auto
+;GlobalVariable Property TSSD_InnocentsSlain Auto
 GlobalVariable Property TSSD_DebugMode Auto
 
-Perk Property TSSD_Body_Overstuffed Auto
-Perk Property TSSD_Base_CapIncrease1 Auto
+;Perk Property TSSD_Body_Overstuffed Auto
+;Perk Property TSSD_Base_CapIncrease1 Auto
 Perk Property TSSD_Drain_GentleDrain1 Auto
-Perk Property TSSD_Drain_DrainMore1 Auto
-Perk Property TSSD_Seduction_Leader Auto
+;Perk Property TSSD_Drain_DrainMore1 Auto
+;Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Body_PassiveEnergy1 Auto
 Perk Property TSSD_Base_IncreaseScentRange1 Auto
-Perk Property TSSD_DeityArkayPerk Auto
-Perk Property TSSD_DeityDibellaPerk Auto
+;Perk Property TSSD_DeityArkayPerk Auto
+;Perk Property TSSD_DeityDibellaPerk Auto
 Perk Property TSSD_Drain_ExtractSemen Auto
-Perk Property TSSD_Drain_GentleDrain4 Auto
+;Perk Property TSSD_Drain_GentleDrain4 Auto
 Perk Property TSSD_Seduction_HotDemon1 Auto
 Perk Property TSSD_Drain_CollaredEvil1 Auto
 Perk Property TSSD_Base_PowerGrowing Auto
 Perk Property TSSD_Drain_RefreshHealth Auto
 
 Spell Property TSSD_SuccubusDetectJuice Auto
-Spell Property TSSD_Overstuffed Auto
-Spell Property TSSD_DrainHealth Auto
-Spell Property TSSD_DrainedMarker Auto
+;Spell Property TSSD_Overstuffed Auto
+;Spell Property TSSD_DrainHealth Auto
+;Spell Property TSSD_DrainedMarker Auto
 Spell Property TSSD_Satiated Auto
 Spell Property TSSD_RejectionPoison Auto
 Spell Property TSSD_FuckingInvincible Auto
@@ -77,9 +77,9 @@ bool Property deathModeActivated Auto Hidden
 bool modifierKeyIsDown = false
 bool hasAbsorbedCum = false
 
-bool [] cosmeticSettings
+bool [] Property cosmeticSettings Auto hidden
 
-Actor[] Property cell_ac auto Hidden
+;Actor[] Property cell_ac auto Hidden
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto
 ImageSpaceModifier Property BerserkerMainImod  Auto  
@@ -89,8 +89,8 @@ MagicEffect Property TSSD_SatiatedEffect Auto
 
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
-Keyword Property LocTypeCity Auto
-Keyword Property LocTypeClearable Auto
+;Keyword Property LocTypeCity Auto
+;Keyword Property LocTypeClearable Auto
 Keyword Property LocTypeHabitation Auto
 Keyword Property LocTypeHabitationHasInn Auto
 
@@ -105,7 +105,7 @@ int lastPerc = -1
 
 string tssd_SpellDebugProp = "-1"
 MagicEffect Property TSSD_DrainedDownSide Auto
-MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
+;MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
 
 
 float last_checked
@@ -113,9 +113,9 @@ float timer_internal = 0.0
 float _updateTimer = 0.5
 float lastScarletTalk = 999.0
 
-String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
-String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
-String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly 
+;String Property CUM_VAGINAL = "sr.inflater.cum.vaginal" autoreadonly hidden
+;String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
+;String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly 
 
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -175,9 +175,6 @@ Function toggleDeathMode(bool makeAnnouncement = true)
         deathModeActivated = false
     endif
     deathModeActivated = !deathModeActivated
-    if SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue()
-        deathModeActivated = true
-    endif
     if deathModeActivated
         BerserkerMainImod.ApplyCrossFade(1)
         if makeAnnouncement
@@ -186,7 +183,6 @@ Function toggleDeathMode(bool makeAnnouncement = true)
     else
         BerserkerMainImod.Remove()
     endif
-    ;TSSD_KillEssentialsActive.SetValue(MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bKillEssentials:Main") as int)
 EndFunction
 
 
@@ -249,6 +245,9 @@ Endfunction
 Actor Function getCombatTarget(bool onlyLonely = false)
 
     Actor[] cT = PO3_SKSEFunctions.GetCombatTargets(PlayerRef)
+    if ct.length == 0
+        return playerRef
+    endif
     if cT.Length == 1 || !onlyLonely
         return cT[0]
     endif
@@ -290,10 +289,7 @@ Function RegisterSuccubusEvents()
         ; PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
     endif
     RegisterForTrackedStatsEvent()
-    RegisterForModEvent("SexLabClearCum", "CumAbsorb")
-    RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
-    RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
-    
+    RegisterForModEvent("SexLabClearCum", "CumAbsorb")    
 Endfunction
 
 Event CumAbsorb(form akTarget, int aiType)
@@ -432,6 +428,7 @@ Function onGameReload()
     HotDemonTarget = PlayerRef
     RegisterForCrosshairRef()
     last_checked = Utility.GetCurrentGameTime() * 24
+    tOrgasmLogic.onGameReload()
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)
@@ -529,7 +526,8 @@ Event OnUpdateGameTime()
     PlayerRef.DispelSpell(TSSD_SuccubusBaseChanges)
     Utility.Wait(0.1)
     PlayerRef.AddSpell(TSSD_SuccubusBaseChanges, false)
-    updateHeartMeter(true)
+    
+    updateHeartMeter(timeBetween > 1)
     RegisterForSingleUpdateGameTime(0.4)
 endEvent
 
@@ -574,112 +572,6 @@ EndEvent
 
 
 
-Event PlayerSceneStart(Form FormRef, int tid)
-    TSSD_FuckingInvincible.Cast(PlayerRef)
-    sslThreadController _thread =  Sexlab.GetController(tid)
-    Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
-    int indexIn = 0
-    if !deathModeActivated && _thread.GetSubmissive(PlayerRef)
-        bool aggressiveY = false
-        while indexIn < ActorsIn.length
-            Actor consentingActor = ActorsIn[indexIn]
-            if consentingActor != PlayerRef 
-                if consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
-                    aggressiveY = true
-                endif
-                if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
-                    T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
-                endif                
-                TSSD_DrainedMarker.Cast(PlayerRef, consentingActor)
-            endif
-            indexIn += 1
-        endwhile
-        if aggressiveY
-            toggleDeathMode(true)
-        endif
-    endif
-    if SuccubusDesireLevel.GetValue() > -100.0
-        PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
-    endif
-    
-    if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || cosmeticSettings[1] ) && cosmeticSettings[0]
-        HeadPart tEyes = currentEyes()
-        if tEyes
-            PlayerEyes = tEyes
-        endif
-        setHeartEyes(PlayerEyes, true)
-    endif
-    if tssd_dealwithcurseQuest.GetStage() == 20
-        int outerIndex = 0
-        bool conSent = true
-        actor consentingActor
-        while outerIndex < ActorsIn.Length
-            consentingActor = ActorsIn[outerIndex]
-            if _thread.GetSubmissive(consentingActor)
-                conSent = false
-            endif
-            outerIndex += 1
-        endwhile
-        if !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-            int index = 0
-            int val_to_increase = 0
-            int deityNum = 3
-            int toVal = 1000
-            if !conSent
-                deityNum = 8
-                toVal = 500
-            endif
-            while index < ActorsIn.Length
-                Actor WhoCums = ActorsIn[index]
-                float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-                if WhoCums != PlayerRef && (lstTime < 0 || lstTime > 7)
-                    val_to_increase += 25
-                elseif WhoCums != PlayerRef
-                    val_to_increase += 5
-                endif
-                index+=1
-            EndWhile
-            increaseGlobalDeity(deityNum, val_to_increase, toVal)
-        endif
-        if !tssd_dealwithcurseQuest.isobjectivefailed(21) ; Mara
-            int index = 0
-            while index < ActorsIn.length
-                Actor WhoCums = ActorsIn[index]
-                if WhoCums != PlayerRef
-                    float lstTime = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-                    if !issingle(WhoCums) && lstTime < 0
-                        increaseGlobalDeity(5, 1, 5)
-                    endif
-                endif
-                index+=1
-            EndWhile
-        endif
-    endif
-    if deathModeActivated
-        BerserkerMainImod.ApplyCrossFade(1)
-    endif
-EndEvent
-
-Event PlayerSceneEnd(Form FormRef, int tid)
-    PlayerRef.DispelSpell(TSSD_FuckingInvincible)
-    if Game.GetModByName("Tullius Eyes.esp") != 255
-        setHeartEyes(PlayerEyes, false)
-    endif
-
-    sslThreadController _thread =   Sexlab.GetController(tid)
-    Actor[] ActorsIn = _thread.GetPositions()
-    int indexIn = 0
-    while indexIn < ActorsIn.length
-        Actor consentingActor = ActorsIn[indexIn]
-        if consentingActor.GetFactionRank(TSSD_MarkedForDeathFaction) >= 1
-            consentingActor.Kill(PlayerRef)
-        endif
-        indexIn += 1
-    endwhile   
-    if deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
-        toggleDeathMode(true)
-    endif
-EndEvent
 
 
 Event OnCrosshairRefChange(ObjectReference ref)

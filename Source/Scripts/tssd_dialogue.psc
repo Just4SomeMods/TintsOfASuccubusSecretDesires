@@ -4,7 +4,7 @@ import tssd_utils
 
 tssd_PlayerEventsScript Property tPEvents Auto
 
-Faction Property TSSD_ThrallDominant Auto
+; Faction Property TSSD_ThrallDominant Auto
 Faction Property TSSD_EnthralledFaction Auto
 Faction Property TSSD_ThrallSubmissive Auto
 Faction Property PlayerFaction Auto

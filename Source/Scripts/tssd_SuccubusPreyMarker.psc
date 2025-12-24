@@ -2,7 +2,6 @@ Scriptname tssd_SuccubusPreyMarker extends activemagiceffect
 
 
 import tssd_utils
-GlobalVariable Property TimeOfDayGlobalProperty Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 Actor ThisThing
 Actor Property PlayerRef Auto
