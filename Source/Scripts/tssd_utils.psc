@@ -233,7 +233,7 @@ Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global
     string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtraits." + succKinds[succTrait] + txtSource))
     String nxText = ""
     if succNeedy.Length > 0
-        nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length-1)]
+        nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length - 1)]
         if replacement != "" && StringUtil.Find(nxText, ";") > 0
             String[] texts = StringUtil.Split(nxText, ";")
             nxText = texts[0] + replacement + texts[1]

@@ -136,15 +136,26 @@ bool maraSuccess = false
 
 
 Function incrValAndCheck(int numOf, float incrBy)
-	currentVals[numOf] += incrBy
+	currentVals[numOf] = currentVals[numOf] + incrBy
 	checkValOf(numOf)
-	if numOf == 0 tVals.lastCumOnTime = 0.1 endif
-	if numOf == 1 tVals.lastCumInMe = 0.1 endif
-	if numOf == 3 tVals.lastRomanticTime = 0.1 endif
-	
-	if numOf == 13 tVals.lastSpankedTime = 0.1 endif
-	if numOf == 15 tVals.lastPraiseTime = 0.1 endif
-	if numOf == 22 tVals.lastRoughTime = 0.1 endif
+	if numOf == 0 
+		tVals.lastCumOnTime = 0.1 
+	endif
+	if numOf == 1 
+		tVals.lastCumInMe = 0.1 
+	endif
+	if numOf == 3 
+		tVals.lastRomanticTime = 0.1 
+	endif	
+	if numOf == 13 
+		tVals.lastSpankedTime = 0.1 
+	endif
+	if numOf == 15 
+		tVals.lastPraiseTime = 0.1 
+	endif
+	if numOf == 22 
+		tVals.lastRoughTime = 0.1 
+	endif
 	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
 		if numOf != 19 && numOf != 18
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
@@ -425,10 +436,10 @@ Event OnUpdateGameTime()
 			tN = PapyrusUtil.PushInt(tN, 6)
 			tssd_tints_tracker.SetObjectiveFailed(6, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax) * 3
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax  * 3)
 			tN = PapyrusUtil.PushInt(tN, 18)
 			Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
-			Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length-1)]
+			Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length - 1)]
 			T_Needs(18, cTarget.GetDisplayName())
 			if !PlayerRef.isInCombat() && !Sexlab.IsActorActive(PlayerRef)
 				Sexlab.StartSceneQuick(PlayerRef) 

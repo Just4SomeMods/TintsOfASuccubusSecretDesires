@@ -183,9 +183,7 @@ EndFunction
 
 Function OpenExplanationMenu()        
     String[] SUCCUBUSTATS = StringUtil.Split( "Base Skill;Drain;Seduction;Body;Perk Points",";")
-    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;\
-    Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];\
-    Perk Points give you perkpoint for the Trees in this mod.",";")
+    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];Perk Points give you perkpoint for the Trees in this mod.",";")
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int index = 0
     while index < SUCCUBUSTATS.Length
@@ -299,11 +297,9 @@ bool Function checkAbilityDefeatThem(Actor tarRef)
         if (!playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk())) && PlayerRef.GetLevel() <= tarRef.GetLevel() 
                 return false
         endif
-        int max_targets = 1 + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk().GetNextPerk()) as int +\
-                              playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk()) as int
-        if (tActions.numHostileActors <= max_targets) && \
-        max_targets > 1 || (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")) || \
-        playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) 
+        int max_targets = 1 + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk().GetNextPerk()) as int + playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk().GetNextPerk()) as int
+        ;/ (tActions.numHostileActors <= max_targets) &&  /;
+        if  max_targets > 1 || (tarRef.GetActorValue("Health") < PlayerRef.GetActorValue("Health")) ||  playerRef.HasPerk(TSSD_Body_DefeatThem1.GetNextPerk().GetNextPerk()) 
             return true
         endif
     endif
@@ -507,30 +503,72 @@ EndFunction
 
 Function GetTraitsLel()
     b612_QuantitySlider qS = GetQuantitySlider()
-    int outInt = qS.Show("Num", 0,  JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits")).Length -1)
+    int outInt = qS.Show("Num", 0,  JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits")).Length - 1)
     ShowSuccubusTrait(outInt)
 EndFunction
 
 Function setNonArrBool(int n)
-    if n == 0 tVals.canTake00Razzmatazz = true endif
-    if n == 1 tVals.canTake01Cupid = true endif
-    if n == 2 tVals.canTake02Lavenderblush = true endif
-    if n == 3 tVals.canTake03Carnation = true endif
-    if n == 4 tVals.canTake04Tosca = true endif
-    if n == 5 tVals.canTake05Blush = true endif
-    if n == 6 tVals.canTake06Lilac = true endif
-    if n == 7 tVals.canTake07Pink = true endif
-    if n == 8 tVals.canTake08Maroon = true endif
-    if n == 9 tVals.canTake09Pink2 = true endif
-    if n == 10 tVals.canTake10Crusta = true endif
-    if n == 11 tVals.canTake11Sangria = true endif
-    if n == 12 tVals.canTake12Mystic = true endif
-    if n == 13 tVals.canTake13Geraldine = true endif
-    if n == 14 tVals.canTake14Crimson = true endif
-    if n == 15 tVals.canTake15Cerise = true endif
-    if n == 16 tVals.canTake16Plum = true endif
-    if n == 17 tVals.canTake17Pompadour = true endif
-    if n == 18 tVals.canTake18Tolopea = true endif
-    if n == 19 tVals.canTake19Scarlet = true endif
-    if n == 20 tVals.canTake20Mahogany = true endif
+    if n == 0 
+        tVals.canTake00Razzmatazz = true 
+    endif
+    if n == 1 
+        tVals.canTake01Cupid = true 
+    endif
+    if n == 2 
+        tVals.canTake02Lavenderblush = true 
+    endif
+    if n == 3 
+        tVals.canTake03Carnation = true 
+    endif
+    if n == 4 
+        tVals.canTake04Tosca = true 
+    endif
+    if n == 5 
+        tVals.canTake05Blush = true 
+    endif
+    if n == 6 
+        tVals.canTake06Lilac = true 
+    endif
+    if n == 7 
+        tVals.canTake07Pink = true 
+    endif
+    if n == 8 
+        tVals.canTake08Maroon = true 
+    endif
+    if n == 9 
+        tVals.canTake09Pink2 = true 
+    endif
+    if n == 10 
+        tVals.canTake10Crusta = true 
+    endif
+    if n == 11 
+        tVals.canTake11Sangria = true 
+    endif
+    if n == 12 
+        tVals.canTake12Mystic = true 
+    endif
+    if n == 13 
+        tVals.canTake13Geraldine = true 
+    endif
+    if n == 14 
+        tVals.canTake14Crimson = true 
+    endif
+    if n == 15 
+        tVals.canTake15Cerise = true 
+    endif
+    if n == 16 
+        tVals.canTake16Plum = true 
+    endif
+    if n == 17 
+        tVals.canTake17Pompadour = true 
+    endif
+    if n == 18 
+        tVals.canTake18Tolopea = true 
+    endif
+    if n == 19 
+        tVals.canTake19Scarlet = true 
+    endif
+    if n == 20 
+        tVals.canTake20Mahogany = true 
+    endif
 EndFunction

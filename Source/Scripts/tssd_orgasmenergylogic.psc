@@ -129,9 +129,6 @@ String Property FILE_FADE_TATS = "FadeTattoos.esp" AutoReadOnly
 ; END MAROON
 
 
-bool hadAnnouncement = false
-int[] possibleAnnouncements
-
 ; BEGIN MARA
 
 bool maraSuccess = false
@@ -360,7 +357,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
 				reduction += 10
 			endif
-			tActions.gainSuccubusXP(succdVal, reduction + PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) * succdVal)
+			tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) as int) * succdVal)
 			while  Stage_in < StageCount 
 				_thread.AdvanceStage()
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
@@ -393,7 +390,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 	endif
 
 	if (!hadAnnouncement || hadAnnouncement) && possibleAnnouncements.Length > 1
-		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length-1)
+		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length - 1)
 		int getRando = possibleAnnouncements[randOmGGG]
 		T_Needs(getRando, "", false)
 		hadAnnouncement = true

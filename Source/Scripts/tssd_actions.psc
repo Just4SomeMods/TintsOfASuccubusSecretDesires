@@ -5,94 +5,122 @@ import PapyrusUtil
 import storageutil
 import CustomSkills
 
+
 Actor Property PlayerRef Auto
-tssd_slsfrscript Property slsfListener Auto
-tssd_dialogue Property tDialogue Auto
-tssd_menus Property tMenus Auto
+
+
+;Actor[] Property cell_ac Auto
+
+
+Faction Property TSSD_EnthralledFaction Auto
+;Faction Property TSSD_MarkedForDeathFaction Auto
+;Faction Property sla_Arousal Auto
+
+
+GlobalVariable Property GameHours Auto
+;GlobalVariable Property SkillSuccubusBaseLevel Auto
+;GlobalVariable Property SkillSuccubusBodyLevel Auto
+GlobalVariable Property SkillSuccubusDrainLevel Auto
+;GlobalVariable Property SkillSuccubusSeductionLevel Auto
+GlobalVariable Property SuccubusDesireLevel Auto
+GlobalVariable Property SuccubusXpAmount Auto
+GlobalVariable Property TSSD_DebugMode Auto
+;GlobalVariable Property TSSD_InnocentsSlain Auto
+GlobalVariable Property TSSD_PerkPointsBought Auto
+GlobalVariable Property TSSD_ravanousNeedLevel Auto
+
+
+GlobalVariable[] Property tssd_deityTrackers Auto
+
+
+Idle Property BleedOutStart Auto
+
+
+ImageSpaceModifier Property AzuraFadeToBlack Auto
+ImageSpaceModifier Property BerserkerMainImod Auto
+
+
+;Keyword Property LocTypeCity Auto
+;Keyword Property LocTypeClearable Auto
+Keyword Property LocTypeHabitation Auto
+Keyword Property LocTypeHabitationHasInn Auto
+Keyword Property LocTypeInn Auto
+Keyword Property LocTypePlayerHouse Auto
+
+
+MagicEffect Property TSSD_DrainedDownSide Auto
+MagicEffect Property TSSD_SatiatedEffect Auto
+MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
+;MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto
+
+
+;Perk Property TSSD_Base_CapIncrease1 Auto
+Perk Property TSSD_Base_IncreaseScentRange1 Auto
+Perk Property TSSD_Base_PowerGrowing Auto
+;Perk Property TSSD_Body_Overstuffed Auto
+Perk Property TSSD_Body_PassiveEnergy1 Auto
+Perk Property TSSD_DeityAllPerk Auto
+;Perk Property TSSD_DeityArkayPerk Auto
+;Perk Property TSSD_DeityDibellaPerk Auto
+Perk Property TSSD_Drain_CollaredEvil1 Auto
+;Perk Property TSSD_Drain_DrainMore1 Auto
+Perk Property TSSD_Drain_ExtractSemen Auto
+Perk Property TSSD_Drain_GentleDrain1 Auto
+;Perk Property TSSD_Drain_GentleDrain4 Auto
+Perk Property TSSD_Drain_RefreshHealth Auto
+Perk Property TSSD_Seduction_HotDemon1 Auto
+;Perk Property TSSD_Seduction_Leader Auto
+Perk Property TSSD_Seduction_OfferSex Auto
+
+
+Perk[] Property SuccubusAbilitiesPerks Auto
+
+
+;Quest Property TSSD_EvilSuccubusQuest Auto
+Quest Property tssd_dealwithcurseQuest Auto
+
+
+Spell Property TSSD_DebugToFaction Auto
+;Spell Property TSSD_DrainHealth Auto
+;Spell Property TSSD_DrainedMarker Auto
+Spell Property TSSD_FuckingInvincible Auto
+;Spell Property TSSD_Overstuffed Auto
+Spell Property TSSD_RejectionPoison Auto
+Spell Property TSSD_Satiated Auto
+Spell Property TSSD_SuccubusBaseChanges Auto
+Spell Property TSSD_SuccubusDetectJuice Auto
+
+
+Spell[] Property SuccubusAbilitiesSpells Auto
+
+
+;String Property CUM_ANAL Auto
+;String Property CUM_ORAL Auto
+;String Property CUM_VAGINAL Auto
+
+
+String[] Property SuccubusAbilitiesNames Auto
+
+
+bool[] Property cosmeticSettings Auto
+bool Property deathModeActivated Auto
+
+
 SexLabFramework Property SexLab Auto
 sslActorStats Property sslStats Auto
 tssd_PlayerEventsScript Property tEvents Auto
+tssd_dialogue Property tDialogue Auto
+tssd_menus Property tMenus Auto
 tssd_orgasmenergylogic Property tOrgasmLogic Auto
+tssd_slsfrscript Property slsfListener Auto
 
-;Faction Property sla_Arousal Auto
-Faction Property TSSD_EnthralledFaction Auto
-;Faction Property TSSD_MarkedForDeathFaction Auto
 
 Actor HotDemonTarget
 
 int prevRelRankHotDemon = 0
 
-Spell[] Property SuccubusAbilitiesSpells Auto
-Perk[] Property SuccubusAbilitiesPerks  Auto
-Perk Property TSSD_DeityAllPerk Auto
-String[] Property SuccubusAbilitiesNames  Auto    
-
-Idle property BleedOutStart auto
-
-Quest Property tssd_dealwithcurseQuest Auto
-;Quest Property TSSD_EvilSuccubusQuest Auto
-
-GlobalVariable[] Property tssd_deityTrackers Auto
-
-GlobalVariable Property SkillSuccubusDrainLevel Auto
-;GlobalVariable Property SkillSuccubusSeductionLevel Auto
-;GlobalVariable Property SkillSuccubusBodyLevel Auto
-;GlobalVariable Property SkillSuccubusBaseLevel Auto
-GlobalVariable Property TSSD_PerkPointsBought Auto
-GlobalVariable Property SuccubusDesireLevel Auto
-GlobalVariable Property SuccubusXpAmount Auto
-GlobalVariable Property GameHours Auto
-GlobalVariable Property TSSD_ravanousNeedLevel Auto
-;GlobalVariable Property TSSD_InnocentsSlain Auto
-GlobalVariable Property TSSD_DebugMode Auto
-
-;Perk Property TSSD_Body_Overstuffed Auto
-;Perk Property TSSD_Base_CapIncrease1 Auto
-Perk Property TSSD_Drain_GentleDrain1 Auto
-;Perk Property TSSD_Drain_DrainMore1 Auto
-;Perk Property TSSD_Seduction_Leader Auto
-Perk Property TSSD_Seduction_OfferSex Auto
-Perk Property TSSD_Body_PassiveEnergy1 Auto
-Perk Property TSSD_Base_IncreaseScentRange1 Auto
-;Perk Property TSSD_DeityArkayPerk Auto
-;Perk Property TSSD_DeityDibellaPerk Auto
-Perk Property TSSD_Drain_ExtractSemen Auto
-;Perk Property TSSD_Drain_GentleDrain4 Auto
-Perk Property TSSD_Seduction_HotDemon1 Auto
-Perk Property TSSD_Drain_CollaredEvil1 Auto
-Perk Property TSSD_Base_PowerGrowing Auto
-Perk Property TSSD_Drain_RefreshHealth Auto
-
-Spell Property TSSD_SuccubusDetectJuice Auto
-;Spell Property TSSD_Overstuffed Auto
-;Spell Property TSSD_DrainHealth Auto
-;Spell Property TSSD_DrainedMarker Auto
-Spell Property TSSD_Satiated Auto
-Spell Property TSSD_RejectionPoison Auto
-Spell Property TSSD_FuckingInvincible Auto
-Spell Property TSSD_DebugToFaction Auto
-Spell Property TSSD_SuccubusBaseChanges Auto
-
-bool Property deathModeActivated Auto Hidden
 bool modifierKeyIsDown = false
 bool hasAbsorbedCum = false
-
-bool [] Property cosmeticSettings Auto hidden
-
-;Actor[] Property cell_ac auto Hidden
-
-ImageSpaceModifier Property AzuraFadeToBlack  Auto
-ImageSpaceModifier Property BerserkerMainImod  Auto  
-
-MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
-MagicEffect Property TSSD_SatiatedEffect Auto
-
-Keyword Property LocTypeInn Auto
-Keyword Property LocTypePlayerHouse Auto
-;Keyword Property LocTypeCity Auto
-;Keyword Property LocTypeClearable Auto
-Keyword Property LocTypeHabitation Auto
-Keyword Property LocTypeHabitationHasInn Auto
 
 HeadPart PlayerEyes
 HeadPart ThrallEyes
@@ -104,9 +132,6 @@ int numHostileActors
 int lastPerc = -1
 
 string tssd_SpellDebugProp = "-1"
-MagicEffect Property TSSD_DrainedDownSide Auto
-;MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto  
-
 
 float last_checked
 float timer_internal = 0.0
@@ -257,7 +282,9 @@ EndFunction
 
 bool Function playerInSafeHaven()
         Location curLoc = Game.GetPlayer().GetCurrentLocation()
-        if !curLoc return false endif
+        if !curLoc
+            return false
+        endif
         bool safeHaven = (curLoc.HasKeyword(LocTypePlayerHouse)) || curLoc.HasKeyword(LocTypeInn) \
         || curLoc.HasKeyword(LocTypeHabitationHasInn)
         return safeHaven
@@ -395,11 +422,16 @@ Endfunction
 
 
 bool Function GetHabitationCorrect(Location curLoc) 
-    return (\
-                (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypePlayerHouse)) ||\
-                (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeHabitationHasInn)) ||\
-                (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) >= 1 && !curLoc.HasKeyword(LocTypeHabitation))    )
-            
+    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypePlayerHouse) 
+        return true
+    endif
+    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypeInn)
+        return true
+    endif
+    if curLoc.HasKeyword(LocTypeHabitationHasInn)
+        return true
+    endif
+    return PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) && !curLoc.HasKeyword(LocTypeHabitation)            
 EndFunction
 
 Function onGameReload()
@@ -469,7 +501,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         int toIncrease = 2
         Actor[] myThralls = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)
         if myThralls.Length >= 1
-            T_Show("Oh I gotta talk with " + myThralls[Utility.RandomInt(0, myThralls.Length -1)].GetDisplayName() +  " about that!", "menus/tssd/small/scarlet.dds")
+            T_Show("Oh I gotta talk with " + myThralls[Utility.RandomInt(0, myThralls.Length - 1)].GetDisplayName() +  " about that!", "menus/tssd/small/scarlet.dds")
         else
             T_Show("I am so alone!")
             toIncrease += 2
