@@ -23,7 +23,7 @@ function replace(text)
        nxtText = pools["TSSD_000B2"][math.random(1, #pools["TSSD_000B2"])]
     end
 
-    if string.find(text, "training in ") then
+    if string.find(text, "training in ") or string.find(text, " you train me to better use ") then
       trainingCounter = trainingCounter + 1
       send_mod_event("TSSD_AskedForTraining", text, trainingCounter, target_id)
     end

@@ -5,6 +5,7 @@ import b612
 import tssd_utils
 
 Actor Property PlayerRef Auto
+ReferenceAlias Property TSSD_SpellHolderTest Auto
 Quest Property tssd_tints_tracker Auto
 tssd_slsfrscript Property slsfListener Auto
 
@@ -341,6 +342,7 @@ Function OpenSuccubusAbilities()
     if false ; && MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
         itemsAsString += ";BimbofyWhiterun"
     endif
+    itemsAsString += ";ViewAllBuffSpells"
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result = -1
@@ -418,8 +420,11 @@ Function OpenSuccubusAbilities()
             toSteal = _thread.GetPositions()[1]
         endif
         toSteal.ShowGiftMenu(false, none, true, false) 
-
-
+    
+    elseif myItems[result] == "ViewAllBuffSpells"
+        if Game.GetCurrentCrosshairRef()
+            UIExtensions.OpenMenu("UIMagicMenu", Game.GetCurrentCrosshairRef(), PlayerRef)
+        endif
 
     elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1

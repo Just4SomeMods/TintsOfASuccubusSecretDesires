@@ -113,6 +113,7 @@ tssd_dialogue Property tDialogue Auto
 tssd_menus Property tMenus Auto
 tssd_orgasmenergylogic Property tOrgasmLogic Auto
 tssd_slsfrscript Property slsfListener Auto
+TSSD_InflationHandler Property tInflation Auto
 
 
 Actor HotDemonTarget
@@ -458,9 +459,11 @@ Function onGameReload()
     tEvents.onGameReload()
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
+    UnregisterForCrosshairRef()
     RegisterForCrosshairRef()
     last_checked = Utility.GetCurrentGameTime() * 24
     tOrgasmLogic.onGameReload()
+    tInflation.onGameReload()
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)
@@ -559,7 +562,7 @@ Event OnUpdateGameTime()
     Utility.Wait(0.1)
     PlayerRef.AddSpell(TSSD_SuccubusBaseChanges, false)
     
-    updateHeartMeter(timeBetween > 1)
+    updateHeartMeter(timeBetween > 2)
     RegisterForSingleUpdateGameTime(0.4)
 endEvent
 
@@ -610,8 +613,13 @@ Event OnCrosshairRefChange(ObjectReference ref)
     SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
     if ref && StringUtil.Find(ref.GetDisplayName(), "hrine of ") > 0
         myBinding.Add("tssd_getTargetCross", "Pray", 47)
-        Utility.Wait(3)
     EndIf
+    Actor RefA = ref as Actor
+    if RefA && RefA.HasMagicEffect(TSSD_DrainedDownSide)
+        RefA.SendModEvent("TSSD_DrainedTargetHovered", "", 0.0)
+    endif
+    Utility.Wait(3)
+
     myBinding.Remove("tssd_getTargetCross")
 EndEvent
 

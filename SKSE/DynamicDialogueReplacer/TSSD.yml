@@ -10,6 +10,18 @@ scripts:
     type: 0
 
 topics:
+
+
+  # Masturbate
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x139|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - LocationHasKeyWord LocTypeInn == 1 OR
+      - LocationHasKeyWord LocTypePlayerHouse == 1 OR
+      - pl1 <> HasPerk TSSD_DeityDibellaPerk >= 1 AND
+
   # Drowsy
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
