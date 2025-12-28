@@ -174,13 +174,13 @@ Event PlayerSceneStart(Form FormRef, int tid)
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
     
-   ;/  if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
+   if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
         HeadPart tEyes = currentEyes()
         if tEyes
             PlayerEyes = tEyes
         endif
         setHeartEyes(PlayerEyes, true)
-    endif /;
+    endif
     if tssd_dealwithcurseQuest.GetStage() == 20
         int outerIndex = 0
         bool conSent = true
@@ -324,7 +324,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) > 0
 			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
 				tEvents.incrValAndCheck(12,1)
-				tEvents.incrValAndCheck(1,1)
+				tEvents.incrValAndCheck(1,0.2)
 			elseif (_thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")) &&  !_thread.HasSceneTag("lesbian")
 				tEvents.incrValAndCheck(1,1)
 			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")

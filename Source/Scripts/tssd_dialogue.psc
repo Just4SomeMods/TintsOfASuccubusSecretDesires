@@ -39,6 +39,7 @@ String lastDialogue
 Actor lastDialoguePartner
 
 Faction Property TSSD_HypnoMaster Auto
+Faction Property TSSD_PotentialHypnoMaster Auto
 
 ; Functions
 Function onGameReload()
@@ -70,7 +71,7 @@ EndEvent
 Event OnMenuOpen(String MenuName)
     if MenuName == "Training Menu"
         if lastDialoguePartner
-            lastDialoguePartner.SetFactionRank(TSSD_HypnoMaster, 1)
+            lastDialoguePartner.SetFactionRank(TSSD_PotentialHypnoMaster, 1)
         endif
         tPEvents.incrValAndCheck(18, 1)
         UnRegisterForMenu("Training Menu")
@@ -196,6 +197,7 @@ Event OnMenuClose(String MenuName)
             endif
         elseif lastDialogue == "TSSD_00142"        
             tPEvents.tVals.lastHypnoSession = 0.1
+            tPEvents.incrValAndCheck(18, 10)
 			TSSD_CompelledSpell.Cast(PlayerRef,PlayerRef)
             if lastDialoguePartner.GetFactionRank(TSSD_HypnoMaster) < 1
                 lastDialoguePartner.SetFactionRank(TSSD_HypnoMaster, 1)

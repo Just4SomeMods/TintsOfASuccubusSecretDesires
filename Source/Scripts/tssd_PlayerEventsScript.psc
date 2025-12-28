@@ -481,7 +481,6 @@ EndEvent
 
 Event OnInit()	
 	lastGameHour = gamehour.GetValue() * 24
-	(Game.GetFormFromFile(0x002B74,"Dawnguard.esm") as Actor).SetFactionRank(TSSD_HypnoMaster, 1)
 endEvent
 
 

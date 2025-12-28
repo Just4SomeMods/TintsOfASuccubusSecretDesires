@@ -115,6 +115,8 @@ tssd_orgasmenergylogic Property tOrgasmLogic Auto
 tssd_slsfrscript Property slsfListener Auto
 TSSD_InflationHandler Property tInflation Auto
 
+FormList Property TSSD_ShrinesWithQuests Auto
+
 
 Actor HotDemonTarget
 
@@ -629,12 +631,16 @@ EndEvent
 
 
 Event OnCrosshairRefChange(ObjectReference ref)
-    SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-    if ref && StringUtil.Find(ref.GetDisplayName(), "hrine of ") > 0
+
+    if ref && TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Add("tssd_getTargetCross", "Pray", 47)
-        Utility.Wait(3)
+    Elseif !(ref as Actor)
+        
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getTargetCross")
     EndIf
+
 EndEvent
 
 

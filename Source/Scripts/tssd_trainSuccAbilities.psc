@@ -52,15 +52,12 @@ Int Function GetTimesTrained()
     if SkillVal == TSSD_PerkPointsBought
         return SkillVal.GetValue() as int
     endif
-    return (SkillVal.GetValue()/5) as int
+    return (SkillVal.GetValue()) as int
 EndFunction
 
 ; how many times the player can train this skill
 Int Function GetAvailableTraining()
-    if SkillVal == TSSD_PerkPointsBought
-        Return 99
-    endif
-    return 20
+    Return 99
 EndFunction
 
 ; how much training for the next skill up costs
@@ -68,7 +65,7 @@ Int Function GetTrainCost()
     if SkillVal == TSSD_PerkPointsBought
         return 1000 + 100 * GetTimesTrained()
     Endif
-    Return (Math.Pow((GetTimesTrained() * 5) + 1, 1.95) * 5) as int
+    Return (Math.Pow((GetTimesTrained()) + 1, 1.95) * 5) as int
 EndFunction
 
 ; how much money the player currently has

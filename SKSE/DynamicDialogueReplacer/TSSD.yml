@@ -216,10 +216,10 @@ topics:
     inject:
       - 0x140|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - GetFactionRank TSSD_HypnoMaster >= 0 OR
+      - GetFactionRank TSSD_PotentialHypnoMaster >= 0 OR
       - pl1 <> HasPerk TSSD_Tint_Tolopae >= 1 AND
       - GetFactionRank JobTrainerFaction >= 0 OR
-      - GetFactionRank TSSD_HypnoMaster >= 0 OR
+      - GetFactionRank TSSD_PotentialHypnoMaster >= 0 OR
 
 
 

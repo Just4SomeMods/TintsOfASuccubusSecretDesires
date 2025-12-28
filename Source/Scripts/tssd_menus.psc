@@ -43,12 +43,14 @@ Perk Property TSSD_Seduction_Kiss2 Auto
 Spell Property TSSD_SuccubusDetectJuice Auto
 Spell Property TSSD_Satiated Auto
 
+FormList Property TSSD_ShrinesWithQuests Auto
+
 bool lookedAtExplanationsOnce = false
 bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.01.000"
+string currentVersion = "1.01.001"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -77,6 +79,7 @@ bool Function toggleQuestCurses(String deityName)
             tssd_dealwithcurseQuest.Start()
             ;tssd_dealwithcurseQuest.setstage(10)
             tssd_dealwithcurseQuest.setstage(20)
+            return true
         else
             int objectiveSub = 0
             if deityName == "Arkay"
@@ -116,10 +119,12 @@ Function OpenGrandeMenu()
         ;ShowSuccubusTrait(19)
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
 
+
         return
     endif
-    if Game.GetCurrentCrosshairRef() && StringUtil.find(Game.GetCurrentCrosshairRef().GetDisplayName(), "hrine of") >= 0
-        String deityName = StringUtil.Split( Game.GetCurrentCrosshairRef().GetDisplayName(), " of ")[1]
+    if TSSD_ShrinesWithQuests.HasForm(Game.GetCurrentCrosshairRef().GetBaseObject())
+        DBGTrace(DbSkseFunctions.GetFormEditorId(Game.GetCurrentCrosshairRef().GetBaseObject(), "none"))
+        String deityName = StringUtil.Split(DbSkseFunctions.GetFormEditorId(Game.GetCurrentCrosshairRef().GetBaseObject(), "none"), "of")[1]
         if toggleQuestCurses(deityName)
             return
         endif
@@ -240,7 +245,7 @@ Function startSuccubusLife()
     endif
     tssd_enthrallDialogue.Start()
     PlayerRef.AddPerk(TSSD_Base_Explanations)
-    tActions.onGameReload()
+    tEvents.onGameReload()
     TSSD_Satiated.Cast(PlayerRef,PlayerRef)
     slsfListener.CheckFlagsSLSF()    
     int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
