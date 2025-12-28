@@ -173,6 +173,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "TSSD_PotentialHypnoMaster",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_RevealingOutfit",
                     "help": "$showStuff"
                 },
@@ -194,6 +199,11 @@
                 {
                     "type": "text",
                     "text": "TSSD_HelpMenu",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_ShrinesWithQuests",
                     "help": "$showStuff"
                 }
             ]
@@ -1452,6 +1462,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "153"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Very very subby3",
+                    "help": "You can asked to be punished and you can try to get taken advantage of and those always succeed.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "343"
                         ]
                     }
                 },

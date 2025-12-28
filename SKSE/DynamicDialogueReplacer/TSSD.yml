@@ -18,8 +18,7 @@ topics:
     inject:
       - 0x139|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 OR
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
       - pl1 <> HasPerk TSSD_DeityDibellaPerk >= 1 AND
 
   # Drowsy
@@ -49,8 +48,7 @@ topics:
       - 0x92|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Seduction_OfferSex1 == 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # CumCover
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -59,8 +57,7 @@ topics:
       - 0x9A|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
       - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
       - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
@@ -68,6 +65,7 @@ topics:
   - id: 0x9A|TintsOfASuccubusSecretDesires.esp
     text: "Let's cover us both in cum!"
     conditions:
+      - LocationHasKeyWord LocTypeHabitation == 0 AND
       - GetFactionRank SOS_SchlongifiedFaction >= 1 AND
       - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
@@ -122,7 +120,7 @@ topics:
       - 0xC3|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Body_PainGood1 == 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # Kiss
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -131,15 +129,6 @@ topics:
       - 0x97|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Seduction_Kiss1 == 1 AND
-
-  # Rant
-  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
-    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
-    inject:
-      - 0xA5|TintsOfASuccubusSecretDesires.esp
-    conditions:
-      - GetRelationShipRank Player >= 2 AND
-
 
   # Praise
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -164,8 +153,7 @@ topics:
       - 0x110|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Body_Grope >= 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # Voyeur
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -174,8 +162,7 @@ topics:
       - 0x10D|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Seduction_Voyeur >= 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # SuckChamp
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -184,8 +171,7 @@ topics:
       - 0x13C|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # SuckChamp
   - id: 0x13C|TintsOfASuccubusSecretDesires.esp
@@ -209,6 +195,7 @@ topics:
       - 0x134|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Tint_Lilac >= 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # Hypnosis Session
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -221,9 +208,6 @@ topics:
       - GetFactionRank JobTrainerFaction >= 0 OR
       - GetFactionRank TSSD_PotentialHypnoMaster >= 0 OR
 
-
-
-
   # Bimbo
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -231,5 +215,4 @@ topics:
       - 0xF4|TintsOfASuccubusSecretDesires.esp
     conditions:
       - GetFactionRank CC_NPCCurrentBimboStage >= 15 AND
-      - LocationHasKeyWord LocTypeInn == 1 OR
-      - LocationHasKeyWord LocTypePlayerHouse == 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 OR

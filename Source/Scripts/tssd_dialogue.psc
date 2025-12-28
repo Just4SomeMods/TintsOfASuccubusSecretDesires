@@ -46,7 +46,7 @@ Function onGameReload()
     RegisterForModEvent("TSSD_HumiliationDoneEvent","HumiDone") 
     RegisterForModEvent("TSSD_RecejctedEvent","OnSuccRejected") 
     RegisterForModEvent("TSSD_DialogueFinished","DialogueFinished") 
-    RegisterForModEvent("TSSD_AskedForTraining","TrainingAsked") 
+    RegisterForModEvent("TSSD_AskedForTraining","TrainingAsked")
 Endfunction
 
 ; Events
@@ -105,8 +105,8 @@ Event OnMenuClose(String MenuName)
             PlayerRef.RemoveItem(Gold001, 20)
             GenericRefreshPSex(lastDialoguePartner, true)
         elseif lastDialogue == "TSSD_000E1"
-            PlayerRef.RemoveItem(Gold001, 50)
-            GenericRefreshPSex(lastDialoguePartner, true)
+            PlayerRef.AddItem(Gold001, 50)
+            GenericRefreshPSex(lastDialoguePartner, false)
         elseif lastDialogue == "TSSD_00098"
             tPEvents.incrValAndCheck(3,1)
             GenericRefreshPSex(lastDialoguePartner, true, "love")
@@ -126,8 +126,9 @@ Event OnMenuClose(String MenuName)
                 mxAmount = 3
             endif
             string outMessage = ""
-            while PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction).Length >= mxAmount
-                Actor cToDelete = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)[0]
+            Actor[] allThralls = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)
+            while allThralls.Length >= mxAmount
+                Actor cToDelete = allThralls[ Utility.RandomInt(0, allThralls.Length - 1) ]
                 cToDelete.RemoveFromFaction(TSSD_EnthralledFaction)
                 cToDelete.RemoveFromFaction(TSSD_ThrallSubmissive)
                 cToDelete.RemoveFromFaction(PlayerFaction)
@@ -141,8 +142,7 @@ Event OnMenuClose(String MenuName)
             endwhile 
             if outMessage != ""
                 T_Show("I don't think " + outMessage + " loves me anymore!", "", 0)
-            endif       
-
+            endif
             if lastDialogue == "TSSD_000A1"
                 lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
                 lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
