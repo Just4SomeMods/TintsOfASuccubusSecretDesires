@@ -19,6 +19,11 @@
         "Desc": "You can ask to be punished to refresh your energy.",
         "Name": "Subby"
     },
+    "TSSD_DeityDibellaPerk": {
+        "id": 117,
+        "Desc": "Asking to be watched while masturbating always succeeds and can be done in public as a devotion to the arts.",
+        "Name": "Dibella's gift"
+    },
     "TSSD_Drain_AskForCum": {
         "id": 207,
         "Desc": "You can ask for some cum play.",

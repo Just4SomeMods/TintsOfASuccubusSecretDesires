@@ -786,5 +786,35 @@
         "unlockMethod": "have rough sex or get choked 10 times.",
         "kink": "choking",
         "index": 22
+    },
+    "Pueblo": {
+        "positive": [],
+        "needyText": [],
+        "description": "Ever since you stared into these eyes, you knew you need Pueblo! You gain a shout to overpower low health dragons to end them. You also additionally gain a longer satiated time when you \"absorb\" dragons and have increased armor for that time, but your other ways to become satiated only last half as long.",
+        "color": [
+            113,
+            32,
+            13
+        ],
+        "famecat": [],
+        "colorHex": "71200D",
+        "unlockMethod": "Absorb a dragon.",
+        "kink": "scaly",
+        "index": 23
+    },
+    "Valencia": {
+        "positive": [],
+        "needyText": [],
+        "description": "Your curse makes you burn with Valencia colored fire. Your melee attacks deal extra fire damage over time, but if you haven't masturbated in a while, you take double damage from fire.",
+        "color": [
+            217,
+            72,
+            60
+        ],
+        "famecat": [],
+        "colorHex": "D9483C",
+        "unlockMethod": "Masturbate 10 times.",
+        "kink": "selflove",
+        "index": 24
     }
 }

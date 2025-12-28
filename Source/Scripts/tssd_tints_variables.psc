@@ -12,6 +12,7 @@ float Property lastCumInMe Auto Conditional
 float Property lastWolfSex Auto Conditional
 float Property lastHypnoSession Auto Conditional
 float Property lastFadeTat Auto Conditional
+float Property lastMasturbated Auto Conditional
 float Property hasEggs Auto Conditional
 
 bool Property canTake00Razzmatazz Auto Conditional
@@ -37,4 +38,6 @@ bool Property canTake19Scarlet Auto Conditional
 bool Property canTake20Mahogany Auto Conditional
 bool Property canTake21Tutu Auto Conditional
 bool Property canTake22Tamrind Auto Conditional
+bool Property canTake23Pueblo Auto Conditional
+bool Property canTake24Valencia Auto Conditional
 Bool[] Property canTakeBools  Auto  

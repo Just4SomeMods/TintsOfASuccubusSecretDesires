@@ -37,6 +37,7 @@ Keyword Property ActorTypeCreature Auto
 Perk Property TSSD_DeityArkayPerk Auto
 
 Spell Property TSSD_InLoveBuff Auto
+Spell Property TSSD_CompelledSpell Auto
 
 float lastNeedsAnnouncement
 
@@ -205,7 +206,11 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
     endif
     Weapon akW = akSource as Weapon
     if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[14]) && akW != none && !abHitBlocked
-        tActions.gainSuccubusXP(akW.GetBaseDamage() * 20 )
+		int mult = 20
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
+			mult = 2
+		endif
+        tActions.gainSuccubusXP(akW.GetBaseDamage() * mult )
     endif
 	if ak && ak.isHostileToActor(PlayerRef)
 		if playerRef.HasPerk(TSSD_Body_ArousingBody)
@@ -229,6 +234,11 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 	endif
 	
 EndEvent
+
+Event OnPlayerLoadGame()
+	onGameReload()
+  	tActions.onGameReload()
+endEvent
 
 Function onGameReload()
 	isActingDefeated = false
@@ -297,7 +307,6 @@ Function onGameReload()
 
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
-	RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStartEvent")
 	PO3_Events_Alias.RegisterForActorKilled(self)
 EndFunction
 
@@ -311,10 +320,6 @@ Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[2]) && akBaseObject == ReligiousMaraLove
 		PlayerRef.UnequipItem(ReligiousMaraLove, true, false)
 	endif
-EndEvent
-
-Event PlayerSceneStartEvent(Form FormRef, int tid)
-
 EndEvent
 
 
@@ -331,7 +336,6 @@ function OnCOLUpdated(form t)
 endfunction
 
 Function EggLaid(form actorFrom, form egg, int numReleased)
-	DBGTrace(egg.GetName())
 	if  actorFrom as actor == PlayerRef
 		incrValAndCheck(10, 1)
 		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
@@ -436,10 +440,16 @@ Event OnUpdateGameTime()
 			tN = PapyrusUtil.PushInt(tN, 6)
 			tssd_tints_tracker.SetObjectiveFailed(6, true)
 		endif
+		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])  && (!tVals.hasEggs)
+			tN = PapyrusUtil.PushInt(tN, 10)
+			tssd_tints_tracker.SetObjectiveFailed(10, true)
+		endif
 		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax  * 3)
 			tN = PapyrusUtil.PushInt(tN, 18)
 			Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
+
 			Actor cTarget = allActs[Utility.RandomInt(0, allActs.Length - 1)]
+			TSSD_CompelledSpell.Cast(PlayerRef,PlayerRef)
 			T_Needs(18, cTarget.GetDisplayName())
 			if !PlayerRef.isInCombat() && !Sexlab.IsActorActive(PlayerRef)
 				Sexlab.StartSceneQuick(PlayerRef) 
@@ -490,19 +500,21 @@ EndFunction
 
 
 Event OnANDUpdate()
-    Actor Player = PlayerRef    
-    IsNaked = IsActorNude(PlayerRef)
-    IsShowingBra =      IsActorShowingBra(PlayerRef)
-    IsShowingChest =    IsActorShowingChest(PlayerRef)
-    IsShowingUnderwear =IsActorShowingUnderwear(PlayerRef)
-    IsShowingGenitals = IsActorShowingGenitals(PlayerRef)
-    IsShowingAss =      IsActorShowingAss(PlayerRef)
-    IsTopless =         IsActorTopless(PlayerRef)
-    IsBottomless =      IsActorBottomless(PlayerRef)
-    IsSkimpilyClothed = IsPlayerSkimpy()
-	isCollared = IsActorCollared(PlayerRef)
-    PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
-    PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
+	if ANDFound
+		Actor Player = PlayerRef    
+		IsNaked = IsActorNude(PlayerRef)
+		IsShowingBra =      IsActorShowingBra(PlayerRef)
+		IsShowingChest =    IsActorShowingChest(PlayerRef)
+		IsShowingUnderwear =IsActorShowingUnderwear(PlayerRef)
+		IsShowingGenitals = IsActorShowingGenitals(PlayerRef)
+		IsShowingAss =      IsActorShowingAss(PlayerRef)
+		IsTopless =         IsActorTopless(PlayerRef)
+		IsBottomless =      IsActorBottomless(PlayerRef)
+		IsSkimpilyClothed = IsPlayerSkimpy()
+		isCollared = IsActorCollared(PlayerRef)
+		PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
+		PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
+	endif
 EndEvent
 
 

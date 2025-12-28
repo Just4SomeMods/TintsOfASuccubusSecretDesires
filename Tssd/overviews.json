@@ -27,9 +27,12 @@
         "Scarlet",
         "Mahogany",
         "Tutu",
-        "Tamarind"
+        "Tamarind",
+        "Pueblo",
+        "Valencia"
     ],
     "SuccubusSPerks": [
+        "TSSD_DeityDibellaPerk",
         "TSSD_Seduction_OfferSex1",
         "TSSD_Drain_AskForCum",
         "TSSD_Body_Findom1",

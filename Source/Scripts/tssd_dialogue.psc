@@ -27,6 +27,8 @@ Perk Property TSSD_Base_PolyThrall3 Auto
 SexLabFramework Property SexLab Auto
 
 Spell Property TSSD_DrainedMarker Auto
+Spell Property TSSD_CompelledSpell Auto
+
 
 MiscObject Property Gold001 Auto
 
@@ -194,6 +196,7 @@ Event OnMenuClose(String MenuName)
             endif
         elseif lastDialogue == "TSSD_00142"        
             tPEvents.tVals.lastHypnoSession = 0.1
+			TSSD_CompelledSpell.Cast(PlayerRef,PlayerRef)
             if lastDialoguePartner.GetFactionRank(TSSD_HypnoMaster) < 1
                 lastDialoguePartner.SetFactionRank(TSSD_HypnoMaster, 1)
             endif
@@ -203,7 +206,7 @@ Event OnMenuClose(String MenuName)
             if SexlabRegistry.LookupScenes(pos, "magic", none, 1, none).Length > 0
                 GenericRefreshPSex(lastDialoguePartner, true, "magic")
             else
-                GenericRefreshPSex(lastDialoguePartner, true, "aggressive")
+                GenericRefreshPSex(lastDialoguePartner, true, "aggressive", lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) < 1 )
             endif
         endif
         lastDialogue = ""
@@ -228,6 +231,7 @@ endevent
 Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "", bool playerActive = false )
     Actor akSpeaker = target as Actor
     AzuraFadeToBlack.Apply()
+    TSSD_Satiated.Cast(akSpeaker, PlayerRef)
     GameHour.Mod(1) 
     tActions.gainSuccubusXP(1000)
     ImageSpaceModifier.RemoveCrossFade(3)
@@ -235,8 +239,7 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
         upTo = 35
     endif
-    SuccubusDesireLevel.SetValue( min( upTo, SuccubusDesireLevel.GetValue() + 100 ) )	
-    PlayerRef.DispelSpell(TSSD_Satiated)
+    SuccubusDesireLevel.SetValue( min( upTo, SuccubusDesireLevel.GetValue() + 100 ) )
     if startsSex
         Actor[] Pos = new Actor[2]
         Pos[0] = PlayerRef

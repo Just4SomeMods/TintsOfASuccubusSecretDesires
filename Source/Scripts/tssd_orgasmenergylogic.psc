@@ -67,8 +67,6 @@ Perk Property TSSD_Tint_Scarlet Auto
 
 ; End Blush
 
-String Property FILE_SCHLONGS_OF_SKYRIM = "Schlongs of Skyrim.esp" AutoReadOnly Hidden 
-Faction Property SOS_SchlongifiedFaction Auto Hidden
 
 ; BEGIN ZAD
 
@@ -150,6 +148,9 @@ Event PlayerSceneStart(Form FormRef, int tid)
     TSSD_FuckingInvincible.Cast(PlayerRef)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
+    if ActorsIn.Length == 1
+        tEvents.incrValAndCheck(24,1)
+    endif
     int indexIn = 0
     if !tActions.deathModeActivated && _thread.GetSubmissive(PlayerRef)
         bool aggressiveY = false
@@ -161,8 +162,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
                 endif
                 if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
                     T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
-                endif                
-                TSSD_DrainedMarker.Cast(PlayerRef, consentingActor)
+                endif
             endif
             indexIn += 1
         endwhile
@@ -174,13 +174,13 @@ Event PlayerSceneStart(Form FormRef, int tid)
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
     
-    if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
+   ;/  if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
         HeadPart tEyes = currentEyes()
         if tEyes
             PlayerEyes = tEyes
         endif
         setHeartEyes(PlayerEyes, true)
-    endif
+    endif /;
     if tssd_dealwithcurseQuest.GetStage() == 20
         int outerIndex = 0
         bool conSent = true
@@ -250,11 +250,11 @@ Event PlayerSceneStart(Form FormRef, int tid)
 	if aIn.Length == 1
 		_thread.SetEnjoyment(PlayerRef, 100)
 	endif
-	while indexIn < aIn.Length
+ 	while indexIn < aIn.Length
 		if aIn[indexIn].GetRace().HasKeyword(ActorTypeCreature)
 			_thread.SetEnjoyment(aIn[indexIN], 100)
 		elseif aIn[indexIN] != PlayerRef
-			_thread.ModEnjoymentMult(aIn[indexIN], (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 100, true )
+			_thread.ModEnjoymentMult(aIn[indexIN], (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 1000, true )
 		endif
 		indexIn += 1
 	endwhile
@@ -287,17 +287,16 @@ EndEvent
 
 
 Function OnOrgasmAny(Form ActorRef_Form, int Thread)
-	
     Actor WhoCums = ActorRef_Form as Actor
     sslThreadController _thread =  Sexlab.GetController(Thread)
-    if _thread != Sexlab.GetPlayerController()
+    if _thread != Sexlab.GetPlayerController() && !PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
         if PlayerRef.GetDistance(WhoCums) < 100
             tActions.gainSuccubusXP(100)
         endif
         return
-    endif
-	
-	if WhoCums != PlayerRef 
+    endif	
+	if WhoCums != PlayerRef
+        TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
 		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 			if !_thread.GetSubmissive(PlayerRef)
 				tActions.increaseGlobalDeity(3,10,1000)
@@ -322,7 +321,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			endif
 		endif
 
-		if WhoCums.GetFactionRank(SOS_SchlongifiedFaction) > 0
+		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) > 0
 			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
 				tEvents.incrValAndCheck(12,1)
 				tEvents.incrValAndCheck(1,1)
@@ -357,7 +356,9 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
 				reduction += 10
 			endif
-			tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) as int) * succdVal)
+            if !PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
+			    tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) as int) * succdVal)
+            endif
 			while  Stage_in < StageCount 
 				_thread.AdvanceStage()
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1

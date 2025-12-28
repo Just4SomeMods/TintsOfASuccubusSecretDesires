@@ -14,11 +14,9 @@ Event InflatePlayer(string eventName, string strArg, float numArg, Form sender)
 	bool allNodes = !targetArea
     String morphFolder = "../TSSD/TSSDMorphs/"
 	String[] baseNodes = JsonUtil.JsonInFolder(morphFolder)
-    DBGTrace(baseNodes)
 	int i = 0
 	bool SLIF = Game.getModByName("SexLab Inflation Framework.esp") != 255
     float divStep = numArg/200
-    DBGTrace(divStep)
 	while i < baseNodes.length
 		if allNodes || StringUtil.Substring(baseNodes[i], 0, StringUtil.Find(baseNodes[i], ".json")) == targetArea
 			int j = 0

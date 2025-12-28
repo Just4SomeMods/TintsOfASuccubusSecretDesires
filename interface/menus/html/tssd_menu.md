@@ -152,5 +152,17 @@
       <td>choking</td>
       <td><img src="../../menus/TSSD/Tamarind.png" width="300" height="300"></td>
     </tr>
+    <tr>
+      <th><font color ="#71200D">Pueblo</font></th>
+      <td>Absorb a dragon.</td>
+      <td>scaly</td>
+      <td><img src="../../menus/TSSD/Pueblo.png" width="300" height="300"></td>
+    </tr>
+    <tr>
+      <th><font color ="#D9483C">Valencia</font></th>
+      <td>Masturbate 10 times.</td>
+      <td>selflove</td>
+      <td><img src="../../menus/TSSD/Valencia.png" width="300" height="300"></td>
+    </tr>
   </tbody>
 </table>

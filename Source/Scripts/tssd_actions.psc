@@ -173,7 +173,7 @@ Function updateHeartMeter(bool forceShow = false)
     
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
-    if nxtPerc != lastPerc || SuccubusDesireLevel.GetValue() >= 99 || forceShow
+    if (nxtPerc != lastPerc) || forceShow
         T_Show("", "menus/TSSD/" + nxtPerc + "H.dds" )
         lastPerc = nxtPerc
     endif
@@ -231,6 +231,9 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
         endif
         if PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
             multI *= 2
+        endif
+        if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
+            multI *= 5
         endif
         SuccubusXpAmount.Mod(byValue)
     else
@@ -312,6 +315,8 @@ Endfunction
 Function RegisterSuccubusEvents()
     RegisterForSingleUpdateGameTime(0.4)
     RegisterForMenu("Dialogue Menu")
+    RegisterForMenu("BarterMenu")
+    RegisterForMenu("Training Menu")
     RegisterForMenu("StatsMenu")
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugMode:Main")
         ; PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
@@ -456,14 +461,17 @@ Function onGameReload()
         index += 1
     endwhile
 
-    tEvents.onGameReload()
+    ; tEvents.onGameReload()
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
-    UnregisterForCrosshairRef()
-    RegisterForCrosshairRef()
     last_checked = Utility.GetCurrentGameTime() * 24
     tOrgasmLogic.onGameReload()
     tInflation.onGameReload()
+    UnregisterForCrosshairRef()
+    Utility.Wait(0.1)
+    RegisterForCrosshairRef()
+    
+    updateHeartMeter(true)
 Endfunction
 
 Function addTSSDPerk(string perkToAdd)
@@ -512,6 +520,9 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         SuccubusXpAmount.Mod(10)
         lastScarletTalk = 0.1
     endif
+    if asStatFilter == "Dragon Souls Collected"
+        tEvents.incrValAndCheck(23, 1)
+    endif
 endEvent
 
 
@@ -519,7 +530,6 @@ endEvent
 Event OnUpdateGameTime()
     float timeBetween = (Utility.GetCurrentGameTime() * 24 - last_checked)
     lastScarletTalk += timeBetween
-    DBGTrace(timeBetween)
     float valBefore = SuccubusDesireLevel.GetValue()
     Location curLoc = Game.GetPlayer().GetCurrentLocation()
     float chVal = 1
@@ -543,8 +553,6 @@ Event OnUpdateGameTime()
     energy_loss *= -1
     last_checked = Utility.GetCurrentGameTime() * 24
     RefreshEnergy(energy_loss)
-    DBGTrace("ENERGY LOSS: " + energy_loss + " val Before " + valBefore as int + "/" + SuccubusDesireLevel.GetValue() as int )
-        
 
     float succNeedVal = SuccubusDesireLevel.GetValue()
     if succNeedVal <= TSSD_ravanousNeedLevel.GetValue() && succNeedVal > -101 && PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
@@ -561,15 +569,21 @@ Event OnUpdateGameTime()
     PlayerRef.DispelSpell(TSSD_SuccubusBaseChanges)
     Utility.Wait(0.1)
     PlayerRef.AddSpell(TSSD_SuccubusBaseChanges, false)
-    
-    updateHeartMeter(timeBetween > 2)
+    updateHeartMeter(timeBetween > 6)
     RegisterForSingleUpdateGameTime(0.4)
 endEvent
+
+
 
 Event OnMenuOpen(String MenuName)
     if MenuName == "Dialogue Menu"
         
         Actor tempActor = SPE_Actor.GetPlayerSpeechTarget()
+        Actor RefA = tempActor
+        if RefA && RefA.HasMagicEffect(TSSD_DrainedDownSide)
+            RefA.SendModEvent("TSSD_DrainedTargetHovered", "", 0.0)
+        endif
+
         if SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue() && PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
             UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
             T_Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
@@ -590,6 +604,9 @@ Event OnMenuOpen(String MenuName)
                 endif
             endif
         endif
+    else
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        myBinding.Remove("tssd_getTargetCross")
     endif
 EndEvent
 
@@ -602,7 +619,9 @@ Event OnMenuClose(String MenuName)
         ModEvent.PushFloat(eid, -100)
         ModEvent.Send(eid)
         HotDemonTarget = PlayerRef
-    endif    
+    endif
+    SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+    myBinding.Remove("tssd_getTargetCross")
 EndEvent
 
 
@@ -613,14 +632,9 @@ Event OnCrosshairRefChange(ObjectReference ref)
     SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
     if ref && StringUtil.Find(ref.GetDisplayName(), "hrine of ") > 0
         myBinding.Add("tssd_getTargetCross", "Pray", 47)
+        Utility.Wait(3)
+        myBinding.Remove("tssd_getTargetCross")
     EndIf
-    Actor RefA = ref as Actor
-    if RefA && RefA.HasMagicEffect(TSSD_DrainedDownSide)
-        RefA.SendModEvent("TSSD_DrainedTargetHovered", "", 0.0)
-    endif
-    Utility.Wait(3)
-
-    myBinding.Remove("tssd_getTargetCross")
 EndEvent
 
 

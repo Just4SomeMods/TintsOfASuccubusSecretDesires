@@ -833,6 +833,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "ThisIsATest",
+                    "help": ""
+                },
+                {
+                    "type": "text",
                     "text": "Speedmod",
                     "help": "You are ethereal and move <mag>% faster."
                 },
@@ -909,6 +914,16 @@
                 {
                     "type": "text",
                     "text": "TSSD_ZenitharDonationQuestion",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "DEBUG: Npcs",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_SpellHolderTest",
                     "help": "$showStuff"
                 }
             ]

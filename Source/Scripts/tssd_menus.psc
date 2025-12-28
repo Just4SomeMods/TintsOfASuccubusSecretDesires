@@ -5,7 +5,6 @@ import b612
 import tssd_utils
 
 Actor Property PlayerRef Auto
-ReferenceAlias Property TSSD_SpellHolderTest Auto
 Quest Property tssd_tints_tracker Auto
 tssd_slsfrscript Property slsfListener Auto
 
@@ -460,7 +459,7 @@ EndEvent
 
 
 Function ShowSuccubusTrait(int num)
-    if tVals.canTakeBools[num]
+    if tVals.canTakeBools[num] || PlayerRef.HasPerk( SuccubusTintPerks[num])
         return
     endif
     if PlayerRef.IsInCombat()

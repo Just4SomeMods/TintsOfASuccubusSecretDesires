@@ -1,5 +1,5 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 25
+;NEXT FRAGMENT INDEX 29
 Scriptname TSSD_QF_tssd_tints_tracker_06000113 Extends Quest Hidden
 
 ;BEGIN ALIAS PROPERTY PlayerAlias
@@ -16,34 +16,61 @@ SetObjectiveCompleted(9, true)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_14
-Function Fragment_14()
+;BEGIN FRAGMENT Fragment_28
+Function Fragment_28()
 ;BEGIN CODE
-SetObjectiveDisplayed(7, true)
+SetObjectiveDisplayed(24, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_22
-Function Fragment_22()
+;BEGIN FRAGMENT Fragment_25
+Function Fragment_25()
 ;BEGIN CODE
-SetObjectiveDisplayed(18, true)
+SetObjectiveDisplayed(21, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_2
-Function Fragment_2()
+;BEGIN FRAGMENT Fragment_27
+Function Fragment_27()
 ;BEGIN CODE
-SetObjectiveDisplayed(11, true)
+SetObjectiveDisplayed(23, true)
+Game.TeachWord(TSSD_WordSuck)
+PlayerRef.AddShout(TSSD_DragonRendShout)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_7
-Function Fragment_7()
+;BEGIN FRAGMENT Fragment_17
+Function Fragment_17()
 ;BEGIN CODE
-SetObjectiveDisplayed(14)
+SetObjectiveDisplayed(10, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_8
+Function Fragment_8()
+;BEGIN CODE
+SetObjectiveDisplayed(19)
+TSSD_SuccubusPerkPoints.Mod(1)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_11
+Function Fragment_11()
+;BEGIN CODE
+SetObjectiveDisplayed(3, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_18
+Function Fragment_18()
+;BEGIN CODE
+SetObjectiveDisplayed(13, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -56,26 +83,18 @@ SetObjectiveDisplayed(8, true)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_23
-Function Fragment_23()
+;BEGIN FRAGMENT Fragment_26
+Function Fragment_26()
 ;BEGIN CODE
-SetObjectiveDisplayed(20, true)
+SetObjectiveDisplayed(22, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_9
-Function Fragment_9()
+;BEGIN FRAGMENT Fragment_22
+Function Fragment_22()
 ;BEGIN CODE
-SetObjectiveDisplayed(1, true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_19
-Function Fragment_19()
-;BEGIN CODE
-SetObjectiveDisplayed(15, true)
+SetObjectiveDisplayed(18, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -93,42 +112,34 @@ tEvents.addToLilac()
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_18
-Function Fragment_18()
+;BEGIN FRAGMENT Fragment_12
+Function Fragment_12()
 ;BEGIN CODE
-SetObjectiveDisplayed(13, true)
+SetObjectiveDisplayed(4, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_21
-Function Fragment_21()
+;BEGIN FRAGMENT Fragment_9
+Function Fragment_9()
 ;BEGIN CODE
-SetObjectiveDisplayed(17, true)
+SetObjectiveDisplayed(1, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_17
-Function Fragment_17()
+;BEGIN FRAGMENT Fragment_2
+Function Fragment_2()
 ;BEGIN CODE
-SetObjectiveDisplayed(10, true)
+SetObjectiveDisplayed(11, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_20
-Function Fragment_20()
+;BEGIN FRAGMENT Fragment_19
+Function Fragment_19()
 ;BEGIN CODE
-SetObjectiveDisplayed(16, true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_11
-Function Fragment_11()
-;BEGIN CODE
-SetObjectiveDisplayed(3, true)
+SetObjectiveDisplayed(15, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -137,6 +148,30 @@ EndFunction
 Function Fragment_24()
 ;BEGIN CODE
 SetObjectiveDisplayed(21, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_7
+Function Fragment_7()
+;BEGIN CODE
+SetObjectiveDisplayed(14)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_10
+Function Fragment_10()
+;BEGIN CODE
+SetObjectiveDisplayed(2, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_20
+Function Fragment_20()
+;BEGIN CODE
+SetObjectiveDisplayed(16, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -153,6 +188,22 @@ SetObjectiveDisplayed(5, true)
 EndFunction
 ;END FRAGMENT
 
+;BEGIN FRAGMENT Fragment_21
+Function Fragment_21()
+;BEGIN CODE
+SetObjectiveDisplayed(17, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_14
+Function Fragment_14()
+;BEGIN CODE
+SetObjectiveDisplayed(7, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;BEGIN FRAGMENT Fragment_0
 Function Fragment_0()
 ;BEGIN CODE
@@ -161,27 +212,10 @@ SetObjectiveDisplayed(12, true)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_12
-Function Fragment_12()
+;BEGIN FRAGMENT Fragment_23
+Function Fragment_23()
 ;BEGIN CODE
-SetObjectiveDisplayed(4, true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_8
-Function Fragment_8()
-;BEGIN CODE
-SetObjectiveDisplayed(19)
-TSSD_SuccubusPerkPoints.Mod(1)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_10
-Function Fragment_10()
-;BEGIN CODE
-SetObjectiveDisplayed(2, true)
+SetObjectiveDisplayed(20, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -195,3 +229,5 @@ Actor Property PlayerRef Auto
 tssd_PlayerEventsScript Property tEvents  Auto  
 
 GlobalVariable Property TSSD_SuccubusPerkPoints  Auto  
+WordOfPower Property TSSD_WordSuck Auto
+Shout Property TSSD_DragonRendShout Auto
