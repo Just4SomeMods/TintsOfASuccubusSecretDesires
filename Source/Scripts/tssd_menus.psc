@@ -48,7 +48,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.00.01a"
+string currentVersion = "1.01.000"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
