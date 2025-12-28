@@ -18,6 +18,30 @@
         0
     ],
     [
+        "sTSSD_CompelledSpellMag0:Spells",
+        true,
+        "325",
+        0
+    ],
+    [
+        "sTSSD_CompelledSpellDur0:Spells",
+        true,
+        "325",
+        0
+    ],
+    [
+        "sTSSD_DragonsLayerSpellMag0:Spells",
+        true,
+        "329",
+        0
+    ],
+    [
+        "sTSSD_DragonsLayerSpellDur0:Spells",
+        true,
+        "329",
+        0
+    ],
+    [
         "sTSSD_DrainHealthMag0:Spells",
         true,
         "29",

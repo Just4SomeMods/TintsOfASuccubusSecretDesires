@@ -744,6 +744,16 @@
             ]
         },
         {
+            "pageDisplayName": "DEBUG: Keywords",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_SatiatedKeyword",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
             "pageDisplayName": "DEBUG: MagicEffects",
             "content": [
                 {
@@ -765,6 +775,16 @@
                     "type": "text",
                     "text": "Long Nails",
                     "help": "Your claw-like nails deal <mag> more damage."
+                },
+                {
+                    "type": "text",
+                    "text": "Compelled",
+                    "help": "You feel a certain need for a special someone!"
+                },
+                {
+                    "type": "text",
+                    "text": "Dragons Layer",
+                    "help": ""
                 },
                 {
                     "type": "text",
@@ -824,7 +844,7 @@
                 {
                     "type": "text",
                     "text": "Satiated",
-                    "help": "You feel satiated. You lose less energy over time. Your magicka and stamina are increased by <mag> points."
+                    "help": "You feel satiated. You lose less energy over time. Your magicka is increased by <mag> points."
                 },
                 {
                     "type": "text",
@@ -990,7 +1010,7 @@
                 {
                     "type": "text",
                     "text": "Base Explanation",
-                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Below 0 Energy you can no longer regenerate stamina and magicka. Your sex partners gain increased enjoyment based on all of your succubus skill levels.\n",
+                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Your sex partners gain increased enjoyment based on all of your succubus skill levels. Below 0 Energy you learn all skills at half the normal rate, spells and power attacks costs twice as much. \n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2305,6 +2325,34 @@
                 },
                 {
                     "type": "text",
+                    "text": "Pueblo",
+                    "help": "You gain a shout to overpower low health dragons to end them. You have increased armor and you gain a longer satiated time when you \"absorb\" dragons, but your other ways to become satiated only last half as long.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "326"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Pueblo2",
+                    "help": "You gain a shout to overpower low health dragons to end them. You also additionally gain a longer satiated time when you \"absorb\" dragons and have  even more armor.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "330"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Razzmatazz",
                     "help": "You gain 50 max health, and having cum on your skin increases your confidence which increases your two-handed damage. If you haven't had cum on your skin in a day, you can no longer talk to non-men.\n",
                     "action": {
@@ -2403,6 +2451,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Valencia",
+                    "help": "Your melee attacks deal extra fire damage over time, but if you haven't masturbated in a while, you take double damage from fire.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "327"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Traits",
                     "help": "You can buy these tint to get the tint you previously rejected. When you accept a tint when you can, you gain a perk point.\n",
                     "action": {
@@ -2414,6 +2476,16 @@
                             "41"
                         ]
                     }
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "DEBUG: Shouts",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_DragonRendShout",
+                    "help": "$showStuff"
                 }
             ]
         },
@@ -2469,6 +2541,78 @@
                         "params": [
                             "{b}0",
                             "100",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_CompelledSpellMag0:Spells",
+                    "type": "input",
+                    "text": "Compelled Effect 0 Mag",
+                    "help": "Compelled 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "325",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_CompelledSpellDur0:Spells",
+                    "type": "input",
+                    "text": "Compelled Effect 0 Dur",
+                    "help": "Compelled 3600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "325",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DragonsLayerSpellMag0:Spells",
+                    "type": "input",
+                    "text": "Dragons Layer Effect 0 Mag",
+                    "help": "Dragons Layer 10",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "329",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DragonsLayerSpellDur0:Spells",
+                    "type": "input",
+                    "text": "Dragons Layer Effect 0 Dur",
+                    "help": "Dragons Layer 1",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "329",
                             "{i}0",
                             "{value}"
                         ]
@@ -3067,6 +3211,16 @@
                             "{value}"
                         ]
                     }
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "DEBUG: WordsOfPower",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_WordSuck",
+                    "help": "$showStuff"
                 }
             ]
         }
