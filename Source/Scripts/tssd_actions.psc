@@ -102,8 +102,8 @@ Spell[] Property SuccubusAbilitiesSpells Auto
 String[] Property SuccubusAbilitiesNames Auto
 
 
-bool[] Property cosmeticSettings Auto
-bool Property deathModeActivated Auto
+bool[] Property cosmeticSettings Auto Hidden
+bool Property deathModeActivated Auto Hidden
 
 
 SexLabFramework Property SexLab Auto
@@ -133,6 +133,7 @@ int lastUsedSub = -1
 int spellToggle
 int numHostileActors
 int lastPerc = -1
+int Property allInOneKey Auto Hidden
 
 string tssd_SpellDebugProp = "-1"
 
@@ -145,6 +146,12 @@ float lastScarletTalk = 999.0
 ;String Property CUM_ANAL = "sr.inflater.cum.anal" autoreadonly Hidden
 ;String Property CUM_ORAL = "sr.inflater.cum.oral" autoreadonly 
 
+
+Race Property WolfRace Auto
+Race Property WereWolfBeastRace Auto
+Faction Property CompanionsCirclePlusKodlak Auto
+Faction Property WereWolfFaction Auto
+Faction Property WolfFaction Auto
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -253,6 +260,9 @@ int Function getScanRange()
 Endfunction
 
 Function advanceStageTwenty()
+    if !tssd_dealwithcurseQuest.isRunning()
+        return
+    endif
     int index = 0
     while index < 5
         if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
@@ -336,7 +346,7 @@ Event CumAbsorb(form akTarget, int aiType)
     endif
 EndEvent
 
-bool Function increaseGlobalDeity(int index, int byVal = 1, int targetVal = -1)
+bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1)
     int additional = 0
     if index >= 5
         additional = 5
@@ -453,6 +463,7 @@ Function onGameReload()
     if !spellToggle
         toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
     endif
+    setAllInOneKeyAction(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iAllInOneKey:Main"))
 
     int jArr = JDB.solveObj(".tssdspellids")
     int index = 0
@@ -523,7 +534,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         lastScarletTalk = 0.1
     endif
     if asStatFilter == "Dragon Souls Collected"
-        tEvents.incrValAndCheck(23, 1)
+        tEvents.incrValAndCheck(25, 1)
     endif
 endEvent
 
@@ -626,19 +637,36 @@ Event OnMenuClose(String MenuName)
     myBinding.Remove("tssd_getTargetCross")
 EndEvent
 
+Function setAllInOneKeyAction(int a)
+    allInOneKey = a
+EndFunction
 
 
-
-
+bool Function isDoggie(Actor cA)
+    return cA.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || cA.GetFactionRank(WereWolfFaction) > 0 || \
+				cA.GetFactionRank(WolfFaction) > 0 || cA.GetRace() == WolfRace || cA.GetRace() == WereWolfBeastRace
+endfunction
+    
 Event OnCrosshairRefChange(ObjectReference ref)
 
     if ref && TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
+        
+        String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
+        DBGTrace(deityName)
+        String oldName = JDB.solveStr(".oldNorseGods."+ deityName)
+
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-        myBinding.Add("tssd_getTargetCross", "Pray", 47)
+        myBinding.Remove("tssd_getTargetCross")
+
+        myBinding.Add("tssd_getTargetCross",  oldName, allInOneKey)
     Elseif !(ref as Actor)
         
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getTargetCross")
+    Elseif !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        myBinding.Add("tssd_getTargetCross", "Beg", allInOneKey)
+
     EndIf
 
 EndEvent

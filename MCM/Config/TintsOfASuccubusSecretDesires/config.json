@@ -23,10 +23,19 @@
                     }
                 },
                 {
-                    "id": "allInOneKey",
+                    "id": "iAllInOneKey:Main",
                     "text": "$SuperKey",
                     "type": "keymap",
-                    "help": "$SuperKeyDesc."
+                    "help": "$SuperKeyDesc.",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "toggleDebug",
+                        "params": [
+                            "{i}-1"
+                        ]
+                    }
                 },
                 {
                     "id": "bDebugCheats:Main",

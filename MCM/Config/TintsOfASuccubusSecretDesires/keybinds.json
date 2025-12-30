@@ -4,7 +4,7 @@
     "modName": "TintsOfASuccubusSecretDesires",
     "keybinds": [
       {
-        "id": "allInOneKey",
+        "id": "iAllInOneKey:Main",
         "desc": "$Display Messagebox via CallFunction",
         "action": {
           "type": "CallFunction",

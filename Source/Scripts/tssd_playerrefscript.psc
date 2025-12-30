@@ -2,6 +2,7 @@ Scriptname tssd_playerrefscript extends ReferenceAlias
 
 import tssd_utils
 
+tssd_actions Property tActions Auto
 Int Property undeadKilled Auto
 Form Property Gold001 Auto
 Faction Property ThievesGuildFaction Auto
@@ -16,12 +17,13 @@ GlobalVariable Property TSSD_deityblessquestakglobalcor Auto
 GlobalVariable Property TSSD_deityblessquestztglobalcor Auto
 GlobalVariable Property TSSD_deityblessqueststglobalcor Auto
 GlobalVariable Property TSSD_deityblessquestmaglobalcor Auto
+GlobalVariable Property TSSD_deityblessquestjhglobal Auto
 Keyword Property IsMerchant Auto
 Quest Property RelationshipMarriage Auto
 
 Event OnInit()
 
-    AddInventoryEventFilter(Game.GetFormFromFile(0xf,"skyrim.esm"))
+    ; AddInventoryEventFilter(Game.GetFormFromFile(0xf,"skyrim.esm"))
     RegisterForTrackedStatsEvent()
     if RelationshipMarriage.GetStage() >= 100
 		GetOwningQuest().ModObjectiveGlobal(1, TSSD_deityblessquestmaglobal, 21, 1)
@@ -38,7 +40,7 @@ Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
 	endif
 EndEvent
 
-Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akSourceContainer)
+;/ Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akSourceContainer)
     if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25) && aiItemCount < 1000
         int lostMoney = ((aiItemCount + 1) / 2) as int
         PlayerRef.RemoveItem(akBaseItem,  lostMoney )
@@ -66,11 +68,19 @@ Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemRefe
         advanceStageTwenty()
     endif
 
-endEvent
+endEvent /;
 
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if tssd_dealwithcurseQuest.GetStage() == 20
+        if asStatFilter == "Dragon Souls Collected" && !tssd_dealwithcurseQuest.isobjectivefailed(25)
+            tssd_dealwithcurseQuest.ModObjectiveGlobal(1, TSSD_deityblessquestakglobal, 25, 100)
+        endif
+        
+        if asStatFilter == "Skill Increases" && !tssd_dealwithcurseQuest.isobjectivefailed(23)
+            tssd_dealwithcurseQuest.ModObjectiveGlobal(1, TSSD_deityblessquestjhglobal, 23, 100)
+        endif
+        ;/ 
         int unKD = Game.QueryStat("Undead Killed") - undeadKilled
         if !tssd_dealwithcurseQuest.isobjectivefailed(23) && unKD > 0
             tssd_dealwithcurseQuest.ModObjectiveGlobal(unKD, TSSD_deityblessquestakglobal, 23, 100)
@@ -81,28 +91,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         endif
         if !tssd_dealwithcurseQuest.isobjectivefailed(22) && (asStatFilter == "Thieves' Guild Quests Completed" || asStatFilter == "The Dark Brotherhood Quests Completed" || asStatFilter == "Civil War Quests Completed" || asStatFilter == "Daedric Quests Completed" || asStatFilter == "Dawnguard Quests Completed" || asStatFilter == "Dragonborn Quests Completed")
             tssd_dealwithcurseQuest.ModObjectiveGlobal(1, TSSD_deityblessqueststglobalcor, 32, 5)
-        endif
+        endif /;
     endif
-    advanceStageTwenty()
+    tActions.advanceStageTwenty()
 endEvent
-
-Function advanceStageTwenty()
-    int index = 0
-    while index < 5
-        if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
-            tssd_dealwithcurseQuest.SetObjectiveFailed(21 + index)
-        endif
-        index += 1
-    EndWhile
-    index = 0
-    bool isCompleted = true
-    while index < 5
-        if !tssd_dealwithcurseQuest.IsObjectiveCompleted(21 + index) ||  !tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
-            isCompleted = false
-        endif
-        index += 1
-    EndWhile
-    if isCompleted
-        tssd_dealwithcurseQuest.setstage(40)
-    endif
-Endfunction

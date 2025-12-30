@@ -25,6 +25,7 @@ kmyQuest.DibellaCurse = true
 kmyQuest.MaraCurse = true
 kmyQuest.StendarrCurse = true
 kmyQuest.ZenitharCurse = true
+kmyQuest.AkatoshCurse = true
 PlayerRef.Addperk(TSSD_DivineCursePerk)
 ;END CODE
 EndFunction

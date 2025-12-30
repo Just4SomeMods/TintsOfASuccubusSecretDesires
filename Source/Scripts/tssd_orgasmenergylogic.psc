@@ -79,15 +79,14 @@ Bool Property ZaZAnimationPackFound = False Auto Hidden Conditional
 
 ; BEGIN LILAC
 
+Race Property WolfRace Auto
+Race Property WereWolfBeastRace Auto
 Faction Property CompanionsCirclePlusKodlak Auto
 Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
-bool isLilac
 bool isCollared
 float lastTimeNeededCollar = 0.0
 
-Race Property WolfRace Auto
-Race Property WereWolfBeastRace Auto
 
 ; END LILAC
 
@@ -145,6 +144,7 @@ EndFunction
 
 
 Event PlayerSceneStart(Form FormRef, int tid)
+    tActions.UnregisterForCrosshairRef()
     TSSD_FuckingInvincible.Cast(PlayerRef)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
@@ -283,6 +283,7 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     if tActions.deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
         tActions.toggleDeathMode(true)
     endif
+    tActions.RegisterForCrosshairRef()
 EndEvent
 
 
@@ -299,9 +300,9 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
         TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
 		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 			if !_thread.GetSubmissive(PlayerRef)
-				tActions.increaseGlobalDeity(3,10,1000)
+				tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft"),10000)
 			else
-				tActions.increaseGlobalDeity(8,5,1000)
+				tActions.increaseGlobalDeity(8, PlayerRef.GetAV("Speechcraft") / 2 ,5000)
 			endif
 		endif
 			
@@ -371,13 +372,13 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		if _thread.GetSubmissive(PlayerRef)
 			tEvents.incrValAndCheck(20,1)
         	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-				tActions.increaseGlobalDeity(8,10,500)
+				tActions.increaseGlobalDeity(8,PlayerRef.GetAV("Speechcraft"),5000)
 			endif
 			if Game.GetModByName(FILE_FADE_TATS) != 255
 				tEvents.incrValAndCheck(8,1)
 			endif
 		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
-			tActions.increaseGlobalDeity(3,5,1000)
+			tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft")  / 2,10000)
 		endif
 		if _thread.HasSceneTag("rough")
 			tEvents.incrValAndCheck(22,1)

@@ -175,16 +175,12 @@ Event OnMenuClose(String MenuName)
             GenericRefreshPSex(lastDialoguePartner, true, "facesit")
         elseif lastDialogue == "TSSD_00111"
             tPEvents.incrValAndCheck(7,1)
-            GenericRefreshPSex(lastDialoguePartner, true, "~grope, ~leadIn, ~holding, -sex, ~hugging, ~cuddle")
+            GenericRefreshPSex(lastDialoguePartner, true, "~grope, -leadIn, ~holding, ~hugging, ~cuddle, ~facesit, ~fingering, -zaz, -bound, -DeviousDevice")
         elseif lastDialogue == "TSSD_0010E"
             GenericRefreshPSex(lastDialoguePartner, false)
             Sexlab.StartSceneQuick(lastDialoguePartner)
         elseif lastDialogue == "TSSD_00133"
-            if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
-                GenericRefreshPSex(lastDialoguePartner, true, "~doggystyle, ~doggy, -furniture, -zaz, -bound, -DeviousDevice" )
-            else
-                GenericRefreshPSex(lastDialoguePartner, true, "dildo, aggressive", true )
-            endif
+            lilacBeg(lastDialoguePartner)
         elseif lastDialogue == "TSSD_00139"
             GenericRefreshPSex(lastDialoguePartner, false, "")
             SexLab.StartSceneQuick(PlayerRef)
@@ -216,6 +212,27 @@ Event OnMenuClose(String MenuName)
     endif
 EndEvent
 
+Function playDefaultIfNotAvailable(Actor[] posTargets, String tagsIn, Actor akSubmissive = none, int aiFurniturePreference=0 )
+    if SexlabRegistry.LookupScenes(posTargets, tagsIn, akSubmissive, aiFurniturePreference, none).Length > 0
+        SexLab.StartScene(posTargets, tagsIn, akSubmissive)
+    else
+        Sexlab.StartScene(posTargets, "", akSubmissive)
+    endif
+endfunction
+
+
+
+Function lilacBeg(Actor targetOf)
+    DBGTrace("Is dog: " + targetOf.GetRace().HasKeyword(tPEvents.ActorTypeCreature))
+    if targetOf.GetRace().HasKeyword(tPEvents.ActorTypeCreature)
+        GenericRefreshPSex(targetOf, true, "knotted" )
+    elseif targetOf.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+        GenericRefreshPSex(targetOf, true, "~doggystyle, ~doggy, -furniture, -zaz, -bound, -DeviousDevice" )
+    else
+        GenericRefreshPSex(targetOf, true, "dildo, aggressive", true )
+    endif
+EndFunction
+
 Event HumiDone(string eventName, string strArg, float numArg, Form sender)
     Utility.Wait(1)
     UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
@@ -238,15 +255,20 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     tActions.gainSuccubusXP(1000)
     ImageSpaceModifier.RemoveCrossFade(3)
     int upTo = 100
-    if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
+    ;/ if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
         upTo = 35
-    endif
+    endif /;
     SuccubusDesireLevel.SetValue( min( upTo, SuccubusDesireLevel.GetValue() + 100 ) )
     if startsSex
         Actor[] Pos = new Actor[2]
-        Pos[0] = PlayerRef
-        Pos[1] = akSpeaker
-        SexLab.StartScene(Pos, asTags=sexTags)
+        if playerActive
+            Pos[0] = PlayerRef
+            Pos[1] = akSpeaker
+        else
+            Pos[0] = akSpeaker
+            Pos[1] = PlayerRef
+        endif
+        playDefaultIfNotAvailable(Pos, sexTags, none )
     endif
     Utility.Wait(0.1)
     TSSD_Satiated.Cast(akSpeaker, PlayerRef)

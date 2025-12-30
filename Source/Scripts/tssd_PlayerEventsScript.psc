@@ -81,7 +81,7 @@ Keyword Property zad_DeviousCollar Auto Hidden
 
 Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
-bool isLilac
+bool Property isLilac Auto Hidden
 bool isCollared
 float lastTimeNeededCollar = 0.0
 
@@ -311,8 +311,11 @@ Function onGameReload()
 EndFunction
 
 Event OnActorKilled(Actor akVictim, Actor akKiller)
-	if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
+;/ 	if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
 		tActions.RefreshEnergy(5)
+	endif /;
+	if  tActions.tssd_dealwithcurseQuest.isRunning() && !tActions.tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+		tActions.increaseGlobalDeity(3, 50 - akVictim.GetAV("Speechcraft"),10000)
 	endif
 EndEvent
 
@@ -489,6 +492,7 @@ Event OnPlayerShoutAttack(Shout akShout)
 		T_Show("Bark Bark!", "menus/TSSD/small/lilac.dds")
 	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
+		Utility.Wait(5)
 		incrValAndCheck(6, 1)
 	endif
 EndEvent

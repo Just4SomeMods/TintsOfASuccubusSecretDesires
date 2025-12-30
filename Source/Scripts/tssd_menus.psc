@@ -82,14 +82,14 @@ bool Function toggleQuestCurses(String deityName)
             return true
         else
             int objectiveSub = 0
-            if deityName == "Arkay"
-                objectiveSub = 23
+            if deityName == "Akatosh"
+                objectiveSub = 28
             elseif deityName == "Mara"
                 objectiveSub = 21
-            elseif deityName == "Zenithar"
-                objectiveSub = 25
-            elseif deityName == "Stendarr"
-                objectiveSub = 22
+            elseif deityName == "Kynareth"
+                return true
+            elseif deityName == "Julianos"
+                objectiveSub = 27
             elseif deityName == "Dibella"
                 objectiveSub = 24
             endif
@@ -122,9 +122,15 @@ Function OpenGrandeMenu()
 
         return
     endif
-    if TSSD_ShrinesWithQuests.HasForm(Game.GetCurrentCrosshairRef().GetBaseObject())
-        DBGTrace(DbSkseFunctions.GetFormEditorId(Game.GetCurrentCrosshairRef().GetBaseObject(), "none"))
-        String deityName = StringUtil.Split(DbSkseFunctions.GetFormEditorId(Game.GetCurrentCrosshairRef().GetBaseObject(), "none"), "of")[1]
+    ObjectReference ref = Game.GetCurrentCrosshairRef()
+    if !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
+        tActions.tDialogue.lilacBeg(ref as Actor)
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        myBinding.remove("tssd_getTargetCross")
+        return
+    elseif TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
+        DBGTrace(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"))
+        String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
         if toggleQuestCurses(deityName)
             return
         endif

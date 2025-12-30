@@ -182,6 +182,8 @@ Function Maintenance() Global
     JDB.SetObj("tssdspellids", jval)
     jval = JValue.readFromFile("Data/Tssd/succubusNpcFactions.json")
     JDB.SetObj("tssdfactions", jval)
+    jval = JValue.readFromFile("Data/Tssd/oldNorseGods.json")
+    JDB.SetObj("oldNorseGods", jval)
     ReadInCosmeticSetting()
 Endfunction
 
