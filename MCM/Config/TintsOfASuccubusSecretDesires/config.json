@@ -982,16 +982,6 @@
             ]
         },
         {
-            "pageDisplayName": "DEBUG: Npcs",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "TSSD_SpellHolderTest",
-                    "help": "$showStuff"
-                }
-            ]
-        },
-        {
             "pageDisplayName": "DEBUG: Perks",
             "content": [
                 {

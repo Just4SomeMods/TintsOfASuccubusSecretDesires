@@ -16,7 +16,7 @@ topics:
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
     inject:
-      - 0x139|TintsOfASuccubusSecretDesires.esp
+      - 0x138|TintsOfASuccubusSecretDesires.esp
     conditions:
       - LocationHasKeyWord LocTypeHabitation == 0 OR
       - pl1 <> HasPerk TSSD_DeityDibellaPerk >= 1 AND

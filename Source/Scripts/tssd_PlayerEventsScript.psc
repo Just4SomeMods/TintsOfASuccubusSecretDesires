@@ -311,17 +311,8 @@ Function onGameReload()
 
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
-	PO3_Events_Alias.RegisterForActorKilled(self)
 EndFunction
 
-Event OnActorKilled(Actor akVictim, Actor akKiller)
-;/ 	if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
-		tActions.RefreshEnergy(5)
-	endif /;
-	if  tActions.tssd_dealwithcurseQuest.isRunning() && !tActions.tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-		tActions.increaseGlobalDeity(3, 50 - akVictim.GetAV("Speechcraft"),10000)
-	endif
-EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[2]) && akBaseObject == ReligiousMaraLove

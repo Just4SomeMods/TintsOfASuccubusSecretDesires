@@ -189,11 +189,11 @@ Function OpenExpansionMenu()
 EndFunction
 
 Function OpenSkillTrainingsMenu(int index_of)
-    String[] myItems = StringUtil.Split("Base;Drain;Seduction;Body;Perk Points",";")    
+    String[] myItems = StringUtil.Split("Base;Body;Drain;Seduction;Perk Points",";")    
     GlobalVariable[] skillLevels = new GlobalVariable[5]
-    skillLevels[0] = SkillSuccubusBodyLevel
-    skillLevels[1] = SkillSuccubusDrainLevel
-    skillLevels[2] = SkillSuccubusSeductionLevel
+    skillLevels[1] = SkillSuccubusBodyLevel
+    skillLevels[2] = SkillSuccubusDrainLevel
+    skillLevels[3] = SkillSuccubusSeductionLevel
     tssd_trainSuccAbilities trainingThing =  ((Quest.GetQuest("tssd_queststart")) as tssd_trainSuccAbilities)
     trainingThing.SetSkillName(mYitems[index_of])
     trainingThing.SetSkillId( "Succubus" + myItems[index_of] + "Skill")
@@ -326,10 +326,6 @@ Function OpenSuccubusAbilities()
         indexOfA += 1
     endwhile
     
-    if false ; && MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
-        itemsAsString += ";BimbofyWhiterun"
-    endif
-    itemsAsString += ";ViewAllBuffSpells"
     
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result = -1
@@ -408,11 +404,6 @@ Function OpenSuccubusAbilities()
         endif
         toSteal.ShowGiftMenu(false, none, true, false) 
     
-    elseif myItems[result] == "ViewAllBuffSpells"
-        if Game.GetCurrentCrosshairRef()
-            UIExtensions.OpenMenu("UIMagicMenu", Game.GetCurrentCrosshairRef(), PlayerRef)
-        endif
-
     elseif SuccubusDesireLevel.GetValue() > 0
         indexOfA = 1
         bool found = false
@@ -463,9 +454,9 @@ Function ShowSuccubusTrait(int num)
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
-    TraitsMenu.AddItem("Embrace: " + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
+    TraitsMenu.AddItem("Perk + " + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
             "menus/tssd/"+succKinds[num]+".dds")
-    String ResText = "Resist: "
+    String ResText = "Resist "
     
     if num == 9
         ResText = "OHYESIWANTTHISTHISISWHOIAM : "

@@ -166,9 +166,6 @@ Faction Property WolfFaction Auto
 
 ; Function to adjust energy level
 Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated = false)
-    if  tssd_dealwithcurseQuest.IsRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24)
-        upTo = 19
-    endif
     float lastVal = SuccubusDesireLevel.GetValue()
     int lowerBound = -100
     if PlayerRef.HasPerk(TSSD_DeityAllPerk)
@@ -356,11 +353,19 @@ Event CumAbsorb(form akTarget, int aiType)
 EndEvent
 
 bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1)
+    if !tssd_dealwithcurseQuest.GetStage() >= 20
+        return
+    endif
     int additional = 0
     if index >= 5
         additional = 5
     endif
-    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 21 + index + additional, targetVal)
+    float valBefore = tssd_deityTrackers[index].GetValue()
+    int percDone = (valBefore / targetVal * 5) as int
+    bool shouldDisplay = (percDone < (((byVal + valBefore) / targetVal * 5) as int)) || valBefore == 0
+    DBGTrace(percDone + " is " + shouldDisplay + " " + DbSkseFunctions.GetFormEditorId(tssd_deityTrackers[index], ""))
+
+    bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 21 + index + additional, targetVal, true, true, shouldDisplay)
     advanceStageTwenty()
     return isCompleted
 Endfunction
@@ -483,7 +488,6 @@ Function onGameReload()
         index += 1
     endwhile
 
-    ; tEvents.onGameReload()
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
     last_checked = Utility.GetCurrentGameTime() * 24
@@ -543,7 +547,12 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         lastScarletTalk = 0.1
     endif
     if asStatFilter == "Dragon Souls Collected"
-        tEvents.incrValAndCheck(25, 1)
+        tEvents.incrValAndCheck(23, 1)
+        if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[23])
+            tMenus.TSSD_Satiated.SetNthEffectDuration(0, 3600 * 7 * 2)
+        endif
+        tMenus.TSSD_Satiated.Cast(PlayerRef,PlayerRef)
+        tMenus.TSSD_Satiated.SetNthEffectDuration(0, 3600)
     endif
 endEvent
 

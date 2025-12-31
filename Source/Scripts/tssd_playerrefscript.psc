@@ -20,23 +20,35 @@ GlobalVariable Property TSSD_deityblessquestmaglobalcor Auto
 GlobalVariable Property TSSD_deityblessquestjhglobal Auto
 Keyword Property IsMerchant Auto
 Quest Property RelationshipMarriage Auto
+Quest Property dunHunterQST Auto
 
 Event OnInit()
 
     ; AddInventoryEventFilter(Game.GetFormFromFile(0xf,"skyrim.esm"))
     RegisterForTrackedStatsEvent()
     if RelationshipMarriage.GetStage() >= 100
-		GetOwningQuest().ModObjectiveGlobal(1, TSSD_deityblessquestmaglobal, 21, 1)
+        GetOwningQuest().SetObjectiveCompleted(22, true)
     else
         PO3_Events_Alias.RegisterForQuestStage(self, RelationshipMarriage)
     endif
+    if dunHunterQST.IsCompleted()
+        GetOwningQuest().SetObjectiveCompleted(21, true)
+    else
+        PO3_Events_Alias.RegisterForQuestStage(self, dunHunterQST)
+    endif
+	PO3_Events_Alias.RegisterForActorKilled(self)
 EndEvent
 
 
 Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
 	if aiNewStage == 100
-		GetOwningQuest().ModObjectiveGlobal(1, TSSD_deityblessquestmaglobal, 21, 1)
-        PO3_Events_Alias.UnregisterForQuestStage(self, RelationshipMarriage)
+        if akQuest == RelationshipMarriage
+            GetOwningQuest().SetObjectiveCompleted(21, true)
+            PO3_Events_Alias.UnregisterForQuestStage(self, RelationshipMarriage)
+        elseif akQuest == dunHunterQST
+            GetOwningQuest().SetObjectiveCompleted(22, true)
+            PO3_Events_Alias.UnregisterForQuestStage(self, dunHunterQST)
+        endif
 	endif
 EndEvent
 
@@ -74,11 +86,11 @@ endEvent /;
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if tssd_dealwithcurseQuest.GetStage() == 20
         if asStatFilter == "Dragon Souls Collected" && !tssd_dealwithcurseQuest.isobjectivefailed(25)
-            tssd_dealwithcurseQuest.ModObjectiveGlobal(1, TSSD_deityblessquestakglobal, 25, 100)
+            tActions.increaseGlobalDeity(4,1,10)
         endif
         
         if asStatFilter == "Skill Increases" && !tssd_dealwithcurseQuest.isobjectivefailed(23)
-            tssd_dealwithcurseQuest.ModObjectiveGlobal(1, TSSD_deityblessquestjhglobal, 23, 100)
+            tActions.increaseGlobalDeity(2,1,50)
         endif
         ;/ 
         int unKD = Game.QueryStat("Undead Killed") - undeadKilled
@@ -95,3 +107,13 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     endif
     tActions.advanceStageTwenty()
 endEvent
+
+
+Event OnActorKilled(Actor akVictim, Actor akKiller)
+;/ 	if PlayerRef.HasPerk(TSSD_DeityArkayPerk)
+		tActions.RefreshEnergy(5)
+	endif /;
+	if PlayerRef == akKiller &&  tActions.tssd_dealwithcurseQuest.isRunning() && !tActions.tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
+		tActions.increaseGlobalDeity(3, 50 - akVictim.GetAV("Speechcraft"),10000)
+	endif
+EndEvent
