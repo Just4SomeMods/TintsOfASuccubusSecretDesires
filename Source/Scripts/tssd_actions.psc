@@ -18,15 +18,16 @@ Faction Property TSSD_EnthralledFaction Auto
 
 
 GlobalVariable Property GameHours Auto
-;GlobalVariable Property SkillSuccubusBaseLevel Auto
+GlobalVariable Property SkillSuccubusBaseLevel Auto
 ;GlobalVariable Property SkillSuccubusBodyLevel Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
+GlobalVariable Property TSSD_PerkPointsBought Auto
+GlobalVariable Property TSSD_SuccubusPerkPoints Auto
 ;GlobalVariable Property SkillSuccubusSeductionLevel Auto
 GlobalVariable Property SuccubusDesireLevel Auto
 GlobalVariable Property SuccubusXpAmount Auto
 GlobalVariable Property TSSD_DebugMode Auto
 ;GlobalVariable Property TSSD_InnocentsSlain Auto
-GlobalVariable Property TSSD_PerkPointsBought Auto
 GlobalVariable Property TSSD_ravanousNeedLevel Auto
 
 
@@ -46,6 +47,10 @@ Keyword Property LocTypeHabitation Auto
 Keyword Property LocTypeHabitationHasInn Auto
 Keyword Property LocTypeInn Auto
 Keyword Property LocTypePlayerHouse Auto
+Keyword Property LocTypeGuild Auto
+Keyword Property LocTypeStore Auto
+Keyword Property LocTypeHouse Auto
+Keyword Property LocTypeDwelling Auto
 
 
 MagicEffect Property TSSD_DrainedDownSide Auto
@@ -250,7 +255,12 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
         RefreshEnergy( succNeedVal * -1 )
     endif
     if CustomSkills.GetAPIVersion() >= 3
+        int lastFiver = ((SkillSuccubusBaseLevel.GetValue() / 5) as int)
         CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
+        if lastFiver  < ((SkillSuccubusBaseLevel.GetValue() / 5) as int)
+            TSSD_PerkPointsBought.Mod( 1)
+            TSSD_SuccubusPerkPoints.Mod(1)
+        endif
     endif
 EndFunction
 
@@ -301,8 +311,7 @@ bool Function playerInSafeHaven()
         if !curLoc
             return false
         endif
-        bool safeHaven = (curLoc.HasKeyword(LocTypePlayerHouse)) || curLoc.HasKeyword(LocTypeInn) \
-        || curLoc.HasKeyword(LocTypeHabitationHasInn)
+        bool safeHaven = (curLoc.HasKeyword(LocTypePlayerHouse)) || curLoc.HasKeyword(LocTypeInn) || curLoc.HasKeyword(LocTypeDwelling) || curLoc.HasKeyword(LocTypeHabitation) || curLoc.HasKeyword(LocTypeGuild) || curLoc.HasKeyword(LocTypeHouse) || curLoc.HasKeyword(LocTypeStore)
         return safeHaven
 EndFunction
 

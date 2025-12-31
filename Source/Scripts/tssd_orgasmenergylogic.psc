@@ -283,6 +283,7 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     if tActions.deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
         tActions.toggleDeathMode(true)
     endif
+    Utility.Wait(10)
     tActions.RegisterForCrosshairRef()
 EndEvent
 

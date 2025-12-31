@@ -1,0 +1,11 @@
+{
+  "FormKey": "000154:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_enthrallDialogueWaitTillReadyTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "You seem drained, wanna wait it out?"
+  },
+  "Branch": "000153:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "000001:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

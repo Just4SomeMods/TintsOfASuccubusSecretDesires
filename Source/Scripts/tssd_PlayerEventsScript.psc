@@ -27,6 +27,7 @@ float[] Property currentVals Auto
 
 Faction Property TSSD_RevealingOutfit Auto
 Faction Property TSSD_Collared Auto
+Faction Property CurrentFollowerFaction Auto
 
 bool isActingDefeated = false
 float totalDamageTaken = 0.0
@@ -195,12 +196,15 @@ endEvent /;
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
 	ACtor ak = akAggressor as Actor
-    if PlayerRef.GetAV("Health") < 100 && PlayerRef.HasMagicEffect(TSSD_SatiatedEffect) && (akAggressor as Actor) && \
-        (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 20
+    if PlayerRef.GetAV("Health") < 100 && PlayerRef.HasMagicEffect(TSSD_SatiatedEffect) && (akAggressor as Actor) && (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 20 && !tActions.playerInSafeHaven()
 		isActingDefeated = true
         Actor tar = tActions.getCombatTarget(true)
         if tar && tar != PlayerRef
             tActions.actDefeated(tar, false)
+			PlayerRef.DispelSpell(tMenus.TSSD_Satiated)
+			Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
+			int indexIn = 0
+			Sexlab.StartScene(allFolls , "")
         Endif
 		isActingDefeated = false
     endif

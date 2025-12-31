@@ -237,7 +237,7 @@
                     "text": "SkillSuccubusBaseLevel",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 15,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -614,6 +614,30 @@
                         "step": 1,
                         "sourceType": "GlobalValue",
                         "sourceForm": "TintsOfASuccubusSecretDesires.esp|071"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestjhglobal",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|150"
+                    }
+                },
+                {
+                    "type": "slider",
+                    "text": "TSSD_deityblessquestjhglobalCor",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": 0,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|151"
                     }
                 },
                 {
@@ -1485,6 +1509,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "343"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Alduin's bane",
+                    "help": "You deal 50% more damage to dragons and dragon priests.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "335"
                         ]
                     }
                 },

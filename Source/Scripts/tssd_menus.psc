@@ -170,7 +170,7 @@ Function OpenExpansionMenu()
         lookedAtExplanationsOnce = true
     ;endif
     b612_SelectList mySelectList = GetSelectList()
-    String[] myItems = StringUtil.Split("Perk Trees;Base Skill;Drain;Seduction;Body;Perk Points;Show Explanations again",";")
+    String[] myItems = StringUtil.Split("Perk Trees;Body;Drain;Seduction",";")
     Int result
     if modifierKeyIsDown && lastUsedSub > -1
             result = lastUsedSub
@@ -183,40 +183,17 @@ Function OpenExpansionMenu()
     endif
     if result == 0
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
-    elseif result < 6 && result > -1
-            OpenSkillTrainingsMenu(result - 1)
-            tActions.NotificationSpam(myItems[result - 1] )
-    elseif result == 6
-        lookedAtExplanationsOnce = false
-        OpenExpansionMenu()
+    elseif result > -1
+        OpenSkillTrainingsMenu(result)
     endif
 EndFunction
-
-Function OpenExplanationMenu()        
-    String[] SUCCUBUSTATS = StringUtil.Split( "Base Skill;Drain;Seduction;Body;Perk Points",";")
-    String[] SUCCUBUSTATSDESCRIPTIONS =  StringUtil.Split("Training for the Base Succubus Skill;Drain increases your drain strength;Seduction increases your [Speechcraft and gives you the ability to hypnotize people];Body [Increases your Combat Prowess];Perk Points give you perkpoint for the Trees in this mod.",";")
-    b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-    int index = 0
-    while index < SUCCUBUSTATS.Length
-        TraitsMenu.AddItem( SUCCUBUSTATS[index], SUCCUBUSTATSDESCRIPTIONS[index], "menus/tssd/"+SUCCUBUSTATS[index]+".dds")
-        index += 1
-    EndWhile
-    string[] result = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
-    int resultW = -1
-    if result.Length > 0
-        resultw =  result[0] as int
-        OpenSkillTrainingsMenu(resultW)
-    endif
-Endfunction
 
 Function OpenSkillTrainingsMenu(int index_of)
     String[] myItems = StringUtil.Split("Base;Drain;Seduction;Body;Perk Points",";")    
     GlobalVariable[] skillLevels = new GlobalVariable[5]
-    skillLevels[0] = SkillSuccubusBaseLevel
+    skillLevels[0] = SkillSuccubusBodyLevel
     skillLevels[1] = SkillSuccubusDrainLevel
     skillLevels[2] = SkillSuccubusSeductionLevel
-    skillLevels[3] = SkillSuccubusBodyLevel
-    skillLevels[4] = TSSD_PerkPointsBought
     tssd_trainSuccAbilities trainingThing =  ((Quest.GetQuest("tssd_queststart")) as tssd_trainSuccAbilities)
     trainingThing.SetSkillName(mYitems[index_of])
     trainingThing.SetSkillId( "Succubus" + myItems[index_of] + "Skill")

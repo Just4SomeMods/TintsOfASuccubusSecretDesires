@@ -121,6 +121,7 @@ local pools = {
   TSSD_00133 = { doggieDialogue  },
   TSSD_00139 = { {"Sure"}, {"Sure"},{"Sure"},{"Sure"}  },
   TSSD_0013D = { {"Sure"}, {"Sure"},{"Sure"},{"Sure"}  },
+  TSSD_00155 = { {"Sure"}, {"Sure"},{"Sure"},{"Sure"}  },
   TSSD_00142 = { {"Yes, keep coming back for it!", "You always love it!", "You are the most obedient student I ever had!"}  }
 
 
@@ -128,7 +129,7 @@ local pools = {
 
 
 local function get_thrall_type(pSpeaker_id)
-  local thrallDomFaction = get_formid(0x000AA, "TintsOfASuccubusSecretDesires.esp")
+  local thrallDomFaction = get_formid(0x00090, "TintsOfASuccubusSecretDesires.esp")
   local thrallSubFaction = get_formid(0x000A8, "TintsOfASuccubusSecretDesires.esp")
   local thrallNotAThrall = get_formid(0x0008F, "TintsOfASuccubusSecretDesires.esp")
   local thrallType = 1

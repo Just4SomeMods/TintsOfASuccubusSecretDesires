@@ -4,7 +4,7 @@ import tssd_utils
 
 tssd_PlayerEventsScript Property tPEvents Auto
 
-; Faction Property TSSD_ThrallDominant Auto
+Faction Property TSSD_ThrallDominant Auto
 Faction Property TSSD_EnthralledFaction Auto
 Faction Property TSSD_ThrallSubmissive Auto
 Faction Property PlayerFaction Auto
@@ -56,15 +56,16 @@ Event TrainingAsked(string eventName, string strArg, float numArg, Form sender)
 endevent
 
 Event DialogueFinished(string eventName, string strArg, float numArg, Form sender)
-    if StringUtil.Find( strArg, "TSSD_") >= 0
-        lastDialogue = strArg
-        lastDialoguePartner = sender as Actor
-        RegisterForMenu("Dialogue Menu")
-    endif
-    if strArg == "TSSD_000DD"
+    if strArg == "TSSD_00155"
+        return
+    elseif strArg == "TSSD_000DD"
         UnRegisterForMenu("Dialogue Menu")
         lastDialogue = ""
         lastDialoguePartner = none
+    elseif StringUtil.Find( strArg, "TSSD_") >= 0
+        lastDialogue = strArg
+        lastDialoguePartner = sender as Actor
+        RegisterForMenu("Dialogue Menu")
     endif
 EndEvent
 
@@ -143,12 +144,9 @@ Event OnMenuClose(String MenuName)
             if outMessage != ""
                 T_Show("I don't think " + outMessage + " loves me anymore!", "", 0)
             endif
-            if lastDialogue == "TSSD_000A1"
-                lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
-                lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
-            elseif lastDialogue == "TSSD_000A2"
-                lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, 1)
-                lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
+            if lastDialogue == "TSSD_000A2"
+                lastDialoguePartner.SetFactionRank(TSSD_ThrallDominant, 1)
+                
             elseif lastDialogue == "TSSD_000A3"
                 lastDialoguePartner.SetFactionRank(TSSD_ThrallSubmissive, 1)
             endif
