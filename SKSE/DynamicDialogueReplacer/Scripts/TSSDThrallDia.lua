@@ -77,7 +77,7 @@ local pools = {
   },
   TSSD_00109 = {
     { "ERROR" }, { "ERROR" }, { "ERROR" },
-    { "Oh ok then." }
+    { "Oh, ok then." }
   },
   TSSD_000A6 = {
     { "..." }, { "..." }, { "..." },
@@ -92,7 +92,7 @@ local pools = {
     { "I like your enthusiasm!" }
   },
   TSSD_000DD = {
-    { "Oh ok then." }, { "Oh ok then." }, { "Oh ok then." }, { "Oh ok then." }
+    { "Oh, ok then." }, { "Oh, ok then." }, { "Oh, ok then." }, { "Oh, ok then." }
   },
   TSSD_000E1 = {
     { "You've earned it." }, { "Everything for you my queen." }, { "Are you to stupid to keep it? Ugh, fine." }, { "Yeah sure." }

@@ -74,7 +74,7 @@ Event OnMenuOpen(String MenuName)
         if lastDialoguePartner
             lastDialoguePartner.SetFactionRank(TSSD_PotentialHypnoMaster, 1)
         endif
-        tPEvents.incrValAndCheck(18, 1)
+        tActions.tOrgasmLogic.incrValAndCheck(18, 1)
         UnRegisterForMenu("Training Menu")
     endif
 Endevent
@@ -91,13 +91,13 @@ Event OnMenuClose(String MenuName)
         else
             TSSD_DrainedMarker.Cast(PlayerRef, lastDialoguePartner)
         endif
-        if lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
-            tPEvents.incrValAndCheck(19,1)
+        if lastDialogue != "TSSD_000C7" && lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
+            tActions.tOrgasmLogic.incrValAndCheck(19,1)
         endif
         if lastDialogue == "TSSD_000C7"
             lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
         elseif lastDialogue == "TSSD_000C6"
-            tPEvents.incrValAndCheck(20,1)
+            tActions.tOrgasmLogic.incrValAndCheck(20,1)
             GenericRefreshPSex(lastDialoguePartner, true, "aggressive")
         elseif lastDialogue == "TSSD_000D2"
             PlayerRef.AddItem(Gold001, 50)
@@ -109,15 +109,15 @@ Event OnMenuClose(String MenuName)
             PlayerRef.AddItem(Gold001, 50)
             GenericRefreshPSex(lastDialoguePartner, false)
         elseif lastDialogue == "TSSD_00098"
-            tPEvents.incrValAndCheck(3,1)
+            tActions.tOrgasmLogic.incrValAndCheck(3,1)
             GenericRefreshPSex(lastDialoguePartner, true, "love")
         elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
-            tPEvents.incrValAndCheck(3,1)
+            tActions.tOrgasmLogic.incrValAndCheck(3,1)
             GenericRefreshPSex(lastDialoguePartner, true, "kissing, -sex")
         elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
             GenericRefreshPSex(lastDialoguePartner, false, "")
             if lastDialogue == "TSSD_000EE"
-                tPEvents.incrValAndCheck(15,1)
+                tActions.tOrgasmLogic.incrValAndCheck(15,1)
             endif
         elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
             int mxAmount = 1
@@ -157,7 +157,7 @@ Event OnMenuClose(String MenuName)
         elseif lastDialogue == "TSSD_00109"
             lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, -1)
         elseif lastDialogue == "TSSD_000B2"
-            tPEvents.incrValAndCheck(0,1)
+            tActions.tOrgasmLogic.incrValAndCheck(0,1)
             GenericRefreshPSex(lastDialoguePartner, true, "aircum", true)
             if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
                 SexLab.AddCumFxLayers(PlayerRef, 0, 1)
@@ -172,7 +172,7 @@ Event OnMenuClose(String MenuName)
         elseif lastDialogue == "TSSD_000F7"
             GenericRefreshPSex(lastDialoguePartner, true, "facesit")
         elseif lastDialogue == "TSSD_00111"
-            tPEvents.incrValAndCheck(7,1)
+            tActions.tOrgasmLogic.incrValAndCheck(7,1)
             GenericRefreshPSex(lastDialoguePartner, true, "~grope, -leadIn, ~holding, ~hugging, ~cuddle, ~facesit, ~fingering, -zaz, -bound, -DeviousDevice")
         elseif lastDialogue == "TSSD_0010E"
             GenericRefreshPSex(lastDialoguePartner, false)
@@ -184,14 +184,14 @@ Event OnMenuClose(String MenuName)
             SexLab.StartSceneQuick(PlayerRef)
         elseif lastDialogue == "TSSD_0013D"
             if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
-            tPEvents.incrValAndCheck(1,1)
+            tActions.tOrgasmLogic.incrValAndCheck(1,1)
                 GenericRefreshPSex(lastDialoguePartner, true, "blowjob")
             else
                 GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding")
             endif
         elseif lastDialogue == "TSSD_00142"        
             tPEvents.tVals.lastHypnoSession = 0.1
-            tPEvents.incrValAndCheck(18, 10)
+            tActions.tOrgasmLogic.incrValAndCheck(18, 10)
 			TSSD_CompelledSpell.Cast(PlayerRef,PlayerRef)
             if lastDialoguePartner.GetFactionRank(TSSD_HypnoMaster) < 1
                 lastDialoguePartner.SetFactionRank(TSSD_HypnoMaster, 1)

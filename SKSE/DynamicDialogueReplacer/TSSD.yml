@@ -215,4 +215,3 @@ topics:
       - 0xF4|TintsOfASuccubusSecretDesires.esp
     conditions:
       - GetFactionRank CC_NPCCurrentBimboStage >= 15 AND
-      - LocationHasKeyWord LocTypeHabitation == 0 OR

@@ -90,7 +90,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         endif
         
         if asStatFilter == "Skill Increases" && !tssd_dealwithcurseQuest.isobjectivefailed(23)
-            tActions.increaseGlobalDeity(2,1,50)
+            tActions.increaseGlobalDeity(2,1,250)
         endif
         ;/ 
         int unKD = Game.QueryStat("Undead Killed") - undeadKilled

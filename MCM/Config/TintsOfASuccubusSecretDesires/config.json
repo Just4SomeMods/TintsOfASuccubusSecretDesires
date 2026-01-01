@@ -145,6 +145,10 @@
             "pageDisplayName": "$SecondPageAchievements",
             "content": [
                 {
+                    "text": "This is mostly for fun for now.",
+                    "type": "text"
+                },
+                {
                     "text": "Hidden",
                     "type": "stepper",
                     "help": "Gain Lilac and Blush",
@@ -152,6 +156,17 @@
                         "options": [
                             "Off",
                             "Bitch in heat"
+                        ]
+                    }
+                },
+                {
+                    "text": "Hidden",
+                    "type": "stepper",
+                    "help": "Gain Pueblo and Crusta",
+                    "valueOptions": {
+                        "options": [
+                            "Off",
+                            "Mother of dragons"
                         ]
                     }
                 }
@@ -801,6 +816,16 @@
             "content": [
                 {
                     "type": "text",
+                    "text": "Fortify Health",
+                    "help": "Your health and stamina are increased by <mag> points."
+                },
+                {
+                    "type": "text",
+                    "text": "Fortify Sneak",
+                    "help": "Your seduction value increases your sneak and speech by <mag>."
+                },
+                {
+                    "type": "text",
                     "text": "Drain Health",
                     "help": "Absorb <mag> points of health per second from the target."
                 },
@@ -838,6 +863,11 @@
                     "type": "text",
                     "text": "Drained Downsides",
                     "help": "Drained targets take <mag>% more damage and lose all their magicka."
+                },
+                {
+                    "type": "text",
+                    "text": "Fortify Shouts",
+                    "help": "Time between shouts is reduced 20%.\r\n"
                 },
                 {
                     "type": "text",
@@ -952,7 +982,7 @@
                 {
                     "type": "text",
                     "text": "Fortify Magicka",
-                    "help": "Magicka more by <mag> Points and health lel."
+                    "help": "You increase your magicka by <mag> and your regen rate by half of that."
                 }
             ]
         },
@@ -1028,6 +1058,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Hidden",
+                    "help": "\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "130"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Aggressive Negotiation1",
                     "help": "You can overpower the last hostile target, if they have less health than you and drain them dry.\n",
                     "action": {
@@ -1043,7 +1087,7 @@
                 {
                     "type": "text",
                     "text": "Base Explanation",
-                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Your sex partners gain increased enjoyment based on all of your succubus skill levels. Below 0 Energy you learn all skills at half the normal rate, spells and power attacks costs twice as much. \n",
+                    "help": "You can no longer regenerate health and do not deal increased damage while sneaking. Your sex partners gain increased enjoyment based on all of your succubus skill levels. Below 0 Energy you learn all skills at half the normal rate and you no longer regenerate stamina and magicka. \n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1518,22 +1562,8 @@
                 },
                 {
                     "type": "text",
-                    "text": "A blessing from the gods",
-                    "help": "Through your devotion, your minimum energy level is now 0.\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "56"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Arkay's gift",
-                    "help": "You gain a small amount of energy back for every undead slain.\n",
+                    "text": "Alduin's Bane",
+                    "help": "You have absorbed enough dragons to strengthen your hide for every dragon slain. Your Intimidation attempts always succeed.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1541,6 +1571,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "124"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Ysmir's strength",
+                    "help": "Through your devotion, your minimum energy level is now 0. Your shouts also last twice as long.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "56"
                         ]
                     }
                 },
@@ -1560,6 +1604,34 @@
                 },
                 {
                     "type": "text",
+                    "text": "Wise Succubus",
+                    "help": "Your spells cost 20% less.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "230"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Kyne's gift",
+                    "help": "The warrior widow helps you to overcome the worst odds, you gain increased frost and shock resist outdoors and you deal increased frost and shock damage indoors and on hit.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "145"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Mara's gift",
                     "help": "When you refresh energy with a loved one, you also gain \"lovers comfort\".\n",
                     "action": {
@@ -1569,34 +1641,6 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "123"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Stendarr's gift",
-                    "help": "Stendarr protects you partially from harm.\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "125"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Zenithar's Acquired Goods",
-                    "help": "Zenithar blesses your work, increasing your ability to temper weapons and armor.\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "126"
                         ]
                     }
                 },
@@ -2163,7 +2207,7 @@
                 {
                     "type": "text",
                     "text": "Carnation",
-                    "help": "As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against humans if you haven't had a romantic interaction in a while.\n",
+                    "help": "As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against men and mer if you haven't had a romantic interaction in a while.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2191,7 +2235,7 @@
                 {
                     "type": "text",
                     "text": "Crimson",
-                    "help": "You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources. This penalty increases triples or sextuples, if you haven't been below 200 health or spanked/bitten in a while.\n",
+                    "help": "You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2261,7 +2305,7 @@
                 {
                     "type": "text",
                     "text": "Lilac",
-                    "help": "While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people. If you take of your collar, you lose 50% energy and are sad for a day.\n",
+                    "help": "While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people. Your shouts are 25% less effective.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2387,7 +2431,7 @@
                 {
                     "type": "text",
                     "text": "Pueblo",
-                    "help": "You gain a shout to overpower low health dragons to end them. You have increased armor and you gain a longer satiated time when you \"absorb\" dragons, but your other ways to become satiated only last half as long.\n",
+                    "help": "You gain a shout to overpower low health dragons to end them. Your shouts are twice as strong and you gain a longer satiated time when you \"absorb\" dragons, but your other ways to become satiated only last half as long.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2401,7 +2445,7 @@
                 {
                     "type": "text",
                     "text": "Pueblo2",
-                    "help": "You gain a shout to overpower low health dragons to end them. You also additionally gain a longer satiated time when you \"absorb\" dragons and have  even more armor.\n",
+                    "help": "You gain a shout to overpower low health dragons to end them. Your shouts are twice as strong and you gain a longer satiated time when you \"absorb\" dragons, but your other ways to become satiated only last half as long. If you have recently absorbed a dragon, your armor increases by 50 points aswell.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2566,6 +2610,24 @@
                         "params": [
                             "{b}1",
                             "89",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_BaseStaminaSedBuffMag0:Spells",
+                    "type": "input",
+                    "text": "BHSS Effect 0 Mag",
+                    "help": "Fortify Sneak 1",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "118",
                             "{i}0",
                             "{value}"
                         ]
@@ -2926,6 +2988,24 @@
                         "params": [
                             "{b}0",
                             "159",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_GoodDoggieMag0:Spells",
+                    "type": "input",
+                    "text": "Good Doggie Effect 0 Mag",
+                    "help": "Fortify Shouts 0",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "294",
                             "{i}0",
                             "{value}"
                         ]

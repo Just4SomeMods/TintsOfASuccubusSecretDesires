@@ -14,6 +14,7 @@ float Property lastHypnoSession Auto Conditional
 float Property lastFadeTat Auto Conditional
 float Property lastMasturbated Auto Conditional
 float Property hasEggs Auto Conditional
+float Property lastDragon Auto Conditional
 
 bool Property canTake00Razzmatazz Auto Conditional
 bool Property canTake01Cupid Auto Conditional

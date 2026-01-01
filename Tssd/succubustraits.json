@@ -118,7 +118,7 @@
         ],
         "needyText": [
         ],
-        "description": "You love love! So your color is carnation. As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against people if you haven't had a romantic interaction in a while.",
+        "description": "You love love! So your color is carnation. As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against men and mer if you haven't had a romantic interaction in a while.",
         "famecat": [
             "Gentle"
         ],
@@ -212,7 +212,7 @@
             "Master, pleeease...",
             "Who's gonna rub my tummy if master disappeared?",
             "What a waste of a dog bed, Without my master its just empty space!",
-            "I need to be tied down, I need to be used!",
+            "I need to be leashed, I need to be used!",
             "Master, I promise ill be good! Just come back!",
             "Do they love me anymore? Or did they forget me?",
             "How loud can a whimper get?",
@@ -226,7 +226,7 @@
             "Without his voice its just silence.",
             "A pat... a word... anything..."
         ],
-        "description": "You favourite collar is lilac colored. While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people. If you take of your collar, you lose 50% energy and are sad for a day.",
+        "description": "You love your lilac colored collar. While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people.",
         "famecat": null,
         "unlockMethod": "Use a shout while collared.",
         "color": [
@@ -298,7 +298,7 @@
     "Maroon": {
         "positive": [],
         "needyText": [],
-        "description": "Maroon is the new black! You start each day with a new tattoo, these make you more intriguing, increasing your speech by 10.",
+        "description": "Maroon is the new black! You start each week with a new tattoo, these make you more durable increasing your armor by 10.",
         "famecat": null,
         "unlockMethod": "Get raped 5 times.",
         "color": [
@@ -382,23 +382,23 @@
     },
     "Mystic": {
         "positive": [
-            "That taste lingers between my teeth\u2014like ozone after a storm, but sweeter. *Delicious.*",
+            "That taste lingers between my teeth; like ozone after a storm, but sweeter. *Delicious.*",
             "My throat burns beautifully as it swallows raw magic.",
             "His come tastes like lightning. I crave the shockwave.",
             "Swallowing the essence makes my bones thrum. A dark song hums through marrow.",
             "All those academic never taught me how *alive* I feel drinking seed.",
-            "The viscosity coats my tongue\u2014thicker than any wine. *Intoxicating*.",
+            "The viscosity coats my tongue; thicker than any wine. *Intoxicating*.",
             "I want his come in my mouth. Not just taken, but *claimed*.",
             "Ears ring with the echoes of what I've swallowed. Ghosts of power.",
             "I crave the burn of half-digested runes along my insides.",
-            "The way his release spills down my chin\u2014*artistic*. Smear it. Drink it.",
+            "The way his release spills down my chin; *artistic*. Smear it. Drink it.",
             "My stomach chews slow. It savors the alchemical tang of another's soul.",
             "Shaking my head away from magic only makes the hunger deeper. *Consume*.",
             "Sweat stings my eyes. His saliva tastes like nightshade. *Poisonous beauty.*",
             "Gagging on spirit residue - but still *swallowing*. Always swallowing.",
             "My tongue can taste the echo of a dragon's last shout in his seed.",
             "I want to drown in his come. Want it to fill my lungs when I breathe.",
-            "The scent of half-digested dreams clings to my neck\u2014*addictive*.",
+            "The scent of half-digested dreams clings to my neck; *addictive*.",
             "My belly aches. From emptiness or overfullness? Both. *Perfect*.",
             "I crave the aftertaste of failure. Of a mage's dying spell clinging to spit."
         ],
@@ -452,7 +452,7 @@
             "The crack of skin on skin echoes in my skull. A drumbeat. My new heartbeat."
         ],
         "needyText": [
-            "My skin crawls like dried ink\u2014stiff, brittle, unspanked.",
+            "My skin crawls like dried ink; stiff, brittle, unspanked.",
             "Hips ache from *not* being spread across a lap. Empty. Useless.",
             "The ghost of his palms still burns behind my thighs. *Worse* than absence.*,",
             "Butterflies died in my stomach. They craved the crush of his grip. Now they're dead.",
@@ -480,7 +480,7 @@
     "Crimson": {
         "positive": [],
         "needyText": [],
-        "description": "You are addicted to seeing your own crimson colored blood. You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources. This penalty increases triples or sextuples, if you haven't been below 200 health or spanked in a while.",
+        "description": "You are addicted to seeing your own crimson colored blood. You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources.",
         "famecat": null,
         "color": [
             220,
@@ -495,7 +495,7 @@
     "Cerise": {
         "positive": [
             "His praise spills over me like warm honey. *Drink it slowly.*",
-            "My stomach tightens\u2014not from fear, but from excitement.",
+            "My stomach tightens; not from fear, but from excitement.",
             "I bite down on my lips to keep me from beaming. Or begging for more.",
             "Tears prick behind my eyes. For being seen.",
             "I think I just had an orgasm!",
@@ -758,7 +758,7 @@
             "The last breath in my lungs? Still dedicated to the memory of your throttle.",
             "Faintness without your hands cradling my skull - feels like falling through ice.",
             "Consciousness bleeds light slowly where your fist used to make it stop.",
-            "My throat arches for a crown you wore when you choked me out\u2014still waiting.",
+            "My throat arches for a crown you wore when you choked me out; still waiting.",
             "Let the darkness fill my mouth again - I starve for its taste under your thumb.",
             "Silence beneath your palm? It rings louder in my mind than any cry.",
             "The absence of friction on my windpipe - it aches like a wound never tended.",

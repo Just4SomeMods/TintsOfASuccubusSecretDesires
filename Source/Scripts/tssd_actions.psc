@@ -59,7 +59,7 @@ MagicEffect Property TSSD_SuccubusDetectEnergyFF Auto
 ;MagicEffect Property TSSD_ZenitharDonationSpellEffect Auto
 
 
-;Perk Property TSSD_Base_CapIncrease1 Auto
+Perk Property TSSD_Base_CapIncrease1 Auto
 Perk Property TSSD_Base_IncreaseScentRange1 Auto
 Perk Property TSSD_Base_PowerGrowing Auto
 ;Perk Property TSSD_Body_Overstuffed Auto
@@ -76,6 +76,7 @@ Perk Property TSSD_Drain_RefreshHealth Auto
 Perk Property TSSD_Seduction_HotDemon1 Auto
 ;Perk Property TSSD_Seduction_Leader Auto
 Perk Property TSSD_Seduction_OfferSex Auto
+Perk Property TSSD_Base_ChangesPerk Auto
 
 
 Perk[] Property SuccubusAbilitiesPerks Auto
@@ -119,6 +120,7 @@ tssd_menus Property tMenus Auto
 tssd_orgasmenergylogic Property tOrgasmLogic Auto
 tssd_slsfrscript Property slsfListener Auto
 TSSD_InflationHandler Property tInflation Auto
+tssd_curequestvariables Property tCVals Auto
 
 FormList Property TSSD_ShrinesWithQuests Auto
 
@@ -157,6 +159,7 @@ Race Property WereWolfBeastRace Auto
 Faction Property CompanionsCirclePlusKodlak Auto
 Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
+Faction Property DogFaction Auto
 
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -173,6 +176,15 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     endif
     if playerRef.HasPerk(TSSD_Drain_RefreshHealth) && adjustBy > 0
         PlayerRef.RestoreActorValue("Health", adjustBy)
+    endif
+    If PlayerRef.HasPerk(TSSD_Base_CapIncrease1)
+        upTo += 100
+    endif
+    If PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk())
+        upTo += 200
+    endif
+    If PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk().GetNextPerk())
+        upTo += 600
     endif
     if (lastVal > -100 || isDeathModeActivated)
         SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
@@ -207,11 +219,15 @@ Endfunction
 
 
 
-Function toggleDeathMode(bool makeAnnouncement = true)
+Function toggleDeathMode(bool makeAnnouncement = true, bool overWriteOn = false)
     if (deathModeActivated != false) && (deathModeActivated != true)
         deathModeActivated = false
     endif
-    deathModeActivated = !deathModeActivated
+    if overWriteOn
+        deathModeActivated = true
+    else
+        deathModeActivated = !deathModeActivated
+    endif
     if deathModeActivated
         BerserkerMainImod.ApplyCrossFade(1)
         if makeAnnouncement
@@ -274,6 +290,7 @@ Function advanceStageTwenty()
     while index < 5
         if tssd_dealwithcurseQuest.IsObjectiveCompleted(31 + index)
             tssd_dealwithcurseQuest.SetObjectiveFailed(21 + index)
+            toggleCActions(index)
         endif
         index += 1
     EndWhile
@@ -313,7 +330,7 @@ bool Function playerInSafeHaven()
 EndFunction
 
 
-Function actDefeated(actor tarRef, bool changeGameTime = true)
+bool Function actDefeated(actor tarRef, bool changeGameTime = true)
     
     ;TSSD_FuckingInvincible.Cast(PlayerRef)
     if tarRef
@@ -326,8 +343,9 @@ Function actDefeated(actor tarRef, bool changeGameTime = true)
             tarRef.enable()
         endif
         ImageSpaceModifier.RemoveCrossFade(3)
-        Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef)
+        return (Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef, astags = "-love, -bed, -furniture, rape")) != none
     endif
+    return false
 Endfunction
 
 Function RegisterSuccubusEvents()
@@ -345,12 +363,26 @@ Endfunction
 
 Event CumAbsorb(form akTarget, int aiType)
     if !PlayerRef.IsSwimming() && (akTarget as Actor) == PlayerRef
-        tEvents.incrValAndCheck(0, 1)
+        tOrgasmLogic.incrValAndCheck(0, 1)
         if PlayerRef.HasPerk(TSSD_Drain_ExtractSemen)
             hasAbsorbedCum = true
         endif
     endif
 EndEvent
+
+Function toggleCActions(int index)
+    
+        if index == 0
+            tCVals.MaraCurse = false
+        elseif index == 2
+            tCVals.JulianosCurse = false
+        elseif index == 3
+            tCVals.DibellaCurse = false
+        elseif index == 4
+            tCVals.AkatoshCurse = false
+        endif
+
+EndFunction
 
 bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1)
     if !tssd_dealwithcurseQuest.GetStage() >= 20
@@ -363,10 +395,12 @@ bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1
     float valBefore = tssd_deityTrackers[index].GetValue()
     int percDone = (valBefore / targetVal * 5) as int
     bool shouldDisplay = (percDone < (((byVal + valBefore) / targetVal * 5) as int)) || valBefore == 0
-    DBGTrace(percDone + " is " + shouldDisplay + " " + DbSkseFunctions.GetFormEditorId(tssd_deityTrackers[index], ""))
 
     bool isCompleted = tssd_dealwithcurseQuest.ModObjectiveGlobal(byVal, tssd_deityTrackers[index], 21 + index + additional, targetVal, true, true, shouldDisplay)
     advanceStageTwenty()
+    if isCompleted
+        toggleCActions(index)
+    endif
     return isCompleted
 Endfunction
 
@@ -547,7 +581,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
         lastScarletTalk = 0.1
     endif
     if asStatFilter == "Dragon Souls Collected"
-        tEvents.incrValAndCheck(23, 1)
+        tOrgasmLogic.incrValAndCheck(23, 1)
         if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[23])
             tMenus.TSSD_Satiated.SetNthEffectDuration(0, 3600 * 7 * 2)
         endif
@@ -597,9 +631,9 @@ Event OnUpdateGameTime()
 
         RefreshEnergy(10)
     endif
-    PlayerRef.DispelSpell(TSSD_SuccubusBaseChanges)
+    PlayerRef.RemovePerk(TSSD_Base_ChangesPerk)
     Utility.Wait(0.1)
-    PlayerRef.AddSpell(TSSD_SuccubusBaseChanges, false)
+    PlayerRef.AddPerk(TSSD_Base_ChangesPerk)
     updateHeartMeter(timeBetween > 6)
     RegisterForSingleUpdateGameTime(0.4)
 endEvent
@@ -661,8 +695,7 @@ EndFunction
 
 
 bool Function isDoggie(Actor cA)
-    return cA.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || cA.GetFactionRank(WereWolfFaction) > 0 || \
-				cA.GetFactionRank(WolfFaction) > 0 || cA.GetRace() == WolfRace || cA.GetRace() == WereWolfBeastRace
+    return cA.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || cA.GetFactionRank(WereWolfFaction) > 0 || 				cA.GetFactionRank(WolfFaction) > 0 || cA.GetRace() == WolfRace || cA.GetRace() == WereWolfBeastRace  || cA.IsInFaction(DogFaction)
 endfunction
     
 Event OnCrosshairRefChange(ObjectReference ref)
@@ -681,7 +714,7 @@ Event OnCrosshairRefChange(ObjectReference ref)
         
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getTargetCross")
-    Elseif !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
+    Elseif playerInSafeHaven() && !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Add("tssd_getTargetCross", "Beg", allInOneKey)
 

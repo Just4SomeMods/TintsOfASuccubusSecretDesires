@@ -46,6 +46,7 @@ tssd_tints_variables Property tVals Auto
 
 Quest Property tssd_dealwithcurseQuest Auto
 Quest Property TSSD_EvilSuccubusQuest Auto
+Quest Property tssd_tints_tracker Auto
 
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto
@@ -134,14 +135,52 @@ bool maraSuccess = false
 
 
 
+
+Function incrValAndCheck(int numOf, float incrBy)
+	tEvents.currentVals[numOf] = tEvents.currentVals[numOf] + incrBy
+	tEvents.checkValOf(numOf)
+	if numOf == 0 
+		tVals.lastCumOnTime = 0.1 
+	endif
+	if numOf == 1 
+		tVals.lastCumInMe = 0.1 
+	endif
+	if numOf == 3 
+		tVals.lastRomanticTime = 0.1 
+	endif	
+	if numOf == 13 
+		tVals.lastSpankedTime = 0.1 
+	endif
+	if numOf == 15 
+		tVals.lastPraiseTime = 0.1 
+	endif
+	if numOf == 22 
+		tVals.lastRoughTime = 0.1 
+	endif
+	if numOf == 23 
+		tVals.lastDragon = 0.1 
+	endif
+	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
+		if numOf != 19 && numOf != 18 && numOf != 8 && numOf != 10
+			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
+			if !tssd_tints_tracker.IsObjectiveFailed(numOf)
+				tssd_tints_tracker.SetObjectiveFailed(numOf, false)
+			endif
+		endif
+		if numOf == 19
+			PlayerRef.DispelSpell(TSSD_InLoveBuff)
+			Utility.Wait(0.1)
+			TSSD_InLoveBuff.Cast(PlayerRef,PlayerRef)
+		endif
+	endif
+EndFunction
+
+
 Function onGameReload()
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
-
 EndFunction
-
-
 
 Event PlayerSceneStart(Form FormRef, int tid)
     tActions.UnregisterForCrosshairRef()
@@ -149,26 +188,26 @@ Event PlayerSceneStart(Form FormRef, int tid)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
     if ActorsIn.Length == 1
-        tEvents.incrValAndCheck(24,1)
+        incrValAndCheck(24,1)
     endif
+    tActions.deathModeActivated = false
     int indexIn = 0
-    if !tActions.deathModeActivated && _thread.GetSubmissive(PlayerRef)
-        bool aggressiveY = false
-        while indexIn < ActorsIn.length
-            Actor consentingActor = ActorsIn[indexIn]
-            if consentingActor != PlayerRef 
-                if consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
-                    aggressiveY = true
-                endif
-                if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
-                    T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
-                endif
+    bool aggressiveY = false
+    while indexIn < ActorsIn.length
+        Actor consentingActor = ActorsIn[indexIn]
+        if consentingActor != PlayerRef 
+            DBGTrace("Sub: " + _thread.GetSubmissive(PlayerRef) + " Host: " + consentingActor.IsHostileToActor(PlayerRef) + " isAggr: " + !_thread.GetSubmissive(consentingActor))
+            if _thread.GetSubmissive(PlayerRef) && consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
+                aggressiveY = true
             endif
-            indexIn += 1
-        endwhile
-        if aggressiveY
-            tActions.toggleDeathMode(true)
+            if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
+                T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
+            endif
         endif
+        indexIn += 1
+    endwhile
+    if aggressiveY
+        tActions.toggleDeathMode(true, true)
     endif
     if SuccubusDesireLevel.GetValue() > -100.0
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
@@ -302,8 +341,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 			if !_thread.GetSubmissive(PlayerRef)
 				tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft"),10000)
-			else
-				tActions.increaseGlobalDeity(8, PlayerRef.GetAV("Speechcraft") / 2 ,5000)
 			endif
 		endif
 			
@@ -315,7 +352,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			tVals.lastHypnoSession = 0.1
 		endif
 		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
-			tEvents.incrValAndCheck(19,1)
+			incrValAndCheck(19,1)
 		endif
 		if WhoCums.GetRelationshipRank(PlayerRef) >= 4
 			if PlayerRef.HasPerk(TSSD_DeityMaraPerk)
@@ -325,16 +362,16 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 
 		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) > 0
 			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
-				tEvents.incrValAndCheck(12,1)
-				tEvents.incrValAndCheck(1,0.2)
+				incrValAndCheck(12,1)
+				incrValAndCheck(1,0.2)
 			elseif (_thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")) &&  !_thread.HasSceneTag("lesbian")
-				tEvents.incrValAndCheck(1,1)
+				incrValAndCheck(1,1)
 			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
-				tEvents.incrValAndCheck(0,1)
+				incrValAndCheck(0,1)
 			endif
 		endif
 		if !issingle( WhoCums)
-			tEvents.incrValAndCheck(2,1)
+			incrValAndCheck(2,1)
 		endif
 		if tActions.deathModeActivated
 			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
@@ -368,31 +405,31 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 	else
 		if _thread.HasSceneTag("spanking")
-			tEvents.incrValAndCheck(13,1)
+			incrValAndCheck(13,1)
 		endif
 		if _thread.GetSubmissive(PlayerRef)
-			tEvents.incrValAndCheck(20,1)
+			incrValAndCheck(20,1)
         	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 				tActions.increaseGlobalDeity(8,PlayerRef.GetAV("Speechcraft"),5000)
 			endif
 			if Game.GetModByName(FILE_FADE_TATS) != 255
-				tEvents.incrValAndCheck(8,1)
+				incrValAndCheck(8,1)
 			endif
 		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
 			tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft")  / 2,10000)
 		endif
 		if _thread.HasSceneTag("rough")
-			tEvents.incrValAndCheck(22,1)
+			incrValAndCheck(22,1)
 		endif
 	endif
 	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
-		tEvents.incrValAndCheck(4,1)
+		incrValAndCheck(4,1)
 	endif
 	if _thread.HasSceneTag("love") || _thread.HasSceneTag("loving") || _thread.HasSceneTag("romance")
-		tEvents.incrValAndCheck(3,1)
+		incrValAndCheck(3,1)
 	endif
 
-	if (!hadAnnouncement || hadAnnouncement) && possibleAnnouncements.Length > 1
+	if !hadAnnouncement  && possibleAnnouncements.Length > 1
 		int randOmGGG = Utility.RandomInt(1, possibleAnnouncements.Length - 1)
 		int getRando = possibleAnnouncements[randOmGGG]
 		T_Needs(getRando, "", false)

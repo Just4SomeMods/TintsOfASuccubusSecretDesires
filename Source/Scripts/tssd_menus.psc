@@ -83,20 +83,23 @@ bool Function toggleQuestCurses(String deityName)
         else
             int objectiveSub = 0
             if deityName == "Akatosh"
-                objectiveSub = 28
+                objectiveSub = 25
             elseif deityName == "Mara"
                 objectiveSub = 21
             elseif deityName == "Kynareth"
                 return true
             elseif deityName == "Julianos"
-                objectiveSub = 27
+                objectiveSub = 23
             elseif deityName == "Dibella"
                 objectiveSub = 24
             endif
-            if objectiveSub > 0   
-                tssd_dealwithcurseQuest.SetObjectiveFailed(objectiveSub, !tssd_dealwithcurseQuest.isobjectivefailed(objectiveSub))
-                tssd_dealwithcurseQuest.SetObjectiveDisplayed(objectiveSub)
-                (tssd_dealwithcurseQuest as tssd_curequestvariables).toggleCurse(deityName)
+            if objectiveSub > 0
+                if !tssd_dealwithcurseQuest.IsObjectiveCompleted(10 + objectiveSub)
+
+                    tssd_dealwithcurseQuest.SetObjectiveFailed(objectiveSub, !tssd_dealwithcurseQuest.isobjectivefailed(objectiveSub))
+                    tssd_dealwithcurseQuest.SetObjectiveDisplayed(objectiveSub)
+                    (tssd_dealwithcurseQuest as tssd_curequestvariables).toggleCurse(deityName)
+                endif
                 return true
             endif
         endif
@@ -123,21 +126,23 @@ Function OpenGrandeMenu()
         return
     endif
     ObjectReference ref = Game.GetCurrentCrosshairRef()
-    if !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
-        tActions.tDialogue.lilacBeg(ref as Actor)
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-        myBinding.remove("tssd_getTargetCross")
-        return
-    elseif TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
-        DBGTrace(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"))
-        String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
-        if toggleQuestCurses(deityName)
+    if ref
+        if !Sexlab.IsActorActive(PlayerRef) && tActions.playerInSafeHaven() && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
+            tActions.tDialogue.lilacBeg(ref as Actor)
+            SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+            myBinding.remove("tssd_getTargetCross")
             return
+        elseif TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
+            DBGTrace(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"))
+            String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
+            if toggleQuestCurses(deityName)
+                return
+            endif
         endif
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
-    string toSplit = "Abilities;Upgrades;Settings"
+    string toSplit = "Abilities;Upgrades;Settings;View Tint Progress"
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
         toSplit += ";TraitsLel"
     endif
@@ -153,15 +158,18 @@ Function OpenGrandeMenu()
         lastUsedSub = -1
         lastUsed = result
     endif
-    tActions.NotificationSpam(myItems[result] )
-    if myItems[result] == "Abilities"
+    
+    String resOf = myItems[result]
+    if resOf == "Abilities"
         OpenSuccubusAbilities()
-    elseif myItems[result] == "Upgrades"
+    elseif resOf == "Upgrades"
         OpenExpansionMenu()    
-    elseif myItems[result] == "Settings"
+    elseif resOf == "Settings"
         OpenSuccubusCosmetics()
-    elseif myItems[result] == "TraitsLel"
+    elseif resOf == "TraitsLel"
         GetTraitsLel()
+    elseif resOf == "View Tint Progress"
+        viewTintProgress()
     endif
 EndFunction 
 
@@ -476,12 +484,36 @@ Function ShowSuccubusTrait(int num)
     if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(SuccubusTintPerks[11])
         PlayerRef.AddPerk(SuccubusTintPerks[num])
         TSSD_SuccubusPerkPoints.Mod(1)
-        tEvents.incrValAndCheck(11,1)
+        tActions.tOrgasmLogic.incrValAndCheck(11,1)
         tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     endif
 
 
             
+EndFunction
+
+Function viewTintProgress()
+    
+
+    
+    b612_TraitsMenu TraitsMenu = GetTraitsMenu()
+    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
+    
+    int indexIn = 0
+
+    while indexIn < succKinds.Length
+        int toAdd = 0    
+        if indexIn == 12
+            toAdd += Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
+        endif
+        if tEvents.targetNums[indexIn] >= 0
+            TraitsMenu.AddItem((tEvents.currentVals[indexIn] as int + toAdd) + "/" + tEvents.targetNums[indexIn] as int + " " + succKinds[indexIn], JDB.solveStr(".tssdtraits." + succKinds[indexIn] + ".description"), "menus/tssd/"+succKinds[indexIn]+".dds")
+        endif
+        indexIn += 1
+    endwhile
+    String[] resultW = TraitsMenu.Show(0,0)
+    
+
 EndFunction
 
 Function GetTraitsLel()

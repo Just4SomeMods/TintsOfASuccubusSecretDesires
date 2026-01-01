@@ -5,6 +5,7 @@ sBodyL  = "Object: TintsOfASuccubusSecretDesires.esp::0x004"
 sDrainL = "Object: TintsOfASuccubusSecretDesires.esp::0x002"
 sSeduL  = "Object: TintsOfASuccubusSecretDesires.esp::0x003"
 sCumL  = "Object: TintsOfASuccubusSecretDesires.esp::0x12D"
+tArmor  = "Object: Skyrim.esm::0x1C0F2"
 
 [SuccubusBaseSkill]
 type = "Functional"
@@ -31,5 +32,10 @@ type = "Functional"
 alias = "PickPocketSkillAdvance"
 get = "GetGlobalValueParam(sCumL)"
 
+[TSSD_DragonsSlain]
+type = "Functional"
+alias = "PickPocketSkillAdvance"
+get = "GetGlobalValueParam(tArmor)"
+
 [Include]
-"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV"]
+"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain"]

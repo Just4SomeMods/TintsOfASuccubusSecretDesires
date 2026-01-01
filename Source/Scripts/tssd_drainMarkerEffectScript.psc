@@ -16,10 +16,12 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 endEvent
 
 Event OnHoveredMe(string eventName, string strArg, float numArg, Form sender)
-    SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-    int thisChecked = ( (GetTimeElapsed()* 100 / getDuration()) as int)
-    if (sender as Actor) == cActor
-        myBinding.Add("tssd_getTargetCross", "                         "+ thisChecked  + "% ready" , -1)
+    if self
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        int thisChecked = ( (GetTimeElapsed()* 100 / getDuration()) as int)
+        if (sender as Actor) == cActor
+            myBinding.Add("tssd_getTargetCross", "                         "+ thisChecked  + "% ready" , -1)
+        endif
     endif
 endEvent
 

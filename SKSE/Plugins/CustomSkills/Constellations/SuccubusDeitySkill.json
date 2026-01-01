@@ -27,22 +27,22 @@
           "links": [ "All" ]
           },
           {
-          "id": "Arkay",
+          "id": "Akatosh",
           "perk": "TintsOfASuccubusSecretDesires.esp|07C",
           "x": 1.5,
           "y": 0.5,
           "links": [ "All" ]
           },
           {
-          "id": "Stendarr",
-          "perk": "TintsOfASuccubusSecretDesires.esp|07D",
+          "id": "Jhunal",
+          "perk": "TintsOfASuccubusSecretDesires.esp|0E6",
           "x": -1.5,
           "y": 0.5,
           "links": [ "All" ]
           },
           {
-          "id": "Zenithar",
-          "perk": "TintsOfASuccubusSecretDesires.esp|07E",
+          "id": "Kyne",
+          "perk": "TintsOfASuccubusSecretDesires.esp|091",
           "x": 0,
           "y": 1,
           "links": [ "All" ]
