@@ -50,7 +50,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.02.000"
+string currentVersion = "1.02.000a"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -246,6 +246,9 @@ Function startSuccubusLife()
     ModEvent.Send(EventHandle)
     tssd_tints_tracker.start()
     tssd_queststart.Start()
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugFactionSpell:Main")
+        tActions.toggleDebugFaction(true)
+    endif
 EndFunction
 
 

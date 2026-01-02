@@ -168,7 +168,7 @@ topics:
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
     inject:
-      - 0x13C|TintsOfASuccubusSecretDesires.esp
+      - 0x15A|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 AND
@@ -178,7 +178,7 @@ topics:
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
     inject:
-      - 0x15A|TintsOfASuccubusSecretDesires.esp
+      - 0x13C|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 AND

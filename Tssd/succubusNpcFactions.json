@@ -1,7 +1,15 @@
 [
     {
+        "FormKey": 332,
+        "Name": "PotentialMaster"
+    },
+    {
         "FormKey": 315,
         "Name": "HypnoMaster"
+    },
+    {
+        "FormKey": 349,
+        "Name": "NpcNotSingle"
     },
     {
         "FormKey": 168,
@@ -13,6 +21,6 @@
     },
     {
         "FormKey": 144,
-        "Name": "IsActivePartner"
+        "Name": "ThrallDominant"
     }
 ]
