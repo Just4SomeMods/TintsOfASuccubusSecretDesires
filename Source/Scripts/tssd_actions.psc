@@ -538,6 +538,7 @@ Function addTSSDPerk(string perkToAdd)
 Endfunction
 
 Function adjustSpell(bool isMag, string id, int index, string newValStr)
+    ;/
     float newVal = newValStr as float
     Spell toAdj = Game.GetFormFromFile(id as int, "TintsOfASuccubusSecretDesires.esp") as Spell
     if newVal && toAdj
@@ -550,7 +551,7 @@ Function adjustSpell(bool isMag, string id, int index, string newValStr)
             endif
             PlayerRef.AddSpell(toAdj, false)
         endif
-    endif
+    endif /;
 Endfunction
 
 Function NotificationSpam(string Displaying)

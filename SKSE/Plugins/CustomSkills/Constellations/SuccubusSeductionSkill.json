@@ -78,7 +78,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|10B",
           "x": -1.25,
           "y": 2,
-          "links": [ "StealthMode",  "FlightMode", "ENDUP2"
+          "links": [ "CharmingDeath",  "FlightMode", "ENDUP2"
           ]
      },{
           "id": "ENDUP2",
@@ -91,11 +91,11 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|060",
           "x": -0.5,
           "y": 1.5,
-          "links": [ "StealthMode", "ENDSIDE"
+          "links": [ "CharmingDeath", "ENDSIDE"
           ]
      }, {
-          "id": "StealthMode",
-          "perk": "TintsOfASuccubusSecretDesires.esp|05C",
+          "id": "CharmingDeath",
+          "perk": "TintsOfASuccubusSecretDesires.esp|166",
           "x": -2,
           "y": 1.5,
           "links": [

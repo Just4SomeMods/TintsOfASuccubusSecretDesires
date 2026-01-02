@@ -50,7 +50,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.02.000a"
+string currentVersion = "1.02.001"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -117,12 +117,8 @@ Function OpenGrandeMenu()
     endif
     if SuccubusDesireLevel.GetValue() <= -101
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
-        ;SelectSuccubusType(dbgSuccy)
-        startSuccubusLife() 
-        ;ShowSuccubusTrait(19)
+        startSuccubusLife()
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
-
-
         return
     endif
     ObjectReference ref = Game.GetCurrentCrosshairRef()
@@ -158,7 +154,6 @@ Function OpenGrandeMenu()
         lastUsedSub = -1
         lastUsed = result
     endif
-    
     String resOf = myItems[result]
     if resOf == "Abilities"
         OpenSuccubusAbilities()
@@ -251,7 +246,6 @@ Function startSuccubusLife()
     endif
 EndFunction
 
-
 Function OpenSuccubusCosmetics()
     int jArr = JDB.solveObj(".tssdsettings")
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
@@ -285,7 +279,6 @@ Function OpenSuccubusCosmetics()
     MCM.SetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main", output)    
     cosmeticSettings = ReadInCosmeticSetting()
 Endfunction
-
 
 bool Function checkAbilityDefeatThem(Actor tarRef)
     if tarRef == playerRef
@@ -326,7 +319,6 @@ Function OpenSuccubusAbilities()
                 itemsAsString += ";Act defeated (no Target found)"
         endif
     endif
-
     itemsAsString += ";Look for Prey"
     int indexOfA = 1
     if (PlayerRef.HasPerk(TSSD_Seduction_Kiss2) || true) && Sexlab.GetPlayerController()
@@ -338,8 +330,6 @@ Function OpenSuccubusAbilities()
         endif
         indexOfA += 1
     endwhile
-    
-    
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result = -1
     if modifierKeyIsDown
@@ -370,7 +360,6 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, 5)
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
-        
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef, true)
     elseif myItems[result] == "BimbofyWhiterun"        
@@ -492,15 +481,9 @@ Function ShowSuccubusTrait(int num)
         tActions.tOrgasmLogic.incrValAndCheck(11,1)
         tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     endif
-
-
-            
 EndFunction
 
 Function viewTintProgress()
-    
-
-    
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     

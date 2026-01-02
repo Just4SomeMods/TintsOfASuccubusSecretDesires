@@ -906,6 +906,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Absorb Health",
+                    "help": "Absorbs <mag> Health per second from living targets."
+                },
+                {
+                    "type": "text",
                     "text": "Mageform",
                     "help": "Increases your Magicka by <mag> points."
                 },
@@ -1997,6 +2002,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Charming Death",
+                    "help": "You can talk to charmed enemies to instantly drain them to death.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "358"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Disappear",
                     "help": "You can sacrifice 20 energy to increase your speed and become ethereal.\n",
                     "action": {
@@ -2630,7 +2649,7 @@
                     "id": "sTSSD_AbsorbHealthSpellMag0:Spells",
                     "type": "input",
                     "text": "Drain Essence Effect 0 Mag",
-                    "help": "Drain Health 5",
+                    "help": "Absorb Health 20",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2648,7 +2667,7 @@
                     "id": "sTSSD_AbsorbHealthSpellDur0:Spells",
                     "type": "input",
                     "text": "Drain Essence Effect 0 Dur",
-                    "help": "Drain Health 1",
+                    "help": "Absorb Health 1",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

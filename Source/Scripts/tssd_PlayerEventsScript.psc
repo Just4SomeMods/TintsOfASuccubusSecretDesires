@@ -292,21 +292,22 @@ EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
 	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
+		DBGTrace("SuccubusDrainIncrease")
 		
-		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 5 )
+		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 50 )
 	endif
 EndEvent
 
 Event OnSpellCast(Form akSpell)
-	DBgtrace(akSpell.GetName())
+	Spell Sp = akSpell as Spell
+	MagicEffect costliesEffect = Sp.GetNthEffectMagicEffect( Sp.GetCostliestEffectIndex())
+	if costliesEffect.GetCastingType() == 2
+		return
+	endif
 	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(Game.GetFormFromFile(0x424ee, "skyrim.esm") as Keyword)
-		Spell Sp = akSpell as Spell
-
 		CustomSkills.AdvanceSkill("SuccubusSeductionSkill", sp.GetMagickaCost() )
 	endif 
 	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
-		Spell Sp = akSpell as Spell
-
 		CustomSkills.AdvanceSkill("SuccubusDrainSkill", sp.GetMagickaCost() )
 	endif
 	;/
