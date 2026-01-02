@@ -1,3 +1,6 @@
+# 1.02.000a
+fixed suckchamp bug, fixed faction bug
+
 # 1.02.000
 Changed the divines to nordic deities. Felt more appropriate
 Added lots of radiant dialogue
