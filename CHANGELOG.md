@@ -2,6 +2,7 @@
 Changed the divines to nordic deities. Felt more appropriate
 Added lots of radiant dialogue
 Fixed lots of bugs
+Succubus skill levelling changed - base is no longer trainable, drain also increases by absorb spells, seduction also increases on illusion spells and body increases by you being the last thing a being sees before dying.
 
 
 # 1.01.000
