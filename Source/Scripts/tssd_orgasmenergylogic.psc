@@ -87,6 +87,7 @@ Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
 bool isCollared
 float lastTimeNeededCollar = 0.0
+Spell Property TSSD_ProudDogOwnerBuff Auto
 
 
 ; END LILAC
@@ -420,7 +421,10 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
                 indexFol += 1
             endwhile
 
-		endif
+		elseif PlayerRef.HasPerk(tMenus.SuccubusTintPerks[5])
+            TSSD_ProudDogOwnerBuff.Cast(PlayerRef,WhoCums)
+        endif
+
 	else
 		if _thread.HasSceneTag("spanking")
 			incrValAndCheck(13,1)

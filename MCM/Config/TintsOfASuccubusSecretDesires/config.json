@@ -841,18 +841,8 @@
                 },
                 {
                     "type": "text",
-                    "text": "Drain Health",
-                    "help": "Absorb <mag> points of health per second from the target."
-                },
-                {
-                    "type": "text",
                     "text": "[TSSD] Faction Adding",
                     "help": "Use this debug spell to add npcs to factions, or remove them from factions from this mod."
-                },
-                {
-                    "type": "text",
-                    "text": "Stendarr: Libido decreases faster",
-                    "help": "Your charity helps you focus more."
                 },
                 {
                     "type": "text",
@@ -871,11 +861,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "Drained!",
-                    "help": ""
-                },
-                {
-                    "type": "text",
                     "text": "Drained Downsides",
                     "help": "Drained targets take <mag>% more damage and lose all their magicka."
                 },
@@ -883,11 +868,6 @@
                     "type": "text",
                     "text": "Fortify Shouts",
                     "help": "Time between shouts is reduced 20%.\r\n"
-                },
-                {
-                    "type": "text",
-                    "text": "Distracted",
-                    "help": ""
                 },
                 {
                     "type": "text",
@@ -946,28 +926,18 @@
                 },
                 {
                     "type": "text",
-                    "text": "ThisIsATest",
-                    "help": ""
-                },
-                {
-                    "type": "text",
                     "text": "Speedmod",
                     "help": "You are ethereal and move <mag>% faster."
                 },
                 {
                     "type": "text",
+                    "text": "Speedmod",
+                    "help": "You are move <mag>% faster."
+                },
+                {
+                    "type": "text",
                     "text": "Stealth Mode",
                     "help": "Your sneak is increased by <mag>% and you deal more sneak attack damage with melee weapons."
-                },
-                {
-                    "type": "text",
-                    "text": "Calm",
-                    "help": "Creatures and people up to level <mag> won't fight for <dur> seconds."
-                },
-                {
-                    "type": "text",
-                    "text": "Soothing Moment",
-                    "help": "Calm down!"
                 },
                 {
                     "type": "text",
@@ -992,11 +962,6 @@
                 {
                     "type": "text",
                     "text": "Detect Life Enemy Exterior",
-                    "help": ""
-                },
-                {
-                    "type": "text",
-                    "text": "Zenithar: Libido Decrease",
                     "help": ""
                 },
                 {
@@ -1149,7 +1114,7 @@
                 {
                     "type": "text",
                     "text": "Innocent",
-                    "help": "Draining someone to death seems like an accident to bystanders.\n",
+                    "help": "Draining someone to death seems like an accident to bystanders. NOT IMPLEMENTED YET.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1899,6 +1864,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "23"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Light Headed",
+                    "help": "You move 20% faster.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "357"
                         ]
                     }
                 },
@@ -2934,10 +2913,10 @@
                     }
                 },
                 {
-                    "id": "sTSSD_DrainedMarkerTwoMag0:Spells",
+                    "id": "sTSSD_DrainedMarkerMag1:Spells",
                     "type": "input",
-                    "text": "AlRDrained Effect 0 Mag",
-                    "help": "Drained Downsides 100",
+                    "text": "Already Drained Effect 1 Mag",
+                    "help": "Drained Downsides 50",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2945,16 +2924,16 @@
                         "function": "adjustSpell",
                         "params": [
                             "{b}1",
-                            "137",
-                            "{i}0",
+                            "77",
+                            "{i}1",
                             "{value}"
                         ]
                     }
                 },
                 {
-                    "id": "sTSSD_DrainedMarkerTwoDur0:Spells",
+                    "id": "sTSSD_DrainedMarkerDur1:Spells",
                     "type": "input",
-                    "text": "AlRDrained Effect 0 Dur",
+                    "text": "Already Drained Effect 1 Dur",
                     "help": "Drained Downsides 1200",
                     "action": {
                         "type": "CallFunction",
@@ -2963,17 +2942,35 @@
                         "function": "adjustSpell",
                         "params": [
                             "{b}0",
-                            "137",
-                            "{i}0",
+                            "77",
+                            "{i}1",
                             "{value}"
                         ]
                     }
                 },
                 {
-                    "id": "sTSSD_EnergyLossWhileSneakingDur0:Spells",
+                    "id": "sTSSD_DrainedMarkerMag2:Spells",
                     "type": "input",
-                    "text": "Losing Energy Effect 0 Dur",
-                    "help": "Distracted 60",
+                    "text": "Already Drained Effect 2 Mag",
+                    "help": "Drained Downsides 25",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "77",
+                            "{i}2",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DrainedMarkerDur2:Spells",
+                    "type": "input",
+                    "text": "Already Drained Effect 2 Dur",
+                    "help": "Drained Downsides 1200",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2981,8 +2978,8 @@
                         "function": "adjustSpell",
                         "params": [
                             "{b}0",
-                            "167",
-                            "{i}0",
+                            "77",
+                            "{i}2",
                             "{value}"
                         ]
                     }
@@ -3126,6 +3123,24 @@
                         "params": [
                             "{b}0",
                             "75",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_LightHeadedBuffMag0:Spells",
+                    "type": "input",
+                    "text": "Feels like I'm walking on sunshine! Effect 0 Mag",
+                    "help": "Speedmod 20",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "359",
                             "{i}0",
                             "{value}"
                         ]
@@ -3415,24 +3430,6 @@
                             "{b}0",
                             "54",
                             "{i}1",
-                            "{value}"
-                        ]
-                    }
-                },
-                {
-                    "id": "sTSSD_ZenitharDonationSpellDur0:Spells",
-                    "type": "input",
-                    "text": "Zenithar Libido Decrease Effect 0 Dur",
-                    "help": "Zenithar: Libido Decrease 3600",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "adjustSpell",
-                        "params": [
-                            "{b}0",
-                            "129",
-                            "{i}0",
                             "{value}"
                         ]
                     }

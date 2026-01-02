@@ -96,22 +96,28 @@
         0
     ],
     [
-        "sTSSD_DrainedMarkerTwoMag0:Spells",
+        "sTSSD_DrainedMarkerMag1:Spells",
         true,
-        "137",
-        0
+        "77",
+        1
     ],
     [
-        "sTSSD_DrainedMarkerTwoDur0:Spells",
+        "sTSSD_DrainedMarkerDur1:Spells",
         true,
-        "137",
-        0
+        "77",
+        1
     ],
     [
-        "sTSSD_EnergyLossWhileSneakingDur0:Spells",
+        "sTSSD_DrainedMarkerMag2:Spells",
         true,
-        "167",
-        0
+        "77",
+        2
+    ],
+    [
+        "sTSSD_DrainedMarkerDur2:Spells",
+        true,
+        "77",
+        2
     ],
     [
         "sTSSD_FightModeSpellMag0:Spells",
@@ -159,6 +165,12 @@
         "sTSSD_InLoveBuffDur0:Spells",
         true,
         "75",
+        0
+    ],
+    [
+        "sTSSD_LightHeadedBuffMag0:Spells",
+        true,
+        "359",
         0
     ],
     [
@@ -256,11 +268,5 @@
         true,
         "54",
         1
-    ],
-    [
-        "sTSSD_ZenitharDonationSpellDur0:Spells",
-        true,
-        "129",
-        0
     ]
 ]

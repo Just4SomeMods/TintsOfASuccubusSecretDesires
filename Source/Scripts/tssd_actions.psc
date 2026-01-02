@@ -93,7 +93,6 @@ Spell Property TSSD_FuckingInvincible Auto
 ;Spell Property TSSD_Overstuffed Auto
 Spell Property TSSD_RejectionPoison Auto
 Spell Property TSSD_Satiated Auto
-Spell Property TSSD_SuccubusBaseChanges Auto
 Spell Property TSSD_SuccubusDetectJuice Auto
 
 
@@ -204,17 +203,8 @@ EndFunction
 
 float Function getDrainLevel(bool isGentle = false)
     float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-    if !isGentle
+
         return new_drain_level
-    endif
-    if PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk().GetNextPerk())
-        new_drain_level /= 2
-    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1.GetNextPerk())
-        new_drain_level /= 3
-    elseif PlayerRef.HasPerk(TSSD_Drain_GentleDrain1)
-        new_drain_level /= 5
-    endif
-    return new_drain_level
 Endfunction
 
 
