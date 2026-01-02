@@ -463,8 +463,7 @@ Function toggleSpells(int newToggle = -1)
     spellToggle = newToggle
 Endfunction
 
-Function gainAllPerks()
-    
+Function gainAllPerks()    
     int index = 0
     string[] succTraits = GetSuccubusStartPerksAll()
     while index < succTraits.Length
@@ -472,7 +471,6 @@ Function gainAllPerks()
         PlayerRef.AddPerk(Game.GetFormFromFile(PerkID, "TintsOfASuccubusSecretDesires.esp") as Perk)
         index += 1
     EndWhile
-
 EndFunction
 
 String Function getAllNames(Actor[] inArr)
@@ -484,8 +482,6 @@ String Function getAllNames(Actor[] inArr)
     endwhile
     return outString
 Endfunction
-
-
 
 bool Function GetHabitationCorrect(Location curLoc) 
     if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypePlayerHouse) 
@@ -527,8 +523,6 @@ Function onGameReload()
     last_checked = Utility.GetCurrentGameTime() * 24
     tOrgasmLogic.onGameReload()
     tInflation.onGameReload()
-    UnregisterForCrosshairRef()
-    Utility.Wait(0.1)
     RegisterForCrosshairRef()
     
     updateHeartMeter(true)
@@ -605,16 +599,6 @@ Event OnUpdateGameTime()
     if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1) && PlayerRef.GetFactionRank(tEvents.TSSD_Collared) >= 1
         energy_loss *= 0.5
     endif
-    ;/ if curLoc && valBefore > 0 && valBefore < 50  && GetHabitationCorrect(curLoc) && timeBetween >= 1
-        if PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk().GetNextPerk())
-            RefreshEnergy(energy_loss * 20, 50)
-        elseif PlayerRef.HasPerk(TSSD_Body_PassiveEnergy1.GetNextPerk())
-            RefreshEnergy(energy_loss * 10, 50)
-        endif
-        float changeAmount = (SuccubusDesireLevel.GetValue() - valBefore) /10
-        AddToStatistics(changeAmount)
-        energy_loss = 0
-    endif /;
     energy_loss *= -1
     last_checked = Utility.GetCurrentGameTime() * 24
     RefreshEnergy(energy_loss)
@@ -652,7 +636,7 @@ Event OnMenuOpen(String MenuName)
         if SuccubusDesireLevel.GetValue() <= TSSD_ravanousNeedLevel.GetValue() && PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
             UI.InvokeString("HUD Menu", "_global.skse.CloseMenu", "Dialogue Menu")
             T_Show("NO TIME TO TALK!", "icon.dds", aiDelay = 2.0)
-        elseif PlayerRef.HasPerk(TSSD_Seduction_HotDemon1)
+        elseif PlayerRef.HasPerk(TSSD_Seduction_HotDemon1) && tempActor != none
             if !tempActor.IsChild() && HotDemonTarget == PlayerRef
                 HotDemonTarget = tempActor
                 int eid = ModEvent.Create("slaUpdateExposure")
@@ -701,9 +685,7 @@ endfunction
 Event OnCrosshairRefChange(ObjectReference ref)
 
     if ref && TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
-        
         String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
-        DBGTrace(deityName)
         String oldName = JDB.solveStr(".oldNorseGods."+ deityName)
 
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()

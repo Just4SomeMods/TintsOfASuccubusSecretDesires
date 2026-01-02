@@ -57,7 +57,7 @@ topics:
       - 0x9A|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
-      - LocationHasKeyWord LocTypeHabitation == 0 OR
+      - LocationHasKeyWord LocTypeHabitation == 0 AND
       - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
       - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
@@ -171,13 +171,19 @@ topics:
       - 0x13C|TintsOfASuccubusSecretDesires.esp
     conditions:
       - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
-      - LocationHasKeyWord LocTypeHabitation == 0 OR
+      - LocationHasKeyWord LocTypeHabitation == 0 AND
+      - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
   # SuckChamp
-  - id: 0x13C|TintsOfASuccubusSecretDesires.esp
-    text: "I want to suck your dick!"
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x15A|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
+      - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
+      - LocationHasKeyWord LocTypeHabitation == 0 AND
+      - GetIsSex Female == 1 AND
+
 
 
   # Rant
@@ -186,7 +192,8 @@ topics:
     inject:
       - 0xA5|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_EnergyVampire >= 1 AND
+      - pl1 <> HasPerk TSSD_Drain_EnergyVampire >= 1 OR
+      - GetFactionRank TSSD_EnthralledFaction == 1 OR
 
   # Bark
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp

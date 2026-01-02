@@ -34,7 +34,8 @@ float totalDamageTaken = 0.0
 bool crimsonDone = false
 
 Keyword Property ActorTypeCreature Auto
-
+Keyword Property TSSD_AbsorbSpellKeyword Auto
+Keyword Property MagicInfluence Auto
 Perk Property TSSD_DeityArkayPerk Auto
 
 Spell Property TSSD_InLoveBuff Auto
@@ -161,11 +162,12 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 		isActingDefeated = true
         Actor tar = tActions.getCombatTarget(true)
         if tar && tar != PlayerRef
-            tActions.actDefeated(tar, false)
-			tActions.SuccubusDesireLevel.Mod(-20)
-			Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
-			int indexIn = 0
-			Sexlab.StartScene(allFolls , "")
+            if tActions.actDefeated(tar, false)
+				tActions.SuccubusDesireLevel.Mod(-20)
+    			tActions.deathModeActivated = false
+				Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
+				Sexlab.StartScene(allFolls , "")
+			endif
         Endif
 		isActingDefeated = false
     endif
@@ -266,14 +268,77 @@ Function onGameReload()
 		addToLilac()
 	endif
 
-	RegisterForUpdateGameTime(0.5)
+	RegisterForUpdateGameTime(1.0)
 	RegisterForTrackedStatsEvent()
 	RegisterForMenu("BarterMenu")
-
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 	PO3_Events_Alias.RegisterForLevelIncrease(self)
+	PO3_Events_Alias.RegisterForActorKilled(self)
+	PO3_Events_Alias.RegisterForMagicHit(self)
 EndFunction
+
+
+
+Event OnActorKilled(Actor akVictim, Actor akKiller)
+	if CustomSkills.GetAPIVersion() >= 3
+		float distanceTo = akVictim.GetDistance(PlayerRef)
+		if distanceTo < 350
+			CustomSkills.AdvanceSkill("SuccubusBodySkill",distanceTo)
+		endif
+    endif
+
+EndEvent
+
+Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
+	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
+		
+		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 5 )
+	endif
+EndEvent
+
+Event OnSpellCast(Form akSpell)
+	DBgtrace(akSpell.GetName())
+	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(Game.GetFormFromFile(0x424ee, "skyrim.esm") as Keyword)
+		Spell Sp = akSpell as Spell
+
+		CustomSkills.AdvanceSkill("SuccubusSeductionSkill", sp.GetMagickaCost() )
+	endif 
+	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
+		Spell Sp = akSpell as Spell
+
+		CustomSkills.AdvanceSkill("SuccubusDrainSkill", sp.GetMagickaCost() )
+	endif
+	;/
+    if PlayerRef.HasPerk(arrs.deityPerks[0])
+        Int FirstEffectCastType = (akSpell as Spell).GetNthEffectMagicEffect(0).GetCastingType()
+        Spell spellCast = akSpell as Spell
+        if foproleplayoptions.GetValue() == 1
+
+                if !gained && DA01.IsStageDone(100)
+                    incrSkill(1,  20000  )
+                    gained=true
+        
+                endif
+                if !gained && DA01.IsStageDone(110)
+                        SkillAzuraLevel.setvalue( -0.9)
+                        gained = true
+                        forbidden = true
+                endif
+        endif
+
+        float Time = Utility.GetCurrentGameTime()
+        Time -= Math.Floor(Time)
+        Time *= 24
+        int mult = 1
+        if Time>3 && Time<8 || Time>18 && Time<23
+                mult *= 2
+        endif
+        if spellCast && FirstEffectCastType == 1 && !forbidden
+            incrSkill(0, 4 * mult * spellCast.GetEffectiveMagickaCost(PlayerRef))
+        endif
+    endif /;
+endevent
 
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
@@ -365,6 +430,7 @@ Event OnUpdateGameTime()
 	endwhile
 	calcCumAmountPlayer()
 	float gameTimeDiff = max(0.5, Utility.GetCurrentGameTime() * 24 - lastGameHour)
+	lastGameHour = Utility.GetCurrentGameTime() * 24
 	tVals.lastCumOnTime += gameTimeDiff
 	tVals.lastPraiseTime += gameTimeDiff
 	tVals.lastRoughTime += gameTimeDiff
@@ -384,7 +450,6 @@ Event OnUpdateGameTime()
 			tssd_tints_tracker.SetObjectiveFailed(0, true)
 		endif
 		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[15]) && (tVals.lastPraiseTime > needsTimerMax)
-			DBGTrace("Wut?")
 			tN = PapyrusUtil.PushInt(tN, 15)
 			tssd_tints_tracker.SetObjectiveFailed(15, true)
 		endif

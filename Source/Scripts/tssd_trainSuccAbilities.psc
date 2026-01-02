@@ -85,7 +85,7 @@ Function Train()
         TSSD_PerkPointsBought.Mod( 1)
         TSSD_SuccubusPerkPoints.Mod(1)
     else
-        SkillVal.Mod( 5 )
+        SkillVal.Mod(  min(5, 100 - SkillVal.GetValue() ))
         CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
         ;CustomSkills.IncrementSkill(SkillVal)
     endif

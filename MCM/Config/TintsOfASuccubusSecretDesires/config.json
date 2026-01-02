@@ -192,6 +192,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "TSSD_IsInCourtingFaction",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_MarkedForDeathFaction",
                     "help": "$showStuff"
                 },
@@ -806,6 +811,11 @@
             "content": [
                 {
                     "type": "text",
+                    "text": "TSSD_AbsorbSpellKeyword",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_SatiatedKeyword",
                     "help": "$showStuff"
                 }
@@ -823,6 +833,11 @@
                     "type": "text",
                     "text": "Fortify Sneak",
                     "help": "Your seduction value increases your sneak and speech by <mag>."
+                },
+                {
+                    "type": "text",
+                    "text": "Drain Health",
+                    "help": "Absorb <mag> points of health per second from the target."
                 },
                 {
                     "type": "text",
@@ -1772,8 +1787,8 @@
                 },
                 {
                     "type": "text",
-                    "text": "SFW Draining Powers",
-                    "help": "You gain a health absorb spell that costs energy.\n",
+                    "text": "Stronger Drain1",
+                    "help": "You gain a health absorb spell. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1781,6 +1796,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "97"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "SFW Draining Powers2",
+                    "help": "You gain a health absorb spell. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less and they deal up to twice the amount of damage.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "352"
                         ]
                     }
                 },
@@ -2597,6 +2626,42 @@
         {
             "pageDisplayName": "DEBUG: Spells",
             "content": [
+                {
+                    "id": "sTSSD_AbsorbHealthSpellMag0:Spells",
+                    "type": "input",
+                    "text": "Drain Essence Effect 0 Mag",
+                    "help": "Drain Health 5",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "350",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_AbsorbHealthSpellDur0:Spells",
+                    "type": "input",
+                    "text": "Drain Essence Effect 0 Dur",
+                    "help": "Drain Health 1",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "350",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
                 {
                     "id": "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
                     "type": "input",

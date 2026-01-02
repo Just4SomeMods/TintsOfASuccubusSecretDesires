@@ -8,10 +8,10 @@
      "ratio": "TintsOfASuccubusSecretDesires.esp|007",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|048",
      "experienceFormula": {
-          "useMult": 7.0,
+          "useMult": 4.6,
           "useOffset": 0.0,
-          "improveMult": 0.5,
-          "improveOffset": 120.0,
+          "improveMult": 2.0,
+          "improveOffset": 0.0,
           "enableXPPerRank": false
      },
      "nodes": [{
@@ -48,7 +48,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|10A",
           "x": 0.0,
           "y": 1.85,
-          "links": [ "SoulDrain", "EvilCollared"
+          "links": [ "SFWDrain", "EvilCollared"
           ]
      },
           {
@@ -59,8 +59,8 @@
                "links": [ 
                ]
           }, {
-               "id": "SoulDrain",
-               "perk": "TintsOfASuccubusSecretDesires.esp|08B",
+               "id": "SFWDrain",
+               "perk": "TintsOfASuccubusSecretDesires.esp|061",
                "x": -0.5,
                "y": 2.3,
                "links": [
@@ -82,7 +82,7 @@
                "perk": "TintsOfASuccubusSecretDesires.esp|0FE",
                "x": 0.5,
                "y": 2.3,
-               "links": [ "SoulDrain"
+               "links": [ "SFWDrain"
                ]},{
           "id": "PraiseKink",
           "perk": "TintsOfASuccubusSecretDesires.esp|0F0",

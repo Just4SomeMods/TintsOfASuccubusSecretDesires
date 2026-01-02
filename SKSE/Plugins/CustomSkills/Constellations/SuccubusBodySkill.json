@@ -9,10 +9,10 @@
      "perkPoints": "TintsOfASuccubusSecretDesires.esp|01B",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|049",
      "experienceFormula": {
-          "useMult": 7.0,
+          "useMult": 4.6,
           "useOffset": 0.0,
-          "improveMult": 0.5,
-          "improveOffset": 120.0,
+          "improveMult": 2.0,
+          "improveOffset": 0.0,
           "enableXPPerRank": false
      },
      "nodes": [{

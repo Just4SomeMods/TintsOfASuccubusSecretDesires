@@ -8,10 +8,10 @@
      "ratio": "TintsOfASuccubusSecretDesires.esp|020",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
      "experienceFormula": {
-          "useMult": 1.0,
+          "useMult": 4.6,
           "useOffset": 0.0,
-          "improveMult": 1.0,
-          "improveOffset": 100.0,
+          "improveMult": 2.0,
+          "improveOffset": 0.0,
           "enableXPPerRank": false
      },
      "nodes": [
@@ -57,7 +57,7 @@
           "id": "SneakAttack",
           "perk": "TintsOfASuccubusSecretDesires.esp|086",
           "x": 1.5,
-          "y": 1.5,
+          "y": 1.0,
           "links": [ "HPRegen"
           ]
      },{

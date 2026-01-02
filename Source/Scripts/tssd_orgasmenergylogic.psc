@@ -190,7 +190,6 @@ Event PlayerSceneStart(Form FormRef, int tid)
     if ActorsIn.Length == 1
         incrValAndCheck(24,1)
     endif
-    tActions.deathModeActivated = false
     int indexIn = 0
     bool aggressiveY = false
     while indexIn < ActorsIn.length
@@ -324,14 +323,15 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     endif
     Utility.Wait(10)
     tActions.RegisterForCrosshairRef()
+    tActions.deathModeActivated = false
 EndEvent
 
 
 Function OnOrgasmAny(Form ActorRef_Form, int Thread)
     Actor WhoCums = ActorRef_Form as Actor
     sslThreadController _thread =  Sexlab.GetController(Thread)
-    if _thread != Sexlab.GetPlayerController() && !PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
-        if PlayerRef.GetDistance(WhoCums) < 100
+    if _thread != Sexlab.GetPlayerController()
+        if PlayerRef.GetDistance(WhoCums)  < 100 && !PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
             tActions.gainSuccubusXP(100)
         endif
         return
@@ -402,6 +402,24 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				_thread.AdvanceStage()
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			EndWhile
+            int indexFol = 0
+            Actor[] cFolls = PO3_SKSEFunctions.GetAllActorsInFaction(tEvents.CurrentFollowerFaction)
+            while indexFol < cFolls.Length
+                Actor cFol = cFolls[indexFol] 
+                if Sexlab.IsActorActive(cFol)
+                    SexlabThread cTh = Sexlab.GetThreadByActor(cFol)
+                    sslThreadController _fthread =  Sexlab.GetActorController(cFol) 
+                    cTh.ForceOrgasm(cFol)
+                    int StageCountF = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
+                    int Stage_inF = StageCountF   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+                    while  Stage_in < StageCountF 
+                        _fthread.AdvanceStage()
+                        Stage_in = StageCountF   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+                    EndWhile
+                endif
+                indexFol += 1
+            endwhile
+
 		endif
 	else
 		if _thread.HasSceneTag("spanking")

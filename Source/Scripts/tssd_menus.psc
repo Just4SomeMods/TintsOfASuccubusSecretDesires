@@ -229,14 +229,16 @@ EndFunction
 
 Function startSuccubusLife()    
     SuccubusDesireLevel.SetValue(50)
+    PlayerRef.AddPerk(TSSD_Base_Explanations)
+    Utility.Wait(0.1)
     tActions.RefreshEnergy(0)
     int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
     if startLevel > 0
         SuccubusXpAmount.SetValue( startLevel * 10000 )
     endif
     tssd_enthrallDialogue.Start()
-    PlayerRef.AddPerk(TSSD_Base_Explanations)
     tEvents.onGameReload()
+    tActions.onGameReload()
     TSSD_Satiated.Cast(PlayerRef,PlayerRef)
     slsfListener.CheckFlagsSLSF()    
     int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")

@@ -31,11 +31,10 @@ Event OnAskedWaitTime(string eventName, string strArg, float numArg, Form sender
         AzuraFadeToBlack.Apply()
         
         GameHour.Mod((getDuration() - GetTimeElapsed()) / 3600 * (timescale.GetValue() ))
-        DBGTrace((getDuration() - GetTimeElapsed())     / 3600 * (timescale.GetValue() ))
         Utility.Wait(0.1)
         Dispel()
-        Utility.Wait(3)
         ImageSpaceModifier.RemoveCrossFade(3)
-        OnHoveredMe("", "", 0, sender)
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        myBinding.Remove("tssd_getTargetCross")
     endif
 EndEvent

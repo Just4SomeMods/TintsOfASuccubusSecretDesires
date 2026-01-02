@@ -22,6 +22,11 @@ type = "Functional"
 alias = "RestorationSkillAdvance"
 get = "GetGlobalValueParam(sDrainL)"
 
+[SuccubusReverseDrainSkill]
+type = "Functional"
+alias = "DestructionSkillAdvance"
+get = "100 - GetGlobalValueParam(sDrainL) * 0.5"
+
 [SuccubusSeductionSkill]
 type = "Functional"
 alias = "EnchantingSkillAdvance"
@@ -38,4 +43,4 @@ alias = "PickPocketSkillAdvance"
 get = "GetGlobalValueParam(tArmor)"
 
 [Include]
-"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain"]
+"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain", "SuccubusReverseDrainSkill"]

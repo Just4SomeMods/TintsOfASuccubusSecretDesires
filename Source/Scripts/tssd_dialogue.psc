@@ -40,6 +40,7 @@ Actor lastDialoguePartner
 
 Faction Property TSSD_HypnoMaster Auto
 Faction Property TSSD_PotentialHypnoMaster Auto
+Faction Property TSSD_IsInCourtingFaction Auto
 
 ; Functions
 Function onGameReload()
@@ -56,7 +57,11 @@ Event TrainingAsked(string eventName, string strArg, float numArg, Form sender)
 endevent
 
 Event DialogueFinished(string eventName, string strArg, float numArg, Form sender)
-    if strArg == "TSSD_00155"
+    if strArg == "TSSD_00093"
+        if !isSingle(sender as actor)
+            (sender as actor).SetFactionRank(TSSD_IsInCourtingFaction, 1)
+        endif
+    elseif strArg == "TSSD_00155"
         return
     elseif strArg == "TSSD_000DD"
         UnRegisterForMenu("Dialogue Menu")
@@ -88,7 +93,7 @@ Event OnMenuClose(String MenuName)
         endif
         if lastDialogue == ""
             return
-        else
+        elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) < 0
             TSSD_DrainedMarker.Cast(PlayerRef, lastDialoguePartner)
         endif
         if lastDialogue != "TSSD_000C7" && lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
@@ -118,6 +123,7 @@ Event OnMenuClose(String MenuName)
             GenericRefreshPSex(lastDialoguePartner, false, "")
             if lastDialogue == "TSSD_000EE"
                 tActions.tOrgasmLogic.incrValAndCheck(15,1)
+                T_Needs(15, "", false)
             endif
         elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
             int mxAmount = 1
@@ -183,12 +189,10 @@ Event OnMenuClose(String MenuName)
             GenericRefreshPSex(lastDialoguePartner, false, "")
             SexLab.StartSceneQuick(PlayerRef)
         elseif lastDialogue == "TSSD_0013D"
-            if lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
+            GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding, ~milk, ~milking, ~boobs")
+        elseif lastDialogue == "TSSD_0015B"
             tActions.tOrgasmLogic.incrValAndCheck(1,1)
                 GenericRefreshPSex(lastDialoguePartner, true, "blowjob")
-            else
-                GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding")
-            endif
         elseif lastDialogue == "TSSD_00142"        
             tPEvents.tVals.lastHypnoSession = 0.1
             tActions.tOrgasmLogic.incrValAndCheck(18, 10)
@@ -218,10 +222,7 @@ Function playDefaultIfNotAvailable(Actor[] posTargets, String tagsIn, Actor akSu
     endif
 endfunction
 
-
-
 Function lilacBeg(Actor targetOf)
-    DBGTrace("Is dog: " + targetOf.GetRace().HasKeyword(tPEvents.ActorTypeCreature))
     if targetOf.GetRace().HasKeyword(tPEvents.ActorTypeCreature)
         GenericRefreshPSex(targetOf, true, "knotted" )
     elseif targetOf.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) >= 1
@@ -238,12 +239,10 @@ Event HumiDone(string eventName, string strArg, float numArg, Form sender)
     tActions.gainSuccubusXP(1000)
 EndEvent
 
-
 Event OnSuccRejected(string eventName, string strArg, float numArg, Form sender)
     TSSD_PoisonForSuccubus.Cast((sender as Actor), PlayerRef)        
     T_Show("Getting rejected hurts!"  , "menus/tssd/HeartBreak.dds", aiDelay = 0.0)
 endevent
-
 
 Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "", bool playerActive = false )
     Actor akSpeaker = target as Actor
