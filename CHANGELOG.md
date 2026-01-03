@@ -1,3 +1,6 @@
+# 1.02.002
+fixed some bugs, implemented some perks that had no function, fixed that overview image
+
 # 1.02.001
 fixed some bugs, uploaded some missing scripts, added "charming death" seduction perk
 

@@ -293,7 +293,7 @@
                     "text": "SkillSuccubusBodyLevel",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 15,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -329,7 +329,7 @@
                     "text": "SkillSuccubusDrainLevel",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 15,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -365,7 +365,7 @@
                     "text": "SkillSuccubusSeductionLevel",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 15,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -862,7 +862,7 @@
                 {
                     "type": "text",
                     "text": "Drained Downsides",
-                    "help": "Drained targets take <mag>% more damage and lose all their magicka."
+                    "help": "Drained targets take <mag>% more damage."
                 },
                 {
                     "type": "text",
@@ -1548,7 +1548,7 @@
                 {
                     "type": "text",
                     "text": "Alduin's Bane",
-                    "help": "You have absorbed enough dragons to strengthen your hide for every dragon slain. Your Intimidation attempts always succeed.\n",
+                    "help": "Your elemental effects scale with the amount of dragons you have slain. Your Intimidation attempts always succeed.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1758,7 +1758,7 @@
                 {
                     "type": "text",
                     "text": "Stronger Drain1",
-                    "help": "You gain a health absorb spell. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less.\n",
+                    "help": "You gain a health absorb spell that scales with your drain level. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -1772,7 +1772,7 @@
                 {
                     "type": "text",
                     "text": "SFW Draining Powers2",
-                    "help": "You gain a health absorb spell. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less and they deal up to twice the amount of damage.\n",
+                    "help": "You gain a health absorb spell that scales with your drain level. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less and they deal up to twice the amount of damage.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2388,7 +2388,7 @@
                 {
                     "type": "text",
                     "text": "Mystic",
-                    "help": "Your potions and poisons are 10% stronger and while you are digesting cum or have eaten an ingredient or drank a potion recently, you increase your chance of picking an additional ingredient by 10%. Professional alchemists dislike you and charge you 20% worse prices.\n",
+                    "help": "Your potions and poisons are 10% stronger and while you are digesting something, you increase your chance of picking an additional ingredient by 10%. You also learn all effects from eating. Professional alchemists are disturbed by your tendency to swallow their merchandise and charge you 20% worse prices.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2628,7 +2628,7 @@
                     "id": "sTSSD_AbsorbHealthSpellMag0:Spells",
                     "type": "input",
                     "text": "Drain Essence Effect 0 Mag",
-                    "help": "Absorb Health 20",
+                    "help": "Absorb Health 6",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

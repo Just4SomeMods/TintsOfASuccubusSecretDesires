@@ -50,7 +50,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.02.001"
+string currentVersion = "1.02.002"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -129,7 +129,6 @@ Function OpenGrandeMenu()
             myBinding.remove("tssd_getTargetCross")
             return
         elseif TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
-            DBGTrace(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"))
             String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
             if toggleQuestCurses(deityName)
                 return
@@ -362,22 +361,6 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef, true)
-    elseif myItems[result] == "BimbofyWhiterun"        
-        int bimboIndex = 0
-        Actor[] whiterRunTargets = PO3_SKSEFunctions.GetActorsByProcessingLevel(3)
-        DBGTrace("In whiterun there are " + whiterRunTargets.Length + " People!")
-        
-        while bimboIndex < whiterRunTargets.Length
-            Actor cAct = whiterRunTargets[bimboIndex]
-            if !cAct.IsChild() && cAct.GetActorBase().IsUnique() && cAct.GetActorBase().GetSex() == 1 && cAct.GetRace().IsPlayable()
-                DBGTrace("Corrupting " + cAct.GetDisplayName() + " now! "  + bimboIndex +"/" + whiterRunTargets.Length)
-                int modActorCorruptHandle = ModEvent.Create("CC_ModActorCorruption")
-                ModEvent.PushForm(modActorCorruptHandle , cAct)
-                ModEvent.PushInt(modActorCorruptHandle , 105)
-                ModEvent.Send(modActorCorruptHandle)
-            endif
-            bimboIndex += 1
-        endwhile
     ;/ 
     elseif myItems[result] == "Rape them!"
         if !tactions.deathModeActivated
@@ -452,7 +435,6 @@ Function ShowSuccubusTrait(int num)
     tVals.canTakeBools[num] = true
     setNonArrBool(num)
 
-    
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
@@ -481,6 +463,10 @@ Function ShowSuccubusTrait(int num)
         tActions.tOrgasmLogic.incrValAndCheck(11,1)
         tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     endif
+
+    if PlayerRef.HasPerk(SuccubusTintPerks[0]) && PlayerRef.HasPerk(SuccubusTintPerks[1])
+        ShowSuccubusTrait(21)
+    endif
 EndFunction
 
 Function viewTintProgress()
@@ -500,8 +486,6 @@ Function viewTintProgress()
         indexIn += 1
     endwhile
     String[] resultW = TraitsMenu.Show(0,0)
-    
-
 EndFunction
 
 Function GetTraitsLel()

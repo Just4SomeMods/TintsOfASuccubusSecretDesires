@@ -11,7 +11,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
     int indexIn = 0
     while indexIn < cT.Length
         Actor cAct = cT[indexIn]
-        DBGTrace(cAct.GetDisplayName() + " " + cAct.HasKeyword(ActorTypeDragon))
         if cAct.HasKeyword(ActorTypeDragon) && cAct.GetAV("Health") < 300
             if (SexLab.StartSceneQuick(cAct, PlayerRef)) == none
                 cAct.Kill(PlayerRef)

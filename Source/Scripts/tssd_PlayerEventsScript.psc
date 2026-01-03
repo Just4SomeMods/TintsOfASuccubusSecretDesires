@@ -158,15 +158,16 @@ endEvent /;
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
 	ACtor ak = akAggressor as Actor
-    if PlayerRef.GetAV("Health") < 300 && tActions.SuccubusDesireLevel.GetValue() > 20 && (akAggressor as Actor) && (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 20 && !tActions.playerInSafeHaven()
+    if PlayerRef.GetAV("Health") < 300 && tActions.SuccubusDesireLevel.GetValue() > 20 && (akAggressor as Actor) && (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 50 && !tActions.playerInSafeHaven()
 		isActingDefeated = true
         Actor tar = tActions.getCombatTarget(true)
         if tar && tar != PlayerRef
             if tActions.actDefeated(tar, false)
 				tActions.SuccubusDesireLevel.Mod(-20)
-    			tActions.deathModeActivated = false
 				Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
-				Sexlab.StartScene(allFolls , "")
+				if allFolls.length > 0
+					Sexlab.StartScene(allFolls , "")
+				endif
 			endif
         Endif
 		isActingDefeated = false
@@ -292,14 +293,15 @@ EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
 	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
-		DBGTrace("SuccubusDrainIncrease")
-		
 		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 50 )
 	endif
 EndEvent
 
 Event OnSpellCast(Form akSpell)
 	Spell Sp = akSpell as Spell
+	if sp == none
+		return
+	endif
 	MagicEffect costliesEffect = Sp.GetNthEffectMagicEffect( Sp.GetCostliestEffectIndex())
 	if costliesEffect.GetCastingType() == 2
 		return

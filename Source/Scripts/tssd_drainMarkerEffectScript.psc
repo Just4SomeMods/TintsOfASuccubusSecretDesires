@@ -4,7 +4,8 @@ Actor cActor
 import tssd_utils
 GlobalVariable Property GameHour Auto
 GlobalVariable Property timescale Auto
-ImageSpaceModifier Property AzuraFadeToBlack  Auto  
+ImageSpaceModifier Property AzuraFadeToBlack  Auto 
+Spell Property TSSD_DrainedMarker Auto
 
 int lastChecked
 
@@ -32,9 +33,11 @@ Event OnAskedWaitTime(string eventName, string strArg, float numArg, Form sender
         
         GameHour.Mod((getDuration() - GetTimeElapsed()) / 3600 * (timescale.GetValue() ))
         Utility.Wait(0.1)
-        Dispel()
-        ImageSpaceModifier.RemoveCrossFade(3)
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-        myBinding.Remove("tssd_getTargetCross")
+        if self && self != none
+            ImageSpaceModifier.RemoveCrossFade(3)
+            SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+            myBinding.Remove("tssd_getTargetCross")
+            GetTargetActor().DispelSpell(TSSD_DrainedMarker)
+        endif
     endif
 EndEvent

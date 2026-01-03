@@ -123,6 +123,7 @@ tssd_curequestvariables Property tCVals Auto
 
 FormList Property TSSD_ShrinesWithQuests Auto
 
+bool ade
 
 Actor HotDemonTarget
 
@@ -130,6 +131,7 @@ int prevRelRankHotDemon = 0
 
 bool modifierKeyIsDown = false
 bool hasAbsorbedCum = false
+bool isStartingDefeated = false
 
 HeadPart PlayerEyes
 HeadPart ThrallEyes
@@ -195,7 +197,7 @@ Function updateHeartMeter(bool forceShow = false)
     
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
-    if (nxtPerc != lastPerc) || forceShow
+    if ((nxtPerc != lastPerc) || forceShow) && !Sexlab.IsActorActive(PlayerRef)
         T_Show("", "menus/TSSD/" + nxtPerc + "H.dds" )
         lastPerc = nxtPerc
     endif
@@ -323,7 +325,8 @@ EndFunction
 bool Function actDefeated(actor tarRef, bool changeGameTime = true)
     
     ;TSSD_FuckingInvincible.Cast(PlayerRef)
-    if tarRef
+    if tarRef && !isStartingDefeated
+        isStartingDefeated = true
         AzuraFadeToBlack.Apply()
         if changeGameTime
             PlayerRef.PlayIdle(BleedOutStart)
@@ -333,8 +336,19 @@ bool Function actDefeated(actor tarRef, bool changeGameTime = true)
             tarRef.enable()
         endif
         ImageSpaceModifier.RemoveCrossFade(3)
-        return (Sexlab.StartSceneQuick(akActor1 = PlayerRef, akActor2 = tarRef, akSubmissive = PlayerRef, astags = "-love, -bed, -furniture, rape")) != none
+        if (Sexlab.StartSceneQuick(akActor1 = tarRef, akActor2 = PlayerRef,  akSubmissive = PlayerRef, astags = "-love, -bed, -furniture, rape")) == none
+            if Sexlab.StartSceneQuick(tarRef, PlayerRef, akSubmissive = PlayerRef) == none
+                Utility.Wait(3)
+                isStartingDefeated = false
+                return false
+            endif
+        endif
+        Utility.Wait(3)
+        isStartingDefeated = false
+        return true
     endif
+    Utility.Wait(3)
+    isStartingDefeated = false
     return false
 Endfunction
 
@@ -363,13 +377,13 @@ EndEvent
 Function toggleCActions(int index)
     
         if index == 0
-            tCVals.MaraCurse = false
+            tCVals.toggleCurse("Mara")
         elseif index == 2
-            tCVals.JulianosCurse = false
+            tCVals.toggleCurse("Julianos")
         elseif index == 3
-            tCVals.DibellaCurse = false
+            tCVals.toggleCurse("Dibella")
         elseif index == 4
-            tCVals.AkatoshCurse = false
+            tCVals.toggleCurse("Akatosh")
         endif
 
 EndFunction
@@ -390,6 +404,7 @@ bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1
     advanceStageTwenty()
     if isCompleted
         toggleCActions(index)
+        tCVals.completeQuest(index)
     endif
     return isCompleted
 Endfunction
@@ -595,7 +610,7 @@ Event OnUpdateGameTime()
     RefreshEnergy(energy_loss)
 
     float succNeedVal = SuccubusDesireLevel.GetValue()
-    if succNeedVal <= TSSD_ravanousNeedLevel.GetValue() && succNeedVal > -101 && PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
+    if succNeedVal <= TSSD_ravanousNeedLevel.GetValue() && succNeedVal > -101 && PlayerRef.HasPerk(TSSD_Base_PowerGrowing) && !Sexlab.IsActorActive(PlayerRef)
         TSSD_SuccubusDetectJuice.Cast(PlayerRef, PlayerRef)
         if !deathModeActivated
             toggleDeathMode()

@@ -195,8 +195,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
     bool aggressiveY = false
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
-        if consentingActor != PlayerRef 
-            DBGTrace("Sub: " + _thread.GetSubmissive(PlayerRef) + " Host: " + consentingActor.IsHostileToActor(PlayerRef) + " isAggr: " + !_thread.GetSubmissive(consentingActor))
+        if consentingActor != PlayerRef
             if _thread.GetSubmissive(PlayerRef) && consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
                 aggressiveY = true
             endif
@@ -206,7 +205,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
         endif
         indexIn += 1
     endwhile
-    if aggressiveY
+    if aggressiveY && !tActions.deathModeActivated
         tActions.toggleDeathMode(true, true)
     endif
     if SuccubusDesireLevel.GetValue() > -100.0
@@ -319,12 +318,11 @@ Event PlayerSceneEnd(Form FormRef, int tid)
         endif
         indexIn += 1
     endwhile   
-    if tActions.deathModeActivated && SuccubusDesireLevel.GetValue() >= -99
+    if tActions.deathModeActivated
         tActions.toggleDeathMode(true)
     endif
     Utility.Wait(10)
     tActions.RegisterForCrosshairRef()
-    tActions.deathModeActivated = false
 EndEvent
 
 
@@ -379,9 +377,9 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			float drainLevel = tActions.getDrainLevel()
 			float succdVal = min(WhoCums.GetAV("Health"), drainLevel )
+            WhoCums.SetFactionRank(TSSD_MarkedForDeathFaction, 1)
 			if succdVal <= drainLevel
 				WhoCums.setAV("Health", 10000)
-				WhoCums.SetFactionRank(TSSD_MarkedForDeathFaction, 1)
 				WhoCums.SetAv("Confidence", 0)
 			endif
 			TSSD_DrainHealth.SetNthEffectMagnitude(0, succdVal )
