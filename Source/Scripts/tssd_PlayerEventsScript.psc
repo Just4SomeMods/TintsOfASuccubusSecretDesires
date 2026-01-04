@@ -517,6 +517,7 @@ EndEvent
 
 Event OnInit()	
 	lastGameHour = gamehour.GetValue() * 24
+    (Game.GetFormFromFile(0x3c7 , "TintsOfASuccubusSecretDesires.esp") as Quest).Start()
 endEvent
 
 

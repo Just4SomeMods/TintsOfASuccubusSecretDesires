@@ -1,0 +1,17 @@
+{
+  "FormKey": "02009E:Skyrim.esm",
+  "EditorID": "SolitudeRadiantRaimentsLocation",
+  "Version2": 14,
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Radiant Raiments"
+  },
+  "Keywords": [
+    "0130DC:Skyrim.esm",
+    "01CB86:Skyrim.esm",
+    "061849:Skyrim.esm"
+  ],
+  "ParentLocation": "0358B7:Skyrim.esm",
+  "WorldLocationMarkerRef": "02009D:Skyrim.esm",
+  "WorldLocationRadius": 0.0
+}

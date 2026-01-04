@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003DB:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseResponse",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Yes? I feel so exhausted..."
+  },
+  "Branch": "0003D8:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

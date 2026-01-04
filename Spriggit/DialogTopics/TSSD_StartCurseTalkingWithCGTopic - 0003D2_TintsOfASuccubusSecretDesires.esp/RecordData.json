@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003D2:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseTalkingWithCGTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Don't Stendarr worshippers kill people who deal with daedra?"
+  },
+  "Branch": "0003D1:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

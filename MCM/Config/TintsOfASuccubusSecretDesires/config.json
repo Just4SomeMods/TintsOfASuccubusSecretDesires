@@ -173,6 +173,16 @@
             ]
         },
         {
+            "pageDisplayName": "DEBUG: Doors",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_WinterholdTrapdoor",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
             "pageDisplayName": "DEBUG: Factions",
             "content": [
                 {
@@ -822,6 +832,21 @@
             ]
         },
         {
+            "pageDisplayName": "DEBUG: Locations",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "SolitudeRadiantRaimentsLocation",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_MysteriousRoom",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
             "pageDisplayName": "DEBUG: MagicEffects",
             "content": [
                 {
@@ -986,12 +1011,36 @@
                 },
                 {
                     "type": "text",
+                    "text": "TSSD_PeepingKim",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_RefreshEnergy",
                     "help": "$showStuff"
                 },
                 {
                     "type": "text",
                     "text": "TSSD_ZenitharDonationQuestion",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "DEBUG: NavigationMeshInfoMaps",
+            "content": []
+        },
+        {
+            "pageDisplayName": "DEBUG: Npcs",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_CurseGiverMage",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_CursedWoman",
                     "help": "$showStuff"
                 }
             ]

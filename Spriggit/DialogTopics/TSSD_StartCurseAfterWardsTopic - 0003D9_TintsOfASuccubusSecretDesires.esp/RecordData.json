@@ -1,0 +1,12 @@
+{
+  "FormKey": "0003D9:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseAfterWardsTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "..."
+  },
+  "Branch": "0003D8:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "Subtype": "ForceGreet",
+  "SubtypeName": "PFGT"
+}

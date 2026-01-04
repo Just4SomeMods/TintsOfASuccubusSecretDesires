@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003D4:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseVigilants",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "There are some Vigilants of Stendarr who might disagree with you on that point."
+  },
+  "Branch": "0003D1:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}
