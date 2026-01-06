@@ -82,4 +82,5 @@ Event AnimEndTwo(int aiThreadID, bool abHasPlayer)
 	Utility.Wait(2)
 	DoFadeIn(1)
 	CursedWoman.SetFactionRank(TSSD_EnthralledFaction, 1)
+	tMenus.OpenGrandeMenu()
 EndEvent
