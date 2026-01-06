@@ -2,6 +2,8 @@ ScriptName tssd_utils hidden
 
 import b612
 
+ImageSpaceModifier FadeToBlackHold
+
 float Function Max(float a, float b) Global
     if a > b 
         return a
@@ -184,6 +186,8 @@ Function Maintenance() Global
     JDB.SetObj("tssdfactions", jval)
     jval = JValue.readFromFile("Data/Tssd/oldNorseGods.json")
     JDB.SetObj("oldNorseGods", jval)
+    jval = JValue.readFromFile("Data/Tssd/bodyMorphs.json")
+    JDB.SetObj("tssd_morphs", jval)    
     ReadInCosmeticSetting()
 Endfunction
 
@@ -250,4 +254,22 @@ bool Function isSingle(Actor ak) Global
     AssociationType akCourting = Game.GetFormFromFile(0x1EE23, "skyrim.esm") as AssociationType
     AssociationType akSpouse = Game.GetFormFromFile(0x142CA, "skyrim.esm") as AssociationType
     return !(ak.HasAssociation(akCourting) || ak.HasAssociation(akSpouse))
+Endfunction
+
+Function DoFadeOut (Float Time) Global
+	(Game.GetFormFromFile(0xF756F, "skyrim.esm") as ImageSpaceModifier).ApplyCrossFade (Time)
+  	Utility.Wait (Time)
+	Game.FadeOutGame (False,True,50,1)
+EndFunction
+
+
+Function DoFadeIn (Float Time) Global
+	Game.FadeOutGame (False,True,0.1,0.1)
+	ImageSpaceModifier.RemoveCrossFade (Time)
+EndFunction
+
+Function shortFade() Global
+    DoFadeOut(1)
+    Utility.Wait(1.4)
+    DoFadeIn(1)
 Endfunction

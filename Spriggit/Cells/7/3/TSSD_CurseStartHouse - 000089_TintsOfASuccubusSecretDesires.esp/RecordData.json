@@ -53,6 +53,7 @@
   "LightingTemplate": "06256A:Skyrim.esm",
   "WaterHeight": -2.1474836E+09,
   "Location": "0003C4:TintsOfASuccubusSecretDesires.esp",
+  "Owner": "0003C5:TintsOfASuccubusSecretDesires.esp",
   "AcousticSpace": "0C5B6D:Skyrim.esm",
   "Music": "02C3CA:Skyrim.esm",
   "NavigationMeshes": [
@@ -2864,19 +2865,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000272:TintsOfASuccubusSecretDesires.esp",
-      "MajorRecordFlagsRaw": 1024,
-      "SkyrimMajorRecordFlags": [
-        "0x400"
-      ],
-      "Base": "0C7316:Skyrim.esm",
-      "Owner": "0C13F1:Skyrim.esm",
-      "Placement": {
-        "Position": "-384.85526, -755.2897, -156.99226"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002A8:TintsOfASuccubusSecretDesires.esp",
       "MajorRecordFlagsRaw": 1024,
       "SkyrimMajorRecordFlags": [
@@ -2895,9 +2883,10 @@
     {
       "MutagenObjectType": "PlacedObject",
       "FormKey": "000301:TintsOfASuccubusSecretDesires.esp",
-      "MajorRecordFlagsRaw": 1024,
+      "MajorRecordFlagsRaw": 1073742848,
       "SkyrimMajorRecordFlags": [
-        "0x400"
+        "0x400",
+        "0x40000000"
       ],
       "VirtualMachineAdapter": {
         "Scripts": [
@@ -2936,6 +2925,11 @@
               },
               {
                 "MutagenObjectType": "ScriptObjectProperty",
+                "Name": "TSSD_EnthralledFaction",
+                "Object": "00008F:TintsOfASuccubusSecretDesires.esp"
+              },
+              {
+                "MutagenObjectType": "ScriptObjectProperty",
                 "Name": "TSSD_PeepingKim",
                 "Object": "0003CE:TintsOfASuccubusSecretDesires.esp"
               },
@@ -2971,19 +2965,6 @@
       "Placement": {
         "Position": "-149.06923, -548.16846, 40.31417",
         "Rotation": "0, -0, 5.9831862"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000311:TintsOfASuccubusSecretDesires.esp",
-      "MajorRecordFlagsRaw": 1024,
-      "SkyrimMajorRecordFlags": [
-        "0x400"
-      ],
-      "Base": "0A6C04:Skyrim.esm",
-      "Owner": "0C13F1:Skyrim.esm",
-      "Placement": {
-        "Position": "-213.09271, -553.68463, -165.9503"
       }
     },
     {
@@ -3080,19 +3061,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0000AA:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C016:Skyrim.esm",
-      "Placement": {
-        "Position": "-81.13356, -651.9213, 1",
-        "Rotation": "0, -0, 5.3831882"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000106:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CE026:Skyrim.esm",
+      "Base": "057038:Skyrim.esm",
       "Placement": {
-        "Position": "474.47794, -1349.7566, 288"
+        "Position": "576.1745, -965.3878, 0"
       }
     },
     {
@@ -3117,37 +3089,9 @@
     {
       "MutagenObjectType": "PlacedObject",
       "FormKey": "000141:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FA2E:Skyrim.esm",
+      "Base": "057038:Skyrim.esm",
       "Placement": {
-        "Position": "576, -1264, -288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00015F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C842B:Skyrim.esm",
-      "Placement": {
-        "Position": "89.83147, -1332.177, 476.36636",
-        "Rotation": "0, -0, 1.2831999"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000169:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Placement": {
-        "Position": "688.70624, -941.89087, -181.29356",
-        "Rotation": "-0.0025140732, 0.000123305, 3.0210395"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00016A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1552, 288",
-        "Rotation": "0, -0, 1.5707964"
+        "Position": "311.61725, -987.364, 0.7241"
       }
     },
     {
@@ -3157,16 +3101,6 @@
       "Placement": {
         "Position": "715.46265, -1248.9884, -3.042222",
         "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00016C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD0:Skyrim.esm",
-      "Scale": 0.91,
-      "Placement": {
-        "Position": "895.86804, -890.4165, 352.1162",
-        "Rotation": "-0.0014840001, -0.002259417, 1.7104226"
       }
     },
     {
@@ -3189,30 +3123,12 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00016F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "098623:Skyrim.esm",
-      "Placement": {
-        "Position": "187.9857, -1782.9077, 352.61536",
-        "Rotation": "0.014284347, 0.0062684426, 3.9618976"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000170:TintsOfASuccubusSecretDesires.esp",
       "Base": "057A43:Skyrim.esm",
       "Radius": 68.62872,
       "Emittance": "04D7FD:Skyrim.esm",
       "Placement": {
         "Position": "494.81577, -1126.3975, 130.46646"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000171:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057228:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1552, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -3230,26 +3146,6 @@
       "Base": "03FAB4:Skyrim.esm",
       "Placement": {
         "Position": "0, -1264, 0",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000174:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "075492:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "273.78134, -890.79956, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000175:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1552, 288",
         "Rotation": "0, -0, 1.5707964"
       }
     },
@@ -3282,56 +3178,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000179:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03133B:Skyrim.esm",
-      "Placement": {
-        "Position": "-389.9712, -1177.3794, 330.1938",
-        "Rotation": "-0.0105547225, -0.004314272, 1.134486"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00017A:TintsOfASuccubusSecretDesires.esp",
       "Base": "000003:Skyrim.esm",
       "Placement": {
         "Position": "-263.53503, -1672.0894, 0.0002593994",
         "Rotation": "0, -0, 3.301994"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00017B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C2A02:Skyrim.esm",
-      "Placement": {
-        "Position": "-404.00012, -683.9998, 0",
-        "Rotation": "0, 0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00017C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06B303:Skyrim.esm",
-      "Placement": {
-        "Position": "675.9543, -1539.2281, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00017D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057036:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00017E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C674C:Skyrim.esm",
-      "Placement": {
-        "Position": "231.99988, -1455.9999, 288",
-        "Rotation": "0, -0, 3.3510323"
       }
     },
     {
@@ -3345,56 +3196,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000180:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "320.0051, -1079.7725, 434.6575",
-        "Rotation": "-0.006662273, 0.008870187, 6.283103"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000181:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D8E98:Skyrim.esm",
-      "Owner": "0C13F1:Skyrim.esm",
-      "Placement": {
-        "Position": "937.435, -1295.3538, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000182:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD4:Skyrim.esm",
-      "Scale": 0.6,
-      "Placement": {
-        "Position": "687.79755, -1334.2144, 349.13177",
-        "Rotation": "-0.023455946, -0.012096959, 1.2789032"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000183:TintsOfASuccubusSecretDesires.esp",
       "Base": "03611F:Skyrim.esm",
       "Radius": -97.61568,
       "Placement": {
         "Position": "-330.69727, -966.7237, 65.522285"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000184:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "0, -976, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000185:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057036:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1840, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -3406,50 +3212,6 @@
       "Placement": {
         "Position": "-330.47433, -298.45074, 61.81884",
         "Rotation": "0.0029719144, 0.015569996, 2.6839952"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000187:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000188:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1840, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000189:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "-144, -832, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00018A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BDC:Skyrim.esm",
-      "Placement": {
-        "Position": "-413.341, -1297.9437, 435.4131",
-        "Rotation": "-0.0047357637, 0.004701314, 3.8741367"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00018B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01AFFC:Skyrim.esm",
-      "Placement": {
-        "Position": "296.5457, -1082.3457, 393.6659",
-        "Rotation": "0, -0, 1.5707964"
       }
     },
     {
@@ -3489,91 +3251,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000190:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03AD70:Skyrim.esm",
-      "Placement": {
-        "Position": "100.06999, -1218.8348, 303.569",
-        "Rotation": "-0.016914738, 0.01732337, 2.2847621"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000191:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0318FB:Skyrim.esm",
-      "Placement": {
-        "Position": "236.63399, -1180.1853, -224.70334",
-        "Rotation": "0, 0, 3.3641891"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000192:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1840, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000193:TintsOfASuccubusSecretDesires.esp",
       "Base": "0F2013:Skyrim.esm",
       "Placement": {
         "Position": "320.4416, -1392.0844, 142.13315",
         "Rotation": "0, 0, 3.4566438"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000194:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -688, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000195:TintsOfASuccubusSecretDesires.esp",
-      "Base": "034D30:Skyrim.esm",
-      "Placement": {
-        "Position": "679.03577, -1248.55, -161.06496",
-        "Rotation": "0, -0, 3.1939528"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000196:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "423.15143, -881.3346, 330.56607",
-        "Rotation": "-0.008877566, 0.0012564692, 0.0002648584"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000197:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060CB7:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -688, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000198:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACBC:Skyrim.esm",
-      "Placement": {
-        "Position": "392.58154, -1086.5184, 317.15488",
-        "Rotation": "0, -0, 1.1000026"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000199:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D790C:Skyrim.esm",
-      "Placement": {
-        "Position": "342.38083, -1457.076, 331.78918",
-        "Rotation": "-0.007163723, -0.0640296, 6.262016"
       }
     },
     {
@@ -3587,28 +3269,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00019B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057228:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -976, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00019C:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAC0:Skyrim.esm",
       "Placement": {
         "Position": "-144, -544, 0"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00019D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -3622,47 +3286,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00019F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BDC:Skyrim.esm",
-      "Placement": {
-        "Position": "-375.15036, -1173.9362, 330.45337",
-        "Rotation": "-0.013936431, 0.00032505952, 3.8745446"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001A0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B33:Skyrim.esm",
-      "Placement": {
-        "Position": "688.2784, -996.1938, -226.30649",
-        "Rotation": "-0.0019663575, -8.14426E-05, 5.9986453"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001A1:TintsOfASuccubusSecretDesires.esp",
       "Base": "065C98:Skyrim.esm",
       "Placement": {
         "Position": "675.87915, -1203.2762, 74.35109",
         "Rotation": "-0.8936949, -1.3634987, 1.2566371"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001A2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03AD73:Skyrim.esm",
-      "Placement": {
-        "Position": "100.53648, -1232.3995, 352.48178",
-        "Rotation": "0, -0, 3.1831925"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001A3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "0, -1264, 288",
-        "Rotation": "0, -0, 1.5707964"
       }
     },
     {
@@ -3674,15 +3302,6 @@
       "Placement": {
         "Position": "-308.07446, -296.1235, 61.809048",
         "Rotation": "0, -0, 2.6831944"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001A5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0669A5:Skyrim.esm",
-      "Placement": {
-        "Position": "214.01088, -1276.2354, -219.1995",
-        "Rotation": "-1.0090864, -1.2510705, 5.745822"
       }
     },
     {
@@ -3705,29 +3324,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001A8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "-288, -976, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001A9:TintsOfASuccubusSecretDesires.esp",
       "Base": "1018E2:Skyrim.esm",
       "Placement": {
         "Position": "442.7978, -1358.2458, -0.3576107",
         "Rotation": "0, -0, 3.153216"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001AA:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B36:Skyrim.esm",
-      "Placement": {
-        "Position": "693.5018, -947.8101, -216.90594",
-        "Rotation": "1.173728, -1.3576343, 1.8015583"
       }
     },
     {
@@ -3750,67 +3351,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001AD:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FEB:Skyrim.esm",
-      "Scale": 0.6,
-      "Placement": {
-        "Position": "-382.07153, -981.6961, 288.01508",
-        "Rotation": "0.0064046383, 0.006638459, 3.1933796"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001AE:TintsOfASuccubusSecretDesires.esp",
       "Base": "012E4D:Skyrim.esm",
       "Placement": {
         "Position": "-386.07352, -518.1115, 121.53131",
         "Rotation": "0.029580163, -0.02934951, 1.8322012"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001AF:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACD8:Skyrim.esm",
-      "Placement": {
-        "Position": "372.2373, -1086.2351, 443.13538",
-        "Rotation": "0, -0, 1.3000011"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001B0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01397E:Skyrim.esm",
-      "Placement": {
-        "Position": "232.547, -1299.9486, -229.37834",
-        "Rotation": "-0.015749078, 0.02651364, 3.9987006"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001B1:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FE8:Skyrim.esm",
-      "Placement": {
-        "Position": "100.012825, -1120.4243, 288.71237",
-        "Rotation": "-0, -0, 5.2534313"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001B2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001B3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1840, 288",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -3844,24 +3389,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001B7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "10B1A5:Skyrim.esm",
-      "Placement": {
-        "Position": "-576, -976, 0",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001B8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "720, -832, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001B9:TintsOfASuccubusSecretDesires.esp",
       "Base": "064B36:Skyrim.esm",
       "Placement": {
@@ -3880,48 +3407,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001BB:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FEA:Skyrim.esm",
-      "Placement": {
-        "Position": "281.57535, -1383.335, -287.99994",
-        "Rotation": "0, 0, 3.95897"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001BC:TintsOfASuccubusSecretDesires.esp",
       "Base": "02F2F4:Skyrim.esm",
       "Placement": {
         "Position": "-170.4887, -506.16797, 19.27336",
         "Rotation": "0.01593822, 0.0023232468, 1.28768"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001BD:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FEA:Skyrim.esm",
-      "Placement": {
-        "Position": "77.20225, -873.59735, 287.25995",
-        "Rotation": "0, -0, 2.0943952"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001BE:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C036:Skyrim.esm",
-      "Scale": 0.81,
-      "Placement": {
-        "Position": "-419.5178, -977.13837, 164.68875",
-        "Rotation": "0, 6.2308254, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001BF:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1552, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -3963,31 +3453,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001C5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "075492:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "176.16116, -1564.7139, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001C6:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAB8:Skyrim.esm",
       "Placement": {
         "Position": "-288, -688, 0",
         "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001C7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CEE84:Skyrim.esm",
-      "Placement": {
-        "Position": "-256.23376, -1384.7808, 421.3726",
-        "Rotation": "0.0005174456, -0.0027967803, 3.1896698"
       }
     },
     {
@@ -3998,15 +3468,6 @@
       "Placement": {
         "Position": "-45.199554, -552.8829, 9.918213E-05",
         "Rotation": "0, -0, 3.6000051"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001C9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0330BC:Skyrim.esm",
-      "Placement": {
-        "Position": "770.13855, -1266.0641, 479.2351",
-        "Rotation": "1.5718277E-06, 0.0033737049, 6.282967"
       }
     },
     {
@@ -4029,15 +3490,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001CC:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -1264, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001CD:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAB8:Skyrim.esm",
       "Placement": {
@@ -4052,15 +3504,6 @@
       "Placement": {
         "Position": "-284.07767, -290.8582, 0.0001373291",
         "Rotation": "0, -0, 0.012402844"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001CF:TintsOfASuccubusSecretDesires.esp",
-      "Base": "077773:Skyrim.esm",
-      "Scale": 0.72,
-      "Placement": {
-        "Position": "511.33862, -1247.7181, -249.98792"
       }
     },
     {
@@ -4085,48 +3528,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001D2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, -288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001D3:TintsOfASuccubusSecretDesires.esp",
       "Base": "060CB7:Skyrim.esm",
       "Placement": {
         "Position": "576, -1264, 0",
         "Rotation": "0, 0, 3.141593"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001D4:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C035:Skyrim.esm",
-      "Scale": 0.81,
-      "Placement": {
-        "Position": "131.38512, -689.1382, 164.68875",
-        "Rotation": "1.2499245E-09, 0.05236036, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001D5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C016:Skyrim.esm",
-      "Placement": {
-        "Position": "-196.32047, -993.45294, 289.75046"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001D6:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C035:Skyrim.esm",
-      "Scale": 0.81,
-      "Placement": {
-        "Position": "3.7536147, -1105.782, 160.99811",
-        "Rotation": "0.052360356, -3.53591E-09, 3.1415927"
       }
     },
     {
@@ -4143,25 +3549,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001D8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "034D2D:Skyrim.esm",
-      "Scale": 1.1,
-      "Placement": {
-        "Position": "680.7738, -1224.4606, -163.84401",
-        "Rotation": "0, -0, 1.9547688"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001D9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "024CA4:Skyrim.esm",
-      "Placement": {
-        "Position": "685.7597, -978.7408, -288.6672",
-        "Rotation": "0, -0, 1.483207"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001DA:TintsOfASuccubusSecretDesires.esp",
       "Base": "034C5D:Skyrim.esm",
       "Placement": {
@@ -4171,28 +3558,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001DB:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B3A:Skyrim.esm",
-      "Placement": {
-        "Position": "698.0826, -988.0254, -179.18727",
-        "Rotation": "0, -0, 4.712391"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001DC:TintsOfASuccubusSecretDesires.esp",
       "Base": "02E6CD:Skyrim.esm",
       "Placement": {
         "Position": "-578.16895, -302.93665, 0.0001373291",
         "Rotation": "0, -0, 0.012402844"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001DD:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D4BE7:Skyrim.esm",
-      "Placement": {
-        "Position": "-197.3282, -1275.7671, 67.49769"
       }
     },
     {
@@ -4232,26 +3602,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001E2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "000845:Skyrim.esm",
-      "Scale": 0.96,
-      "Placement": {
-        "Position": "326.648, -1156.6599, -216.80225",
-        "Rotation": "0, -0, 0.5000032"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001E4:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B2F:Skyrim.esm",
-      "Scale": 1.13,
-      "Placement": {
-        "Position": "205.25372, -1515.868, 357.28024",
-        "Rotation": "-0.8259592, 0.046958238, 4.5780087"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001E5:TintsOfASuccubusSecretDesires.esp",
       "Base": "01BE1B:Skyrim.esm",
       "Scale": 0.85,
@@ -4263,54 +3613,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001E6:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D5AD1:Skyrim.esm",
-      "Placement": {
-        "Position": "845.59467, -1368.2035, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001E7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0516C8:Skyrim.esm",
-      "Placement": {
-        "Position": "107.32471, -1223.3065, 405.71768",
-        "Rotation": "0.013302154, 0.014601081, 2.269886"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001E8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACD7:Skyrim.esm",
-      "Placement": {
-        "Position": "362.6512, -1080.1067, 437.8384",
-        "Rotation": "0, -0, 1.7"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001E9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "1008, -1408, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001EA:TintsOfASuccubusSecretDesires.esp",
       "Base": "03611F:Skyrim.esm",
       "Radius": -54.705704,
       "Placement": {
         "Position": "-323.96506, -1368.9498, 74.60465"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001EB:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -4333,15 +3640,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001EE:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACF7:Skyrim.esm",
-      "Placement": {
-        "Position": "-348.17938, -893.3481, 352.365",
-        "Rotation": "0, -0, 0.22733541"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001EF:TintsOfASuccubusSecretDesires.esp",
       "Base": "02EB11:Skyrim.esm",
       "Emittance": "075492:Skyrim.esm",
@@ -4353,37 +3651,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C035:Skyrim.esm",
-      "Scale": 0.81,
-      "Placement": {
-        "Position": "-419.5179, -689.1382, 164.68875",
-        "Rotation": "0, 6.2308254, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001F1:TintsOfASuccubusSecretDesires.esp",
       "Base": "064B3D:Skyrim.esm",
       "Placement": {
         "Position": "587.79535, -1342.1313, 65.69463",
         "Rotation": "0.0012083111, -0.0018745904, 1.509266"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "-432, -1120, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACBA:Skyrim.esm",
-      "Placement": {
-        "Position": "401.16458, -1078.617, 435.40155"
       }
     },
     {
@@ -4398,46 +3670,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CC232:Skyrim.esm",
-      "Placement": {
-        "Position": "601.7848, -1261.4702, -341.40692",
-        "Rotation": "0, 0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F6:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Scale": 1.3,
-      "Placement": {
-        "Position": "685.7459, -941.0404, -176.20523",
-        "Rotation": "-0.0089144055, 0.012095346, 0.06395421"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FA2E:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, -288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001F8:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FA2D:Skyrim.esm",
       "Placement": {
         "Position": "0, -976, 0"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001F9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C56C4:Skyrim.esm",
-      "Placement": {
-        "Position": "606.09094, -1919.6189, 332.59174"
       }
     },
     {
@@ -4451,16 +3687,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001FB:TintsOfASuccubusSecretDesires.esp",
-      "Base": "000845:Skyrim.esm",
-      "Scale": 0.96,
-      "Placement": {
-        "Position": "345.5257, -1159.3264, -293.60223",
-        "Rotation": "0, -0, 0.90000236"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001FC:TintsOfASuccubusSecretDesires.esp",
       "Base": "05D6E9:Skyrim.esm",
       "Placement": {
@@ -4470,100 +3696,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001FD:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FEA:Skyrim.esm",
-      "Placement": {
-        "Position": "757.5107, -1184.4501, 287.99988",
-        "Rotation": "0, -0, 0.5235988"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001FE:TintsOfASuccubusSecretDesires.esp",
       "Base": "10B1A5:Skyrim.esm",
       "Placement": {
         "Position": "-288, -1264, 0"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0001FF:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1552, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000200:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C842B:Skyrim.esm",
-      "Placement": {
-        "Position": "-410.8676, -1242.1245, 435",
-        "Rotation": "0, -0, 3.8746312"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000201:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CEE82:Skyrim.esm",
-      "Placement": {
-        "Position": "-201.84074, -1154.4976, 287.7947",
-        "Rotation": "-0.0029342317, -0.013233378, 0.9707297"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000202:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B2E:Skyrim.esm",
-      "Scale": 1.19,
-      "Placement": {
-        "Position": "200.57843, -1523.5631, 356.23398",
-        "Rotation": "0.0017233939, 0.0032116736, 2.5245142"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000203:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Placement": {
-        "Position": "681.53564, -930.37085, -181.29962",
-        "Rotation": "-0.0011453422, -0.0016847148, 6.109537"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000204:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4D58:Skyrim.esm",
-      "Placement": {
-        "Position": "-24.266083, -868.549, 287.1252",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000205:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "834.6097, -1372.9811, 330.24454"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000206:TintsOfASuccubusSecretDesires.esp",
-      "Base": "098623:Skyrim.esm",
-      "Placement": {
-        "Position": "480.80096, -1284.4603, 351.37793",
-        "Rotation": "-0.015440512, -0.0022190544, 1.0972142"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000207:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29DB:Skyrim.esm",
-      "Placement": {
-        "Position": "298.89734, -1078.152, 287.93338",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -4577,65 +3713,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000209:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "-144, -1408, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00020A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "1008, -1408, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00020B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C98:Skyrim.esm",
-      "Placement": {
-        "Position": "871.85645, -896.0097, 362.97534",
-        "Rotation": "0.8936948, 1.3634987, 4.39823"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00020C:TintsOfASuccubusSecretDesires.esp",
       "Base": "104B3F:Skyrim.esm",
       "Placement": {
         "Position": "287.0357, -1272.6945, 64.46977",
         "Rotation": "-0.040803995, 0.008240739, 3.3324378"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00020D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0209A5:Skyrim.esm",
-      "Placement": {
-        "Position": "875.6823, -1264.2563, 288.12204",
-        "Rotation": "0.0007116251, 8.470471E-05, 4.3825784"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00020E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B36:Skyrim.esm",
-      "Placement": {
-        "Position": "896.45886, -891.0952, 355.69507",
-        "Rotation": "-0.0101521555, -0.0067207334, 4.5029497"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00020F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C2A02:Skyrim.esm",
-      "Placement": {
-        "Position": "292.77094, -872.19885, 289",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -4649,46 +3731,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000211:TintsOfASuccubusSecretDesires.esp",
-      "Base": "098621:Skyrim.esm",
-      "Placement": {
-        "Position": "196.27061, -1800.6482, 356.1056",
-        "Rotation": "0, -0, 5.550147"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000212:TintsOfASuccubusSecretDesires.esp",
       "Base": "065C9E:Skyrim.esm",
       "Placement": {
         "Position": "562.3124, -1321.0159, 72.007195"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000213:TintsOfASuccubusSecretDesires.esp",
-      "Base": "034D2D:Skyrim.esm",
-      "Placement": {
-        "Position": "678.088, -1271.6146, -163.84401",
-        "Rotation": "0, -0, 1.9547688"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000214:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057036:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000215:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0516C8:Skyrim.esm",
-      "Placement": {
-        "Position": "-44.277805, -857.7627, 435.19614",
-        "Rotation": "-0.0058951336, -0.04018995, 0.5289217"
       }
     },
     {
@@ -4701,110 +3747,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000217:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, -288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000218:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06E7A4:Skyrim.esm",
-      "Placement": {
-        "Position": "3.1363735, -872.851, 351.81158",
-        "Rotation": "0.0066508893, 0.0026357505, 0.0067059677"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000219:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0EF53E:Skyrim.esm",
-      "Placement": {
-        "Position": "383.22302, -1085.6392, 313.48795",
-        "Rotation": "0, -0, 2"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00021A:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FA2D:Skyrim.esm",
       "Placement": {
         "Position": "-288, -976, 0",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00021B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D5AD1:Skyrim.esm",
-      "Placement": {
-        "Position": "343.4734, -1456.9999, 288",
-        "Rotation": "0, -0, 5.3831882"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00021C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B2F:Skyrim.esm",
-      "Scale": 1.13,
-      "Placement": {
-        "Position": "193.34027, -1523.2336, 356.24643",
-        "Rotation": "0.0040216963, -0.0017286075, 2.0714571"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00021D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CEE80:Skyrim.esm",
-      "Placement": {
-        "Position": "-270.50735, -1383.993, 469.8632",
-        "Rotation": "0.00905357, -0.0039909426, 4.712946"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00021E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C016:Skyrim.esm",
-      "Placement": {
-        "Position": "-112.20585, -1181.0784, 289"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00021F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -1264, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000220:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1840, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000221:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FDF:Skyrim.esm",
-      "Placement": {
-        "Position": "329.50107, -1158.5493, -141.6457",
-        "Rotation": "-0, -0, 2.3957083"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000222:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03AD70:Skyrim.esm",
-      "Placement": {
-        "Position": "99.96081, -1199.432, 303.593",
-        "Rotation": "0.023518004, -0.0009829043, 3.1912286"
       }
     },
     {
@@ -4826,62 +3773,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000226:TintsOfASuccubusSecretDesires.esp",
-      "Base": "10B1A5:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, -288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000227:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057228:Skyrim.esm",
-      "Placement": {
-        "Position": "0, -976, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000228:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29D9:Skyrim.esm",
-      "Placement": {
-        "Position": "875.3442, -866.25775, 288.62158"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000229:TintsOfASuccubusSecretDesires.esp",
       "Base": "034C5D:Skyrim.esm",
       "Placement": {
         "Position": "691.40894, -1219.349, 132.63477",
         "Rotation": "1.5740542, -0.26953906, 6.0911994"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00022A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C017:Skyrim.esm",
-      "Placement": {
-        "Position": "-8.125481, -975.82623, 1",
-        "Rotation": "0, -0, 5.1831884"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00022B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B36:Skyrim.esm",
-      "Placement": {
-        "Position": "678.97784, -1006.5373, -134.7548",
-        "Rotation": "0.0021614095, 0.0007658892, 3.9338558"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00022C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "061859:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, -288"
       }
     },
     {
@@ -4895,48 +3791,12 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00022E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05BDB2:Skyrim.esm",
-      "LocationRefTypes": [
-        "06184A:Skyrim.esm"
-      ],
-      "Owner": "0C13F1:Skyrim.esm",
-      "LocationReference": "0003C4:TintsOfASuccubusSecretDesires.esp",
-      "LinkedReferences": [
-        {
-          "Reference": "000272:TintsOfASuccubusSecretDesires.esp"
-        }
-      ],
-      "Placement": {
-        "Position": "255.2772, -1555.3887, 353.72247",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00022F:TintsOfASuccubusSecretDesires.esp",
       "Base": "057033:Skyrim.esm",
       "Emittance": "04D7FD:Skyrim.esm",
       "Placement": {
         "Position": "575.9999, -1263.9999, 0",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000230:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "1152, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000231:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D790C:Skyrim.esm",
-      "Placement": {
-        "Position": "-306.35654, -1385.8674, 420.3898"
       }
     },
     {
@@ -4959,38 +3819,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000234:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, -288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000235:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FA2D:Skyrim.esm",
       "Placement": {
         "Position": "-288, -1264, 0",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000236:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000237:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD0:Skyrim.esm",
-      "Placement": {
-        "Position": "220.86359, -1551.8264, 351.10907",
-        "Rotation": "0.0001891746, -0.0031365491, 6.183182"
       }
     },
     {
@@ -5015,29 +3848,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00023A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0DABA9:Skyrim.esm",
-      "Placement": {
-        "Position": "686.2514, -1599.8679, 288.0003",
-        "Rotation": "-0.001539261, -0.0012902406, 6.2831106"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00023B:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C2A02:Skyrim.esm",
       "Placement": {
         "Position": "-388.00012, -1263.9999, 0",
         "Rotation": "0, 0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00023C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06E7A4:Skyrim.esm",
-      "Placement": {
-        "Position": "95.55808, -1190.5642, 406.89255",
-        "Rotation": "0.01367324, -0.0021925578, 5.1958055"
       }
     },
     {
@@ -5051,41 +3866,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00023E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D5AD0:Skyrim.esm",
-      "Placement": {
-        "Position": "409.62225, -878.1484, 288",
-        "Rotation": "0, -0, 5.3831882"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00023F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C56C4:Skyrim.esm",
-      "Placement": {
-        "Position": "485.52542, -1377.2969, -165.99997"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000240:TintsOfASuccubusSecretDesires.esp",
-      "Base": "045C28:Skyrim.esm",
-      "Placement": {
-        "Position": "688.468, -1176.9067, 310.95804",
-        "Rotation": "0.4897611, 1.29042, 0.34199107"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000241:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CC163:Skyrim.esm",
-      "Placement": {
-        "Position": "723.99994, -927.99994, 288",
-        "Rotation": "0, -0, 4.3371725"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000242:TintsOfASuccubusSecretDesires.esp",
       "Base": "0B9BE0:Skyrim.esm",
       "Placement": {
@@ -5095,37 +3875,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000243:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05F222:Skyrim.esm",
-      "Placement": {
-        "Position": "-370.32462, -1347.2872, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000244:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACC9:Skyrim.esm",
-      "Placement": {
-        "Position": "387.62003, -1084.6014, 305.72446",
-        "Rotation": "0, -0, 1.3"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000245:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C56C4:Skyrim.esm",
       "Placement": {
         "Position": "-393.90033, -585.405, 121.87714",
         "Rotation": "0, -0, 4.9831886"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000246:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0E41B8:Skyrim.esm",
-      "Placement": {
-        "Position": "102.18975, -1193.7957, 349.0875",
-        "Rotation": "0.0031227004, -0.0051053273, 1.6832228"
       }
     },
     {
@@ -5150,15 +3904,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000249:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B35:Skyrim.esm",
-      "Placement": {
-        "Position": "685.0293, -961.03534, -226.30621",
-        "Rotation": "0.0014952803, 0.0005303398, 1.2448313"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00024A:TintsOfASuccubusSecretDesires.esp",
       "Base": "098625:Skyrim.esm",
       "Placement": {
@@ -5168,38 +3913,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00024B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C234D:Skyrim.esm",
-      "Placement": {
-        "Position": "240.66661, -1259.2921, -288",
-        "Rotation": "0, -0, 5.0331955"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00024C:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAB8:Skyrim.esm",
       "Placement": {
         "Position": "-576, -399.99982, 0",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00024D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -1264, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00024E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4BBE:Skyrim.esm",
-      "Placement": {
-        "Position": "68.94411, -1158.6334, 286.35992",
-        "Rotation": "0, -0, 1.5707964"
       }
     },
     {
@@ -5214,93 +3932,12 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000250:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057032:Skyrim.esm",
-      "Placement": {
-        "Position": "-143.99994, -1120, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000251:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "6.1035156E-05, -976, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000252:TintsOfASuccubusSecretDesires.esp",
       "Base": "057227:Skyrim.esm",
       "Emittance": "04D7FD:Skyrim.esm",
       "Placement": {
         "Position": "0, -400, 0",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000253:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "6.1035156E-05, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000254:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "-287.99994, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000255:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -976, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000256:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "-287.9999, -976, 288",
-        "Rotation": "0, 0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000257:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4D4E:Skyrim.esm",
-      "Placement": {
-        "Position": "180.71422, -1800.3455, 288.55627",
-        "Rotation": "0, -0, 4.6774826"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000258:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0F2012:Skyrim.esm",
-      "Placement": {
-        "Position": "580.22327, -1382.7487, -227.79817",
-        "Rotation": "0, 0, 4.2239037"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000259:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0F2014:Skyrim.esm",
-      "Placement": {
-        "Position": "594.623, -1377.7098, -227.79817",
-        "Rotation": "0, 0, 3.6517134"
       }
     },
     {
@@ -5314,37 +3951,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00025B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0F2014:Skyrim.esm",
-      "Placement": {
-        "Position": "902.19586, -866.5538, 381.65137",
-        "Rotation": "0, 0, 0.626987"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00025C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0F2013:Skyrim.esm",
-      "Placement": {
-        "Position": "884.0568, -870.5667, 381.65137",
-        "Rotation": "0, 0, 0.6958633"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00025D:TintsOfASuccubusSecretDesires.esp",
       "Base": "044E70:Skyrim.esm",
       "Placement": {
         "Position": "327.18076, -1336.1271, 63.94353",
         "Rotation": "0.00054019794, 0.0035674705, 0.00093278365"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00025E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C56C4:Skyrim.esm",
-      "Placement": {
-        "Position": "179.3995, -1765.1045, 351.87872"
       }
     },
     {
@@ -5386,15 +3997,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000263:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0209AA:Skyrim.esm",
-      "Placement": {
-        "Position": "848.7058, -1361.0549, 330.21924",
-        "Rotation": "-0.0042104777, 0.020078609, 2.5761423"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000264:TintsOfASuccubusSecretDesires.esp",
       "Base": "0F2014:Skyrim.esm",
       "Placement": {
@@ -5412,40 +4014,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000266:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "688.556, -1223.2059, 351.20972",
-        "Rotation": "-0.008877566, 0.0012564692, 0.0002648584"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000267:TintsOfASuccubusSecretDesires.esp",
       "Base": "0CEE84:Skyrim.esm",
       "Owner": "0A6C00:Skyrim.esm",
       "Placement": {
         "Position": "-546.8395, -301.2236, 61.967148"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000268:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1840, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000269:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "075492:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "-272.29532, -883.47345, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
       }
     },
     {
@@ -5498,14 +4071,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00026F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000270:TintsOfASuccubusSecretDesires.esp",
       "Base": "0CEE84:Skyrim.esm",
       "Scale": 0.87,
@@ -5546,15 +4111,6 @@
       "Placement": {
         "Position": "-19.690056, -293.50705, 63.258644",
         "Rotation": "0.0029880656, 0.0011830882, 0.13318817"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000275:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CC163:Skyrim.esm",
-      "Placement": {
-        "Position": "623.9999, -1411.9999, 288",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -5619,16 +4175,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00027C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD8:Skyrim.esm",
-      "Scale": 0.91,
-      "Placement": {
-        "Position": "862.624, -893.97504, 352.23535",
-        "Rotation": "0.003163233, 0.005661708, 0.13962634"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00027D:TintsOfASuccubusSecretDesires.esp",
       "Base": "0A2BBF:Skyrim.esm",
       "Placement": {
@@ -5643,58 +4189,6 @@
       "Placement": {
         "Position": "-195.33643, -1090.5612, 121.99992",
         "Rotation": "0, -0, 5.4831877"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00027F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C56C4:Skyrim.esm",
-      "Placement": {
-        "Position": "673.87616, -1143.7847, -165.83728"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000280:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C98:Skyrim.esm",
-      "Placement": {
-        "Position": "-66.21621, -880.614, 360.82034",
-        "Rotation": "1.427806, -0.14547712, 5.067835"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000281:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C98:Skyrim.esm",
-      "Placement": {
-        "Position": "702.5805, -934.56976, -220.60078",
-        "Rotation": "2.154507, -1.375509, 4.91959"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000282:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C56C4:Skyrim.esm",
-      "Placement": {
-        "Position": "459.98495, -1166.7719, -165.99994"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000283:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C016:Skyrim.esm",
-      "Placement": {
-        "Position": "593.4182, -1760.3287, 289",
-        "Rotation": "0, -0, 1.1000026"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000284:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, -288",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -5717,15 +4211,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000287:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06B303:Skyrim.esm",
-      "Placement": {
-        "Position": "391.99988, -1895.9999, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000288:TintsOfASuccubusSecretDesires.esp",
       "Base": "03611F:Skyrim.esm",
       "Radius": 98.38156,
@@ -5742,36 +4227,6 @@
       "Placement": {
         "Position": "-730.5733, -390.31125, 99.90674",
         "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00028A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4BE5:Skyrim.esm",
-      "Scale": 0.94,
-      "Placement": {
-        "Position": "-277.23203, -1402.2607, 346.5132",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00028B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "075492:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "-397.98343, -986.3009, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00028C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C2A05:Skyrim.esm",
-      "Placement": {
-        "Position": "-375.95496, -894.7293, 288",
-        "Rotation": "0, -0, 5.3831873"
       }
     },
     {
@@ -5798,16 +4253,8 @@
       "Emittance": "075492:Skyrim.esm",
       "Scale": 0.5,
       "Placement": {
-        "Position": "602.9961, -1387.8633, 126.837746",
+        "Position": "603.51135, -1387.7644, 126.837746",
         "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000290:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CE026:Skyrim.esm",
-      "Placement": {
-        "Position": "179.7247, -1216.4867, -286.14142"
       }
     },
     {
@@ -5819,55 +4266,6 @@
       "Placement": {
         "Position": "711.6076, -972.9112, 126.837746",
         "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000292:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "075492:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "673.2073, -1850.4441, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000293:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D5AD0:Skyrim.esm",
-      "Placement": {
-        "Position": "618.2242, -1924.6768, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000294:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "075492:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "966.8653, -974.8095, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000295:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02EB11:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Scale": 0.5,
-      "Placement": {
-        "Position": "867.24677, -1381.9231, 463.17114",
-        "Rotation": "0, -0, 1.6000048"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000296:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057038:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, 0"
       }
     },
     {
@@ -5924,29 +4322,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00029D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1552, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00029E:TintsOfASuccubusSecretDesires.esp",
       "Base": "064B3E:Skyrim.esm",
       "Placement": {
         "Position": "304.43042, -1277.9393, 69.53381",
         "Rotation": "-0.0023515148, -0.0010563058, 6.134895"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00029F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, 288"
       }
     },
     {
@@ -5976,15 +4356,6 @@
       "Placement": {
         "Position": "-290.23392, -298.04132, 63.416725",
         "Rotation": "0.10368432, -0.029270455, 3.198532"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002A3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D8E80:Skyrim.esm",
-      "Placement": {
-        "Position": "-383.55865, -913.9744, 351.38742",
-        "Rotation": "-0.014917994, -0.012409308, 0.00011999996"
       }
     },
     {
@@ -6052,15 +4423,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002AC:TintsOfASuccubusSecretDesires.esp",
-      "Base": "061859:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, -288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002AD:TintsOfASuccubusSecretDesires.esp",
       "Base": "0B9BDC:Skyrim.esm",
       "Placement": {
@@ -6084,15 +4446,6 @@
       "Placement": {
         "Position": "300.21594, -1406.8055, 10.120503",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002B0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01B026:Skyrim.esm",
-      "Placement": {
-        "Position": "393.4206, -1089.2296, 393.99332",
-        "Rotation": "0, -0, 1.5707964"
       }
     },
     {
@@ -6168,15 +4521,6 @@
       "Placement": {
         "Position": "-620.2576, -467.79712, -1.3158473",
         "Rotation": "-0.003053662, -0.006291576, 1.2116865"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002B9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "098621:Skyrim.esm",
-      "Placement": {
-        "Position": "-221.11136, -977.5786, 317.0751",
-        "Rotation": "-0.0043252534, -0.0009117916, 5.3057914"
       }
     },
     {
@@ -6276,15 +4620,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002C4:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "-288, -1264, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002C5:TintsOfASuccubusSecretDesires.esp",
       "Base": "060CB7:Skyrim.esm",
       "Placement": {
@@ -6294,70 +4629,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002C6:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002C7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "10B1A5:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, -288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002C8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002C9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -976, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002CA:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03AC21:Skyrim.esm",
-      "LocationRefTypes": [
-        "071061:Skyrim.esm"
-      ],
-      "LocationReference": "0003C4:TintsOfASuccubusSecretDesires.esp",
-      "Placement": {
-        "Position": "298.9963, -1936.2196, 287.99988",
-        "Rotation": "0, -0, 6.2495775"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002CB:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAB4:Skyrim.esm",
       "Placement": {
         "Position": "-288, -1264, 0",
         "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002CC:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4BE5:Skyrim.esm",
-      "Scale": 0.94,
-      "Placement": {
-        "Position": "-277.23203, -1402.2607, 298.06467",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -6389,29 +4665,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002D0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACC9:Skyrim.esm",
-      "Placement": {
-        "Position": "394.67078, -1068.3528, 399.3225",
-        "Rotation": "0, -0, 5.783187"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002D1:TintsOfASuccubusSecretDesires.esp",
       "Base": "028B0F:Skyrim.esm",
       "Placement": {
         "Position": "-302.50912, -509.96402, 0",
         "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002D2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B36:Skyrim.esm",
-      "Placement": {
-        "Position": "-24.862066, -872.5965, 353.49597",
-        "Rotation": "-0.0016338582, 0.0076347156, 4.502447"
       }
     },
     {
@@ -6434,30 +4692,12 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002D5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06B303:Skyrim.esm",
-      "Placement": {
-        "Position": "72.19379, -1347.855, 288",
-        "Rotation": "0, -0, 2.4707963"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002D6:TintsOfASuccubusSecretDesires.esp",
       "Base": "057A43:Skyrim.esm",
       "Radius": -55.179047,
       "Emittance": "04D7FD:Skyrim.esm",
       "Placement": {
         "Position": "926.29474, -1297.1525, 392.42395"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002D7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05720F:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -688, -288",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -6500,15 +4740,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002DC:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, -288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002DD:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAB8:Skyrim.esm",
       "Placement": {
@@ -6517,149 +4748,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002DE:TintsOfASuccubusSecretDesires.esp",
-      "Base": "098621:Skyrim.esm",
-      "Placement": {
-        "Position": "477.99994, -1255.6185, 351.2485",
-        "Rotation": "0, -0, 2.6832001"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002DF:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C8DB9:Skyrim.esm",
-      "Placement": {
-        "Position": "195.99988, -1643.9999, 288",
-        "Rotation": "0, -0, 1.1584077"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06079A:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -560, 0",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E1:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BDC:Skyrim.esm",
-      "Scale": 0.91,
-      "Placement": {
-        "Position": "852.08997, -881.7802, 382.3077",
-        "Rotation": "0.034017775, 0.023009134, 0.13977565"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1552, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E4:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "144, -832, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B34:Skyrim.esm",
-      "Placement": {
-        "Position": "686.7156, -931.2221, -226.30461",
-        "Rotation": "-0.0006188958, -0.0016983754, 3.435739"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E6:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "720, -1696, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002E7:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C56C4:Skyrim.esm",
       "Placement": {
         "Position": "-381.9634, -1150.5576, 122.00308"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FA2E:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, -288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002E9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "144, -1120, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002EA:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Placement": {
-        "Position": "859.7158, -902.63934, 362.9441",
-        "Rotation": "0.8210973, -0.1463317, 4.886922"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002EB:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "1008, -832, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002EC:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "0, -1264, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002ED:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057036:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -6682,56 +4774,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002F0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060AB1:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -400, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002F1:TintsOfASuccubusSecretDesires.esp",
       "Base": "057038:Skyrim.esm",
       "Placement": {
         "Position": "576, -1264, 0",
         "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002F2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0134AA:Skyrim.esm",
-      "Placement": {
-        "Position": "228.76888, -1272.5657, -224.7824",
-        "Rotation": "-0.077738516, -0.12594801, 0.07745302"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002F3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "432, -832, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002F4:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "144, -1120, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002F5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "720, -1408, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -6752,16 +4799,6 @@
       "Placement": {
         "Position": "171.80792, -1194.0771, 142.78244",
         "Rotation": "-0.010149961, -0.0003796418, 6.2831306"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002F8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "-288, -976, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -6809,16 +4846,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0002FE:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD0:Skyrim.esm",
-      "Scale": 0.91,
-      "Placement": {
-        "Position": "-25.447653, -871.81116, 350.6341",
-        "Rotation": "-0.026425768, 0.044682726, 1.7098587"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0002FF:TintsOfASuccubusSecretDesires.esp",
       "Base": "064B33:Skyrim.esm",
       "Scale": 0.7,
@@ -6834,15 +4861,6 @@
       "Placement": {
         "Position": "314.1565, -1278.6001, 63.81451",
         "Rotation": "-0.00037005875, -0.013686679, 0.059694774"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000302:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1840, 288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -6883,15 +4901,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000307:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "144, -1984, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000309:TintsOfASuccubusSecretDesires.esp",
       "Base": "03F7F8:Skyrim.esm",
       "Placement": {
@@ -6901,55 +4910,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00030A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "144, -1408, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00030B:TintsOfASuccubusSecretDesires.esp",
       "Base": "012FEC:Skyrim.esm",
       "Placement": {
         "Position": "-522.244, -525.2055, 0.4903538",
         "Rotation": "-0.006277616, 0.0035508133, 3.2235243"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00030C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -976, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00030D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CC16A:Skyrim.esm",
-      "Placement": {
-        "Position": "140, -928, 288",
-        "Rotation": "0, 0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00030E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00030F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "10B1A5:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, -288",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -6972,33 +4937,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000313:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000314:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29DB:Skyrim.esm",
-      "Placement": {
-        "Position": "378.89734, -1078.152, 287.93338",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000315:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C2A02:Skyrim.esm",
-      "Placement": {
-        "Position": "103.729576, -688.4955, 0",
-        "Rotation": "0, 0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000316:TintsOfASuccubusSecretDesires.esp",
       "Base": "057A43:Skyrim.esm",
       "Radius": -29.13121,
@@ -7013,14 +4951,6 @@
       "Base": "0C56C4:Skyrim.esm",
       "Placement": {
         "Position": "-103.333885, -796.6766, 121.930145"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000319:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D5AD0:Skyrim.esm",
-      "Placement": {
-        "Position": "-390.78516, -1175.2231, 287.99988"
       }
     },
     {
@@ -7042,87 +4972,12 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00031C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "09DAA4:Skyrim.esm",
-      "Scale": 0.92,
-      "Placement": {
-        "Position": "655.56396, -748.0238, 347.31323",
-        "Rotation": "0, -0, 6.13083"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00031D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "034D31:Skyrim.esm",
-      "Placement": {
-        "Position": "274.7551, -1234.1279, -213.55327",
-        "Rotation": "1.2990036, -0.2714731, 5.8432984"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00031E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "070D88:Skyrim.esm",
-      "Scale": 0.8,
-      "Placement": {
-        "Position": "652.41675, -742.192, 279.29282",
-        "Rotation": "0, -0, 5.97375"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00031F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FEA:Skyrim.esm",
-      "Placement": {
-        "Position": "660.27826, -1463.0801, 287.3447",
-        "Rotation": "0, -0, 2.0943952"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000320:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Scale": 1.1,
-      "Placement": {
-        "Position": "688.3407, -956.16376, -181.30446",
-        "Rotation": "0.00017421143, -7.174649E-06, 2.9141026"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000321:TintsOfASuccubusSecretDesires.esp",
       "Base": "01671A:Skyrim.esm",
       "Scale": 0.82,
       "Placement": {
         "Position": "-527.9009, -305.72556, 21.113888",
         "Rotation": "-0.034944374, 0.0048997095, 3.1878538"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000322:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD8:Skyrim.esm",
-      "Placement": {
-        "Position": "342.22388, -1459.1117, 330.62744",
-        "Rotation": "-0.0008525211, -0.0023966478, 6.1840787"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000323:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4D4E:Skyrim.esm",
-      "Placement": {
-        "Position": "470.56375, -1259.8102, 287.9291",
-        "Rotation": "0, -0, 4.68319"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000324:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C674D:Skyrim.esm",
-      "Placement": {
-        "Position": "-321.24213, -928.3903, 288",
-        "Rotation": "0, -0, 2.3000004"
       }
     },
     {
@@ -7146,15 +5001,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000327:TintsOfASuccubusSecretDesires.esp",
-      "Base": "10B1A5:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, -288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000328:TintsOfASuccubusSecretDesires.esp",
       "Base": "028B10:Skyrim.esm",
       "Placement": {
@@ -7174,102 +5020,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00032A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01F24A:Skyrim.esm",
-      "Scale": 0.8,
-      "Placement": {
-        "Position": "560.6125, -1322.2667, -227.7984",
-        "Rotation": "0, -0, 1.7524692"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00032B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C017:Skyrim.esm",
-      "Scale": 1.13,
-      "Placement": {
-        "Position": "546.5822, -1004.5479, 289",
-        "Rotation": "0, -0, 5.783192"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00032C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0EA722:Skyrim.esm",
-      "LocationRefTypes": [
-        "0EA723:Skyrim.esm"
-      ],
-      "LocationReference": "0003C4:TintsOfASuccubusSecretDesires.esp",
-      "LinkedReferences": [
-        {
-          "Reference": "000272:TintsOfASuccubusSecretDesires.esp"
-        }
-      ],
-      "Placement": {
-        "Position": "-615.4717, -307.9718, 61.970924",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00032D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C016:Skyrim.esm",
-      "Placement": {
-        "Position": "908.119, -1120.96, 289"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00032E:TintsOfASuccubusSecretDesires.esp",
       "Base": "0D6A26:Skyrim.esm",
       "Placement": {
         "Position": "288, -976, 0",
         "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00032F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FA2E:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -976, -288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000330:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BDC:Skyrim.esm",
-      "Scale": 0.91,
-      "Placement": {
-        "Position": "866.00494, -878.0073, 381.65137"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000331:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "-288, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000332:TintsOfASuccubusSecretDesires.esp",
-      "Base": "044E70:Skyrim.esm",
-      "Placement": {
-        "Position": "100.38765, -1242.9968, 405.43005",
-        "Rotation": "-0.017508619, -0.0014590952, 5.466093"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000333:TintsOfASuccubusSecretDesires.esp",
-      "Base": "034D2C:Skyrim.esm",
-      "Placement": {
-        "Position": "678.7958, -1305.7618, -162.49635",
-        "Rotation": "-0.005398579, 0.29995057, 1.553343"
       }
     },
     {
@@ -7284,74 +5039,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000335:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03133B:Skyrim.esm",
-      "Placement": {
-        "Position": "858.0384, -865.62177, 419.99866",
-        "Rotation": "0.00075158523, 0.0012883429, 1.1344533"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000336:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05C016:Skyrim.esm",
-      "Placement": {
-        "Position": "360.80887, -1573.9694, 289",
-        "Rotation": "0, -0, 0.20000516"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000337:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01AFFC:Skyrim.esm",
-      "Placement": {
-        "Position": "405.51035, -877.1382, 331.3693",
-        "Rotation": "0, -0, 0.47079918"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000338:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "144, -1696, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000339:TintsOfASuccubusSecretDesires.esp",
       "Base": "098624:Skyrim.esm",
       "Placement": {
         "Position": "46.464085, -804.21265, 63.288853",
         "Rotation": "-0.008788827, 0.0027928522, 5.305986"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00033A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -976, -288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00033B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "045C28:Skyrim.esm",
-      "Placement": {
-        "Position": "524.3425, -1736.0287, 305.633",
-        "Rotation": "0.3281242, 0.08038205, 6.2236404"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00033C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C6CBC:Skyrim.esm",
-      "Placement": {
-        "Position": "530.35187, -1739.93, 288.75317",
-        "Rotation": "0, -0, 3.1378634"
       }
     },
     {
@@ -7383,24 +5075,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000340:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01397E:Skyrim.esm",
-      "Placement": {
-        "Position": "892.1234, -886.2656, 365.3208",
-        "Rotation": "-0.051136263, 0.026049508, 2.4260077"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000341:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "219.34889, -1551.0035, 355.14755",
-        "Rotation": "-0.005121114, -0.006783044, 6.2711916"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000342:TintsOfASuccubusSecretDesires.esp",
       "Base": "057A43:Skyrim.esm",
       "Radius": 43.910706,
@@ -7428,25 +5102,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000345:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "0, -1552, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000346:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B2E:Skyrim.esm",
-      "Scale": 1.19,
-      "Placement": {
-        "Position": "207.13031, -1525.7756, 356.20444",
-        "Rotation": "-0.19953386, 0.007542421, 4.548134"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000347:TintsOfASuccubusSecretDesires.esp",
       "Base": "0646AB:Skyrim.esm",
       "Owner": "0A6C00:Skyrim.esm",
@@ -7465,15 +5120,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000349:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "432, -1984, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00034A:TintsOfASuccubusSecretDesires.esp",
       "Base": "0BACD7:Skyrim.esm",
       "Scale": 0.88,
@@ -7481,15 +5127,6 @@
       "Placement": {
         "Position": "-314.16727, -294.13647, 154.22713",
         "Rotation": "0.0018293081, 0.0030153214, 2.7002282"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00034B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29D8:Skyrim.esm",
-      "Placement": {
-        "Position": "180.71422, -1800.3455, 288.55627",
-        "Rotation": "0, -0, 4.6774826"
       }
     },
     {
@@ -7512,89 +5149,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00034E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01AFFB:Skyrim.esm",
-      "Placement": {
-        "Position": "309.68582, -1088.9753, 352.12332",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00034F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FEA:Skyrim.esm",
-      "Placement": {
-        "Position": "687.5486, -1177.0563, 288.10974",
-        "Rotation": "0, -0, 0.5235988"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000350:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAC0:Skyrim.esm",
       "Placement": {
         "Position": "-144, -544, 0",
         "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000352:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "768.1213, -1223.9148, 476.36636"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000353:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01B25A:Skyrim.esm",
-      "Placement": {
-        "Position": "305.8001, -1090.7253, 304.54337",
-        "Rotation": "0, -0, 1.4000003"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000354:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0516C8:Skyrim.esm",
-      "Placement": {
-        "Position": "268.71735, -1210.2643, -224.69485",
-        "Rotation": "-0.004877471, -0.00021852179, 6.1987596"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000355:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C6C2B:Skyrim.esm",
-      "Scale": 0.74,
-      "Placement": {
-        "Position": "-675.0349, -415.54724, 67.132256"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000356:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACBB:Skyrim.esm",
-      "Placement": {
-        "Position": "386.52402, -1089.535, 309.65094",
-        "Rotation": "0, -0, 2"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000357:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -1552, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000358:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03EAE6:Skyrim.esm",
-      "Placement": {
-        "Position": "299.65686, -1085.75, 437.1338"
       }
     },
     {
@@ -7608,45 +5167,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00035A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C2A04:Skyrim.esm",
-      "Placement": {
-        "Position": "875.3442, -866.25775, 288.62158"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00035B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4BE5:Skyrim.esm",
-      "Scale": 0.94,
-      "Placement": {
-        "Position": "-430.89474, -1273.6798, 312",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00035C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "432, -1408, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00035D:TintsOfASuccubusSecretDesires.esp",
       "Base": "06E7A4:Skyrim.esm",
       "Placement": {
         "Position": "176.3825, -1266.2306, 188.37857",
         "Rotation": "0.013042951, -0.0052261665, 5.7050934"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00035E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "05D6E5:Skyrim.esm",
-      "Placement": {
-        "Position": "655.57355, -1117.4731, -192.74184"
       }
     },
     {
@@ -7660,47 +5185,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000360:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C9F51:Skyrim.esm",
-      "Placement": {
-        "Position": "193.9998, -1066.5851, 286.96902",
-        "Rotation": "0, -0, 5.866389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000361:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03EB35:Skyrim.esm",
-      "Placement": {
-        "Position": "102.49664, -1239.2504, 304.0752",
-        "Rotation": "0.009146971, 0.008367213, 3.18314"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000362:TintsOfASuccubusSecretDesires.esp",
       "Base": "01397E:Skyrim.esm",
       "Placement": {
         "Position": "688.92114, -1240.3322, 76.69655",
         "Rotation": "0.026083589, 0.051118895, 3.9968042"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000363:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0E41B8:Skyrim.esm",
-      "Placement": {
-        "Position": "101.710365, -1208.1694, 349.35284",
-        "Rotation": "0.00071495975, 0.0143472655, 2.2832022"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000364:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FA2D:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, -288",
-        "Rotation": "0, -0, 4.712389"
       }
     },
     {
@@ -7716,73 +5205,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000366:TintsOfASuccubusSecretDesires.esp",
-      "Base": "045C28:Skyrim.esm",
-      "Scale": 0.72,
-      "Placement": {
-        "Position": "-379.5803, -985.1242, 303.1433",
-        "Rotation": "-1.1742005, -1.2606893, 3.7892017"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000367:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "6.1035156E-05, -976, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000368:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "-432, -1408, 288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000369:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0134AA:Skyrim.esm",
-      "Placement": {
-        "Position": "200.15086, -1582.7229, 351.1122",
-        "Rotation": "-0.0673507, -0.13073006, 0.029953642"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00036A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACB7:Skyrim.esm",
-      "Placement": {
-        "Position": "380.3596, -1090.6449, 351.306",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00036B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "-592, -992, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00036C:TintsOfASuccubusSecretDesires.esp",
       "Base": "05F21D:Skyrim.esm",
       "Placement": {
         "Position": "-144, -544, 224"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00036D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29F5:Skyrim.esm",
-      "Placement": {
-        "Position": "97.02361, -1218.1747, 288.39322",
-        "Rotation": "0, -0, 1.5831968"
       }
     },
     {
@@ -7805,56 +5231,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000370:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29D8:Skyrim.esm",
-      "Placement": {
-        "Position": "-375.95496, -894.7293, 288",
-        "Rotation": "0, -0, 5.3831873"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000371:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C6CBA:Skyrim.esm",
-      "Placement": {
-        "Position": "601.56464, -295.14813, 146.65695",
-        "Rotation": "0, -0, 3.1831932"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000372:TintsOfASuccubusSecretDesires.esp",
       "Base": "1018E3:Skyrim.esm",
       "Placement": {
         "Position": "442.7978, -1358.2458, 13.848047",
         "Rotation": "0, -0, 3.153216"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000373:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C56C4:Skyrim.esm",
-      "Placement": {
-        "Position": "623.2404, -1380.0566, -226.79514"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000374:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Placement": {
-        "Position": "-52.759323, -870.6029, 364.46545",
-        "Rotation": "-0.083173126, 0.9053094, 3.2395318"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000375:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06B3D3:Skyrim.esm",
-      "Owner": "0C13F1:Skyrim.esm",
-      "Placement": {
-        "Position": "-278.08768, -1249.8641, 288",
-        "Rotation": "0, -0, 1.0832012"
       }
     },
     {
@@ -7869,32 +5250,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000377:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FAB8:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, -288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000378:TintsOfASuccubusSecretDesires.esp",
-      "Base": "09AF19:Skyrim.esm",
-      "Placement": {
-        "Position": "279.62128, -1260.0807, -288",
-        "Rotation": "0, -0, 1.8415985"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000379:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01397E:Skyrim.esm",
-      "Placement": {
-        "Position": "-29.263062, -867.72546, 362.9278",
-        "Rotation": "-0.051136263, 0.026049508, 2.4260077"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00037A:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C56C4:Skyrim.esm",
       "Placement": {
@@ -7904,65 +5259,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00037B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "098624:Skyrim.esm",
-      "Placement": {
-        "Position": "-231.30476, -1021.30896, 317.10208",
-        "Rotation": "0.0003428344, 0.0051925955, 5.3061585"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00037C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD0:Skyrim.esm",
-      "Placement": {
-        "Position": "200.97443, -1523.045, 351.73367",
-        "Rotation": "-6.8570052E-06, 0.0001871518, 6.1832104"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00037D:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03AD6D:Skyrim.esm",
-      "Scale": 0.96,
-      "Placement": {
-        "Position": "-680.2934, -420.92416, 16.7874",
-        "Rotation": "-0.0004102709, 0.002032445, 1.3410395E-06"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00037E:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C56C4:Skyrim.esm",
       "Placement": {
         "Position": "-177.94063, -795.0402, 121.930145"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00037F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C97:Skyrim.esm",
-      "Placement": {
-        "Position": "-72.92887, -868.6423, 361.06763",
-        "Rotation": "-0.2518978, -0.80937153, 0.3405237"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000380:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C57AA:Skyrim.esm",
-      "Placement": {
-        "Position": "-227.78244, -1004.7263, 287.7848",
-        "Rotation": "0, -0, 5.4902163"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000381:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C98:Skyrim.esm",
-      "Placement": {
-        "Position": "-240.92798, -1019.2596, 325.4645",
-        "Rotation": "0.31788036, 0.6958218, 3.6443882"
       }
     },
     {
@@ -7976,39 +5276,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000383:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BDE:Skyrim.esm",
-      "Scale": 0.6,
-      "Placement": {
-        "Position": "684.02374, -1316.3574, 351.29504",
-        "Rotation": "-0.015910938, 0.021056367, 2.6785939"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000384:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C674C:Skyrim.esm",
       "Placement": {
         "Position": "652.5977, -1078.3834, -0.55458546",
         "Rotation": "0, -0, 5.5355473"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000385:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057034:Skyrim.esm",
-      "Placement": {
-        "Position": "720, -1984, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000386:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03133C:Skyrim.esm",
-      "Placement": {
-        "Position": "-199.89627, -998.9155, 316.62482",
-        "Rotation": "-0.0035923067, 0.01105288, 1.5707763"
       }
     },
     {
@@ -8021,46 +5293,10 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000388:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000389:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B41:Skyrim.esm",
-      "Placement": {
-        "Position": "688.8034, -974.3744, -175.88385",
-        "Rotation": "-1.5707879, 1.2871516, 0.52826023"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00038A:TintsOfASuccubusSecretDesires.esp",
       "Base": "10B1A5:Skyrim.esm",
       "Placement": {
         "Position": "0, -976, 0"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00038B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057030:Skyrim.esm",
-      "Placement": {
-        "Position": "-287.99994, -976, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00038C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACDC:Skyrim.esm",
-      "Placement": {
-        "Position": "377.76825, -1089.1074, 357.68604",
-        "Rotation": "0, -0, 1.8707964"
       }
     },
     {
@@ -8074,45 +5310,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "00038E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1552, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00038F:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03EB03:Skyrim.esm",
-      "Placement": {
-        "Position": "293.4462, -1075.9972, 436.98334"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "000390:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C84D6:Skyrim.esm",
       "Placement": {
         "Position": "294.06778, -1306.973, 0.23899078",
         "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000391:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C6C2B:Skyrim.esm",
-      "Scale": 0.79,
-      "Placement": {
-        "Position": "-588.9593, -300.64542, 111.16391",
-        "Rotation": "0, -0, 4.933188"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000392:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057035:Skyrim.esm",
-      "Placement": {
-        "Position": "-432, -832, 288"
       }
     },
     {
@@ -8146,84 +5348,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "000396:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060CB7:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -400, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000397:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "864, -976, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000398:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4BE5:Skyrim.esm",
-      "Scale": 0.94,
-      "Placement": {
-        "Position": "-19.058456, -835.72076, 312"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "000399:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C842B:Skyrim.esm",
-      "Placement": {
-        "Position": "-2.3834622, -854.48114, 435",
-        "Rotation": "0, -0, 5.4454274"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00039A:TintsOfASuccubusSecretDesires.esp",
-      "Base": "065C98:Skyrim.esm",
-      "Placement": {
-        "Position": "-230.88481, -1030.7089, 326.2455",
-        "Rotation": "-0.9094359, 0.021850059, 1.5928874"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00039B:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057211:Skyrim.esm",
-      "Placement": {
-        "Position": "720, -832, -288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00039C:TintsOfASuccubusSecretDesires.esp",
-      "Base": "064B36:Skyrim.esm",
-      "Placement": {
-        "Position": "-227.68205, -1019.88763, 321.52994",
-        "Rotation": "-0.0013529827, 0.0004752482, 1.1281296"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "00039D:TintsOfASuccubusSecretDesires.esp",
       "Base": "0C4D58:Skyrim.esm",
       "Placement": {
         "Position": "-404, -972, 0",
         "Rotation": "0, 0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "00039E:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1840, 288",
-        "Rotation": "0, -0, 3.1415927"
       }
     },
     {
@@ -8237,33 +5366,6 @@
       },
       "Placement": {
         "Position": "-117.00219, -379.11862, 104.59347"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C4D58:Skyrim.esm",
-      "Placement": {
-        "Position": "685.93933, -1277.1194, 287.89026",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A1:TintsOfASuccubusSecretDesires.esp",
-      "Base": "060799:Skyrim.esm",
-      "Placement": {
-        "Position": "288, -1264, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BE0:Skyrim.esm",
-      "Placement": {
-        "Position": "613.87616, -1928.9352, 330.76068",
-        "Rotation": "-0.054025155, -0.052274037, 6.2823095"
       }
     },
     {
@@ -8286,49 +5388,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A5:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0CEE82:Skyrim.esm",
-      "Placement": {
-        "Position": "472.84982, -1746.6837, 288.23505",
-        "Rotation": "-0.0013749116, -0.0045770914, 0.9707106"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A6:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD4:Skyrim.esm",
-      "Scale": 0.6,
-      "Placement": {
-        "Position": "195.46202, -1824.4045, 351.94983",
-        "Rotation": "0.019365836, 0.017930303, 4.153884"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057037:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1552, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0003A8:TintsOfASuccubusSecretDesires.esp",
       "Base": "06CF36:Skyrim.esm",
       "Placement": {
         "Position": "-253.48947, -455.05115, 1.369341",
         "Rotation": "0, -0, 3.1831932"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003A9:TintsOfASuccubusSecretDesires.esp",
-      "Base": "045C28:Skyrim.esm",
-      "Scale": 0.77,
-      "Placement": {
-        "Position": "-383.84586, -977.82495, 304.73975",
-        "Rotation": "-2.6150331, -1.1847615, 6.1446733"
       }
     },
     {
@@ -8398,42 +5462,6 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003B1:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0609CC:Skyrim.esm",
-      "Emittance": "04D7FD:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1840, 288",
-        "Rotation": "0, -0, 1.5707964"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003B2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0D8E99:Skyrim.esm",
-      "Owner": "0C13F1:Skyrim.esm",
-      "Placement": {
-        "Position": "513.68604, -1860.6952, 288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003B3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "057211:Skyrim.esm",
-      "Placement": {
-        "Position": "432, -832, -288",
-        "Rotation": "0, -0, 3.1415927"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003B4:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03FA2D:Skyrim.esm",
-      "Placement": {
-        "Position": "576, -1264, -288"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0003B5:TintsOfASuccubusSecretDesires.esp",
       "Base": "03FAB8:Skyrim.esm",
       "Placement": {
@@ -8453,38 +5481,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003B7:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0B9BD8:Skyrim.esm",
-      "Scale": 0.91,
-      "Placement": {
-        "Position": "-64.15218, -871.4792, 350.4905",
-        "Rotation": "-0.0036402708, 0.003580248, 1.7131027"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003B8:TintsOfASuccubusSecretDesires.esp",
-      "Base": "012FDF:Skyrim.esm",
-      "Placement": {
-        "Position": "579.08234, -1896.5669, 288.26904",
-        "Rotation": "-0, -0, 4.706628"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0003B9:TintsOfASuccubusSecretDesires.esp",
       "Base": "03EB09:Skyrim.esm",
       "Placement": {
         "Position": "302.77292, -1315.43, 63.9218",
         "Rotation": "-0.0011354255, -0.0010900219, 0.66454667"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003BA:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0C29DE:Skyrim.esm",
-      "Placement": {
-        "Position": "227.99988, -1555.9999, 288"
       }
     },
     {
@@ -8508,68 +5509,11 @@
     },
     {
       "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003BD:TintsOfASuccubusSecretDesires.esp",
-      "Base": "06B303:Skyrim.esm",
-      "Placement": {
-        "Position": "768, -1248, 288",
-        "Rotation": "0, -0, 4.712389"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003BE:TintsOfASuccubusSecretDesires.esp",
-      "Base": "0AAE79:Skyrim.esm",
-      "Scale": 0.7,
-      "Placement": {
-        "Position": "604.5031, -296.3626, 170.44724",
-        "Rotation": "0.0003606839, 0.008664986, 1.577492"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003BF:TintsOfASuccubusSecretDesires.esp",
-      "Base": "02F239:Skyrim.esm",
-      "Placement": {
-        "Position": "586.26874, -1353.6829, -289.80475",
-        "Rotation": "0, -0, 6.2657323"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003C0:TintsOfASuccubusSecretDesires.esp",
-      "Base": "01ACB5:Skyrim.esm",
-      "Scale": 0.8,
-      "Placement": {
-        "Position": "596.3902, -1331.5823, -225.8128",
-        "Rotation": "0, -0, 0.4416019"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
       "FormKey": "0003C1:TintsOfASuccubusSecretDesires.esp",
       "Base": "038B0B:Skyrim.esm",
       "Placement": {
         "Position": "-574.3852, -398.75095, 164.02917",
         "Rotation": "0, 0, 5.773855"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003C2:TintsOfASuccubusSecretDesires.esp",
-      "Base": "03858F:Skyrim.esm",
-      "Placement": {
-        "Position": "-142.55493, -779.1443, 268.14462",
-        "Rotation": "0.38397244, 0, 0"
-      }
-    },
-    {
-      "MutagenObjectType": "PlacedObject",
-      "FormKey": "0003C3:TintsOfASuccubusSecretDesires.esp",
-      "Base": "000845:Skyrim.esm",
-      "Scale": 0.96,
-      "Placement": {
-        "Position": "303.39972, -1142.1064, -293.60223",
-        "Rotation": "0, -0, 1.6"
       }
     },
     {

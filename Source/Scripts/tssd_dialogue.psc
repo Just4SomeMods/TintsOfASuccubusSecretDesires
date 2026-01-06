@@ -246,7 +246,7 @@ endevent
 
 Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "", bool playerActive = false )
     Actor akSpeaker = target as Actor
-    AzuraFadeToBlack.Apply()
+    DoFadeOut(1)
     TSSD_Satiated.Cast(akSpeaker, PlayerRef)
     GameHour.Mod(1) 
     tActions.gainSuccubusXP(1000)
@@ -269,4 +269,5 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     endif
     Utility.Wait(0.1)
     TSSD_Satiated.Cast(akSpeaker, PlayerRef)
+    DoFadeIn(5)
 EndFunction

@@ -1,12 +1,10 @@
 {
-	"float" : 
-	{
 		"breasts" : 1.8,
 		"breastsfantasy" : 0.3,
 		"breastsnewsh" : 0.7,
 		"breastsnewshsymmetry" : 0.7,
 		"breastssmall" : -0.3,
 		"pushup" : 0.1,
-		"doublemelon" : 0.0
-	}
+		"doublemelon" : 0.0,
+		"shoulderwidth" : 0.4
 }

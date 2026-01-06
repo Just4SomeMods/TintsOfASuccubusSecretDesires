@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003EA:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseEyesQuestion",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "What's up with your heart-eyes?"
+  },
+  "Branch": "0003E5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

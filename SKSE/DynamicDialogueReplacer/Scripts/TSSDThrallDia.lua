@@ -1254,7 +1254,6 @@ local pools = {
 
 }
 
-
 local function get_thrall_type(pSpeaker_id)
   local thrallDomFaction = get_formid(0x00090, "TintsOfASuccubusSecretDesires.esp")
   local thrallSubFaction = get_formid(0x000A8, "TintsOfASuccubusSecretDesires.esp")

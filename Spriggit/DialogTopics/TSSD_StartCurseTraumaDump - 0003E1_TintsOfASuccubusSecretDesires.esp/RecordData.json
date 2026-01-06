@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003E1:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseTraumaDump",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Tell me a fact about yourself."
+  },
+  "Branch": "0003E5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

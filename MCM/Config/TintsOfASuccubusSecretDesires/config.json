@@ -836,11 +836,6 @@
             "content": [
                 {
                     "type": "text",
-                    "text": "SolitudeRadiantRaimentsLocation",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
                     "text": "TSSD_MysteriousRoom",
                     "help": "$showStuff"
                 }

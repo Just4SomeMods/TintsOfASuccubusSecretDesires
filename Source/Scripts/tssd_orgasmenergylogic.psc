@@ -359,7 +359,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			endif
 		endif
 
-		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) > 0
+		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) >= 0
 			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
 				incrValAndCheck(12,1)
 				incrValAndCheck(1,0.2)

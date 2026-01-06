@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003E6:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseTalkAboutSuciTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Hey Suci..."
+  },
+  "Branch": "0003E5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

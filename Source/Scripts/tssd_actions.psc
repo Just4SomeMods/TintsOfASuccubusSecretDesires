@@ -162,6 +162,8 @@ Faction Property WereWolfFaction Auto
 Faction Property WolfFaction Auto
 Faction Property DogFaction Auto
 
+SkyInteract myBinding
+
 ;SPECIFIC UTILITY FUNCTIONS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -505,6 +507,8 @@ Function onGameReload()
     if SuccubusDesireLevel.GetValue() > -101
         RegisterSuccubusEvents()
     endif
+    
+    myBinding = SkyInteract_Util.GetSkyInteract()
     ; RegisterForCrosshairRef()
     Maintenance()
     cosmeticSettings = ReadInCosmeticSetting()
@@ -660,7 +664,6 @@ Event OnMenuOpen(String MenuName)
             endif
         endif
     else
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getTargetCross")
     endif
 EndEvent
@@ -675,7 +678,6 @@ Event OnMenuClose(String MenuName)
         ModEvent.Send(eid)
         HotDemonTarget = PlayerRef
     endif
-    SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
     myBinding.Remove("tssd_getTargetCross")
 EndEvent
 
@@ -694,16 +696,12 @@ Event OnCrosshairRefChange(ObjectReference ref)
         String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
         String oldName = JDB.solveStr(".oldNorseGods."+ deityName)
 
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getTargetCross")
-
         myBinding.Add("tssd_getTargetCross",  oldName, allInOneKey)
     Elseif !(ref as Actor)
         
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getTargetCross")
     Elseif playerInSafeHaven() && !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Add("tssd_getTargetCross", "Beg", allInOneKey)
 
     EndIf

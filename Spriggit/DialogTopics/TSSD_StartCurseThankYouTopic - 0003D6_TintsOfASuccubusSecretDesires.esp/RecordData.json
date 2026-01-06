@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003D6:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseThankYouTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "..."
+  },
+  "Branch": "00032C:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

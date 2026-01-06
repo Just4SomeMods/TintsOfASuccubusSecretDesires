@@ -8,6 +8,8 @@ scripts:
     type: 1
   - script: "TSSDHumiliation.lua"
     type: 0
+  - script: "TSSDPanDialogue.lua"
+    type: 0
 
 topics:
 

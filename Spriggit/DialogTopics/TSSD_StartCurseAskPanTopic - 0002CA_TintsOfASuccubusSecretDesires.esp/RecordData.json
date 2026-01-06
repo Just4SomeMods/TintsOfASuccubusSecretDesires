@@ -1,0 +1,11 @@
+{
+  "FormKey": "0002CA:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseAskPanTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Tell me a fact about yourself."
+  },
+  "Branch": "0003E5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

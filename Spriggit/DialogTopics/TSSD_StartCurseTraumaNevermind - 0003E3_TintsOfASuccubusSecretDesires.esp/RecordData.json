@@ -1,0 +1,11 @@
+{
+  "FormKey": "0003E3:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseTraumaNevermind",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Ehm, nevermind."
+  },
+  "Branch": "0003E5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}
