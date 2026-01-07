@@ -50,7 +50,7 @@ bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.02.002"
+string currentVersion = "1.03.000"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -353,7 +353,6 @@ Function OpenSuccubusAbilities()
         tActions.toggleDeathMode(true)
     elseif myItems[result] == "Look for Prey"
         int radius = tActions.getScanRange()
-        Actor[] allAround = MiscUtil.ScanCellNPCs(PlayerRef, radius * 50)
         TSSD_SuccubusDetectJuice.SetNthEffectArea(0, radius )
         int oldDur = TSSD_SuccubusDetectJuice.GetNthEffectDuration(0)
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, 5)

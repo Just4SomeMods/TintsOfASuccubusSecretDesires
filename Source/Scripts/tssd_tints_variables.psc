@@ -13,8 +13,10 @@ float Property lastWolfSex Auto Conditional
 float Property lastHypnoSession Auto Conditional
 float Property lastFadeTat Auto Conditional
 float Property lastMasturbated Auto Conditional
-float Property hasEggs Auto Conditional
 float Property lastDragon Auto Conditional
+float Property hasEggs Auto Conditional
+bool Property isGagged Auto Conditional
+bool Property talkingWithNonWolf Auto Conditional
 
 bool Property canTake00Razzmatazz Auto Conditional
 bool Property canTake01Cupid Auto Conditional

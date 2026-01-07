@@ -6961,24 +6961,15 @@
     ],
     "NavmeshTree": [
       {
-        "NavMesh": "103120:Skyrim.esm",
-        "NodeIndex": 2
-      },
-      {
-        "NavMesh": "100F4B:Skyrim.esm",
-        "NodeIndex": 3
-      },
-      {
-        "NavMesh": "0B87DF:Skyrim.esm",
-        "NodeIndex": 4
-      },
-      {
-        "NavMesh": "10377B:Skyrim.esm",
-        "NodeIndex": 1
+        "NavMesh": "105E9A:Skyrim.esm"
       },
       {
         "NavMesh": "0A3F44:Skyrim.esm",
         "NodeIndex": 9
+      },
+      {
+        "NavMesh": "100F4B:Skyrim.esm",
+        "NodeIndex": 3
       },
       {
         "NavMesh": "1030CB:Skyrim.esm",
@@ -6989,15 +6980,24 @@
         "NodeIndex": 7
       },
       {
-        "NavMesh": "105E9A:Skyrim.esm"
-      },
-      {
-        "NavMesh": "098776:Skyrim.esm",
-        "NodeIndex": 5
+        "NavMesh": "103120:Skyrim.esm",
+        "NodeIndex": 2
       },
       {
         "NavMesh": "079BBF:Skyrim.esm",
         "NodeIndex": 6
+      },
+      {
+        "NavMesh": "10377B:Skyrim.esm",
+        "NodeIndex": 1
+      },
+      {
+        "NavMesh": "0B87DF:Skyrim.esm",
+        "NodeIndex": 4
+      },
+      {
+        "NavMesh": "098776:Skyrim.esm",
+        "NodeIndex": 5
       }
     ]
   }

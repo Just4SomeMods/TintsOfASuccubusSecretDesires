@@ -846,6 +846,11 @@
             "content": [
                 {
                     "type": "text",
+                    "text": "Damage Speech",
+                    "help": "Your speech is reduced by <mag>."
+                },
+                {
+                    "type": "text",
                     "text": "Fortify Health",
                     "help": "Your health and stamina are increased by <mag> points."
                 },
@@ -952,7 +957,7 @@
                 {
                     "type": "text",
                     "text": "Speedmod",
-                    "help": "You are move <mag>% faster."
+                    "help": "You move <mag>% faster."
                 },
                 {
                     "type": "text",
@@ -2403,6 +2408,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Lilac3",
+                    "help": "While you are collared, you halve the time between your barks. If you recently had sex with someone who has wolves blood, you learn warrior skills 50% faster. You are a confused dog without your collar and can not learn any skills without it. You take a -100 speech penalty while talking to a non-dog person. While wearing a gag you double your sprint speed and gain a 50% chance to dodge attacks\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "351"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Mahogany",
                     "help": "If you choose Mahogany, you can gain energy from hostile people, but you can no longer get energy from wholesome activities.\n",
                     "action": {
@@ -3132,6 +3151,42 @@
                             "{b}1",
                             "294",
                             "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_GoodDoggieMag1:Spells",
+                    "type": "input",
+                    "text": "Good Doggie Effect 1 Mag",
+                    "help": "Speedmod 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "294",
+                            "{i}1",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_GoodDoggieMag2:Spells",
+                    "type": "input",
+                    "text": "Good Doggie Effect 2 Mag",
+                    "help": "Damage Speech 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "294",
+                            "{i}2",
                             "{value}"
                         ]
                     }

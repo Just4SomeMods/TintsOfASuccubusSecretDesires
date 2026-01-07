@@ -156,6 +156,18 @@
         0
     ],
     [
+        "sTSSD_GoodDoggieMag1:Spells",
+        true,
+        "294",
+        1
+    ],
+    [
+        "sTSSD_GoodDoggieMag2:Spells",
+        true,
+        "294",
+        2
+    ],
+    [
         "sTSSD_InLoveBuffMag0:Spells",
         true,
         "75",

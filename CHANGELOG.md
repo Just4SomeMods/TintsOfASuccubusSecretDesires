@@ -1,3 +1,8 @@
+# 1.03.000
+Added small intro quest
+Remade death defiance into Acheron
+Bug fixes galore!
+
 # 1.02.002
 fixed some bugs, implemented some perks that had no function, fixed that overview image
 

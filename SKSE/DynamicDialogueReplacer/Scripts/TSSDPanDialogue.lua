@@ -1,5 +1,5 @@
 local pPools = {
-TSSD_003DF = {"I am still physically dependent on cum, but sex is like a million times better since the curse.","I can't thank you enough for your help! I can wear clothes again! It's great!", "I'm just your usual rich kid who went to the wrong party.", "I'm a pan- and polysexual switch. If you say I just can't decide what I am, I won't correct you.", "I am an illusionist, so the form you currently see is what I want you to see.", "I love your smell. That's a fact about me!"}
+TSSD_003DF = {"I am still physically dependent on cum, but sex is like a million times better since the curse.","I can't thank you enough for your help! I can wear clothes again! It's great!", "I'm just your usual rich kid who went to the wrong party.", "I'm a pan- and polysexual switch. If you say I just can't decide what I am, I won't correct you.", "I am an illusionist, so the form you currently see is what I want you to see.", "I love your smell. That's a fact about me!", "I love being bound tight! Especially if I don't expect it! The more I protest the more I secretly enjoy it!"}
 }
 
 infosNumber = 1.0

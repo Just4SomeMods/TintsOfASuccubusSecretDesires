@@ -1,0 +1,12 @@
+Version: 2
+
+Name: Succubus Feint
+Description: Some description to describe Event "Example Name"
+Quest: 0x16C|TintsOfASuccubusSecretDesires.esp
+
+Priority: 2
+Cooldown: 0
+StartTeleport: false
+Teleport: false
+InCombat: true
+Hidden: false

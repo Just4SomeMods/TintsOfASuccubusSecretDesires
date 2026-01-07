@@ -401,23 +401,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				_thread.AdvanceStage()
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			EndWhile
-            int indexFol = 0
-            Actor[] cFolls = PO3_SKSEFunctions.GetAllActorsInFaction(tEvents.CurrentFollowerFaction)
-            while indexFol < cFolls.Length
-                Actor cFol = cFolls[indexFol] 
-                if Sexlab.IsActorActive(cFol)
-                    SexlabThread cTh = Sexlab.GetThreadByActor(cFol)
-                    sslThreadController _fthread =  Sexlab.GetActorController(cFol) 
-                    cTh.ForceOrgasm(cFol)
-                    int StageCountF = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
-                    int Stage_inF = StageCountF   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-                    while  Stage_in < StageCountF 
-                        _fthread.AdvanceStage()
-                        Stage_in = StageCountF   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-                    EndWhile
-                endif
-                indexFol += 1
-            endwhile
 
 		elseif PlayerRef.HasPerk(tMenus.SuccubusTintPerks[5])
             TSSD_ProudDogOwnerBuff.Cast(PlayerRef,WhoCums)

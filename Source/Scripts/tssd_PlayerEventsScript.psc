@@ -8,6 +8,7 @@ float lastGameHour = 999.0
 tssd_actions Property tActions Auto
 tssd_menus Property tMenus Auto
 Quest Property tssd_tints_tracker Auto
+Quest Property TSSD_ZAcheronConsequences Auto
 tssd_tints_variables Property tVals Auto
 Actor Property PlayerRef Auto
 
@@ -37,6 +38,8 @@ Keyword Property ActorTypeCreature Auto
 Keyword Property TSSD_AbsorbSpellKeyword Auto
 Keyword Property MagicInfluence Auto
 Perk Property TSSD_DeityArkayPerk Auto
+
+
 
 Spell Property TSSD_InLoveBuff Auto
 Spell Property TSSD_CompelledSpell Auto
@@ -68,6 +71,8 @@ Faction Property AND_NudeActorFaction Auto Hidden
 ; BEGIN ZAD
 
 Keyword Property zbfWornCollar Auto Hidden
+Keyword Property zad_DeviousGag Auto Hidden 
+Keyword Property zad_DeviousGagPanel Auto Hidden 
 String Property FILE_ZAZ_ANIMATION_PACK = "ZaZAnimationPack.esm" AutoReadOnly  
 Bool Property ZaZAnimationPackFound = False Auto Hidden Conditional
 
@@ -158,7 +163,7 @@ endEvent /;
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
 	ACtor ak = akAggressor as Actor
-    if PlayerRef.GetAV("Health") < 300 && tActions.SuccubusDesireLevel.GetValue() > 20 && (akAggressor as Actor) && (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 50 && !tActions.playerInSafeHaven()
+;/     if PlayerRef.GetAV("Health") < 300 && tActions.SuccubusDesireLevel.GetValue() > 20 && (akAggressor as Actor) && (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 50 && !tActions.playerInSafeHaven()
 		isActingDefeated = true
         Actor tar = tActions.getCombatTarget(true)
         if tar && tar != PlayerRef
@@ -166,12 +171,29 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 				tActions.SuccubusDesireLevel.Mod(-20)
 				Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
 				if allFolls.length > 0
-					Sexlab.StartScene(allFolls , "")
+					SexlabThread cTh =  Sexlab.StartScene(allFolls , "")
+					Utility.Wait(5)
+					Actor cFol = allFolls[0]
+					cFol.MoveTo(PlayerRef)
+					sslThreadController _fthread =  Sexlab.GetActorController(cFol) 
+					int StageCountF = SexLabRegistry.GetPathMax(   cTh.getactivescene()  , "").Length -1
+					int Stage_inF = StageCountF   - SexLabRegistry.GetPathMax(cTh.getactivescene() ,cTh.GetActiveStage()).Length + 1
+					while  Stage_inF < StageCountF 
+						_fthread.AdvanceStage()
+						Stage_inF = StageCountF   - SexLabRegistry.GetPathMax(cTh.getactivescene() ,cTh.GetActiveStage()).Length + 1
+					EndWhile
+					Utility.Wait(1)
+					int cFoll = 0
+					while cFoll < allFolls.Length
+						cFol = allFolls[cFoll]
+						cTh.ForceOrgasm(cFol)
+						cFoll += 1
+					endwhile
 				endif
 			endif
         Endif
 		isActingDefeated = false
-    endif
+    endif /;
     Weapon akW = akSource as Weapon
     if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[14]) && akW != none && !abHitBlocked
 		int mult = 20
@@ -247,6 +269,8 @@ Function onGameReload()
 	If (Game.GetModByName(FILE_DD_ASSETS) != 255)
 		DDAssetsFound = True
 		zad_DeviousCollar = Game.GetFormFromFile(0x3DF7, FILE_DD_ASSETS) as Keyword
+		zad_DeviousGag = Game.GetFormFromFile(0x7EB8, FILE_DD_ASSETS) as Keyword
+		zad_DeviousGagPanel = Game.GetFormFromFile(0x1F306, FILE_DD_ASSETS) as Keyword
 		PO3_Events_Alias.RegisterForShoutAttack(self)
 	Else
 		DDAssetsFound = False
@@ -272,6 +296,7 @@ Function onGameReload()
 	RegisterForUpdateGameTime(1.0)
 	RegisterForTrackedStatsEvent()
 	RegisterForMenu("BarterMenu")
+	RegisterForMenu("Dialogue Menu")
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 	PO3_Events_Alias.RegisterForLevelIncrease(self)
@@ -285,7 +310,7 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
 	if CustomSkills.GetAPIVersion() >= 3
 		float distanceTo = akVictim.GetDistance(PlayerRef)
 		if distanceTo < 350
-			CustomSkills.AdvanceSkill("SuccubusBodySkill",distanceTo)
+			CustomSkills.AdvanceSkill("SuccubusBodySkill", 350 - distanceTo)
 		endif
     endif
 
@@ -293,7 +318,7 @@ EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
 	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
-		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 50 )
+		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 10 )
 	endif
 EndEvent
 
@@ -386,10 +411,18 @@ Function addToLilac()
 EndFunction
 
 Event OnMenuOpen(String MenuName)
+	if MenuName == "Dialogue Menu"
+		tVals.talkingWithNonWolf = !tActions.isDoggie(SPE_Actor.GetPlayerSpeechTarget())
+		DBGTrace(tVals.talkingWithNonWolf)
+	endif
 	if MenuName == "BarterMenu"
 		tActions.tOrgasmLogic.incrValAndCheck(16,1)
 	endif
 EndEvent
+
+Event OnMenuClose(String MenuName)
+	tVals.talkingWithNonWolf = false
+endEvent
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if (asStatFilter == "Ingredients Eaten")
@@ -552,6 +585,7 @@ Event OnANDUpdate()
 		isCollared = IsActorCollared(PlayerRef)
 		PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
 		PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
+		tVals.isGagged = PlayerRef.WornHasKeyword(zad_DeviousGag) || PlayerRef.WornHasKeyword(zad_DeviousGagPanel)
 	endif
 EndEvent
 

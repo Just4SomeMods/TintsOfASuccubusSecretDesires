@@ -691,6 +691,10 @@ bool Function isDoggie(Actor cA)
 endfunction
     
 Event OnCrosshairRefChange(ObjectReference ref)
+    if myBinding == none
+        
+        myBinding = SkyInteract_Util.GetSkyInteract()
+    endif
 
     if ref && TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
         String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
