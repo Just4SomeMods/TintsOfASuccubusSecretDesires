@@ -616,7 +616,7 @@
             69
         ],
         "colorHex": "460245",
-        "unlockMethod": "Train 10 times.",
+        "unlockMethod": "Talk with Jobtrainers / Hypnomasters 10 times.",
         "kink": "Hypnotism",
         "perk": 297,
         "targetNum": 10,
@@ -864,14 +864,14 @@
         "needyText": [],
         "description": "Your heels are stiletto! While walking in heels you are faster, stronger, prettier and take less stagger, but you lose the same stats otherwise.",
         "color": [
-            217,
-            72,
-            60
+            156,
+            51,
+            54
         ],
         "famecat": [],
-        "colorHex": "D9483C",
+        "colorHex": "9C3336",
         "unlockMethod": "Wear heels for 5 hours.",
-        "kink": "selflove",
+        "kink": "",
         "perk": 379,
         "targetNum": 5,
         "index": 25

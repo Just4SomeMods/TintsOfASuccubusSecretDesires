@@ -38,10 +38,7 @@ EndFunction
 
 ; shows trainer's skill level
 String Function GetTrainerSkill()
-    if SkillVal == TSSD_PerkPointsBought
-        return ""
-    endif
-    Return "5 increases each"
+    Return ""
 EndFunction
 
 String Function GetTimesTrainedLabel()
@@ -50,23 +47,17 @@ EndFunction
 
 ; how many times the player has trained this skill
 Int Function GetTimesTrained()
-    if SkillVal == TSSD_PerkPointsBought
-        return SkillVal.GetValue() as int
-    endif
     return (SkillVal.GetValue()) as int
 EndFunction
 
 ; how many times the player can train this skill
 Int Function GetAvailableTraining()
-    Return 99
+    Return 90
 EndFunction
 
 ; how much training for the next skill up costs
 Int Function GetTrainCost()
-    if SkillVal == TSSD_PerkPointsBought
-        return 1000 + 100 * GetTimesTrained()
-    Endif
-    Return (Math.Pow((GetTimesTrained()) + 1, 1.95) * 5) as int
+    Return (Math.Pow((GetTimesTrained()) + 1, 1.95)) as int
 EndFunction
 
 ; how much money the player currently has
@@ -82,34 +73,27 @@ EndFunction
 ; train the skill
 Function Train()
     SuccubusXpAmount.Mod( -1 * GetTrainCost() )
-    if SkillVal == TSSD_PerkPointsBought
-        TSSD_PerkPointsBought.Mod( 1)
-        TSSD_SuccubusPerkPoints.Mod(1)
-    else
-        SkillVal.Mod(  min(5, 100 - SkillVal.GetValue() ))
-        CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
-        ;CustomSkills.IncrementSkill(SkillVal)
-    endif
-    if PlayerRef.HasPerk(TSSD_Base_Explanations)
-        if SkillName == "Body"
-            PlayerRef.RemoveSpell(TSSD_BaseHealthBodyBuff)
+    SkillVal.Mod(1)
+    CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
+    if SkillName == "Body"
+        PlayerRef.RemoveSpell(TSSD_BaseHealthBodyBuff)
+        Utility.Wait(0.1)
+        PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
+        TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
+        PlayerRef.SendModEvent("TSSD_Inflate", "BodySkill", skillVal.GetValue())
+    elseif SkillName == "Drain"            
+        TSSD_ReverseDrainSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
+    elseif SkillName == "Seduction"
+        TSSD_ReverseSeductionSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
+        if PlayerRef.HasPerk(getPerkNumber(25))
+            PlayerRef.RemoveSpell(TSSD_StilettoBuffsNNerfs)
             Utility.Wait(0.1)
-            PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
-            TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
-            PlayerRef.SendModEvent("TSSD_Inflate", "BodySkill", skillVal.GetValue())
-        elseif SkillName == "Drain"            
-            TSSD_ReverseDrainSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
-        elseif SkillName == "Seduction"
-            TSSD_ReverseSeductionSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
-            if PlayerRef.HasPerk(getPerkNumber(25))
-                PlayerRef.RemoveSpell(TSSD_StilettoBuffsNNerfs)
-                Utility.Wait(0.1)
-                PlayerRef.AddSpell(TSSD_StilettoBuffsNNerfs, false)
-            endif
+            PlayerRef.AddSpell(TSSD_StilettoBuffsNNerfs, false)
         endif
-        PlayerRef.RemovePerk(TSSD_Base_Explanations)
-        PlayerRef.AddPerk(TSSD_Base_Explanations)
     endif
+    PlayerRef.RemovePerk(TSSD_Base_Explanations)
+    Utility.Wait(0.1)
+    PlayerRef.AddPerk(TSSD_Base_Explanations)
 EndFunction
 
 

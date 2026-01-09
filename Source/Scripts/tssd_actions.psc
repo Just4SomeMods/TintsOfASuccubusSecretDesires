@@ -79,8 +79,6 @@ Perk Property TSSD_Seduction_OfferSex Auto
 Perk Property TSSD_Base_ChangesPerk Auto
 
 
-Perk[] Property SuccubusAbilitiesPerks Auto
-
 
 ;Quest Property TSSD_EvilSuccubusQuest Auto
 Quest Property tssd_dealwithcurseQuest Auto
@@ -95,16 +93,9 @@ Spell Property TSSD_RejectionPoison Auto
 Spell Property TSSD_Satiated Auto
 Spell Property TSSD_SuccubusDetectJuice Auto
 
-
-Spell[] Property SuccubusAbilitiesSpells Auto
-
-
 ;String Property CUM_ANAL Auto
 ;String Property CUM_ORAL Auto
 ;String Property CUM_VAGINAL Auto
-
-
-String[] Property SuccubusAbilitiesNames Auto
 
 
 bool[] Property cosmeticSettings Auto Hidden

@@ -2070,7 +2070,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "Drain Conservation",
+                    "text": "Soul Drain",
                     "help": "Enemies you hit with any drain spell are also soul trapped.\n",
                     "action": {
                         "type": "CallFunction",

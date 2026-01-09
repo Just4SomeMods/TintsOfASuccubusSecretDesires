@@ -100,7 +100,7 @@
     </tr>
     <tr>
       <th><font color ="#DC143C">Crimson</font></th>
-      <td>Take 1000 damage.</td>
+      <td>Take 2000 damage.</td>
       <td>masochism</td>
       <td><img src="../../menus/TSSD/Crimson.png" width="300" height="300"></td>
     </tr>
@@ -124,7 +124,7 @@
     </tr>
     <tr>
       <th><font color ="#460245">Tolopea</font></th>
-      <td>Train 10 times.</td>
+      <td>Talk with Jobtrainers / Hypnomasters 10 times.</td>
       <td>Hypnotism</td>
       <td><img src="../../menus/TSSD/Tolopea.png" width="300" height="300"></td>
     </tr>
@@ -163,6 +163,12 @@
       <td>Masturbate 10 times.</td>
       <td>selflove</td>
       <td><img src="../../menus/TSSD/Valencia.png" width="300" height="300"></td>
+    </tr>
+    <tr>
+      <th><font color ="#9C3336">Stiletto</font></th>
+      <td>Wear heels for 5 hours.</td>
+      <td></td>
+      <td><img src="../../menus/TSSD/Stiletto.png" width="300" height="300"></td>
     </tr>
   </tbody>
 </table>

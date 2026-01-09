@@ -669,7 +669,7 @@
         ],
         "description":"Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
         "famecat":null,
-        "unlockMethod":"Train 10 times.",
+        "unlockMethod":"Talk with Jobtrainers \/ Hypnomasters 10 times.",
         "color":[
             70,
             2,
@@ -960,12 +960,12 @@
         ],
         "unlockMethod":"Wear heels for 5 hours.",
         "color":[
-            217,
-            72,
-            60
+            156,
+            51,
+            54
         ],
-        "colorHex":"D9483C",
-        "kink":"selflove",
+        "colorHex":"9C3336",
+        "kink":"",
         "perk":379,
         "targetNum":5,
         "index":25

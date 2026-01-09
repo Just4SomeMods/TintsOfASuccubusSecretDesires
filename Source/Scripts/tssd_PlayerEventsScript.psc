@@ -30,6 +30,8 @@ float[] Property currentVals Auto
 Faction Property TSSD_RevealingOutfit Auto
 Faction Property TSSD_Collared Auto
 Faction Property CurrentFollowerFaction Auto
+Faction Property JobTrainerFaction Auto
+Faction Property TSSD_PotentialHypnoMaster Auto
 
 bool Property canCelebrate = false Auto Hidden
 
@@ -148,11 +150,7 @@ bool maraSuccess = false
 ; END MARA
 
 Function checkValOf( int numOf )
-	int toAdd = 0
-	;/ if numOf == 12
-		toAdd += Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
-	endif /;
-	
+	int toAdd = 0	
     if tVals.canTakeBools.Length <= numOf
         tVals.canTakeBools = Utility.ResizeBoolArray(tVals.canTakeBools, numOf + 1, false)
     endif
@@ -167,8 +165,7 @@ endfunction
 
 
 
-Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
-    bool abBashAttack, bool abHitBlocked)
+Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, bool abBashAttack, bool abHitBlocked)
 	ACtor ak = akAggressor as Actor
     Weapon akW = akSource as Weapon
     if PlayerRef.HasPerk(getPerkNumber(14)) && akW != none && !abHitBlocked
@@ -178,15 +175,12 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 		endif
         tActions.gainSuccubusXP(akW.GetBaseDamage() * mult )
     endif
-	if ak && ak.isHostileToActor(PlayerRef)
-		if playerRef.HasPerk(TSSD_Body_ArousingBody)
-		
-			int eid = ModEvent.Create("slaUpdateExposure")
-			ModEvent.PushForm(eid, ak)
-			float arousalPush = 10.0
-			ModEvent.PushFloat(eid, arousalPush)
-			ModEvent.Send(eid)
-		endif
+	if ak && playerRef.HasPerk(TSSD_Body_ArousingBody) && ak.isHostileToActor(PlayerRef)
+		int eid = ModEvent.Create("slaUpdateExposure")
+		ModEvent.PushForm(eid, ak)
+		float arousalPush = 10.0
+		ModEvent.PushFloat(eid, arousalPush)
+		ModEvent.Send(eid)
 		if playerRef.HasPerk(TSSD_Body_StunningBody) && Utility.RandomInt(21, 200) < ak.GetFactionRank(sla_Arousal)
 			if ak.GetRace().HasKeyword(ActorTypeCreature)
 				ak.ModAV("Health", -100)
@@ -197,8 +191,7 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 	endif
 	if akw
 		tOrgasmLogic.incrValAndCheck(14, akW.GetBaseDamage())
-	endif
-	
+	endif	
 EndEvent
 
 Event OnPlayerLoadGame()
@@ -280,16 +273,13 @@ Function onGameReload()
 	PO3_Events_Alias.RegisterForMagicHit(self)
 EndFunction
 
-
-
 Event OnActorKilled(Actor akVictim, Actor akKiller)
 	if CustomSkills.GetAPIVersion() >= 3
 		float distanceTo = akVictim.GetDistance(PlayerRef)
 		if distanceTo < 350
-			CustomSkills.AdvanceSkill("SuccubusBodySkill", 350 - distanceTo)
+			CustomSkills.AdvanceSkill("SuccubusBodySkill", max(20, (akVictim.GetBaseActorValue("health") - distanceTo) / 4 ))
 		endif
     endif
-
 EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
@@ -324,37 +314,7 @@ Event OnSpellCast(Form akSpell)
 	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
 		CustomSkills.AdvanceSkill("SuccubusDrainSkill", sp.GetMagickaCost() )
 	endif
-	;/
-    if PlayerRef.HasPerk(arrs.deityPerks[0])
-        Int FirstEffectCastType = (akSpell as Spell).GetNthEffectMagicEffect(0).GetCastingType()
-        Spell spellCast = akSpell as Spell
-        if foproleplayoptions.GetValue() == 1
-
-                if !gained && DA01.IsStageDone(100)
-                    incrSkill(1,  20000  )
-                    gained=true
-        
-                endif
-                if !gained && DA01.IsStageDone(110)
-                        SkillAzuraLevel.setvalue( -0.9)
-                        gained = true
-                        forbidden = true
-                endif
-        endif
-
-        float Time = Utility.GetCurrentGameTime()
-        Time -= Math.Floor(Time)
-        Time *= 24
-        int mult = 1
-        if Time>3 && Time<8 || Time>18 && Time<23
-                mult *= 2
-        endif
-        if spellCast && FirstEffectCastType == 1 && !forbidden
-            incrSkill(0, 4 * mult * spellCast.GetEffectiveMagickaCost(PlayerRef))
-        endif
-    endif /;
 endevent
-
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 	if PlayerRef.HasPerk(getPerkNumber(2)) && akBaseObject == ReligiousMaraLove
@@ -362,12 +322,10 @@ Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 	endif
 EndEvent
 
-
 Event OnLevelIncrease(int aiLevel)
 	tActions.TSSD_PerkPointsBought.Mod( 1)
 	tActions.TSSD_SuccubusPerkPoints.Mod(1)
 EndEvent
-
 
 function OnCOLUpdated(form t)
   actor victim = t as actor
@@ -404,7 +362,11 @@ EndFunction
 
 Event OnMenuOpen(String MenuName)
 	if MenuName == "Dialogue Menu"
-		tVals.talkingWithNonWolf = !tActions.isDoggie(SPE_Actor.GetPlayerSpeechTarget())
+        Actor tempActor = SPE_Actor.GetPlayerSpeechTarget()
+		tVals.talkingWithNonWolf = !tActions.isDoggie(tempActor)
+        if tempActor.GetFactionRank(JobTrainerFaction) >= 0 || tempActor.GetFactionRank(TSSD_PotentialHypnoMaster) >= 0
+            tOrgasmLogic.incrValAndCheck(18, 1)
+        endif
 	endif
 	if MenuName == "BarterMenu"
 		tOrgasmLogic.incrValAndCheck(16,1)

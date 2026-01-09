@@ -14,10 +14,6 @@ tssd_actions Property tActions Auto
 tssd_PlayerEventsScript Property tEvents Auto
 tssd_orgasmenergylogic Property tOrgasmLogic Auto
 
-Spell[] Property SuccubusAbilitiesSpells Auto
-Perk[] Property SuccubusAbilitiesPerks  Auto
-Perk[] Property SuccubusTintPerks  Auto
-String[] Property SuccubusAbilitiesNames  Auto    
 
 GlobalVariable Property TimeOfDayGlobalProperty Auto
 GlobalVariable Property SkillSuccubusDrainLevel Auto
@@ -105,7 +101,6 @@ bool Function toggleQuestCurses(String deityName)
                 return true
             endif
         endif
-
     endif
     return false
 endfunction
@@ -118,9 +113,10 @@ Function OpenGrandeMenu()
         tEvents.canCelebrate = false
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getCelebration")
-        
-        CustomSkills.AdvanceSkill("SuccubusBodySkill", 1000 * Game.QueryStat("Dungeons Cleared"))
-        CustomSkills.AdvanceSkill("SuccubusBaseSkill", 1000 * Game.QueryStat("Dungeons Cleared"))
+        if CustomSkills.GetAPIVersion() >= 3
+            tActions.gainSuccubusXP(1000 * Game.QueryStat("Dungeons Cleared"))
+            CustomSkills.AdvanceSkill("SuccubusBaseSkill", 1000 * Game.QueryStat("Dungeons Cleared"))
+        endif
         return
     endif
     modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
@@ -338,12 +334,6 @@ Function OpenSuccubusAbilities()
     if (PlayerRef.HasPerk(TSSD_Seduction_Kiss2) || true) && Sexlab.GetPlayerController()
         itemsAsString += ";Steal"
     endif
-    while indexOfA < SuccubusAbilitiesNames.length
-        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && spellToggle < 2
-                itemsAsString += ";" + SuccubusAbilitiesNames[indexOfA]
-        endif
-        indexOfA += 1
-    endwhile
     String[] myItems = StringUtil.Split(itemsAsString,";")
     Int result = -1
     if modifierKeyIsDown
@@ -415,29 +405,7 @@ Function OpenSuccubusAbilities()
         if toSteal == PlayerRef
             toSteal = _thread.GetPositions()[1]
         endif
-        toSteal.ShowGiftMenu(false, none, true, false) 
-    
-    elseif SuccubusDesireLevel.GetValue() > 0
-        indexOfA = 1
-        bool found = false
-        while indexOfA < SuccubusAbilitiesNames.Length
-            if myItems[result] == SuccubusAbilitiesNames[indexOfA]
-                found = true
-            endif
-            indexOfA += 1
-        endwhile
-        if found
-            indexOfA = 1
-            while indexOfA < SuccubusAbilitiesNames.Length
-                if myItems[result] == SuccubusAbilitiesNames[indexOfA]
-                    SuccubusAbilitiesSpells[indexOfA].Cast(PlayerRef, PlayerRef)
-                    tActions.RefreshEnergy(-20)
-                else
-                    PlayerRef.DispelSpell(SuccubusAbilitiesSpells[indexOfA])
-                endif
-                indexOfA += 1
-            endwhile
-        endif
+        toSteal.ShowGiftMenu(false, none, true, false)
     endif
 EndFunction
 

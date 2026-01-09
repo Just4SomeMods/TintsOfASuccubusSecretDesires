@@ -1,6 +1,3 @@
-refMap:
-  pl1: 0x14|Skyrim.esm
-
 scripts:
   - script: "TSSDThrallDia.lua"
     type: 2
@@ -13,7 +10,6 @@ scripts:
 
 topics:
 
-
   # Masturbate
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
     affects: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -21,7 +17,7 @@ topics:
       - 0x138|TintsOfASuccubusSecretDesires.esp
     conditions:
       - LocationHasKeyWord LocTypeHabitation == 0 OR
-      - pl1 <> HasPerk TSSD_DeityDibellaPerk >= 1 AND
+      - player <> HasPerk TSSD_DeityDibellaPerk >= 1 AND
 
   # Drowsy
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -29,7 +25,7 @@ topics:
     inject:
       - 0xC5|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_Subby2 == 1 AND
+      - player <> HasPerk TSSD_Body_Subby2 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
       - GetFactionRank TSSD_EnthralledFaction == 1 OR
       - GetActorValue Morality <= 2 AND
@@ -40,7 +36,7 @@ topics:
     inject:
       - 0xD1|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_Findom2 == 1 AND
+      - player <> HasPerk TSSD_Body_Findom2 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
 
   # SexAsk
@@ -49,7 +45,7 @@ topics:
     inject:
       - 0x92|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_OfferSex1 == 1 AND
+      - player <> HasPerk TSSD_Seduction_OfferSex1 == 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # CumCover
@@ -58,10 +54,10 @@ topics:
     inject:
       - 0x9A|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_AskForCum == 1 AND
+      - player <> HasPerk TSSD_Drain_AskForCum == 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 AND
       - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
-      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
+      - player <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
   # CumCover
   - id: 0x9A|TintsOfASuccubusSecretDesires.esp
@@ -69,7 +65,7 @@ topics:
     conditions:
       - LocationHasKeyWord LocTypeHabitation == 0 AND
       - GetFactionRank SOS_SchlongifiedFaction >= 1 AND
-      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
+      - player <> GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
   # CumCover
   - id: 0x9A|TintsOfASuccubusSecretDesires.esp
@@ -82,7 +78,7 @@ topics:
   - id: 0x9A|TintsOfASuccubusSecretDesires.esp
     text: "I need to cover you in my seed!"
     conditions:
-      - pl1 <> GetFactionRank SOS_SchlongifiedFaction >= 1 AND
+      - player <> GetFactionRank SOS_SchlongifiedFaction >= 1 AND
 
 
   # Findom
@@ -91,7 +87,7 @@ topics:
     inject:
       - 0xDF|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_Findom1 == 1 AND
+      - player <> HasPerk TSSD_Body_Findom1 == 1 AND
 
   # PAIN
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -99,7 +95,7 @@ topics:
     inject:
       - 0xAE|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_Subby1 == 1 AND
+      - player <> HasPerk TSSD_Body_Subby1 == 1 AND
       - GetFactionRank TSSD_EnthralledFaction == 1 OR
       - IsGuard == 1 OR
       - GetActorValue Morality <= 2 AND
@@ -112,7 +108,7 @@ topics:
     inject:
       - 0xCA|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_Seductress1 == 1 AND
+      - player <> HasPerk TSSD_Seduction_Seductress1 == 1 AND
       - LocationHasKeyWord LocTypeInn == 1 AND
 
   # Punisher
@@ -121,7 +117,7 @@ topics:
     inject:
       - 0xC3|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_PainGood1 == 1 AND
+      - player <> HasPerk TSSD_Body_PainGood1 == 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # Kiss
@@ -130,7 +126,7 @@ topics:
     inject:
       - 0x97|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_Kiss1 == 1 AND
+      - player <> HasPerk TSSD_Seduction_Kiss1 == 1 AND
 
   # Praise
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -138,7 +134,7 @@ topics:
     inject:
       - 0xEC|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_PraiseKink1 == 1 AND
+      - player <> HasPerk TSSD_Drain_PraiseKink1 == 1 AND
 
   # Worship
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -146,7 +142,7 @@ topics:
     inject:
       - 0xF3|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_PraiseKink2 == 1 AND
+      - player <> HasPerk TSSD_Drain_PraiseKink2 == 1 AND
 
   # Grope
   - id: 0xBE|TintsOfASuccubusSecretDesires.esp
@@ -154,7 +150,7 @@ topics:
     inject:
       - 0x110|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Body_Grope >= 1 AND
+      - player <> HasPerk TSSD_Body_Grope >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # Voyeur
@@ -163,7 +159,7 @@ topics:
     inject:
       - 0x10D|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Seduction_Voyeur >= 1 AND
+      - player <> HasPerk TSSD_Seduction_Voyeur >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # SuckChamp
@@ -172,7 +168,7 @@ topics:
     inject:
       - 0x15A|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
+      - player <> HasPerk TSSD_Drain_Sucking >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 AND
       - GetFactionRank SOS_SchlongifiedFaction >= 1 OR
 
@@ -182,7 +178,7 @@ topics:
     inject:
       - 0x13C|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_Sucking >= 1 AND
+      - player <> HasPerk TSSD_Drain_Sucking >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 AND
       - GetIsSex Female == 1 AND
 
@@ -194,7 +190,7 @@ topics:
     inject:
       - 0xA5|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Drain_EnergyVampire >= 1 OR
+      - player <> HasPerk TSSD_Drain_EnergyVampire >= 1 OR
       - GetFactionRank TSSD_EnthralledFaction == 1 OR
 
   # Bark
@@ -203,7 +199,7 @@ topics:
     inject:
       - 0x134|TintsOfASuccubusSecretDesires.esp
     conditions:
-      - pl1 <> HasPerk TSSD_Tint_Lilac >= 1 AND
+      - player <> HasPerk TSSD_Tint_Lilac >= 1 AND
       - LocationHasKeyWord LocTypeHabitation == 0 OR
 
   # Hypnosis Session
@@ -213,7 +209,7 @@ topics:
       - 0x140|TintsOfASuccubusSecretDesires.esp
     conditions:
       - GetFactionRank TSSD_PotentialHypnoMaster >= 0 OR
-      - pl1 <> HasPerk TSSD_Tint_Tolopae >= 1 AND
+      - player <> HasPerk TSSD_Tint_Tolopae >= 1 AND
       - GetFactionRank JobTrainerFaction >= 0 OR
       - GetFactionRank TSSD_PotentialHypnoMaster >= 0 OR
 
