@@ -420,7 +420,7 @@ local pools = {
       "I'll beat you senseless with love, leaving you trembling and adored." },
 
     { -- Npc Submissive
-      "I'll strike where it pleases you most, sir.",
+      "I'll strike where it pleases you most.",
       "Tell me exactly which part of me should bear your marks.",
       "My whole body exists for your punishing pleasure.",
       "Let me feel your wrath across my flesh.",
@@ -841,7 +841,7 @@ local pools = {
     { -- Npc Submissive
       "Use my body as your personal receptacle.",
       "Let me feel your power wash over me completely.",
-      "Cover me in your proof, sir.",
+      "Cover me in your proof.",
       "Mark me as your property with your release.",
       "Fill me up inside and out.",
       "I exist only to serve your climax.",
@@ -933,7 +933,7 @@ local pools = {
       "I'll come harder knowing you're watching me." },
 
     { -- Npc Submissive
-      "Command me how you want me to touch myself, sir.",
+      "Command me how you want me to touch myself.",
       "Tell me where to focus my attention please.",
       "I exist only to please you through my pleasure.",
       "Use my body as your personal entertainment.",
