@@ -1,3 +1,5 @@
+# 1.03.000b
+small perk fixes
 # 1.03.000a
 perk requirements fixes
 # 1.03.000
