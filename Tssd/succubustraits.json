@@ -862,7 +862,7 @@
     "Stiletto": {
         "positive": [],
         "needyText": [],
-        "description": "Your heels are stiletto! While walking in heels you are faster, stronger, prettier and take less stagger, but you lose the same stats otherwise.",
+        "description": "Your heels are stiletto! You have increased speech while wearing heels. You take more damage while sprinting. While walking in heels you resist half the damage from far away enemies.",
         "color": [
             156,
             51,

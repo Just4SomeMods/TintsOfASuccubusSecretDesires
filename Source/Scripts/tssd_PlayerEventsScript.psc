@@ -154,9 +154,6 @@ Function checkValOf( int numOf )
     if tVals.canTakeBools.Length <= numOf
         tVals.canTakeBools = Utility.ResizeBoolArray(tVals.canTakeBools, numOf + 1, false)
     endif
-	if numOf == 25
-		DBGTrace(currentVals[numOf] + " >= " + getTargetNumber(numOf) + " = " + tVals.canTakeBools[numOf])
-	endif
 
 	if !tVals.canTakeBools[numOf] && (currentVals[numOf] + toAdd) >= getTargetNumber(numOf)
 		tMenus.ShowSuccubusTrait(numOf)

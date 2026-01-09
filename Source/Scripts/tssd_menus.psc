@@ -114,12 +114,12 @@ Function OpenGrandeMenu()
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getCelebration")
         if CustomSkills.GetAPIVersion() >= 3
-            tActions.gainSuccubusXP(1000 * Game.QueryStat("Dungeons Cleared"))
-            CustomSkills.AdvanceSkill("SuccubusBaseSkill", 1000 * Game.QueryStat("Dungeons Cleared"))
+            tActions.gainSuccubusXP(100 * Game.QueryStat("Dungeons Cleared"))
+            CustomSkills.AdvanceSkill("SuccubusBodySkill", 100 * Game.QueryStat("Dungeons Cleared"))
         endif
         return
     endif
-    modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
+    modifierKeyIsDown = false;Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if !SafeProcess()
         return
     endif
