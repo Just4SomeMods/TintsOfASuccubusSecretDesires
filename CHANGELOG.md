@@ -1,7 +1,10 @@
+# 1.03.000a
+perk requirements fixes
 # 1.03.000
-Added small intro quest and a follower
+Added a small intro quest and a follower
 Remade death defiance into Acheron
 Bug fixes galore!
+Added Tint Stiletto (it's wearing heels)
 
 # 1.02.002
 fixed some bugs, implemented some perks that had no function, fixed that overview image

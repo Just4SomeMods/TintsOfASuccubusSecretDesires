@@ -1259,7 +1259,7 @@
                 {
                     "type": "text",
                     "text": "Power Grows",
-                    "help": "At -100 Energy you enter a feeding frenzy, which increases damage taken by an insane amount and you force yourself onto the first person you can drain. You gain double the amount of xp.\n",
+                    "help": "UNDERGOING CONSTRUCTION. At -100 Energy you enter a feeding frenzy, which increases damage taken by an insane amount and you force yourself onto the first person you can drain. You gain double the amount of xp.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2057,20 +2057,6 @@
                 {
                     "type": "text",
                     "text": "Soul Drain",
-                    "help": "Draining a victim to death fills up a soul gem.\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "139"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Soul Drain",
                     "help": "Enemies you hit with any drain spell are also soul trapped.\n",
                     "action": {
                         "type": "CallFunction",
@@ -2219,20 +2205,6 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "219"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "Take the lead",
-                    "help": "You can gift a follower some of your energy to make them stronger for a time.\n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "46"
                         ]
                     }
                 },
