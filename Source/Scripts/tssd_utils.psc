@@ -172,6 +172,8 @@ EndFunction
 Function Maintenance() Global
     int jval = JValue.readFromFile("Data/Tssd/succubustraits.json")
     JDB.SetObj("tssdtraits",  jval  )
+    jval = JValue.readFromFile("Data/Tssd/succubustintsUnPivot.json")
+    JDB.SetObj("tssdtints",  jval  )
     jval = JValue.readFromFile("Data/Tssd/succubusEnergyPerks.json")
     JDB.SetObj("tssdperks", jval)
     jval = JValue.readFromFile("Data/Tssd/succubuskinds.json")
@@ -187,9 +189,20 @@ Function Maintenance() Global
     jval = JValue.readFromFile("Data/Tssd/oldNorseGods.json")
     JDB.SetObj("oldNorseGods", jval)
     jval = JValue.readFromFile("Data/Tssd/bodyMorphs.json")
-    JDB.SetObj("tssd_morphs", jval)    
+    JDB.SetObj("tssd_morphs", jval)
     ReadInCosmeticSetting()
 Endfunction
+
+
+int Function getTargetNumber(int num) Global
+    int cNum = JDB.solveInt(".tssdtints." + num + ".targetNum")
+    return cNum
+EndFunction
+
+Perk Function getPerkNumber(int num) Global
+    int cPerk = JDB.solveInt(".tssdtints." + num + ".perk")
+    return Game.GetFormFromFile(cPerk as int, "TintsOfASuccubusSecretDesires.esp") as Perk
+EndFunction
 
 Headpart Function currentEyes(Actor TargetOf = none) Global
     if TargetOf == none
@@ -230,13 +243,12 @@ Function T_Show(String asText, String asImagePath = "", Float aiDelay = 2.0, Str
     return GetAnnouncement().Show(asText, asImagePath, aiDelay, asKnot)
 EndFunction
 
-Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global    
-    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
+Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global
     string txtSource = ".needyText"
     if !isBad
         txtSource = ".positive"
     endif
-    string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtraits." + succKinds[succTrait] + txtSource))
+    string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtints." + succTrait + txtSource))
     String nxText = ""
     if succNeedy.Length > 0
         nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length - 1)]
@@ -245,7 +257,7 @@ Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global
             nxText = texts[0] + replacement + texts[1]
         Endif
     Endif
-    T_Show( nxText , "menus/tssd/small/" + succKinds[succTrait]+".dds" )
+    T_Show( nxText , "menus/tssd/small/" + JDB.solveStr(".tssdtints." + succTrait + ".Name") +".dds" )
 
     
 EndFunction

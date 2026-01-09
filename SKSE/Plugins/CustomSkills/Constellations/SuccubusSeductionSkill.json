@@ -37,7 +37,7 @@
           ]
      },{
           "id": "Leader",
-          "perk": "TintsOfASuccubusSecretDesires.esp|02E",
+          "perk": "TintsOfASuccubusSecretDesires.esp|185",
           "x": 0.25,
           "y": -0.5,
           "links": [          ]
@@ -78,7 +78,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|10B",
           "x": -1.25,
           "y": 2,
-          "links": [ "CharmingDeath",  "FlightMode", "ENDUP2"
+          "links": [ "CharmingDeath",  "Illusionista", "ENDUP2"
           ]
      },{
           "id": "ENDUP2",
@@ -87,8 +87,8 @@
           "links": [ 
           ]
      },   {
-          "id": "FlightMode",
-          "perk": "TintsOfASuccubusSecretDesires.esp|060",
+          "id": "Illusionista",
+          "perk": "TintsOfASuccubusSecretDesires.esp|184",
           "x": -0.5,
           "y": 1.5,
           "links": [ "CharmingDeath", "ENDSIDE"

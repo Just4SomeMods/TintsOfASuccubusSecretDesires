@@ -6,217 +6,217 @@
     "showMenu": "TintsOfASuccubusSecretDesires.esp|048",
     "nodes": [
         {
-            "id": "Start",
+            "id": "Cupid",
             "perk": "TintsOfASuccubusSecretDesires.esp|12A",
             "x": 0,
             "y": -0.75,
             "links": [
-                "2",
-                "3"
+                "Maroon",
+                "Carnation"
             ]
         },
         {
-            "id": "46",
-            "perk": "TintsOfASuccubusSecretDesires.esp|147",
+            "id": "Stiletto",
+            "perk": "TintsOfASuccubusSecretDesires.esp|17B",
             "x": 0,
             "y": 1.1,
             "links": []
         },
         {
-            "id": "2",
-            "x": -0.31284347935435897,
-            "y": -0.4884980509547674,
+            "id": "Maroon",
+            "x": -0.305480283296812,
+            "y": -0.4972949198306981,
             "links": [
-                "6"
+                "Lavenderblush"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|115"
         },
         {
-            "id": "3",
-            "x": 0.31284347935435897,
-            "y": -0.4884980509547674,
+            "id": "Carnation",
+            "x": 0.305480283296812,
+            "y": -0.4972949198306981,
             "links": [
-                "7"
+                "Lilac"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|11B"
         },
         {
-            "id": "6",
-            "x": -0.69886646473261,
-            "y": -0.19675819523745836,
+            "id": "Lavenderblush",
+            "x": -0.6500000000000008,
+            "y": -0.22583302491976964,
             "links": [
-                "10"
+                "Razzmatazz"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|117"
         },
         {
-            "id": "7",
-            "x": 0.69886646473261,
-            "y": -0.19675819523745836,
+            "id": "Lilac",
+            "x": 0.6500000000000008,
+            "y": -0.22583302491976964,
             "links": [
-                "11"
+                "Cerise"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|116"
         },
         {
-            "id": "10",
-            "x": -1.4991359588066564,
-            "y": 0.19072845696083474,
+            "id": "Razzmatazz",
+            "x": -1.3813708498984762,
+            "y": 0.13933982822017887,
             "links": [
-                "14"
+                "Tamarind"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|123"
         },
         {
-            "id": "11",
-            "x": 1.4991359588066564,
-            "y": 0.19072845696083474,
+            "id": "Cerise",
+            "x": 1.3813708498984762,
+            "y": 0.13933982822017887,
             "links": [
-                "15"
+                "Pink"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|114"
         },
         {
-            "id": "14",
-            "x": -2.4898578434426977,
-            "y": 0.6256063840167685,
+            "id": "Tamarind",
+            "x": -2.328460969082653,
+            "y": 0.5500000000000003,
             "links": [
-                "18"
+                "Tolopea"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|122"
         },
         {
-            "id": "15",
-            "x": 2.4898578434426977,
-            "y": 0.6256063840167685,
+            "id": "Pink",
+            "x": 2.328460969082653,
+            "y": 0.5500000000000003,
             "links": [
-                "19"
+                "Tutu"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|12F"
         },
         {
-            "id": "18",
-            "x": -3.2533777248459286,
-            "y": 1.1105214550394638,
+            "id": "Tolopea",
+            "x": -3.133907408043002,
+            "y": 1.0051265870216333,
             "links": [
-                "22"
+                "Blush"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|11A"
         },
         {
-            "id": "19",
-            "x": 3.2533777248459286,
-            "y": 1.1105214550394638,
+            "id": "Tutu",
+            "x": 3.133907408043002,
+            "y": 1.0051265870216333,
             "links": [
-                "23"
+                "Tosca"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|129"
         },
         {
-            "id": "22",
-            "x": -3.427672316203152,
-            "y": 1.6284575842679847,
+            "id": "Blush",
+            "x": -3.45,
+            "y": 1.5,
             "links": [
-                "26"
+                "Crimson"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|12E"
         },
         {
-            "id": "23",
-            "x": 3.427672316203152,
-            "y": 1.6284575842679847,
+            "id": "Tosca",
+            "x": 3.45,
+            "y": 1.5,
             "links": [
-                "27"
+                "Plum"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|119"
         },
         {
-            "id": "26",
-            "x": -2.9270933731135154,
-            "y": 2.0737374207785266,
+            "id": "Crimson",
+            "x": -3.1339074080430014,
+            "y": 1.960898816762806,
             "links": [
-                "30"
+                "Mahogany"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|118"
         },
         {
-            "id": "27",
-            "x": 2.9270933731135154,
-            "y": 2.0737374207785266,
+            "id": "Plum",
+            "x": 3.1339074080430014,
+            "y": 1.960898816762806,
             "links": [
-                "31"
+                "Sangria"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|121"
         },
         {
-            "id": "30",
-            "x": -1.9948903262994413,
-            "y": 2.287278811374822,
+            "id": "Mahogany",
+            "x": -2.3284609690826525,
+            "y": 2.25,
             "links": [
-                "34"
+                "Mystic"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|124"
         },
         {
-            "id": "31",
-            "x": 1.9948903262994413,
-            "y": 2.287278811374822,
+            "id": "Sangria",
+            "x": 2.3284609690826525,
+            "y": 2.25,
             "links": [
-                "35"
+                "Pompadour"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|12B"
         },
         {
-            "id": "34",
-            "x": -1.0543028916606265,
-            "y": 2.1904308090862044,
+            "id": "Mystic",
+            "x": -1.3813708498984758,
+            "y": 2.260660171779821,
             "links": [
-                "38"
+                "Geraldine"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|11E"
         },
         {
-            "id": "35",
-            "x": 1.0543028916606265,
-            "y": 2.1904308090862044,
+            "id": "Pompadour",
+            "x": 1.3813708498984758,
+            "y": 2.260660171779821,
             "links": [
-                "39"
+                "Crusta"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|11F"
         },
         {
-            "id": "38",
-            "x": -0.4523538779359231,
-            "y": 1.890946439250032,
+            "id": "Geraldine",
+            "x": -0.6499999999999999,
+            "y": 2.0258330249197707,
             "links": [
-                "42"
+                "Pueblo"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|128"
         },
         {
-            "id": "39",
-            "x": 0.4523538779359231,
-            "y": 1.890946439250032,
+            "id": "Crusta",
+            "x": 0.6499999999999999,
+            "y": 2.0258330249197707,
             "links": [
-                "43"
+                "Valencia"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|120"
         },
         {
-            "id": "42",
-            "x": -0.25807908595399864,
-            "y": 1.637548885417591,
+            "id": "Pueblo",
+            "x": -0.3054802832968118,
+            "y": 1.7312695160462601,
             "links": [
-                "46"
+                "Stiletto"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|11D"
         },
         {
-            "id": "43",
-            "x": 0.25807908595399864,
-            "y": 1.637548885417591,
+            "id": "Valencia",
+            "x": 0.3054802832968118,
+            "y": 1.7312695160462601,
             "links": [
-                "46"
+                "Stiletto"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|146"
         }

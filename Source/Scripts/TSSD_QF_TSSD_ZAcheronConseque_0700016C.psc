@@ -15,11 +15,17 @@ EndFunction
 Actor Property PlayerRef Auto
 ; SexLabFramework Property Sexlab Auto
 SexLabFramework Property SexLab  Auto
+Spell Property tssd_Satiated Auto
+GlobalVariable Property SuccubusDesireLevel Auto
+Faction Property CurrentFollowerFaction Auto
+
+
 import tssd_utils
 
 
 Event HookDefeatEnd(int aiThreadID, bool abHasPlayer)
 	Acheron.RescueActor(PlayerRef)
+    PlayerRef.DispelSpell(tssd_Satiated)
 	Stop()
 	Debug.SendAnimationEvent(PlayerRef, "IdleForceDefaultState")
 	
@@ -41,10 +47,21 @@ Function doFakeOut()
 
     RegisterForModEvent("HookAnimationEnd_TSSD_DefeatEndHook", "HookDefeatEnd")
 
-    if Sexlab.StartScene(targets, "aggressive, -bound, -stimulation", akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
+    if Sexlab.StartScene(targets, "aggressive, -bound, -stimulation, -sextoy, -furniture", akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
         if Sexlab.StartScene(targets, "", akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
-            Acheron.RescueActor(PlayerRef)
-            Stop()
+            
+            if Sexlab.StartSceneQuick(targets[0], PlayerRef, akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
+                Acheron.RescueActor(PlayerRef)
+                Stop()
+                return
+            endif
         endif
     endif
+    Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
+    int indexInFol = 0
+    while indexInFol < allFolls.Length
+        Sexlab.StartSceneQuick(allFolls[indexInFol])
+        indexInFol += 1
+    endwhile
+    SuccubusDesireLevel.Mod(-20 * pTargets.Length + 20)
 EndFunction

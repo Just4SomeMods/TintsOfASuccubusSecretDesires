@@ -10,6 +10,7 @@ tssd_menus Property tMenus Auto
 Quest Property tssd_tints_tracker Auto
 Quest Property TSSD_ZAcheronConsequences Auto
 tssd_tints_variables Property tVals Auto
+tssd_orgasmenergylogic Property tOrgasmLogic Auto
 Actor Property PlayerRef Auto
 
 MagicEffect Property TSSD_SatiatedEffect Auto
@@ -30,6 +31,8 @@ Faction Property TSSD_RevealingOutfit Auto
 Faction Property TSSD_Collared Auto
 Faction Property CurrentFollowerFaction Auto
 
+bool Property canCelebrate = false Auto Hidden
+
 bool isActingDefeated = false
 float totalDamageTaken = 0.0
 bool crimsonDone = false
@@ -38,11 +41,15 @@ Keyword Property ActorTypeCreature Auto
 Keyword Property TSSD_AbsorbSpellKeyword Auto
 Keyword Property MagicInfluence Auto
 Perk Property TSSD_DeityArkayPerk Auto
+Perk Property TSSD_Body_CelebratoryMasturbation Auto
+Perk Property TSSD_Drain_SouldrainNew Auto
 
 
 
 Spell Property TSSD_InLoveBuff Auto
 Spell Property TSSD_CompelledSpell Auto
+Spell Property TSSD_SoulTrap Auto
+Spell Property TSSD_StilettoBuffsNNerfs Auto
 
 float lastNeedsAnnouncement
 
@@ -142,62 +149,31 @@ bool maraSuccess = false
 
 Function checkValOf( int numOf )
 	int toAdd = 0
-	if numOf == 12
+	;/ if numOf == 12
 		toAdd += Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
+	endif /;
+	
+    if tVals.canTakeBools.Length <= numOf
+        tVals.canTakeBools = Utility.ResizeBoolArray(tVals.canTakeBools, numOf + 1, false)
+    endif
+	if numOf == 25
+		DBGTrace(currentVals[numOf] + " >= " + getTargetNumber(numOf) + " = " + tVals.canTakeBools[numOf])
 	endif
-	if !tVals.canTakeBools[numOf] && (currentVals[numOf] + toAdd) >= targetNums[numOf]
+
+	if !tVals.canTakeBools[numOf] && (currentVals[numOf] + toAdd) >= getTargetNumber(numOf)
 		tMenus.ShowSuccubusTrait(numOf)
 	endif
 endfunction
-
-
-;/ Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
-    if UI.IsMenuOpen("Dialogue Menu") || UI.IsMenuOpen("Barter Menu")
-		tActions.tOrgasmLogic.incrValAndCheck(16, aiItemCount)
-    endif
-
-endEvent /;
 
 
 
 Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile, bool abPowerAttack, bool abSneakAttack, \
     bool abBashAttack, bool abHitBlocked)
 	ACtor ak = akAggressor as Actor
-;/     if PlayerRef.GetAV("Health") < 300 && tActions.SuccubusDesireLevel.GetValue() > 20 && (akAggressor as Actor) && (akAggressor as Actor).GetAv("Health") < tActions.getDrainLevel() && !isActingDefeated && (akAggressor as Actor).GetAv("Health") > 50 && !tActions.playerInSafeHaven()
-		isActingDefeated = true
-        Actor tar = tActions.getCombatTarget(true)
-        if tar && tar != PlayerRef
-            if tActions.actDefeated(tar, false)
-				tActions.SuccubusDesireLevel.Mod(-20)
-				Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
-				if allFolls.length > 0
-					SexlabThread cTh =  Sexlab.StartScene(allFolls , "")
-					Utility.Wait(5)
-					Actor cFol = allFolls[0]
-					cFol.MoveTo(PlayerRef)
-					sslThreadController _fthread =  Sexlab.GetActorController(cFol) 
-					int StageCountF = SexLabRegistry.GetPathMax(   cTh.getactivescene()  , "").Length -1
-					int Stage_inF = StageCountF   - SexLabRegistry.GetPathMax(cTh.getactivescene() ,cTh.GetActiveStage()).Length + 1
-					while  Stage_inF < StageCountF 
-						_fthread.AdvanceStage()
-						Stage_inF = StageCountF   - SexLabRegistry.GetPathMax(cTh.getactivescene() ,cTh.GetActiveStage()).Length + 1
-					EndWhile
-					Utility.Wait(1)
-					int cFoll = 0
-					while cFoll < allFolls.Length
-						cFol = allFolls[cFoll]
-						cTh.ForceOrgasm(cFol)
-						cFoll += 1
-					endwhile
-				endif
-			endif
-        Endif
-		isActingDefeated = false
-    endif /;
     Weapon akW = akSource as Weapon
-    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[14]) && akW != none && !abHitBlocked
+    if PlayerRef.HasPerk(getPerkNumber(14)) && akW != none && !abHitBlocked
 		int mult = 20
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
+		if PlayerRef.HasPerk(getPerkNumber(19))
 			mult = 2
 		endif
         tActions.gainSuccubusXP(akW.GetBaseDamage() * mult )
@@ -220,7 +196,7 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 		endif
 	endif
 	if akw
-		tActions.tOrgasmLogic.incrValAndCheck(14, akW.GetBaseDamage())
+		tOrgasmLogic.incrValAndCheck(14, akW.GetBaseDamage())
 	endif
 	
 EndEvent
@@ -286,10 +262,10 @@ Function onGameReload()
 		CC_BimbofyPlayer = Game.GetFormFromFile(0x303FAE, FILE_CC) as Quest
 		bimboFound = true
 	endif
-	if !tVals.canTakeBools[21] && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0]) && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[1])
+	if !tVals.canTakeBools[21] && PlayerRef.HasPerk(getPerkNumber(0)) && PlayerRef.HasPerk(getPerkNumber(1))
 		tMenus.ShowSuccubusTrait(21)
 	endif
-	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[6])
+	if PlayerRef.HasPerk(getPerkNumber(6))
 		addToLilac()
 	endif
 
@@ -319,10 +295,16 @@ EndEvent
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
 	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
 		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 10 )
+		if PlayerRef.HasPerk(TSSD_Drain_SouldrainNew)
+			TSSD_SoulTrap.Cast(PlayerRef, akTarget)
+		endif
 	endif
 EndEvent
 
 Event OnSpellCast(Form akSpell)
+	if akSpell as Ingredient || akSpell as Potion
+		tOrgasmLogic.incrValAndCheck(12,1)
+	endif
 	Spell Sp = akSpell as Spell
 	if sp == none
 		return
@@ -332,7 +314,12 @@ Event OnSpellCast(Form akSpell)
 		return
 	endif
 	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(Game.GetFormFromFile(0x424ee, "skyrim.esm") as Keyword)
-		CustomSkills.AdvanceSkill("SuccubusSeductionSkill", sp.GetMagickaCost() )
+		CustomSkills.AdvanceSkill("SuccubusSeductionSkill", sp.GetMagickaCost() )		
+		if PlayerRef.HasPerk(getPerkNumber(25))
+			PlayerRef.RemoveSpell(TSSD_StilettoBuffsNNerfs)
+			Utility.Wait(0.1)
+			PlayerRef.AddSpell(TSSD_StilettoBuffsNNerfs, true)
+		endif
 	endif 
 	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
 		CustomSkills.AdvanceSkill("SuccubusDrainSkill", sp.GetMagickaCost() )
@@ -370,7 +357,7 @@ endevent
 
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
-	if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[2]) && akBaseObject == ReligiousMaraLove
+	if PlayerRef.HasPerk(getPerkNumber(2)) && akBaseObject == ReligiousMaraLove
 		PlayerRef.UnequipItem(ReligiousMaraLove, true, false)
 	endif
 EndEvent
@@ -387,6 +374,11 @@ function OnCOLUpdated(form t)
   int isFull = (StorageUtil.GetFloatValue(none, "CurseOfLife_BellyCurrentSize", 0.0) > 0) as int
   isFull += (StorageUtil.GetFloatValue(none, "CurseOfLife_CharusCurrentSize", 0.0) + StorageUtil.GetFloatValue(none, "CurseOfLife_SpiderCurrentSize", 0.0) > 0) as int
   tVals.hasEggs = isFull
+  if isFull > 0 && tssd_tints_tracker.IsObjectiveFailed(10) && PlayerRef.HasPerk(getPerkNumber(10))
+		tssd_tints_tracker.SetObjectiveFailed(10, false)
+		tssd_tints_tracker.SetObjectiveDisplayed(10, true)
+  endif
+
   if !maraSuccess && StorageUtil.GetFloatValue(none, "CurseOfLife_BlessingCurrentSize", 0.0) >= 5.0
 	tActions.increaseGlobalDeity(0,1,1)
 	maraSuccess = true
@@ -396,8 +388,8 @@ endfunction
 
 Function EggLaid(form actorFrom, form egg, int numReleased)
 	if  actorFrom as actor == PlayerRef
-		tActions.tOrgasmLogic.incrValAndCheck(10, 1)
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])
+		tOrgasmLogic.incrValAndCheck(10, 1)
+		if PlayerRef.HasPerk(getPerkNumber(10))
 			RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 		endif
 	endif
@@ -413,10 +405,9 @@ EndFunction
 Event OnMenuOpen(String MenuName)
 	if MenuName == "Dialogue Menu"
 		tVals.talkingWithNonWolf = !tActions.isDoggie(SPE_Actor.GetPlayerSpeechTarget())
-		DBGTrace(tVals.talkingWithNonWolf)
 	endif
 	if MenuName == "BarterMenu"
-		tActions.tOrgasmLogic.incrValAndCheck(16,1)
+		tOrgasmLogic.incrValAndCheck(16,1)
 	endif
 EndEvent
 
@@ -427,13 +418,22 @@ endEvent
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if (asStatFilter == "Ingredients Eaten")
 		Debug.MessageBox("YUM")
-    endif
+	elseif asStatFilter == "Dungeons Cleared"
+		if PlayerRef.HasPerk(TSSD_Body_CelebratoryMasturbation)
+            SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+			canCelebrate = true
+            myBinding.Add("tssd_getCelebration", "Celebrate!", tActions.allInOneKey)
+			Utility.Wait(10)
+			canCelebrate = false
+			myBinding.Remove("tssd_getCelebration")
+		endif
+	endif
 endEvent
 
 
 Event OnUpdateGameTime()
 	if !tssd_tints_tracker.IsStageDone(5) && PlayerRef.GetFactionRank(sla_Arousal) > 90
-		tActions.tOrgasmLogic.incrValAndCheck(5,1)
+		tOrgasmLogic.incrValAndCheck(5,1)
 	else
 		currentVals[5] = 0
 	endif
@@ -443,13 +443,16 @@ Event OnUpdateGameTime()
 	endif
 
 	if IsTopless && IsBottomless
-		tActions.tOrgasmLogic.incrValAndCheck(7, 1)
+		tOrgasmLogic.incrValAndCheck(7, 1)
 	else
 		currentVals[7] = 0
 	endif
+	if tVals.isHeeled
+		tOrgasmLogic.incrValAndCheck(25, 1)
+	endif
 
 	if IsSkimpilyClothed
-		tActions.tOrgasmLogic.incrValAndCheck(17, 1)
+		tOrgasmLogic.incrValAndCheck(17, 1)
 	else
 		currentVals[17] = 0
 	endif
@@ -461,7 +464,7 @@ Event OnUpdateGameTime()
 		if indexIn == 12
 			toAdd = Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
 		endif
-		outPut += indexIN + ": " + ((currentVals[indexIN] as int) + toAdd) + "/" + (targetNums[indexIN] as int) + " || "
+		outPut += indexIN + ": " + ((currentVals[indexIN] as int) + toAdd) + "/" + (getTargetNumber(indexIN) as int) + " || "
 		indexIN += 1
 	endwhile
 	calcCumAmountPlayer()
@@ -478,42 +481,43 @@ Event OnUpdateGameTime()
 	tVals.lastFadeTat += gameTimeDiff
 	tVals.lastDragon += gameTimeDiff
 	lastNeedsAnnouncement += gameTimeDiff
+	
 	int[] tN = new int[1]
 	int needsTimerMax =  MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusNeedsTimer:Main")
 	if lastNeedsAnnouncement > needsTimerMax  && !PlayerRef.isInCombat()
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[0])  && (tVals.lastCumOnTime > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(0))  && (tVals.lastCumOnTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 0)
 			tssd_tints_tracker.SetObjectiveFailed(0, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[15]) && (tVals.lastPraiseTime > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(15)) && (tVals.lastPraiseTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 15)
 			tssd_tints_tracker.SetObjectiveFailed(15, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[22]) && (tVals.lastRoughTime > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(22)) && (tVals.lastRoughTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 22)
 			tssd_tints_tracker.SetObjectiveFailed(22, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[13]) && (tVals.lastSpankedTime > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(13)) && (tVals.lastSpankedTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 13)
 			tssd_tints_tracker.SetObjectiveFailed(13, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[3])  && (tVals.lastRomanticTime > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(3))  && (tVals.lastRomanticTime > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 3)
 			tssd_tints_tracker.SetObjectiveFailed(3, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[1])  && (tVals.lastCumInMe > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(1))  && (tVals.lastCumInMe > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 1)
 			tssd_tints_tracker.SetObjectiveFailed(1, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[6].GetNextPerk())  && (tVals.lastWolfSex > needsTimerMax)
+		if PlayerRef.HasPerk(getPerkNumber(6).GetNextPerk())  && (tVals.lastWolfSex > needsTimerMax)
 			tN = PapyrusUtil.PushInt(tN, 6)
 			tssd_tints_tracker.SetObjectiveFailed(6, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[10])  && (!tVals.hasEggs)
+		if PlayerRef.HasPerk(getPerkNumber(10))  && (!tVals.hasEggs)
 			tN = PapyrusUtil.PushInt(tN, 10)
 			tssd_tints_tracker.SetObjectiveFailed(10, true)
 		endif
-		if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[18]) && (tVals.lastHypnoSession > needsTimerMax  * 3)
+		if PlayerRef.HasPerk(getPerkNumber(18)) && (tVals.lastHypnoSession > needsTimerMax  * 3)
 			tN = PapyrusUtil.PushInt(tN, 18)
 			Actor[] allActs = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_HypnoMaster)
 
@@ -533,7 +537,7 @@ Event OnUpdateGameTime()
 	endif
 	
 
-	if tVals.lastFadeTat > 168 && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[8])
+	if tVals.lastFadeTat > 168 && PlayerRef.HasPerk(getPerkNumber(8))
 		int handle = ModEvent.Create("RapeTattoos_addTattooV2")
 		if (handle)
 			ModEvent.PushForm(handle, PlayerRef)
@@ -561,7 +565,7 @@ Event OnPlayerShoutAttack(Shout akShout)
 	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
 		Utility.Wait(5)
-		tActions.tOrgasmLogic.incrValAndCheck(6, 1)
+		tOrgasmLogic.incrValAndCheck(6, 1)
 	endif
 EndEvent
 
@@ -586,6 +590,7 @@ Event OnANDUpdate()
 		PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
 		PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
 		tVals.isGagged = PlayerRef.WornHasKeyword(zad_DeviousGag) || PlayerRef.WornHasKeyword(zad_DeviousGagPanel)
+		tVals.isHeeled = StorageUtil.GetIntValue(None, "ypsHeelsWorn")
 	endif
 EndEvent
 

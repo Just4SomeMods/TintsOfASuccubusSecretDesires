@@ -16,6 +16,7 @@ GlobalVariable Property TSSD_ReverseSeductionSkill Auto
 Actor Property PlayerRef Auto
 Perk Property TSSD_Base_Explanations Auto
 Spell Property TSSD_BaseHealthBodyBuff Auto
+Spell Property TSSD_StilettoBuffsNNerfs Auto
 Tssd_Menus Property tMenus Auto
 
 Function SetSkillName(String newName)
@@ -100,6 +101,11 @@ Function Train()
             TSSD_ReverseDrainSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
         elseif SkillName == "Seduction"
             TSSD_ReverseSeductionSkill.SetValue( max(0, 100 - skillVal.GetValue()) )
+            if PlayerRef.HasPerk(getPerkNumber(25))
+                PlayerRef.RemoveSpell(TSSD_StilettoBuffsNNerfs)
+                Utility.Wait(0.1)
+                PlayerRef.AddSpell(TSSD_StilettoBuffsNNerfs, false)
+            endif
         endif
         PlayerRef.RemovePerk(TSSD_Base_Explanations)
         PlayerRef.AddPerk(TSSD_Base_Explanations)

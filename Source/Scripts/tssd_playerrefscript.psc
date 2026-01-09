@@ -52,36 +52,6 @@ Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
 	endif
 EndEvent
 
-;/ Event OnItemAdded(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akSourceContainer)
-    if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25) && aiItemCount < 1000
-        int lostMoney = ((aiItemCount + 1) / 2) as int
-        PlayerRef.RemoveItem(akBaseItem,  lostMoney )
-        Debug.Notification("Zenithar takes half your cut!")
-        if akSourceContainer as Actor && (akSourceContainer as Actor).isInFaction(DarkBrotherhoodFaction) || (akSourceContainer as Actor).isInFaction(ThievesGuildFaction)
-            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobalcor, 35, 5000)
-        else
-            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobal, 25, 10000)
-        endif
-        advanceStageTwenty()
-    endif
-
-endEvent
-
-Event OnItemRemoved(Form akBaseItem, int aiItemCount, ObjectReference akItemReference, ObjectReference akDestContainer)
-    if tssd_dealwithcurseQuest.GetStage() == 20 && !tssd_dealwithcurseQuest.isobjectivefailed(25) && UI.IsMenuOpen("Dialogue Menu") && akDestContainer as Actor
-        int lostMoney = ((aiItemCount + 1) / 2) as int
-        if (akDestContainer as Actor).IsInFaction(ThievesGuildFaction)
-            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobalcor, 35, 5000)
-            Debug.Notification("Zenithar tolerates your trade.")
-        else
-            Debug.Notification("Zenithar likes your trade!")
-            tssd_dealwithcurseQuest.ModObjectiveGlobal(lostMoney, TSSD_deityblessquestztglobal, 25, 10000)
-        endif
-        advanceStageTwenty()
-    endif
-
-endEvent /;
-
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if tssd_dealwithcurseQuest.GetStage() == 20
@@ -114,6 +84,6 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
 		tActions.RefreshEnergy(5)
 	endif /;
 	if PlayerRef == akKiller &&  tActions.tssd_dealwithcurseQuest.isRunning() && !tActions.tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-		tActions.increaseGlobalDeity(3, 50 - akVictim.GetAV("Speechcraft"),10000)
+		tActions.increaseGlobalDeity(3, (50 - akVictim.GetAV("Speechcraft")) / 10,1000)
 	endif
 EndEvent

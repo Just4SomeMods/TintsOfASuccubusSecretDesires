@@ -247,13 +247,13 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
     elseif (succNeedVal + 10) > energyLoss * -1
         RefreshEnergy( energyLoss )
         int multI = 1
-        if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[11])
+        if PlayerRef.HasPerk(getPerkNumber(11))
             multI *= 2
         endif
         if PlayerRef.HasPerk(TSSD_Base_PowerGrowing)
             multI *= 2
         endif
-        if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
+        if PlayerRef.HasPerk(getPerkNumber(19))
             multI *= 5
         endif
         SuccubusXpAmount.Mod(byValue)
@@ -262,12 +262,7 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
         RefreshEnergy( succNeedVal * -1 )
     endif
     if CustomSkills.GetAPIVersion() >= 3
-        int lastFiver = ((SkillSuccubusBaseLevel.GetValue() / 5) as int)
         CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
-        if lastFiver  < ((SkillSuccubusBaseLevel.GetValue() / 5) as int)
-            TSSD_PerkPointsBought.Mod( 1)
-            TSSD_SuccubusPerkPoints.Mod(1)
-        endif
     endif
 EndFunction
 
@@ -445,29 +440,10 @@ Function AddToStatistics(float amount_of_hours)
     while index < (amount_of_hours as int)
         int maleSexPartner = (0.5 + Utility.RandomInt(0, sexualityPlayer) / 100) as int
         sslStats.AddSex(PlayerRef, timespent = 1.0,  withplayer = true, \
-    isaggressive = PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]), Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
+    isaggressive = PlayerRef.HasPerk(getPerkNumber(20)), Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
         index += 1
     endwhile
     slsfListener.onWaitPassive(amount_of_hours)
-Endfunction
-
-
-
-
-Function toggleSpells(int newToggle = -1)
-    if newToggle == -1
-        newToggle = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main")
-    endif
-    int indexOfA = 1
-    while indexOfA < SuccubusAbilitiesNames.length
-        if PlayerRef.HasPerk(SuccubusAbilitiesPerks[indexOfA]) && newToggle > 0
-            PlayerRef.AddSpell(SuccubusAbilitiesSpells[indexOfA], false)
-        else
-            PlayerRef.RemoveSpell(SuccubusAbilitiesSpells[indexOfA])
-        endif
-        indexOfA += 1
-    endwhile
-    spellToggle = newToggle
 Endfunction
 
 Function gainAllPerks()    
@@ -491,16 +467,16 @@ String Function getAllNames(Actor[] inArr)
 Endfunction
 
 bool Function GetHabitationCorrect(Location curLoc) 
-    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypePlayerHouse) 
+    if PlayerRef.HasPerk(getPerkNumber(19)) && curLoc.HasKeyword(LocTypePlayerHouse) 
         return true
     endif
-    if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && curLoc.HasKeyword(LocTypeInn)
+    if PlayerRef.HasPerk(getPerkNumber(19)) && curLoc.HasKeyword(LocTypeInn)
         return true
     endif
     if curLoc.HasKeyword(LocTypeHabitationHasInn)
         return true
     endif
-    return PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) && !curLoc.HasKeyword(LocTypeHabitation)            
+    return PlayerRef.HasPerk(getPerkNumber(20)) && !curLoc.HasKeyword(LocTypeHabitation)            
 EndFunction
 
 Function onGameReload()
@@ -513,9 +489,6 @@ Function onGameReload()
     Maintenance()
     cosmeticSettings = ReadInCosmeticSetting()
     gainSuccubusXP(0)
-    if !spellToggle
-        toggleSpells(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSpellsAdded:Main"))
-    endif
     setAllInOneKeyAction(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iAllInOneKey:Main"))
 
     int jArr = JDB.solveObj(".tssdspellids")
@@ -526,6 +499,8 @@ Function onGameReload()
         MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile
+    
+
 
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
@@ -536,6 +511,7 @@ Function onGameReload()
     
     updateHeartMeter(true)
 Endfunction
+
 
 Function addTSSDPerk(string perkToAdd)
     Perk toAdd = Game.GetFormFromFile(perkToAdd as int, "TintsOfASuccubusSecretDesires.esp") as Perk    
@@ -572,7 +548,7 @@ Endfunction
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-    if !PlayerRef.isInCombat() && PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) && lastScarletTalk > 24 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
+    if !PlayerRef.isInCombat() && PlayerRef.HasPerk(getPerkNumber(19)) && lastScarletTalk > 24 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
         int toIncrease = 2
         Actor[] myThralls = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)
         if myThralls.Length >= 1
@@ -586,7 +562,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     endif
     if asStatFilter == "Dragon Souls Collected"
         tOrgasmLogic.incrValAndCheck(23, 1)
-        if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[23])
+        if PlayerRef.HasPerk(getPerkNumber(23))
             tMenus.TSSD_Satiated.SetNthEffectDuration(0, 3600 * 7 * 2)
         endif
         tMenus.TSSD_Satiated.Cast(PlayerRef,PlayerRef)
@@ -669,9 +645,7 @@ Event OnMenuOpen(String MenuName)
 EndEvent
 
 Event OnMenuClose(String MenuName)
-    if MenuName == "StatsMenu"
-        toggleSpells(-1)
-    elseif MenuName == "Dialogue Menu" && HotDemonTarget != PlayerRef
+    if MenuName == "Dialogue Menu" && HotDemonTarget != PlayerRef
         int eid = ModEvent.Create("slaUpdateExposure")
         ModEvent.PushForm(eid, HotDemonTarget)
         ModEvent.PushFloat(eid, -100)

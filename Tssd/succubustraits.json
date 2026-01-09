@@ -37,6 +37,8 @@
         ],
         "colorHex": "E3256B",
         "kink": "cumplay",
+        "perk": 276,
+        "targetNum": 10,
         "index": 0
     },
     "Cupid": {
@@ -69,6 +71,8 @@
         ],
         "colorHex": "E3256B",
         "kink": "cumplay",
+        "perk": 277,
+        "targetNum": 10,
         "index": 1
     },
     "Lavenderblush": {
@@ -102,6 +106,8 @@
         "colorHex": "fff0f5",
         "unlockMethod": "cuck someone",
         "kink": "cuckqueen/bull",
+        "perk": 278,
+        "targetNum": 1,
         "index": 2
     },
     "Carnation": {
@@ -116,8 +122,7 @@
             "Our love grows with each touch.",
             "I am complete in your arms."
         ],
-        "needyText": [
-        ],
+        "needyText": [],
         "description": "You love love! So your color is carnation. As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against men and mer if you haven't had a romantic interaction in a while.",
         "famecat": [
             "Gentle"
@@ -130,6 +135,8 @@
         ],
         "colorHex": "FC636B",
         "kink": "romantic",
+        "perk": 279,
+        "targetNum": 10,
         "index": 3
     },
     "Tosca": {
@@ -153,6 +160,8 @@
         ],
         "colorHex": "744042",
         "kink": "gay",
+        "perk": 280,
+        "targetNum": 10,
         "index": 4
     },
     "Blush": {
@@ -168,6 +177,8 @@
         ],
         "colorHex": "DE5D83",
         "kink": "edging?",
+        "perk": 281,
+        "targetNum": 5,
         "index": 5
     },
     "Lilac": {
@@ -236,11 +247,12 @@
         ],
         "colorHex": "C8A2C8",
         "kink": "puppyplay",
+        "perk": 291,
+        "targetNum": 1,
         "index": 6
     },
     "Pink": {
-        "positive": [
-        ],
+        "positive": [],
         "needyText": [
             "My skin feels suffocated under fabric. Stupid clothes. Stupid me for wearing them.",
             "I want to feel the air kiss my nipples. Now! Not later!",
@@ -293,6 +305,8 @@
         ],
         "colorHex": "FFC0CB",
         "kink": "exhibitionism",
+        "perk": 282,
+        "targetNum": 5,
         "index": 7
     },
     "Maroon": {
@@ -308,6 +322,8 @@
         ],
         "colorHex": "800000",
         "kink": "tattoos",
+        "perk": 283,
+        "targetNum": 0,
         "index": 8
     },
     "HotPink": {
@@ -323,6 +339,8 @@
         ],
         "colorHex": "FE01B1",
         "kink": "bimbofication",
+        "perk": 284,
+        "targetNum": 1,
         "index": 9
     },
     "Crusta": {
@@ -363,6 +381,8 @@
         ],
         "colorHex": "F38653",
         "kink": "oviposition",
+        "perk": 285,
+        "targetNum": 1,
         "index": 10
     },
     "Sangria": {
@@ -378,6 +398,8 @@
         "colorHex": "92000A",
         "unlockMethod": "Accept 3 other colors.",
         "kink": "-",
+        "perk": 286,
+        "targetNum": 3,
         "index": 11
     },
     "Mystic": {
@@ -406,6 +428,8 @@
         "colorHex": "D65282",
         "unlockMethod": "Swallow potions, ingredients and cum.",
         "kink": "cumplay",
+        "perk": 287,
+        "targetNum": 30,
         "index": 12
     },
     "Geraldine": {
@@ -468,6 +492,8 @@
         "colorHex": "E77B75",
         "unlockMethod": "Get spanked 10 times.",
         "kink": "spanking",
+        "perk": 288,
+        "targetNum": 10,
         "index": 13
     },
     "Crimson": {
@@ -481,8 +507,10 @@
             60
         ],
         "colorHex": "DC143C",
-        "unlockMethod": "Take 1000 damage.",
+        "unlockMethod": "Take 2000 damage.",
         "kink": "masochism",
+        "perk": 289,
+        "targetNum": 2000,
         "index": 14
     },
     "Cerise": {
@@ -535,6 +563,8 @@
         "colorHex": "DE3163",
         "unlockMethod": "Get praised 10 times.",
         "kink": "praise",
+        "perk": 290,
+        "targetNum": 10,
         "index": 15
     },
     "Plum": {
@@ -550,6 +580,8 @@
         "colorHex": "8E4585",
         "unlockMethod": "Barter 10 times.",
         "kink": "sugarbaby",
+        "perk": 292,
+        "targetNum": 10,
         "index": 16
     },
     "Pompadour": {
@@ -565,6 +597,8 @@
         "colorHex": "6A1F44",
         "unlockMethod": "Wear revealing clothing for 5 hours.",
         "kink": "",
+        "perk": 296,
+        "targetNum": 5,
         "index": 17
     },
     "Tolopea": {
@@ -584,6 +618,8 @@
         "colorHex": "460245",
         "unlockMethod": "Train 10 times.",
         "kink": "Hypnotism",
+        "perk": 297,
+        "targetNum": 10,
         "index": 18
     },
     "Scarlet": {
@@ -627,6 +663,9 @@
         "colorHex": "FF2400",
         "unlockMethod": "get cursed",
         "kink": "demi",
+        "famecat": [],
+        "perk": 298,
+        "targetNum": 1,
         "index": 19
     },
     "Mahogany": {
@@ -654,6 +693,8 @@
         ],
         "colorHex": "4E0509",
         "kink": "CnC",
+        "perk": 299,
+        "targetNum": 10,
         "index": 20
     },
     "Tutu": {
@@ -671,6 +712,8 @@
         "colorHex": "F8E4E3",
         "unlockMethod": "Have both razzmatazz and cupid.",
         "kink": "cumplay",
+        "perk": 302,
+        "targetNum": 1,
         "index": 21
     },
     "Tamarind": {
@@ -778,6 +821,8 @@
         "colorHex": "341515",
         "unlockMethod": "have rough sex or get choked 10 times.",
         "kink": "choking",
+        "perk": 303,
+        "targetNum": 10,
         "index": 22
     },
     "Pueblo": {
@@ -793,6 +838,8 @@
         "colorHex": "71200D",
         "unlockMethod": "Absorb a dragon.",
         "kink": "scaly",
+        "perk": 326,
+        "targetNum": 1,
         "index": 23
     },
     "Valencia": {
@@ -808,6 +855,25 @@
         "colorHex": "D9483C",
         "unlockMethod": "Masturbate 10 times.",
         "kink": "selflove",
+        "perk": 327,
+        "targetNum": 10,
         "index": 24
+    },
+    "Stiletto": {
+        "positive": [],
+        "needyText": [],
+        "description": "Your heels are stiletto! While walking in heels you are faster, stronger, prettier and take less stagger, but you lose the same stats otherwise.",
+        "color": [
+            217,
+            72,
+            60
+        ],
+        "famecat": [],
+        "colorHex": "D9483C",
+        "unlockMethod": "Wear heels for 5 hours.",
+        "kink": "selflove",
+        "perk": 379,
+        "targetNum": 5,
+        "index": 25
     }
 }

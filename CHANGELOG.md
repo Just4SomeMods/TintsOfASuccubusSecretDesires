@@ -1,5 +1,5 @@
 # 1.03.000
-Added small intro quest
+Added small intro quest and a follower
 Remade death defiance into Acheron
 Bug fixes galore!
 

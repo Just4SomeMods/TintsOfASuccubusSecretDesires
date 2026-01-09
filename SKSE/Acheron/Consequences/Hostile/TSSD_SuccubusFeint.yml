@@ -10,3 +10,8 @@ StartTeleport: false
 Teleport: false
 InCombat: true
 Hidden: false
+
+Conditions:
+    Victim:
+        Faction:
+            - 0xAA|TintsOfASuccubusSecretDesires.esp: true

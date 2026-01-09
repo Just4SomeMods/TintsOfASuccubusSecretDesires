@@ -85,10 +85,10 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|0E2",
           "x": -1.0,
           "y": 2.0,
-          "links": [     "JailerMode" , "RT"  ]
+          "links": [     "Celebration" , "RT"  ]
      },{
-          "id": "JailerMode",
-          "perk": "TintsOfASuccubusSecretDesires.esp|062",
+          "id": "Celebration",
+          "perk": "TintsOfASuccubusSecretDesires.esp|16A",
           "x": -1.25,
           "y": 2.25,
           "links": [
@@ -98,11 +98,11 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|0DE",
           "x": 1.0,
           "y": 2.0,
-          "links": [ "FightMode" , "LT"
+          "links": [ "HiddenPockets" , "LT"
           ]
      },{
-          "id": "FightMode",
-          "perk": "TintsOfASuccubusSecretDesires.esp|05D",
+          "id": "HiddenPockets",
+          "perk": "TintsOfASuccubusSecretDesires.esp|16F",
           "x": 1.25,
           "y": 2.25,
           "links": [        ]

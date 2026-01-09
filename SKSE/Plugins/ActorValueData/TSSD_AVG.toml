@@ -32,6 +32,11 @@ type = "Functional"
 alias = "EnchantingSkillAdvance"
 get = "GetGlobalValueParam(sSeduL)"
 
+[SuccubusReverseSeductionSkill]
+type = "Functional"
+alias = "LockpickingSkillAdvance"
+get = "GetGlobalValueParam(sSeduL) * -0.5"
+
 [TSSD_CumAmountAV]
 type = "Functional"
 alias = "PickPocketSkillAdvance"

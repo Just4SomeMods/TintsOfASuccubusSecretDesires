@@ -92,21 +92,6 @@
       }
     },
     {
-      "NavigationMesh": "000080:TintsOfASuccubusSecretDesires.esp",
-      "Point": "232.17899, -1028.909, 97.91636",
-      "LinkedDoors": [
-        {
-          "Unknown": -460622861,
-          "Door": "016A7A:Skyrim.esm"
-        }
-      ],
-      "Unknown2": -1511415748,
-      "Parent": {
-        "MutagenObjectType": "NavigationMapInfoCellParent",
-        "ParentCell": "000089:TintsOfASuccubusSecretDesires.esp"
-      }
-    },
-    {
       "NavigationMesh": "103120:Skyrim.esm",
       "Unknown": 64,
       "Point": "173984.75, -88130.71, 10525.382",
@@ -193,6 +178,21 @@
         "MutagenObjectType": "NavigationMapInfoWorldParent",
         "ParentWorldspace": "00003C:Skyrim.esm",
         "ParentWorldspaceCoord": "-19, 4"
+      }
+    },
+    {
+      "NavigationMesh": "000080:TintsOfASuccubusSecretDesires.esp",
+      "Point": "232.17899, -1028.909, 97.91636",
+      "LinkedDoors": [
+        {
+          "Unknown": -460622861,
+          "Door": "016A7A:Skyrim.esm"
+        }
+      ],
+      "Unknown2": -1511415748,
+      "Parent": {
+        "MutagenObjectType": "NavigationMapInfoCellParent",
+        "ParentCell": "000089:TintsOfASuccubusSecretDesires.esp"
       }
     },
     {
@@ -6961,31 +6961,11 @@
     ],
     "NavmeshTree": [
       {
-        "NavMesh": "105E9A:Skyrim.esm"
-      },
-      {
-        "NavMesh": "0A3F44:Skyrim.esm",
-        "NodeIndex": 9
-      },
-      {
         "NavMesh": "100F4B:Skyrim.esm",
         "NodeIndex": 3
       },
       {
-        "NavMesh": "1030CB:Skyrim.esm",
-        "NodeIndex": 8
-      },
-      {
-        "NavMesh": "0E88CC:Skyrim.esm",
-        "NodeIndex": 7
-      },
-      {
-        "NavMesh": "103120:Skyrim.esm",
-        "NodeIndex": 2
-      },
-      {
-        "NavMesh": "079BBF:Skyrim.esm",
-        "NodeIndex": 6
+        "NavMesh": "105E9A:Skyrim.esm"
       },
       {
         "NavMesh": "10377B:Skyrim.esm",
@@ -6994,6 +6974,26 @@
       {
         "NavMesh": "0B87DF:Skyrim.esm",
         "NodeIndex": 4
+      },
+      {
+        "NavMesh": "0E88CC:Skyrim.esm",
+        "NodeIndex": 7
+      },
+      {
+        "NavMesh": "0A3F44:Skyrim.esm",
+        "NodeIndex": 9
+      },
+      {
+        "NavMesh": "079BBF:Skyrim.esm",
+        "NodeIndex": 6
+      },
+      {
+        "NavMesh": "103120:Skyrim.esm",
+        "NodeIndex": 2
+      },
+      {
+        "NavMesh": "1030CB:Skyrim.esm",
+        "NodeIndex": 8
       },
       {
         "NavMesh": "098776:Skyrim.esm",

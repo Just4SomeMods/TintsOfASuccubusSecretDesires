@@ -12,6 +12,7 @@ SexLabFramework Property SexLab Auto
 ; sslActorStats Property sslStats Auto
 tssd_actions Property tActions Auto
 tssd_PlayerEventsScript Property tEvents Auto
+tssd_orgasmenergylogic Property tOrgasmLogic Auto
 
 Spell[] Property SuccubusAbilitiesSpells Auto
 Perk[] Property SuccubusAbilitiesPerks  Auto
@@ -65,6 +66,7 @@ int colorToAdd = -1
 Quest Property tssd_enthrallDialogue Auto
 Quest Property tssd_queststart Auto
 
+
 ; Faction Property sla_Arousal Auto
 ; Faction Property TSSD_ThrallDominant Auto
 ; Faction Property CrimeFactionWhiterun Auto
@@ -111,6 +113,16 @@ endfunction
 
 
 Function OpenGrandeMenu()
+    if tEvents.canCelebrate
+        Sexlab.StartSceneQuick(PlayerRef)
+        tEvents.canCelebrate = false
+        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+        myBinding.Remove("tssd_getCelebration")
+        
+        CustomSkills.AdvanceSkill("SuccubusBodySkill", 1000 * Game.QueryStat("Dungeons Cleared"))
+        CustomSkills.AdvanceSkill("SuccubusBaseSkill", 1000 * Game.QueryStat("Dungeons Cleared"))
+        return
+    endif
     modifierKeyIsDown = Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if !SafeProcess()
         return
@@ -319,6 +331,9 @@ Function OpenSuccubusAbilities()
         endif
     endif
     itemsAsString += ";Look for Prey"
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main") && Sexlab.GetPlayerController()
+        itemsAsString += ";Cum 10 times"
+    endif
     int indexOfA = 1
     if (PlayerRef.HasPerk(TSSD_Seduction_Kiss2) || true) && Sexlab.GetPlayerController()
         itemsAsString += ";Steal"
@@ -360,6 +375,20 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef, true)
+    elseif myItems[result] == "Cum 10 times"
+        sslThreadController _thread = Sexlab.GetPlayerController()
+        Actor[] actorSLel = _thread.GetPositions()
+        int indexInIn = 0
+        while indexInIn < 10
+            int actsIn = 0
+            while actsIn < actorSLel.Length
+                Actor cA = actorSLel[actsIn]
+                
+                _thread.ForceOrgasm(cA)
+                actsIn += 1
+            endwhile
+            indexInIn += 1
+        endwhile
     ;/ 
     elseif myItems[result] == "Rape them!"
         if !tactions.deathModeActivated
@@ -422,7 +451,8 @@ EndEvent
 
 
 Function ShowSuccubusTrait(int num)
-    if tVals.canTakeBools[num] || PlayerRef.HasPerk( SuccubusTintPerks[num])
+    
+    if tVals.canTakeBools[num] || PlayerRef.HasPerk( getPerkNumber(num))
         return
     endif
     if PlayerRef.IsInCombat()
@@ -435,52 +465,48 @@ Function ShowSuccubusTrait(int num)
     setNonArrBool(num)
 
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
+    string nameOf = JDB.solveStr(".tssdtints." + num + ".Name")
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
-    TraitsMenu.AddItem("Perk + " + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
-            "menus/tssd/"+succKinds[num]+".dds")
+    TraitsMenu.AddItem("Perk + " + nameOf, JDB.solveStr(".tssdtints." + num + ".description"),\
+            "menus/tssd/"+nameOf+".dds")
     String ResText = "Resist "
     
     if num == 9
         ResText = "OHYESIWANTTHISTHISISWHOIAM : "
-    elseif PlayerRef.HasPerk(SuccubusTintPerks[11])
+    elseif PlayerRef.HasPerk(getPerkNumber(11))
         ResText = "Embrace: "
     endif
 
-    TraitsMenu.AddItem(ResText + succKinds[num], JDB.solveStr(".tssdtraits." + succKinds[num] + ".description"),\
-            "menus/tssd/"+succKinds[num]+".dds")
-    ;/ int indexIn = 0
-    while indexIn < succKinds.Length
-        TraitsMenu.AddItem(succKinds[indexIn], JDB.solveStr(".tssdtraits." + succKinds[indexIn] + ".description"),\
-            "menus/tssd/"+succKinds[indexIn]+".dds")
-        indexIn += 1
-    endwhile /;
+    TraitsMenu.AddItem(ResText + nameOf, JDB.solveStr(".tssdtints." + num + ".description"),\
+            "menus/tssd/"+nameOf+".dds")
+            
     String[] resultW = TraitsMenu.Show()
-    if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(SuccubusTintPerks[11])
-        PlayerRef.AddPerk(SuccubusTintPerks[num])
+    if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(getPerkNumber(11))
+        PlayerRef.AddPerk(getPerkNumber(num))
         TSSD_SuccubusPerkPoints.Mod(1)
-        tActions.tOrgasmLogic.incrValAndCheck(11,1)
+        tOrgasmLogic.incrValAndCheck(11,1)
         tssd_tints_tracker.SetObjectiveDisplayed(num, true)
     endif
 
-    if PlayerRef.HasPerk(SuccubusTintPerks[0]) && PlayerRef.HasPerk(SuccubusTintPerks[1])
+    if PlayerRef.HasPerk(getPerkNumber(0)) && PlayerRef.HasPerk(getPerkNumber(1))
         ShowSuccubusTrait(21)
     endif
 EndFunction
 
 Function viewTintProgress()
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
+    int jjM = JDB.solveObj(".tssdtints")
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
     int indexIn = 0
 
-    while indexIn < succKinds.Length
-        int toAdd = 0    
-        if indexIn == 12
-            toAdd += Game.QueryStat("Potions Used") + Game.QueryStat("Ingredients Eaten")
-        endif
-        if tEvents.targetNums[indexIn] >= 0
-            TraitsMenu.AddItem((tEvents.currentVals[indexIn] as int + toAdd) + "/" + tEvents.targetNums[indexIn] as int + " " + succKinds[indexIn], JDB.solveStr(".tssdtraits." + succKinds[indexIn] + ".description"), "menus/tssd/"+succKinds[indexIn]+".dds")
+    while indexIn < JMap.Count(jjM)
+        int toAdd = 0
+        int innerJJ = JMap.getObj(jjM, "" + indexIN)
+        if getTargetNumber(indexIN) >= 0
+            string nameOf = JMap.GetStr(innerJJ, "Name")
+            TraitsMenu.AddItem((tEvents.currentVals[indexIn] as int + toAdd) + "/" + JMap.GetInt(innerJJ, "targetNum") + " " + nameOf, JMap.GetStr(innerJJ, "description"), "menus/tssd/"+nameOf+".dds")
         endif
         indexIn += 1
     endwhile
@@ -556,5 +582,20 @@ Function setNonArrBool(int n)
     endif
     if n == 20 
         tVals.canTake20Mahogany = true 
+    endif
+    if n == 21
+        tVals.canTake21Tutu = true 
+    endif
+    if n == 22
+        tVals.canTake22Tamrind = true 
+    endif
+    if n == 23
+        tVals.canTake23Pueblo = true 
+    endif
+    if n == 24 
+        tVals.canTake24Valencia = true 
+    endif
+    if n == 25 
+        tVals.canTake25Stiletto = true 
     endif
 EndFunction

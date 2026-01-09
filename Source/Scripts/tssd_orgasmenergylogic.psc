@@ -35,6 +35,7 @@ Actor Property PlayerRef Auto
 Faction Property TSSD_MarkedForDeathFaction Auto
 Faction Property TSSD_EnthralledFaction Auto
 Faction Property sla_Arousal Auto
+Faction Property CurrentFollowerFaction Auto
 
 SexLabFramework Property SexLab Auto
 
@@ -48,6 +49,7 @@ Quest Property tssd_dealwithcurseQuest Auto
 Quest Property TSSD_EvilSuccubusQuest Auto
 Quest Property tssd_tints_tracker Auto
 
+Spell Property TSSD_LeaderBuff Auto
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto
 ImageSpaceModifier Property BerserkerMainImod  Auto  
@@ -138,6 +140,9 @@ bool maraSuccess = false
 
 
 Function incrValAndCheck(int numOf, float incrBy)
+    if numOf >= tEvents.currentVals.Length
+        tEvents.currentVals = Utility.ResizeFloatArray(tEvents.currentVals, numOf + 1, 0.0)
+    endif
 	tEvents.currentVals[numOf] = tEvents.currentVals[numOf] + incrBy
 	tEvents.checkValOf(numOf)
 	if numOf == 0 
@@ -161,7 +166,7 @@ Function incrValAndCheck(int numOf, float incrBy)
 	if numOf == 23 
 		tVals.lastDragon = 0.1 
 	endif
-	if playerRef.HasPerk(tMenus.SuccubusTintPerks[numOf])
+	if playerRef.HasPerk(getPerkNumber(numOf))
 		if numOf != 19 && numOf != 18 && numOf != 8 && numOf != 10
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
 			if !tssd_tints_tracker.IsObjectiveFailed(numOf)
@@ -190,16 +195,23 @@ Event PlayerSceneStart(Form FormRef, int tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
     if ActorsIn.Length == 1
         incrValAndCheck(24,1)
+        tVals.beingOrdered = true
     endif
     int indexIn = 0
     bool aggressiveY = false
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
         if consentingActor != PlayerRef
+            if consentingActor.GetFactionRank(TSSD_HypnoMaster) >= 1
+                tVals.beingOrdered = true
+            endif
+            if consentingActor.GetFactionRank(CurrentFollowerFaction) >= 0
+                TSSD_LeaderBuff.Cast(PlayerRef, consentingActor)
+            endif
             if _thread.GetSubmissive(PlayerRef) && consentingActor.IsHostileToActor(PlayerRef) && !_thread.GetSubmissive(consentingActor)
                 aggressiveY = true
             endif
-            if PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
+            if PlayerRef.HasPerk(getPerkNumber(19))  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
                 T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
             endif
         endif
@@ -212,7 +224,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
     
-   if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19]) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
+   if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(getPerkNumber(19)) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
         HeadPart tEyes = currentEyes()
         if tEyes
             PlayerEyes = tEyes
@@ -321,8 +333,10 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     if tActions.deathModeActivated
         tActions.toggleDeathMode(true)
     endif
-    Utility.Wait(10)
+    tVals.beingOrdered = false
+    Utility.Wait(1)
     tActions.RegisterForCrosshairRef()
+    
 EndEvent
 
 
@@ -330,7 +344,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
     Actor WhoCums = ActorRef_Form as Actor
     sslThreadController _thread =  Sexlab.GetController(Thread)
     if _thread != Sexlab.GetPlayerController()
-        if PlayerRef.GetDistance(WhoCums)  < 100 && !PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
+        if PlayerRef.GetDistance(WhoCums)  < 100 && !PlayerRef.HasPerk(getPerkNumber(19))
             tActions.gainSuccubusXP(100)
         endif
         return
@@ -349,6 +363,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 		if WhoCums.GetFactionRank(TSSD_HypnoMaster) >=0 
 			tVals.lastHypnoSession = 0.1
+            _thread.ForceOrgasm(PlayerRef)
 		endif
 		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
 			incrValAndCheck(19,1)
@@ -394,15 +409,15 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			elseif PlayerRef.HasPerk(TSSD_DeityArkayPerk)
 				reduction += 10
 			endif
-            if !PlayerRef.HasPerk(tMenus.SuccubusTintPerks[19])
-			    tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(tMenus.SuccubusTintPerks[20]) as int) * succdVal)
+            if !PlayerRef.HasPerk(getPerkNumber(19))
+			    tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(getPerkNumber(20)) as int) * succdVal)
             endif
 			while  Stage_in < StageCount 
 				_thread.AdvanceStage()
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			EndWhile
 
-		elseif PlayerRef.HasPerk(tMenus.SuccubusTintPerks[5])
+		elseif PlayerRef.HasPerk(getPerkNumber(5))
             TSSD_ProudDogOwnerBuff.Cast(PlayerRef,WhoCums)
         endif
 
@@ -413,13 +428,13 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		if _thread.GetSubmissive(PlayerRef)
 			incrValAndCheck(20,1)
         	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
-				tActions.increaseGlobalDeity(8,PlayerRef.GetAV("Speechcraft"),5000)
+				tActions.increaseGlobalDeity(8,PlayerRef.GetAV("Speechcraft") / 10,500)
 			endif
 			if Game.GetModByName(FILE_FADE_TATS) != 255
 				incrValAndCheck(8,1)
 			endif
 		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
-			tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft")  / 2,10000)
+			tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft")  / 20,1000)
 		endif
 		if _thread.HasSceneTag("rough")
 			incrValAndCheck(22,1)

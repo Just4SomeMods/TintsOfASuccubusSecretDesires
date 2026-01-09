@@ -74,29 +74,6 @@
                     }
                 },
                 {
-                    "id": "iSpellsAdded:Main",
-                    "text": "Abilities as Spells",
-                    "type": "enum",
-                    "help": "Choose if the abilities also appear as spells or not.",
-                    "valueOptions": {
-                        "options": [
-                            "Only as abilities",
-                            "Both",
-                            "Only as spells"
-                        ],
-                        "sourceType": "ModSettingInt"
-                    },
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "toggleSpells",
-                        "params": [
-                            "{i}-1"
-                        ]
-                    }
-                },
-                {
                     "text": "All refresh Persk",
                     "type": "text",
                     "help": "Add all refresh Perks",
@@ -218,6 +195,11 @@
                 {
                     "type": "text",
                     "text": "TSSD_RevealingOutfit",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_SatiatedFaction",
                     "help": "$showStuff"
                 },
                 {
@@ -846,8 +828,23 @@
             "content": [
                 {
                     "type": "text",
+                    "text": "Damage Magicka",
+                    "help": ""
+                },
+                {
+                    "type": "text",
                     "text": "Damage Speech",
                     "help": "Your speech is reduced by <mag>."
+                },
+                {
+                    "type": "text",
+                    "text": "Damage Speech",
+                    "help": "Your speech and speed are reduced by <mag>."
+                },
+                {
+                    "type": "text",
+                    "text": "Fortify Speech",
+                    "help": "Your speech is increased by <mag>."
                 },
                 {
                     "type": "text",
@@ -911,6 +908,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Effect",
+                    "help": "Use this debug spell to add npcs to factions, or remove them from factions from this mod."
+                },
+                {
+                    "type": "text",
                     "text": "Absorb Health",
                     "help": "Absorbs <mag> Health per second from living targets."
                 },
@@ -951,6 +953,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Soul Trap",
+                    "help": "If target dies within <dur> seconds, fills a soul gem."
+                },
+                {
+                    "type": "text",
                     "text": "Speedmod",
                     "help": "You are ethereal and move <mag>% faster."
                 },
@@ -958,6 +965,11 @@
                     "type": "text",
                     "text": "Speedmod",
                     "help": "You move <mag>% faster."
+                },
+                {
+                    "type": "text",
+                    "text": "Speedmod",
+                    "help": "You move <mag>% slower."
                 },
                 {
                     "type": "text",
@@ -1316,6 +1328,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Celebratory Masturbation",
+                    "help": "Upon clearing a location you can masturbate to refresh your energy.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "362"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Energy To Mass1",
                     "help": "Whilst you have more than 50 Energy, you deal increased damage with your claws.\n",
                     "action": {
@@ -1423,6 +1449,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "268"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Hidden Pockets",
+                    "help": "You gain increased carry weight based on your body level.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "367"
                         ]
                     }
                 },
@@ -1778,6 +1818,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Drain Conservation1",
+                    "help": "All absorb spells cost only half as much magicka if you are at full health.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "369"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Greedy Drain1",
                     "help": "You refresh twice as much energy from your drain.\n",
                     "action": {
@@ -2016,6 +2070,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Drain Conservation",
+                    "help": "Enemies you hit with any drain spell are also soul trapped.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "372"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Sucking Champ",
                     "help": "You can ask to suck dick / suckle on some tits to refresh your energy.\n",
                     "action": {
@@ -2058,6 +2126,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Leader",
+                    "help": "Having sex with a follower grants them a buff to health and magicka for a day.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "389"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Hot Demon1",
                     "help": "While talking to you, people have increased arousal.\n",
                     "action": {
@@ -2095,6 +2177,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "246"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Illusionista",
+                    "help": "Your influence illusions spells cost up to 50% less based on your seduction level.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "388"
                         ]
                     }
                 },
@@ -2171,7 +2267,7 @@
                 {
                     "type": "text",
                     "text": "DTF?1",
-                    "help": "You can initiate sex with someone in a safe location to refresh your energy.\n",
+                    "help": "You can ask to for sex with someone in a safe location to refresh your energy.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2366,6 +2462,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Pink\u00b2",
+                    "help": "Bimbos can not become satiated, but they also can not fall below 0 energy. \n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "284"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Lavenderblush",
                     "help": "Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet.\n",
                     "action": {
@@ -2478,20 +2588,6 @@
                 },
                 {
                     "type": "text",
-                    "text": "Pink\u00b22",
-                    "help": "Bimbos can not become satiated, but they also can not fall below 0 energy. \n",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "addTSSDPerk",
-                        "params": [
-                            "284"
-                        ]
-                    }
-                },
-                {
-                    "type": "text",
                     "text": "Plum",
                     "help": "Selling prices are reduced to a quarter. This has made you more aware of the world around you, increasing your learning rate by 100%. If you recently had sex with a shopkeep, you reduce their prices by a quarter.\n",
                     "action": {
@@ -2590,7 +2686,21 @@
                 },
                 {
                     "type": "text",
-                    "text": "Tamrind",
+                    "text": "Stiletto",
+                    "help": "You have increased speech while wearing heels. You take more damage while sprinting. While walking in heels you resist half the damage from far away enemies.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "379"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Tamarind",
                     "help": "Your love for being choked makes you light headed, increasing your carry weight by 100. If you have not been choked in a while, you can no longer shout.\n",
                     "action": {
                         "type": "CallFunction",
@@ -2604,7 +2714,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "Tolopae",
+                    "text": "Tolopea",
                     "help": "Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.\n",
                     "action": {
                         "type": "CallFunction",
@@ -2826,6 +2936,24 @@
                         "params": [
                             "{b}0",
                             "325",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_DestroyMagickaMag0:Spells",
+                    "type": "input",
+                    "text": "Mind Break! Effect 0 Mag",
+                    "help": "Damage Magicka 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "386",
                             "{i}0",
                             "{value}"
                         ]
@@ -3228,6 +3356,24 @@
                     }
                 },
                 {
+                    "id": "sTSSD_LeaderBuffDur0:Spells",
+                    "type": "input",
+                    "text": "Being Led Effect 0 Dur",
+                    "help": "Effect 86400",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "392",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
                     "id": "sTSSD_LightHeadedBuffMag0:Spells",
                     "type": "input",
                     "text": "Feels like I'm walking on sunshine! Effect 0 Mag",
@@ -3366,6 +3512,24 @@
                         "params": [
                             "{b}0",
                             "164",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_SoulTrapDur0:Spells",
+                    "type": "input",
+                    "text": "Soul Trap Effect 0 Dur",
+                    "help": "Soul Trap 5",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "373",
                             "{i}0",
                             "{value}"
                         ]

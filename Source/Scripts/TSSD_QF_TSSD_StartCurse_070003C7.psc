@@ -2,19 +2,14 @@
 ;NEXT FRAGMENT INDEX 6
 Scriptname TSSD_QF_TSSD_StartCurse_070003C7 Extends Quest Hidden
 
-;BEGIN ALIAS PROPERTY trapDoor
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_trapDoor Auto
-;END ALIAS PROPERTY
-
 ;BEGIN ALIAS PROPERTY CurseQuestGiver
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_CurseQuestGiver Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY CursedWoman
+;BEGIN ALIAS PROPERTY DangerousDoor
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_CursedWoman Auto
+ReferenceAlias Property Alias_DangerousDoor Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY CurseStartHouse
@@ -22,9 +17,14 @@ ReferenceAlias Property Alias_CursedWoman Auto
 LocationAlias Property Alias_CurseStartHouse Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY DangerousDoor
+;BEGIN ALIAS PROPERTY CursedWoman
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_DangerousDoor Auto
+ReferenceAlias Property Alias_CursedWoman Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY trapDoor
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_trapDoor Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN FRAGMENT Fragment_1
@@ -44,6 +44,7 @@ EndFunction
 Function Fragment_2()
 ;BEGIN CODE
 Alias_CursedWoman.GetActorRef().SetRelationshipRank( Game.GetPlayer() ,3)
+SetObjectiveDisplayed(30, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT

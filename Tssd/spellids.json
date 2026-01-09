@@ -48,6 +48,12 @@
         0
     ],
     [
+        "sTSSD_DestroyMagickaMag0:Spells",
+        true,
+        "386",
+        0
+    ],
+    [
         "sTSSD_DragonsLayerSpellMag0:Spells",
         true,
         "329",
@@ -180,6 +186,12 @@
         0
     ],
     [
+        "sTSSD_LeaderBuffDur0:Spells",
+        true,
+        "392",
+        0
+    ],
+    [
         "sTSSD_LightHeadedBuffMag0:Spells",
         true,
         "359",
@@ -225,6 +237,12 @@
         "sTSSD_SatiatedDur0:Spells",
         true,
         "164",
+        0
+    ],
+    [
+        "sTSSD_SoulTrapDur0:Spells",
+        true,
+        "373",
         0
     ],
     [

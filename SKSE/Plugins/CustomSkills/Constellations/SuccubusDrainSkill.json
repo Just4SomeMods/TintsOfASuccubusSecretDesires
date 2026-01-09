@@ -34,7 +34,7 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|094",
           "x": 0.0,
           "y": -0.25,
-          "links": [ "MageMode", "DrainMore"
+          "links": [ "LightHeaded",  "DrainMore"
           ]
      },{
           "id": "BodyArtLover",
@@ -52,8 +52,8 @@
           ]
      },
           {
-               "id": "MageMode",
-               "perk": "TintsOfASuccubusSecretDesires.esp|05B",
+               "id": "LightHeaded",
+               "perk": "TintsOfASuccubusSecretDesires.esp|165",
                "x": 0.25,
                "y": -0.5,
                "links": [ 
@@ -63,14 +63,28 @@
                "perk": "TintsOfASuccubusSecretDesires.esp|061",
                "x": -0.5,
                "y": 2.3,
-               "links": [
+               "links": [ "DrainCons", "SoulDrainNew"
                ]
-          }, {
+          },{
+               "id": "SoulDrainNew",
+               "perk": "TintsOfASuccubusSecretDesires.esp|171",
+               "x": -1.0,
+               "y": 2.7,
+               "links": [  
+               ]
+          },{
+               "id": "DrainCons",
+               "perk": "TintsOfASuccubusSecretDesires.esp|174",
+               "x": -0.5,
+               "y": 1.3,
+               "links": [  
+               ]
+          },  {
           "id": "DrainMore",
           "perk": "TintsOfASuccubusSecretDesires.esp|012",
           "x": -0.25,
           "y": -0.5,
-          "links": [     "MageMode"      ]
+          "links": [     "LightHeaded"      ]
      },  {
                "id": "SemenEnjoyer",
                "perk": "TintsOfASuccubusSecretDesires.esp|0B3",
@@ -87,13 +101,6 @@
           "id": "PraiseKink",
           "perk": "TintsOfASuccubusSecretDesires.esp|0F0",
           "x": 0.0,
-          "y": 1.5,
-          "links": [  "LightHeaded"
-          ]
-     },{
-          "id": "LightHeaded",
-          "perk": "TintsOfASuccubusSecretDesires.esp|165",
-          "x": 1.0,
           "y": 1.5,
           "links": [ 
           ]
