@@ -981,7 +981,7 @@ local pools = {
       "I'll go as deep as my pup deserves.",
       "Your moans sound like happy little barks to me.",
       "I live to make my pup feel incredible." },
-    { -- Npc Submissive but still the active part
+    { -- Npc Submissive
       "Can we wear matching collars?",
       "Bark for me again, let me hear you!",
       "Yes, fuck your good girl!",
@@ -1118,7 +1118,7 @@ local pools = {
     "Feel how effortlessly I unravel your thoughts, replacing them with devotion for me.",
     "Your pleasure belongs to me now, and I'm going to use it perfectly." },
 
-    { -- Npc Submissive (Pleasure Amplifier)
+    { -- Npc Submissive
       "Use my power however you need to feel good, mistress.",
       "The stronger my control over you, the better it feels for me too.",
       "Feel how my magic enhances every touch, every sensation for you.",

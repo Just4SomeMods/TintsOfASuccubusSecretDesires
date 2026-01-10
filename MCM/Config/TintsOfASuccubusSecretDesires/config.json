@@ -863,6 +863,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "AbsorbHealthXP",
+                    "help": "TEST XP"
+                },
+                {
+                    "type": "text",
                     "text": "[TSSD] Faction Adding",
                     "help": "Use this debug spell to add npcs to factions, or remove them from factions from this mod."
                 },
@@ -915,6 +920,11 @@
                     "type": "text",
                     "text": "Absorb Health",
                     "help": "Absorbs <mag> Health per second from living targets."
+                },
+                {
+                    "type": "text",
+                    "text": "Absorb Health XP",
+                    "help": ""
                 },
                 {
                     "type": "text",
@@ -2801,6 +2811,42 @@
                             "{b}0",
                             "350",
                             "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_AbsorbHealthSpellMag1:Spells",
+                    "type": "input",
+                    "text": "Drain Essence Effect 1 Mag",
+                    "help": "Absorb Health XP 0",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "350",
+                            "{i}1",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_AbsorbHealthSpellDur1:Spells",
+                    "type": "input",
+                    "text": "Drain Essence Effect 1 Dur",
+                    "help": "Absorb Health XP 1",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "350",
+                            "{i}1",
                             "{value}"
                         ]
                     }

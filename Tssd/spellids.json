@@ -12,6 +12,18 @@
         0
     ],
     [
+        "sTSSD_AbsorbHealthSpellMag1:Spells",
+        true,
+        "350",
+        1
+    ],
+    [
+        "sTSSD_AbsorbHealthSpellDur1:Spells",
+        true,
+        "350",
+        1
+    ],
+    [
         "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
         true,
         "89",
