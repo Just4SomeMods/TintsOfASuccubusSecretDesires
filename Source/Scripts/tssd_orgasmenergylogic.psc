@@ -50,6 +50,7 @@ Quest Property TSSD_EvilSuccubusQuest Auto
 Quest Property tssd_tints_tracker Auto
 
 Spell Property TSSD_LeaderBuff Auto
+Spell Property TSSD_LightningCloak Auto
 
 ImageSpaceModifier Property AzuraFadeToBlack  Auto
 ImageSpaceModifier Property BerserkerMainImod  Auto  
@@ -63,6 +64,7 @@ int[] possibleAnnouncements
 Perk Property TSSD_DeityArkayPerk Auto
 Perk Property TSSD_DeityMaraPerk Auto
 Perk Property TSSD_Tint_Scarlet Auto
+Perk Property TSSD_Together_Lightning Auto
 
 ;;;; BEGIN TINTS
 
@@ -334,9 +336,7 @@ Event PlayerSceneEnd(Form FormRef, int tid)
         tActions.toggleDeathMode(true)
     endif
     tVals.beingOrdered = false
-    Utility.Wait(1)
-    tActions.RegisterForCrosshairRef()
-    
+    Utility.Wait(1)    
 EndEvent
 
 
@@ -416,9 +416,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				_thread.AdvanceStage()
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			EndWhile
-
-		elseif PlayerRef.HasPerk(getPerkNumber(5))
-            TSSD_ProudDogOwnerBuff.Cast(PlayerRef,WhoCums)
         endif
 
 	else
@@ -439,6 +436,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		if _thread.HasSceneTag("rough")
 			incrValAndCheck(22,1)
 		endif
+        tVals.lastOrgasm = 0.1
 	endif
 	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
 		incrValAndCheck(4,1)

@@ -9,9 +9,15 @@ tssd_actions Property tActions Auto
 tssd_menus Property tMenus Auto
 Quest Property tssd_tints_tracker Auto
 Quest Property TSSD_ZAcheronConsequences Auto
+Quest Property tssd_StartCurse Auto
 tssd_tints_variables Property tVals Auto
 tssd_orgasmenergylogic Property tOrgasmLogic Auto
 Actor Property PlayerRef Auto
+
+
+ReferenceAlias Property TSSD_CursedWoman Auto
+
+Faction Property JobMerchantFaction Auto
 
 MagicEffect Property TSSD_SatiatedEffect Auto
 
@@ -200,6 +206,9 @@ Function onGameReload()
 	isActingDefeated = false
 	crimsonDone = false
 	lastGameHour = Utility.GetCurrentGameTime() * 24
+	if currentVals.Length <= 25
+		currentVals = Utility.ResizeFloatArray(currentVals, 26)
+	endif
     If (Game.GetModByName(FILE_AND) != 255)
 		ANDFound = True
 		AND_NudeActorFaction = Game.GetFormFromFile(0x831, FILE_AND) as Faction
@@ -261,6 +270,7 @@ Function onGameReload()
 
 	RegisterForUpdateGameTime(1.0)
 	RegisterForTrackedStatsEvent()
+	UnregisterForAllMenus()
 	RegisterForMenu("BarterMenu")
 	RegisterForMenu("Dialogue Menu")
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
@@ -276,6 +286,7 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
 		if distanceTo < 350
 			CustomSkills.AdvanceSkill("SuccubusBodySkill", max(20, (akVictim.GetBaseActorValue("health") - distanceTo) / 4 ))
 		endif
+        PlayerRef.SendModEvent("TSSD_Inflate", "BodySkill", tMenus.SkillSuccubusBodyLevel.GetValue())
     endif
 EndEvent
 
@@ -367,6 +378,7 @@ Event OnMenuOpen(String MenuName)
 	endif
 	if MenuName == "BarterMenu"
 		tOrgasmLogic.incrValAndCheck(16,1)
+		tActions.trySeduceMerchant(SPE_Actor.GetPlayerSpeechTarget())
 	endif
 EndEvent
 
@@ -375,17 +387,13 @@ Event OnMenuClose(String MenuName)
 endEvent
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-    if (asStatFilter == "Ingredients Eaten")
-		Debug.MessageBox("YUM")
-	elseif asStatFilter == "Dungeons Cleared"
-		if PlayerRef.HasPerk(TSSD_Body_CelebratoryMasturbation)
-            SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-			canCelebrate = true
-            myBinding.Add("tssd_getCelebration", "Celebrate!", tActions.allInOneKey)
-			Utility.Wait(10)
-			canCelebrate = false
-			myBinding.Remove("tssd_getCelebration")
-		endif
+	if asStatFilter == "Dungeons Cleared" && PlayerRef.HasPerk(TSSD_Body_CelebratoryMasturbation)
+		SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+		canCelebrate = true
+		myBinding.Add("tssd_getCelebration", "Celebrate!", tActions.allInOneKey)
+		Utility.Wait(10)
+		canCelebrate = false
+		myBinding.Remove("tssd_getCelebration")
 	endif
 endEvent
 
@@ -408,6 +416,8 @@ Event OnUpdateGameTime()
 	endif
 	if tVals.isHeeled
 		tOrgasmLogic.incrValAndCheck(25, 1)
+	else
+		currentVals[25] = 0
 	endif
 
 	if IsSkimpilyClothed
@@ -437,6 +447,7 @@ Event OnUpdateGameTime()
 	tVals.lastCumInMe += gameTimeDiff
 	tVals.lastWolfSex += gameTimeDiff
 	tVals.lastHypnoSession += gameTimeDiff
+	tVals.lastOrgasm += gameTimeDiff
 	tVals.lastFadeTat += gameTimeDiff
 	tVals.lastDragon += gameTimeDiff
 	lastNeedsAnnouncement += gameTimeDiff
@@ -550,6 +561,7 @@ Event OnANDUpdate()
 		PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
 		tVals.isGagged = PlayerRef.WornHasKeyword(zad_DeviousGag) || PlayerRef.WornHasKeyword(zad_DeviousGagPanel)
 		tVals.isHeeled = StorageUtil.GetIntValue(None, "ypsHeelsWorn")
+		tVals.isNude = IsTopless && IsBottomless
 	endif
 EndEvent
 

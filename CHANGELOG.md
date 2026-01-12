@@ -1,5 +1,6 @@
 # 1.03.000b
 small perk fixes
+pania no longer level 99
 # 1.03.000a
 perk requirements fixes
 # 1.03.000

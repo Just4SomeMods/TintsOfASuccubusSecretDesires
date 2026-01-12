@@ -111,12 +111,14 @@ tssd_orgasmenergylogic Property tOrgasmLogic Auto
 tssd_slsfrscript Property slsfListener Auto
 TSSD_InflationHandler Property tInflation Auto
 tssd_curequestvariables Property tCVals Auto
+TSSD_SucieDailyScript Property tSucieThings Auto
 
 FormList Property TSSD_ShrinesWithQuests Auto
 
 bool ade
 
 Actor HotDemonTarget
+Actor Property TSSD_CursedWoman Auto
 
 int prevRelRankHotDemon = 0
 
@@ -470,13 +472,17 @@ bool Function GetHabitationCorrect(Location curLoc)
     return PlayerRef.HasPerk(getPerkNumber(20)) && !curLoc.HasKeyword(LocTypeHabitation)            
 EndFunction
 
+Function trySeduceMerchant(Actor tempActor)
+    
+    tempActor.SendModEvent("TSSD_SeduceMerchant", "", 0.0 )
+EndFunction
+
 Function onGameReload()
     if SuccubusDesireLevel.GetValue() > -101
         RegisterSuccubusEvents()
     endif
     
     myBinding = SkyInteract_Util.GetSkyInteract()
-    ; RegisterForCrosshairRef()
     Maintenance()
     cosmeticSettings = ReadInCosmeticSetting()
     gainSuccubusXP(0)
@@ -491,16 +497,14 @@ Function onGameReload()
         index += 1
     endwhile
     
-
-
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
     last_checked = Utility.GetCurrentGameTime() * 24
     tOrgasmLogic.onGameReload()
     tInflation.onGameReload()
-    RegisterForCrosshairRef()
-    
     updateHeartMeter(true)
+    (TSSD_CursedWoman as TSSD_SucieDailyScript).onGameReload()
+    PlayerRef.SendModEvent("TSSD_Inflate", "BodySkill", (tMenus.SkillSuccubusBodyLevel.GetValue() - 15))
 Endfunction
 
 
@@ -656,12 +660,11 @@ bool Function isDoggie(Actor cA)
 endfunction
     
 Event OnCrosshairRefChange(ObjectReference ref)
-    if myBinding == none
-        
+    if myBinding == none        
         myBinding = SkyInteract_Util.GetSkyInteract()
     endif
 
-    if ref && TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
+    if ref &&  TSSD_ShrinesWithQuests.HasForm(ref.GetBaseObject())
         String deityName = StringUtil.Substring(DbSkseFunctions.GetFormEditorId(ref.GetBaseObject(), "none"), 8)
         String oldName = JDB.solveStr(".oldNorseGods."+ deityName)
 
@@ -670,7 +673,7 @@ Event OnCrosshairRefChange(ObjectReference ref)
     Elseif !(ref as Actor)
         
         myBinding.Remove("tssd_getTargetCross")
-    Elseif playerInSafeHaven() && !Sexlab.IsActorActive(PlayerRef) && tEvents.isLilac && (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
+    Elseif tEvents.isLilac && playerInSafeHaven() && !Sexlab.IsActorActive(PlayerRef) &&  (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
         myBinding.Add("tssd_getTargetCross", "Beg", allInOneKey)
 
     EndIf

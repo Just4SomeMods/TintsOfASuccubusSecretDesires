@@ -12,15 +12,15 @@
 		"hips" : 0.3,
 		"breasts" : -0.5
     },
-    "Body":{
+    "body":{
         
-		"bigbutt" : 0.3,
+		"bigbutt" : 0.7,
 		"applecheeks" : 0,
 		"butt" : 0.8,
 		"chubbybutt" : 0.1,
 		"roundass" : 0.8,
 		"slimthighs" : 0.2,
-		"waist" : -0.9,
+		"waist" : 0.1,
 		"hipbone" : 0.1,
 		"hips" : 0.3,
 		"breasts" : 1.8,
@@ -30,7 +30,7 @@
 		"breastssmall" : -0.3,
 		"pushup" : 0.1,
 		"doublemelon" : 0.0,
-		"shoulderwidth" : 0.4
+		"shoulderwidth" : 0.8
 
     }
 }

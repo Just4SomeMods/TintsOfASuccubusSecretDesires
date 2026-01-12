@@ -229,27 +229,27 @@ Function GainFreePerk()
     endif
 EndFunction
 
-Function startSuccubusLife()    
-    SuccubusDesireLevel.SetValue(50)
+Function startSuccubusLife()
     PlayerRef.AddPerk(TSSD_Base_Explanations)
+    tssd_queststart.Start()
+    tssd_tints_tracker.start()
     Utility.Wait(0.1)
-    tActions.RefreshEnergy(0)
-    int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
-    if startLevel > 0
-        SuccubusXpAmount.SetValue( startLevel * 10000 )
-    endif
     tssd_enthrallDialogue.Start()
+    SuccubusDesireLevel.SetValue(50)
     tEvents.onGameReload()
     tActions.onGameReload()
+    ; tActions.RefreshEnergy(0)
     TSSD_Satiated.Cast(PlayerRef,PlayerRef)
     slsfListener.CheckFlagsSLSF()    
     int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
     ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
     ModEvent.Send(EventHandle)
-    tssd_tints_tracker.start()
-    tssd_queststart.Start()
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugFactionSpell:Main")
         tActions.toggleDebugFaction(true)
+    endif
+    int startLevel = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSuccubusLevel:Main")
+    if startLevel > 0
+        SuccubusXpAmount.SetValue( startLevel * 10000 )
     endif
 EndFunction
 
@@ -314,16 +314,14 @@ Function OpenSuccubusAbilities()
     if tactions.deathModeActivated
         itemsAsString = "Hold back draining"
     endif
-    Actor Cross
-    if Game.GetCurrentCrosshairRef() as Actor
-        Cross = Game.GetCurrentCrosshairRef() as Actor
-    endif
-    tarRef = tActions.getCombatTarget(false)
-    if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && !PlayerRef.IsInCombat()
-            if tarRef && tarRef != PlayerRef
-                itemsAsString += ";Act defeated"
-            else
-                itemsAsString += ";Act defeated (no Target found)"
+    if PlayerRef.HasPerk(TSSD_Body_PlayDead1) && Sexlab.GetPlayerController() == none
+        tarRef = tActions.getCombatTarget(false)
+        if !PlayerRef.IsInCombat()
+                if tarRef && tarRef != PlayerRef
+                    itemsAsString += ";Act defeated"
+                else
+                    itemsAsString += ";Act defeated (no Target found)"
+            endif
         endif
     endif
     itemsAsString += ";Look for Prey"
@@ -331,7 +329,7 @@ Function OpenSuccubusAbilities()
         itemsAsString += ";Cum 10 times"
     endif
     int indexOfA = 1
-    if (PlayerRef.HasPerk(TSSD_Seduction_Kiss2) || true) && Sexlab.GetPlayerController()
+    if PlayerRef.HasPerk(TSSD_Seduction_Kiss2) && Sexlab.GetPlayerController()
         itemsAsString += ";Steal"
     endif
     String[] myItems = StringUtil.Split(itemsAsString,";")
