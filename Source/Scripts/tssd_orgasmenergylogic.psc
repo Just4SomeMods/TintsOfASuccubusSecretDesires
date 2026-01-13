@@ -188,7 +188,25 @@ Function onGameReload()
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
+
+
+	RegisterForModEvent("SLSF_Reloaded_SendFameGainRoll", "OnExternalFameGainRoll")
+	RegisterForModEvent("SLSF_Reloaded_SendFameGain", "OnExternalFameGain")
+	
+	RegisterForModEvent("SLSF_Reloaded_SendManualFameGain", "OnExternalManualFameGain")
+	RegisterForModEvent("SLSF_Reloaded_SendManualFameGainAllInLocation", "OnExternalManualFameGainAllInLocation")
+	RegisterForModEvent("SLSF_Reloaded_SendManualFameGainAll", "OnExternalManualFameGainAll")
+
 EndFunction
+
+Event OnExternalManualFameGain(String Category, String EventLocation, Int MinIncrease, Int MaxIncrease)
+EndEvent
+
+Event OnExternalManualFameGainAllInLocation(String EventLocation, Int MinIncrease, Int MaxIncrease)
+EndEvent
+
+Event OnExternalManualFameGainAll(Int MinIncrease, Int MaxIncrease)
+EndEvent
 
 Event PlayerSceneStart(Form FormRef, int tid)
     tActions.UnregisterForCrosshairRef()

@@ -18,7 +18,7 @@ MagicEffect Property TSSD_DrainedDownSide Auto
 import tssd_utils
 
 Function onGameReload()
-    RegisterForUpdateGameTime(0.5)
+    RegisterForUpdateGameTime(12)
     RegisterForModEvent("TSSD_SeduceMerchant", "trySeduceMerchant")
 EndFunction
 
@@ -72,7 +72,10 @@ EndEvent
 Function trySeduceMerchant(string eventName, string strArg, float numArg, Form sender)
     if PlayerRef.HasPerk(TSSD_Together_CursedWoman)
         Actor tempActor = sender as Actor
-        SexLab.StartSceneQuick(self, tempActor)
+        Actor[] tempArr = new Actor[2]
+        tempArr[0] = tempActor
+        tempArr[1] = self
+        SexLab.StartScene(tempArr, asTags ="-aggressive, standing", akCenter=sender as ObjectReference)
         TSSD_DrainedMarker.Cast(self,tempActor)
     endif
 

@@ -309,7 +309,7 @@
             "Let the crowd look!",
             "Air needs to ruffle my pubic hair. Not hide it with stupid fabric."
         ],
-        "description":"Your color is pink, like the inside of your body. You become exhibitionistic and gain 50 stamina. While you are top and bottomless you gain increased armor. But if you put on clothes again, your speed decreases.",
+        "description":"Your color is pink, like the inside of your body. You become exhibitionistic. While you are top- and bottomless your armor and vanilla enchantment strengths double. If you put on clothes again, your speed decreases.",
         "famecat":[
             "Airhead",
             "Slut",
@@ -954,7 +954,7 @@
         "needyText":[
 
         ],
-        "description":"Your heels are stiletto! While walking in heels you are faster, stronger, prettier and take less stagger, but you lose the same stats otherwise.",
+        "description":"Your heels are stiletto! You have increased speech while wearing heels. You take more damage while sprinting. While walking in heels you resist half the damage from far away enemies.",
         "famecat":[
 
         ],
@@ -969,5 +969,221 @@
         "perk":379,
         "targetNum":5,
         "index":25
+    },
+    "26":{
+        "Name":"Neon",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Gain 100 fame points.",
+        "color":[
+            255,
+            49,
+            49
+        ],
+        "colorHex":"FF3131",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":26
+    },
+    "27":{
+        "Name":"Ruby",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":". All your followers turn into cowards. Female non-succubus followers slowly turn into bimbos. You deal double physical and elemental damage. Your carryweight increases by 300.",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Let your followers down 10 times.",
+        "color":[
+            224,
+            17,
+            95
+        ],
+        "colorHex":"E0115F",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":27
+    },
+    "28":{
+        "Name":"Oblivion",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Summon Daedra 10 times while horny.",
+        "color":[
+            99,
+            3,
+            48
+        ],
+        "colorHex":"630330",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":28
+    },
+    "29":{
+        "Name":"Carmine",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Wear a corset for 5 hours.",
+        "color":[
+            215,
+            0,
+            64
+        ],
+        "colorHex":"D70040",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":29
+    },
+    "30":{
+        "Name":"Pastel",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Become a milk maid.",
+        "color":[
+            250,
+            160,
+            160
+        ],
+        "colorHex":"FAA0A0",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":30
+    },
+    "31":{
+        "Name":"Monza",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Have a partner cum from you dominating them 10 times.",
+        "color":[
+            210,
+            43,
+            43
+        ],
+        "colorHex":"D22B2B",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":31
+    },
+    "32":{
+        "Name":"Mulberry",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Cum from partners that have tentacles 10 times.",
+        "color":[
+            119,
+            7,
+            55
+        ],
+        "colorHex":"770737",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":32
+    },
+    "33":{
+        "Name":"Paco",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Fall victim to Mimics 10 times.",
+        "color":[
+            72,
+            33,
+            20
+        ],
+        "colorHex":"482114",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":33
+    },
+    "34":{
+        "Name":"Blood",
+        "positive":[
+
+        ],
+        "needyText":[
+
+        ],
+        "description":"",
+        "famecat":[
+
+        ],
+        "unlockMethod":"Cum from sex with a vampire.",
+        "color":[
+            136,
+            8,
+            8
+        ],
+        "colorHex":"880808",
+        "kink":"",
+        "perk":-1,
+        "targetNum":5,
+        "index":34
     }
 }

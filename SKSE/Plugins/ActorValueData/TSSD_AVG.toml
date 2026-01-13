@@ -6,6 +6,7 @@ sDrainL = "Object: TintsOfASuccubusSecretDesires.esp::0x002"
 sSeduL  = "Object: TintsOfASuccubusSecretDesires.esp::0x003"
 sCumL  = "Object: TintsOfASuccubusSecretDesires.esp::0x12D"
 tArmor  = "Object: Skyrim.esm::0x1C0F2"
+tScale  = "Object: Skyrim.esm::0x3A"
 
 [SuccubusBaseSkill]
 type = "Functional"
@@ -47,5 +48,10 @@ type = "Functional"
 alias = "HeavyArmorSkillAdvance"
 get = "GetGlobalValueParam(tArmor)"
 
+[TimeScaleOf]
+type = "Functional"
+alias = "LightArmorSkillAdvance"
+get = "1 / GetGlobalValueParam(tScale)"
+
 [Include]
-"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain", "SuccubusReverseDrainSkill"]
+"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain", "SuccubusReverseDrainSkill", "TimeScaleOf"]
