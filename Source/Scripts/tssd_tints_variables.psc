@@ -48,4 +48,17 @@ bool Property canTake22Tamrind Auto Conditional hidden
 bool Property canTake23Pueblo Auto Conditional hidden
 bool Property canTake24Valencia Auto Conditional hidden
 bool Property canTake25Stiletto Auto Conditional hidden
+bool Property canTake26Neon Auto Conditional hidden
+bool Property canTake27Ruby Auto Conditional hidden
+bool Property canTake28Oblivion Auto Conditional hidden
+bool Property canTake29Carmine Auto Conditional hidden
+bool Property canTake30Pastel Auto Conditional hidden
+bool Property canTake31Monza Auto Conditional hidden
+bool Property canTake32Mulberry Auto Conditional hidden
+bool Property canTake33Paco Auto Conditional hidden
+bool Property canTake34Blood Auto Conditional hidden
+bool Property canTake35Silver Auto Conditional hidden
+bool Property canTake36Carissma Auto Conditional hidden
+bool Property canTake37Temptress Auto Conditional hidden
+bool Property canTake38Bordeaux Auto Conditional hidden
 Bool[] Property canTakeBools  Auto  

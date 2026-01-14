@@ -206,8 +206,8 @@ Function onGameReload()
 	isActingDefeated = false
 	crimsonDone = false
 	lastGameHour = Utility.GetCurrentGameTime() * 24
-	if currentVals.Length <= 25
-		currentVals = Utility.ResizeFloatArray(currentVals, 26)
+	if currentVals.Length <= 37
+		currentVals = Utility.ResizeFloatArray(currentVals, 38)
 	endif
     If (Game.GetModByName(FILE_AND) != 255)
 		ANDFound = True

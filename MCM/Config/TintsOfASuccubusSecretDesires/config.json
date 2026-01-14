@@ -858,6 +858,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "Resist Disease",
+                    "help": "<mag>% resistant to disease and poison."
+                },
+                {
+                    "type": "text",
                     "text": "Drain Health",
                     "help": "Absorb <mag> points of health per second from the target."
                 },
@@ -918,6 +923,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "LocChange",
+                    "help": ""
+                },
+                {
+                    "type": "text",
                     "text": "Absorb Health",
                     "help": "Absorbs <mag> Health per second from living targets."
                 },
@@ -960,6 +970,11 @@
                     "type": "text",
                     "text": "Scarlet Effect",
                     "help": "You gain <mag>% magic damage resist and have <mag> increased speechcraft."
+                },
+                {
+                    "type": "text",
+                    "text": "Shock Cloak",
+                    "help": "For <dur> seconds nearby opponents take <8> points of shock damage and half magicka damage."
                 },
                 {
                     "type": "text",
@@ -1058,6 +1073,11 @@
                 {
                     "type": "text",
                     "text": "TSSD_CurseGiverMage",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_CursedTheri",
                     "help": "$showStuff"
                 },
                 {
@@ -2179,7 +2199,7 @@
                 {
                     "type": "text",
                     "text": "Illusionista",
-                    "help": "Your influence illusions spells cost up to 50% less based on your seduction level.\n",
+                    "help": "Your influence illusions spell cost up to 50% less based on your seduction level.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2346,6 +2366,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Blood",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "418"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Blush",
                     "help": "You are maximally aroused. Friendly people who get you off, gain a strong buff to all their stats.\n",
                     "action": {
@@ -2355,6 +2389,34 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "281"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Bordeaux",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "432"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Carissma",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "431"
                         ]
                     }
                 },
@@ -2542,6 +2604,34 @@
                 },
                 {
                     "type": "text",
+                    "text": "Monza",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "413"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Mulberry",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "419"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Mystic",
                     "help": "Your potions and poisons are 10% stronger and while you are digesting something, you increase your chance of picking an additional ingredient by 10%. You also learn all effects from eating. Professional alchemists are disturbed by your tendency to swallow their merchandise and charge you 20% worse prices.\n",
                     "action": {
@@ -2556,8 +2646,50 @@
                 },
                 {
                     "type": "text",
+                    "text": "Oblivion",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "415"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Paco",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "416"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Pastel",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "421"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Pink",
-                    "help": "You become exhibitionistic and gain 50 stamina. While you are top- and bottomless you gain increased armor. But if you put on clothes again, your speed decreases.\n",
+                    "help": "You become exhibitionistic. While you are top- and bottomless your armor and vanilla enchantment strengths double. If you put on clothes again, your speed decreases.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2668,6 +2800,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Silver",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "424"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Stiletto",
                     "help": "You have increased speech while wearing heels. You take more damage while sprinting. While walking in heels you resist half the damage from far away enemies.\n",
                     "action": {
@@ -2691,6 +2837,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "303"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Temptress",
+                    "help": "NO FUNCTIONALITY YET\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "429"
                         ]
                     }
                 },
@@ -2761,6 +2921,34 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "41"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Cursed Woman",
+                    "help": "While Pania is your follower all your illusion spells cost less. She seduces and drains merchants for you during batering to make your items seem more valuable.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "404"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Lightning Curse",
+                    "help": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "139"
                         ]
                     }
                 }
@@ -2927,7 +3115,7 @@
                     "id": "sTSSD_CompelledSpellMag0:Spells",
                     "type": "input",
                     "text": "Compelled Effect 0 Mag",
-                    "help": "Compelled 100",
+                    "help": "Compelled 10",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3107,7 +3295,7 @@
                     "id": "sTSSD_DrainedMarkerDur0:Spells",
                     "type": "input",
                     "text": "Already Drained Effect 0 Dur",
-                    "help": "Drained Downsides 1200",
+                    "help": "Drained Downsides 86400",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3143,7 +3331,7 @@
                     "id": "sTSSD_DrainedMarkerDur1:Spells",
                     "type": "input",
                     "text": "Already Drained Effect 1 Dur",
-                    "help": "Drained Downsides 1200",
+                    "help": "Drained Downsides 86400",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3179,7 +3367,7 @@
                     "id": "sTSSD_DrainedMarkerDur2:Spells",
                     "type": "input",
                     "text": "Already Drained Effect 2 Dur",
-                    "help": "Drained Downsides 1200",
+                    "help": "Drained Downsides 86400",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3338,6 +3526,24 @@
                     }
                 },
                 {
+                    "id": "sTSSD_ImmuneToDiseaseAndPoisonMag0:Spells",
+                    "type": "input",
+                    "text": "Healthy cum diet Effect 0 Mag",
+                    "help": "Resist Disease 100",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "300",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
                     "id": "sTSSD_InLoveBuffMag0:Spells",
                     "type": "input",
                     "text": "Scarlet Effect 0 Mag",
@@ -3410,6 +3616,24 @@
                     }
                 },
                 {
+                    "id": "sTSSD_LightningCloakMag0:Spells",
+                    "type": "input",
+                    "text": "Lightning Cloak Effect 0 Mag",
+                    "help": "Shock Cloak 10",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "400",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
                     "id": "sTSSD_MageFormMag0:Spells",
                     "type": "input",
                     "text": "Mageform Effect 0 Mag",
@@ -3458,6 +3682,24 @@
                         "params": [
                             "{b}0",
                             "251",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_PinkSlowMag0:Spells",
+                    "type": "input",
+                    "text": "Armor Effect 0 Mag",
+                    "help": "Damage Speech 50",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "402",
                             "{i}0",
                             "{value}"
                         ]
@@ -3521,7 +3763,7 @@
                     "id": "sTSSD_SatiatedDur0:Spells",
                     "type": "input",
                     "text": "Satiated Effect 0 Dur",
-                    "help": "Satiated 3600",
+                    "help": "Satiated 86400",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

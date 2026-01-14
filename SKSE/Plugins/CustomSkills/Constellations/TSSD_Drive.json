@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+    "id": "TSSD_Drive",
+    "name": "Drive",
+    "description": "Sexdrive",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "nodes": [
+        {
+            "id": "Pompadour",
+            "x": 0,
+            "y": 0.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|128"
+        },
+        {
+            "id": "Tolopea",
+            "x": 0,
+            "y": 0.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|129"
+        },
+        {
+            "id": "Carnation",
+            "x": 0,
+            "y": 1.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|117"
+        },
+        {
+            "id": "Tosca",
+            "x": 0,
+            "y": 1.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|118"
+        },
+        {
+            "id": "Blush",
+            "x": 0,
+            "y": 2.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|119"
+        },
+        {
+            "id": "Cupid",
+            "x": 0,
+            "y": 2.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|115"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+  "FormKey": "000198:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_StartCurseToggleFunWithMerchants",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Toggle Fun with Merchants."
+  },
+  "Branch": "0003E5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0003C7:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

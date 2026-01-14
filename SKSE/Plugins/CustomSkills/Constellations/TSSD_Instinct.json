@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+    "id": "TSSD_Instinct",
+    "name": "Instinct",
+    "description": "Tints based on your primal needs.",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "nodes": [
+        {
+            "id": "Pastel",
+            "x": 0,
+            "y": 0.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1a5"
+        },
+        {
+            "id": "Lilac",
+            "x": 0,
+            "y": 0.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|123"
+        },
+        {
+            "id": "Crusta",
+            "x": 0,
+            "y": 1.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|11d"
+        },
+        {
+            "id": "Geraldine",
+            "x": 0,
+            "y": 1.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|120"
+        },
+        {
+            "id": "Crimson",
+            "x": 0,
+            "y": 2.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|121"
+        },
+        {
+            "id": "Carissma",
+            "x": 0,
+            "y": 2.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1af"
+        }
+    ]
+}

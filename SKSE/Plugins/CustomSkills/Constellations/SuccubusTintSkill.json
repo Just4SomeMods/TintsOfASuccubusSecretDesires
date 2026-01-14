@@ -1,8 +1,8 @@
 {
     "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
-    "id": "SuccubusDrainSkill",
+    "id": "SuccubusTintsSkill",
     "name": "Tints",
-    "description": "$SuccubusTintSkillDescription",
+    "description": "You can buy these tint to get the tint you previously rejected. When you accept a tint when you can, you gain a succubus perk point.",
     "showMenu": "TintsOfASuccubusSecretDesires.esp|048",
     "nodes": [
         {
@@ -16,16 +16,16 @@
             ]
         },
         {
-            "id": "Stiletto",
-            "perk": "TintsOfASuccubusSecretDesires.esp|17B",
+            "id": "Bordeaux",
+            "perk": "TintsOfASuccubusSecretDesires.esp|1B0",
             "x": 0,
             "y": 1.1,
             "links": []
         },
         {
             "id": "Maroon",
-            "x": -0.305480283296812,
-            "y": -0.4972949198306981,
+            "x": -0.2698531124578842,
+            "y": -0.5479586088673933,
             "links": [
                 "Lavenderblush"
             ],
@@ -33,8 +33,8 @@
         },
         {
             "id": "Carnation",
-            "x": 0.305480283296812,
-            "y": -0.4972949198306981,
+            "x": 0.2698531124578842,
+            "y": -0.5479586088673933,
             "links": [
                 "Lilac"
             ],
@@ -42,8 +42,8 @@
         },
         {
             "id": "Lavenderblush",
-            "x": -0.6500000000000008,
-            "y": -0.22583302491976964,
+            "x": -0.4008493657651172,
+            "y": -0.401797521627015,
             "links": [
                 "Razzmatazz"
             ],
@@ -51,8 +51,8 @@
         },
         {
             "id": "Lilac",
-            "x": 0.6500000000000008,
-            "y": -0.22583302491976964,
+            "x": 0.4008493657651172,
+            "y": -0.401797521627015,
             "links": [
                 "Cerise"
             ],
@@ -60,8 +60,8 @@
         },
         {
             "id": "Razzmatazz",
-            "x": -1.3813708498984762,
-            "y": 0.13933982822017887,
+            "x": -0.7168498498696261,
+            "y": -0.18634166259150253,
             "links": [
                 "Tamarind"
             ],
@@ -69,8 +69,8 @@
         },
         {
             "id": "Cerise",
-            "x": 1.3813708498984762,
-            "y": 0.13933982822017887,
+            "x": 0.7168498498696261,
+            "y": -0.18634166259150253,
             "links": [
                 "Pink"
             ],
@@ -78,8 +78,8 @@
         },
         {
             "id": "Tamarind",
-            "x": -2.328460969082653,
-            "y": 0.5500000000000003,
+            "x": -1.2284557629275468,
+            "y": 0.07092461057403143,
             "links": [
                 "Tolopea"
             ],
@@ -87,8 +87,8 @@
         },
         {
             "id": "Pink",
-            "x": 2.328460969082653,
-            "y": 0.5500000000000003,
+            "x": 1.2284557629275468,
+            "y": 0.07092461057403143,
             "links": [
                 "Tutu"
             ],
@@ -96,8 +96,8 @@
         },
         {
             "id": "Tolopea",
-            "x": -3.133907408043002,
-            "y": 1.0051265870216333,
+            "x": -1.8762480125228531,
+            "y": 0.35193373543509876,
             "links": [
                 "Blush"
             ],
@@ -105,8 +105,8 @@
         },
         {
             "id": "Tutu",
-            "x": 3.133907408043002,
-            "y": 1.0051265870216333,
+            "x": 1.8762480125228531,
+            "y": 0.35193373543509876,
             "links": [
                 "Tosca"
             ],
@@ -114,8 +114,8 @@
         },
         {
             "id": "Blush",
-            "x": -3.45,
-            "y": 1.5,
+            "x": -2.545391513505406,
+            "y": 0.6526291347505566,
             "links": [
                 "Crimson"
             ],
@@ -123,8 +123,8 @@
         },
         {
             "id": "Tosca",
-            "x": 3.45,
-            "y": 1.5,
+            "x": 2.545391513505406,
+            "y": 0.6526291347505566,
             "links": [
                 "Plum"
             ],
@@ -132,8 +132,8 @@
         },
         {
             "id": "Crimson",
-            "x": -3.1339074080430014,
-            "y": 1.960898816762806,
+            "x": -3.0973380585320114,
+            "y": 0.9769710617493135,
             "links": [
                 "Mahogany"
             ],
@@ -141,8 +141,8 @@
         },
         {
             "id": "Plum",
-            "x": 3.1339074080430014,
-            "y": 1.960898816762806,
+            "x": 3.0973380585320114,
+            "y": 0.9769710617493135,
             "links": [
                 "Sangria"
             ],
@@ -150,8 +150,8 @@
         },
         {
             "id": "Mahogany",
-            "x": -2.3284609690826525,
-            "y": 2.25,
+            "x": -3.4092225376463388,
+            "y": 1.3235578615848063,
             "links": [
                 "Mystic"
             ],
@@ -159,8 +159,8 @@
         },
         {
             "id": "Sangria",
-            "x": 2.3284609690826525,
-            "y": 2.25,
+            "x": 3.4092225376463388,
+            "y": 1.3235578615848063,
             "links": [
                 "Pompadour"
             ],
@@ -168,8 +168,8 @@
         },
         {
             "id": "Mystic",
-            "x": -1.3813708498984758,
-            "y": 2.260660171779821,
+            "x": -3.4092225376463374,
+            "y": 1.6729207922182248,
             "links": [
                 "Geraldine"
             ],
@@ -177,8 +177,8 @@
         },
         {
             "id": "Pompadour",
-            "x": 1.3813708498984758,
-            "y": 2.260660171779821,
+            "x": 3.4092225376463374,
+            "y": 1.6729207922182248,
             "links": [
                 "Crusta"
             ],
@@ -186,8 +186,8 @@
         },
         {
             "id": "Geraldine",
-            "x": -0.6499999999999999,
-            "y": 2.0258330249197707,
+            "x": -3.0973380585320114,
+            "y": 1.9840984028249928,
             "links": [
                 "Pueblo"
             ],
@@ -195,8 +195,8 @@
         },
         {
             "id": "Crusta",
-            "x": 0.6499999999999999,
-            "y": 2.0258330249197707,
+            "x": 3.0973380585320114,
+            "y": 1.9840984028249928,
             "links": [
                 "Valencia"
             ],
@@ -204,8 +204,8 @@
         },
         {
             "id": "Pueblo",
-            "x": -0.3054802832968118,
-            "y": 1.7312695160462601,
+            "x": -2.545391513505406,
+            "y": 2.2047380996431167,
             "links": [
                 "Stiletto"
             ],
@@ -213,12 +213,102 @@
         },
         {
             "id": "Valencia",
-            "x": 0.3054802832968118,
-            "y": 1.7312695160462601,
+            "x": 2.545391513505406,
+            "y": 2.2047380996431167,
             "links": [
-                "Stiletto"
+                "Monza"
             ],
             "perk": "TintsOfASuccubusSecretDesires.esp|146"
+        },
+        {
+            "id": "Stiletto",
+            "x": -1.8762480125228524,
+            "y": 2.2917726817829074,
+            "links": [
+                "Oblivion"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|147"
+        },
+        {
+            "id": "Monza",
+            "x": 1.8762480125228524,
+            "y": 2.2917726817829074,
+            "links": [
+                "Paco"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|17B"
+        },
+        {
+            "id": "Oblivion",
+            "x": -1.2284557629275457,
+            "y": 2.2334016498994473,
+            "links": [
+                "Blood"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|19D"
+        },
+        {
+            "id": "Paco",
+            "x": 1.2284557629275457,
+            "y": 2.2334016498994473,
+            "links": [
+                "Mulberry"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|19F"
+        },
+        {
+            "id": "Blood",
+            "x": -0.7168498498696261,
+            "y": 2.0611302340908155,
+            "links": [
+                "Pastel"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1A0"
+        },
+        {
+            "id": "Mulberry",
+            "x": 0.7168498498696261,
+            "y": 2.0611302340908155,
+            "links": [
+                "Silver"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1A2"
+        },
+        {
+            "id": "Pastel",
+            "x": -0.4008493657651172,
+            "y": 1.8443349325136955,
+            "links": [
+                "Temptress"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1A3"
+        },
+        {
+            "id": "Silver",
+            "x": 0.4008493657651172,
+            "y": 1.8443349325136955,
+            "links": [
+                "Carissma"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1A5"
+        },
+        {
+            "id": "Temptress",
+            "x": -0.2698531124578842,
+            "y": 1.6676845960189057,
+            "links": [
+                "Bordeaux"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1A8"
+        },
+        {
+            "id": "Carissma",
+            "x": 0.2698531124578842,
+            "y": 1.6676845960189057,
+            "links": [
+                "Bordeaux"
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1AD"
         }
     ]
 }

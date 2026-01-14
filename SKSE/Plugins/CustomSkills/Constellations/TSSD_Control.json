@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+    "id": "TSSD_Control",
+    "name": "Control",
+    "description": "Tints about having or losing control.",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "nodes": [
+        {
+            "id": "Stiletto",
+            "x": 0,
+            "y": 0.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|17b"
+        },
+        {
+            "id": "Mahogany",
+            "x": 0,
+            "y": 0.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|12b"
+        },
+        {
+            "id": "Lavenderblush",
+            "x": 0,
+            "y": 1.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|116"
+        },
+        {
+            "id": "Monza",
+            "x": 0,
+            "y": 1.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|19d"
+        },
+        {
+            "id": "Pueblo",
+            "x": 0,
+            "y": 2.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|146"
+        },
+        {
+            "id": "Carmine",
+            "x": 0,
+            "y": 2.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|34"
+        }
+    ]
+}

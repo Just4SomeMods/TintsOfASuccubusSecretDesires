@@ -434,8 +434,7 @@ Function ShowSuccubusTrait(int num)
     string nameOf = JDB.solveStr(".tssdtints." + num + ".Name")
     string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
-    TraitsMenu.AddItem("Perk + " + nameOf, JDB.solveStr(".tssdtints." + num + ".description"),\
-            "menus/tssd/"+nameOf+".dds")
+    TraitsMenu.AddItem("Perk + " + nameOf, JDB.solveStr(".tssdtints." + num + ".description"),"menus/tssd/"+nameOf+".dds")
     String ResText = "Resist "
     
     if num == 9
@@ -444,8 +443,7 @@ Function ShowSuccubusTrait(int num)
         ResText = "Embrace: "
     endif
 
-    TraitsMenu.AddItem(ResText + nameOf, JDB.solveStr(".tssdtints." + num + ".description"),\
-            "menus/tssd/"+nameOf+".dds")
+    TraitsMenu.AddItem(ResText + nameOf, JDB.solveStr(".tssdtints." + num + ".description"), "menus/tssd/"+nameOf+".dds")
             
     String[] resultW = TraitsMenu.Show()
     if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(getPerkNumber(11))
@@ -564,4 +562,45 @@ Function setNonArrBool(int n)
     if n == 25 
         tVals.canTake25Stiletto = true 
     endif
+    if n == 26  
+        tVals.canTake26Neon = true
+    endif
+    if n == 27  
+        tVals.canTake27Ruby = true
+    endif
+    if n == 28  
+        tVals.canTake28Oblivion = true
+    endif
+    if n == 29  
+        tVals.canTake29Carmine = true
+    endif
+    if n == 30  
+        tVals.canTake30Pastel = true
+    endif
+    if n == 31  
+        tVals.canTake31Monza = true
+    endif
+    if n == 32  
+        tVals.canTake32Mulberry = true
+    endif
+    if n == 33  
+        tVals.canTake33Paco = true
+    endif
+    if n == 34  
+        tVals.canTake34Blood = true
+    endif
+    if n == 35  
+        tVals.canTake35Silver = true
+    endif
+    if n == 36  
+        tVals.canTake36Carissma = true
+    endif
+    if n == 37  
+        tVals.canTake37Temptress = true
+    endif
+    if n == 38  
+        tVals.canTake38Bordeaux = true
+    endif
+
+
 EndFunction

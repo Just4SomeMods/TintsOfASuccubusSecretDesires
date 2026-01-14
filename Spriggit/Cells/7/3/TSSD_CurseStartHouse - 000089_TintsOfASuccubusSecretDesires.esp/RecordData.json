@@ -2829,6 +2829,18 @@
   "Persistent": [
     {
       "MutagenObjectType": "PlacedObject",
+      "FormKey": "000195:TintsOfASuccubusSecretDesires.esp",
+      "MajorRecordFlagsRaw": 1024,
+      "SkyrimMajorRecordFlags": [
+        "0x400"
+      ],
+      "Base": "00003B:Skyrim.esm",
+      "Placement": {
+        "Position": "-262.3304, -381.83243, 20.878817"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
       "FormKey": "0001E3:TintsOfASuccubusSecretDesires.esp",
       "MajorRecordFlagsRaw": 1024,
       "EditorID": "SolitudeRadiantRaimentsMarker001",
@@ -2922,6 +2934,11 @@
                 "MutagenObjectType": "ScriptObjectProperty",
                 "Name": "tMenus",
                 "Object": "000001:TintsOfASuccubusSecretDesires.esp"
+              },
+              {
+                "MutagenObjectType": "ScriptObjectProperty",
+                "Name": "TSSD_Base_Explanations",
+                "Object": "000022:TintsOfASuccubusSecretDesires.esp"
               },
               {
                 "MutagenObjectType": "ScriptObjectProperty",

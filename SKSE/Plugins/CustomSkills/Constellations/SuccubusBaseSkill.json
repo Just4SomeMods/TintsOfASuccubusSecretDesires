@@ -1,8 +1,8 @@
 {
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
      "id": "SuccubusBaseSkill",
-     "name": "$SuccubusBaseSkillName",
-     "description": "$SuccubusBaseSkillDescription",
+     "name": "Succubus Rank",
+     "description": "You are now cursed! Perks in this tree are divided into removing downsides on the left and gaining powers with additional downsides on the right.",
      "legendary": "TintsOfASuccubusSecretDesires.esp|01E",
      "level": "TintsOfASuccubusSecretDesires.esp|01F",
      "ratio": "TintsOfASuccubusSecretDesires.esp|020",

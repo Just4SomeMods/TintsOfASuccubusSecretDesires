@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+    "id": "TSSD_Taboo",
+    "name": "Taboo",
+    "description": "Tints based on \"forbidden\" topics.",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "nodes": [
+        {
+            "id": "Silver",
+            "x": 0,
+            "y": 0.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1a8"
+        },
+        {
+            "id": "Paco",
+            "x": 0,
+            "y": 0.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1a0"
+        },
+        {
+            "id": "Oblivion",
+            "x": 0,
+            "y": 1.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|19f"
+        },
+        {
+            "id": "Mystic",
+            "x": 0,
+            "y": 1.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|11f"
+        },
+        {
+            "id": "Blood",
+            "x": 0,
+            "y": 2.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1a2"
+        },
+        {
+            "id": "Mulberry",
+            "x": 0,
+            "y": 2.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1a3"
+        }
+    ]
+}

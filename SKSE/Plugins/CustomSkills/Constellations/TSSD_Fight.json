@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
+    "id": "TSSD_Fight",
+    "name": "Fight",
+    "description": "Tints based on combat.",
+    "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "nodes": [
+        {
+            "id": "Pink",
+            "x": 0,
+            "y": 0.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|11a"
+        },
+        {
+            "id": "Tamarind",
+            "x": 0,
+            "y": 0.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|12f"
+        },
+        {
+            "id": "Scarlet",
+            "x": 0,
+            "y": 1.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|12a"
+        },
+        {
+            "id": "Valencia",
+            "x": 0,
+            "y": 1.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|147"
+        },
+        {
+            "id": "Bordeaux",
+            "x": 0,
+            "y": 2.0,
+            "perk": "TintsOfASuccubusSecretDesires.esp|1b0"
+        },
+        {
+            "id": "Ruby",
+            "x": 0,
+            "y": 2.5,
+            "perk": "TintsOfASuccubusSecretDesires.esp|34"
+        }
+    ]
+}
