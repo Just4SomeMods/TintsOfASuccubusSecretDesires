@@ -186,7 +186,9 @@ Function incrValAndCheck(int numOf, float incrBy)
     
 	if playerRef.HasPerk(getPerkNumber(numOf))
 		if numOf != 19 && numOf != 18 && numOf != 8 && numOf != 10
-			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
+            if JArray.Count(JDB.solveObj(".tssdtints." + numOf + ".positive")) > 0
+                possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
+            EndIf
 			if !tssd_tints_tracker.IsObjectiveFailed(numOf)
 				tssd_tints_tracker.SetObjectiveFailed(numOf, false)
 			endif
@@ -347,11 +349,15 @@ Event PlayerSceneStart(Form FormRef, int tid)
 		_thread.SetEnjoyment(PlayerRef, 100)
 	endif
  	while indexIn < aIn.Length
-		if aIn[indexIn].GetRace().HasKeyword(ActorTypeCreature)
-			_thread.SetEnjoyment(aIn[indexIN], 100)
-		elseif aIn[indexIN] != PlayerRef
-			_thread.ModEnjoymentMult(aIn[indexIN], (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 1000, true )
+        Actor cA = aIn[indexIN]
+		if cA.GetRace().HasKeyword(ActorTypeCreature)
+			_thread.SetEnjoyment(cA, 100)
+		elseif cA != PlayerRef
+			_thread.ModEnjoymentMult(cA, (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 1000, true )
 		endif
+        if cA.GetFactionRank(TSSD_EnthralledFaction) >= 1
+            _thread.ModEnjoymentMult(cA, 3)
+        endif
 		indexIn += 1
 	endwhile
     String[] brTags = StringUtil.Split("boobsuck,breastfeed,breastfeeding,milk,milking", ",")
@@ -390,10 +396,22 @@ Event PlayerSceneEnd(Form FormRef, int tid)
         indexIn += 1
     endwhile   
     if tActions.deathModeActivated
+        int indexF = 0
+        while indexF < tEvents.currentFollowers.Length
+            Actor cA = tEvents.currentFollowers[indexF]
+            SexlabThread SLThread = Sexlab.GetThreadByActor(cA)
+            sslThreadController _thread =  Sexlab.GetController(SLThread.GetThreadID())
+			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
+			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+			while  Stage_in < StageCount 
+				_thread.AdvanceStage()
+				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+			EndWhile
+            indexF += 1
+        EndWhile
         tActions.toggleDeathMode(true)
     endif
     tVals.beingOrdered = false
-    Utility.Wait(1)    
 EndEvent
 
 
@@ -422,32 +440,12 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			tVals.lastHypnoSession = 0.1
             _thread.ForceOrgasm(PlayerRef)
 		endif
-		if WhoCums.GetRelationshipRank(PlayerRef) >= 1
-			incrValAndCheck(19,1)
+        
+		if WhoCums.GetRelationshipRank(PlayerRef) >= 4 && PlayerRef.HasPerk(TSSD_DeityMaraPerk)
+            MarriageRested.Cast(PlayerRef,PlayerRef)
 		endif
-		if WhoCums.GetRelationshipRank(PlayerRef) >= 4
-			if PlayerRef.HasPerk(TSSD_DeityMaraPerk)
-				MarriageRested.Cast(PlayerRef,PlayerRef)
-			endif
-		endif
-
-		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) >= 0
-			if _thread.HasStageTag("cuminmouth") || _thread.HasStageTag("blowjob")
-				incrValAndCheck(12,1)
-				incrValAndCheck(1,0.2)
-			elseif (_thread.HasStageTag("vaginal") || _thread.HasStageTag("anal")) &&  !_thread.HasStageTag("lesbian")
-				incrValAndCheck(1,1)
-			elseif _thread.HasStageTag("aircum") || _thread.HasStageTag("cumonchest") || _thread.HasStageTag("cumonbody")
-				incrValAndCheck(0,1)
-			endif
-		endif
-		if !issingle( WhoCums)
-			incrValAndCheck(2,1)
-		endif
-        if WhoCums.HasKeyWord(Vampire)
-			incrValAndCheck(34,1)
-        EndIf
-
+        
+        
 		if tActions.deathModeActivated
 			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
 			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
@@ -478,28 +476,16 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			EndWhile
         endif
-        
-		if _thread.HasStageTag("femdom")
-			incrValAndCheck(31,1)
-        EndIf
-	else
-		if _thread.HasStageTag("spanking")
-			incrValAndCheck(13,1)
-		endif
+	else    
 		if _thread.GetSubmissive(PlayerRef)
 			incrValAndCheck(20,1)
         	if  tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 				tActions.increaseGlobalDeity(8,PlayerRef.GetAV("Speechcraft") / 10,500)
 			endif
-			if Game.GetModByName(FILE_FADE_TATS) != 255
-				incrValAndCheck(8,1)
-			endif
 		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
 			tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft")  / 20,1000)
 		endif
-		if _thread.HasStageTag("rough")
-			incrValAndCheck(22,1)
-		endif
+        
         if _thread.CrtMaleHugePP()
             incrValAndCheck(36,1)
         EndIf
@@ -509,13 +495,21 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
         if hasTentacles
             incrValAndCheck(32, 1)
         EndIf
+        
+        if hasTagsInternal(_thread, "spanking")
+            incrValAndCheck(13,1)
+        endif
+        
+        if hasTagsInternal(_thread, "~rough, ~choking")
+            incrValAndCheck(22,1)
+        endif
 
         tVals.lastOrgasm = 0.1
 	endif
 	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
 		incrValAndCheck(4,1)
 	endif
-	if _thread.HasStageTag("love") || _thread.HasStageTag("loving") || _thread.HasStageTag("romance")
+	if hasTagsInternal(_thread, "~love, ~loving, ~romance")
 		incrValAndCheck(3,1)
 	endif
 

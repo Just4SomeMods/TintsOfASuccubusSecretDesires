@@ -29,7 +29,7 @@
         "famecat": [
             "Nasty"
         ],
-        "unlockMethod": "Let 10 cum layers on your skin expire.",
+        "unlockMethod": "Let cum on your skin.",
         "color": [
             227,
             37,
@@ -65,7 +65,7 @@
             "Anal",
             "Cum Dump"
         ],
-        "unlockMethod": "Get cum inflated 10 times.",
+        "unlockMethod": "Get cum inflated.",
         "color": [
             227,
             37,
@@ -133,7 +133,7 @@
         "famecat": [
             "Gentle"
         ],
-        "unlockMethod": "Orgasm to romantic sex 10 times",
+        "unlockMethod": "Orgasm from romantic sex",
         "color": [
             252,
             99,
@@ -160,7 +160,7 @@
         "needyText": [],
         "description": "You're gay, good for you! Your color is tosca, which triples xp from interactions with your gender, but halves it otherwise.",
         "famecat": null,
-        "unlockMethod": "Orgasm to gay sex 10 times",
+        "unlockMethod": "Orgasm from gay sex",
         "color": [
             116,
             64,
@@ -179,7 +179,7 @@
         "needyText": [],
         "description": "You love to the feel of arousal, you color is blush, on your face and your desire. You are permanently maximally aroused. Friendly people who get you off, gain a strong buff to all their stats.",
         "famecat": null,
-        "unlockMethod": "Stay aroused for 5 hours.",
+        "unlockMethod": "Stay aroused.",
         "color": [
             222,
             93,
@@ -311,7 +311,7 @@
             "Slut",
             "Group"
         ],
-        "unlockMethod": "Stay fully naked for 5 hours.",
+        "unlockMethod": "Stay fully naked.",
         "color": [
             255,
             192,
@@ -330,7 +330,7 @@
         "needyText": [],
         "description": "Maroon is the new black! You start each week with a new tattoo, these make you more durable increasing your armor by 10.",
         "famecat": null,
-        "unlockMethod": "Have 10 tats.",
+        "unlockMethod": "Have tats.",
         "color": [
             128,
             0,
@@ -418,10 +418,10 @@
             10
         ],
         "colorHex": "92000A",
-        "unlockMethod": "Accept 5 other colors.",
+        "unlockMethod": "Accept other colors.",
         "kink": "-",
         "perk": 286,
-        "targetNum": 3,
+        "targetNum": 5,
         "firstDes": "",
         "secondDes": "",
         "index": 11
@@ -516,7 +516,7 @@
             117
         ],
         "colorHex": "E77B75",
-        "unlockMethod": "Get spanked 10 times.",
+        "unlockMethod": "Get spanked.",
         "kink": "spanking",
         "perk": 288,
         "targetNum": 10,
@@ -535,7 +535,7 @@
             60
         ],
         "colorHex": "DC143C",
-        "unlockMethod": "Take 2000 damage.",
+        "unlockMethod": "Take damage.",
         "kink": "masochism",
         "perk": 289,
         "targetNum": 2000,
@@ -556,14 +556,14 @@
             "Breath hitches with the words murmurs 'excellent'. Always does. Always should.",
             "I want to kiss those kind words, I want to lick this friendly tongue!",
             "I think I'm blushing cerise.",
-            "I'll wear that like a coat. Thick. Unbreakable.",
+            "I'll wear that like a coat. Thick and Unbreakable.",
             "My fingers tremble. Want to trace the curve of that smile that praises me. Touch the sweetness.",
             "Curl my lips inward. Can still taste the gold of the approval.",
             "I want that praise as bedding. Silk sheets stitched with praise, praise, praise.",
             "My jaw aches from holding my mouth silent. Or maybe - from smiling too wide? ",
             "I want to bottle that 'very well' vibe.",
-            "The praise vibrates in my teeth. A pleasant tremor.",
-            "That gaze? The warmest healer. Better than mead.",
+            "The praise vibrates in my teeth, a pleasant tremor.",
+            "That gaze? The warmest healer.",
             "Every syllable makes my spine tall.",
             "The afterglow of this praise is as good as an sex. Fuck, it might be better.",
             "That 'awesome'? Easily the most satisfying sound I've heard this week. "
@@ -591,7 +591,7 @@
             99
         ],
         "colorHex": "DE3163",
-        "unlockMethod": "Get praised 10 times.",
+        "unlockMethod": "Get praised.",
         "kink": "praise",
         "perk": 290,
         "targetNum": 10,
@@ -610,7 +610,7 @@
             133
         ],
         "colorHex": "8E4585",
-        "unlockMethod": "Barter 10 times.",
+        "unlockMethod": "Barter.",
         "kink": "sugarbaby",
         "perk": 292,
         "targetNum": 10,
@@ -629,7 +629,7 @@
             68
         ],
         "colorHex": "6A1F44",
-        "unlockMethod": "Wear revealing clothing for 5 hours.",
+        "unlockMethod": "Wear revealing clothing.",
         "kink": "",
         "perk": 296,
         "targetNum": 5,
@@ -652,7 +652,7 @@
             69
         ],
         "colorHex": "460245",
-        "unlockMethod": "Talk with Jobtrainers / Hypnomasters 10 times.",
+        "unlockMethod": "Talk with Jobtrainers / Hypnomasters.",
         "kink": "Hypnotism",
         "perk": 297,
         "targetNum": 10,
@@ -725,7 +725,7 @@
             "Bound",
             "Submissive"
         ],
-        "unlockMethod": "Orgasm from rape 10 times.",
+        "unlockMethod": "Orgasm from rape.",
         "color": [
             78,
             5,
@@ -863,7 +863,7 @@
             "Masochist"
         ],
         "colorHex": "341515",
-        "unlockMethod": "have rough sex or get choked 10 times.",
+        "unlockMethod": "have rough sex or get choked.",
         "kink": "choking",
         "perk": 303,
         "targetNum": 10,
@@ -901,7 +901,7 @@
         ],
         "famecat": [],
         "colorHex": "D9483C",
-        "unlockMethod": "Masturbate 10 times.",
+        "unlockMethod": "Masturbate.",
         "kink": "selflove",
         "perk": 327,
         "targetNum": 10,
@@ -920,7 +920,7 @@
         ],
         "famecat": [],
         "colorHex": "9C3336",
-        "unlockMethod": "Wear heels for 5 hours.",
+        "unlockMethod": "Wear heels.",
         "kink": "",
         "perk": 379,
         "targetNum": 5,
@@ -977,7 +977,7 @@
         ],
         "famecat": [],
         "colorHex": "630330",
-        "unlockMethod": "Summon Daedra 10 times while horny.",
+        "unlockMethod": "Summon Daedra while horny.",
         "kink": "",
         "perk": 415,
         "targetNum": 5,
@@ -996,7 +996,7 @@
         ],
         "famecat": [],
         "colorHex": "D70040",
-        "unlockMethod": "Wear a corset for 5 hours.",
+        "unlockMethod": "Wear a corset.",
         "kink": "",
         "perk": 434,
         "targetNum": 5,
@@ -1015,7 +1015,7 @@
         ],
         "famecat": [],
         "colorHex": "FAA0A0",
-        "unlockMethod": "Breastfeed 5 times.",
+        "unlockMethod": "Breastfeed.",
         "kink": "Moo",
         "perk": 421,
         "targetNum": 5,
@@ -1034,7 +1034,7 @@
         ],
         "famecat": [],
         "colorHex": "D22B2B",
-        "unlockMethod": "Have a partner cum from femdom 10 times.",
+        "unlockMethod": "Have a partner cum from femdom.",
         "kink": "femdom",
         "perk": 413,
         "targetNum": 5,
@@ -1053,7 +1053,7 @@
         ],
         "famecat": [],
         "colorHex": "770737",
-        "unlockMethod": "Cum from partners that have tentacles 10 times.",
+        "unlockMethod": "Cum from partners that have tentacles.",
         "kink": "tentacles",
         "perk": 419,
         "targetNum": 5,
@@ -1072,7 +1072,7 @@
         ],
         "famecat": [],
         "colorHex": "482114",
-        "unlockMethod": "Fall victim to Mimics 10 times.",
+        "unlockMethod": "Fall victim to Mimics.",
         "kink": "tentacles/vore",
         "perk": 416,
         "targetNum": 5,

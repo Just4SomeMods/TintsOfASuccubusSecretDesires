@@ -143,6 +143,9 @@ Function OpenGrandeMenu()
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
     string toSplit = "Abilities;Upgrades;Settings;View Tint Progress"
+    if true
+        toSplit += ";Increase Slut Fame"
+    EndIf
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
         toSplit += ";TraitsLel"
     endif
@@ -169,8 +172,30 @@ Function OpenGrandeMenu()
         GetTraitsLel()
     elseif resOf == "View Tint Progress"
         viewTintProgress()
+    elseif resOf == "Increase Slut Fame"
+        incrSlutFame()
     endif
 EndFunction 
+
+bool slsrActive = false
+
+Function incrSlutFame()
+    
+    if !slsrActive
+        int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
+        ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
+        ModEvent.Send(EventHandle)
+        slsrActive = true
+    endif
+    
+    Int EventHandle
+    EventHandle = ModEvent.Create("SLSF_Reloaded_SendManualFameGain")
+    ModEvent.PushString(EventHandle, "Slut")
+    ModEvent.PushString(EventHandle, "Current")
+    ModEvent.PushInt(EventHandle, 0) 
+    ModEvent.PushInt(EventHandle, 10)
+    ModEvent.Send(EventHandle)
+EndFunction
 
 Function OpenExpansionMenu()
     b612_SelectList mySelectList = GetSelectList()
@@ -303,7 +328,7 @@ Function OpenSuccubusAbilities()
     endif
     itemsAsString += ";Look for Prey"
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main") && Sexlab.GetPlayerController()
-        itemsAsString += ";Cum 10 times"
+        itemsAsString += ";Debug Orgasm"
     endif
     int indexOfA = 1
     if PlayerRef.HasPerk(TSSD_Seduction_Kiss2) && Sexlab.GetPlayerController()
@@ -340,15 +365,14 @@ Function OpenSuccubusAbilities()
         TSSD_SuccubusDetectJuice.SetNthEffectDuration(0, oldDur)
     elseif myItems[result] == "Act defeated"
         tActions.actDefeated(tarRef, true)
-    elseif myItems[result] == "Cum 10 times"
+    elseif myItems[result] == "Debug Orgasm"
         sslThreadController _thread = Sexlab.GetPlayerController()
         Actor[] actorSLel = _thread.GetPositions()
         int indexInIn = 0
-        while indexInIn < 10
+        while indexInIn < 1
             int actsIn = 0
             while actsIn < actorSLel.Length
                 Actor cA = actorSLel[actsIn]
-                
                 _thread.ForceOrgasm(cA)
                 actsIn += 1
             endwhile

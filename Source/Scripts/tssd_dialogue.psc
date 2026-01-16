@@ -180,7 +180,9 @@ Event OnMenuClose(String MenuName)
                 SexLab.AddCumFxLayers(lastDialoguePartner, 2, 1)
             endif
         elseif lastDialogue == "TSSD_000F7"
+            Sexlab.TreatAsSex(PlayerRef, 0)
             GenericRefreshPSex(lastDialoguePartner, true, "facesit")
+            Sexlab.ClearForcedSex(PlayerRef)
         elseif lastDialogue == "TSSD_00111"
             tOrgasmLogic.incrValAndCheck(7,1)
             GenericRefreshPSex(lastDialoguePartner, true, "~grope, -leadIn, ~holding, ~hugging, ~spanking, ~cuddle, ~facesit, ~fingering, -zaz, -bound, -DeviousDevice")
@@ -193,7 +195,9 @@ Event OnMenuClose(String MenuName)
             GenericRefreshPSex(lastDialoguePartner, false, "")
             SexLab.StartSceneQuick(PlayerRef)
         elseif lastDialogue == "TSSD_0013D"
-            GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding, ~milk, ~milking, ~boobs")
+            Sexlab.TreatAsSex(PlayerRef, 0)
+            GenericRefreshPSex(lastDialoguePartner, true, "~boobsuck, ~breastfeed, ~breastfeeding, ~milk, ~milking, ~boobs, ~nipplesuck, ~lactation, -titfuck, -boobjob, -tittyfuck")
+            Sexlab.ClearForcedSex(PlayerRef)
         elseif lastDialogue == "TSSD_0015B"
             tOrgasmLogic.incrValAndCheck(1,1)
                 GenericRefreshPSex(lastDialoguePartner, true, "blowjob")

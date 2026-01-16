@@ -33,7 +33,9 @@ Event HookDefeatEnd(int aiThreadID, bool abHasPlayer)
     endWhile
 	Acheron.RescueActor(PlayerRef)
     PlayerRef.DispelSpell(tssd_Satiated)
-	Stop()
+    if self
+    	Stop()
+    EndIf
 	Debug.SendAnimationEvent(PlayerRef, "IdleForceDefaultState")
 
 	
@@ -52,17 +54,27 @@ Function doFakeOut()
         endif
         indexIN += 1
     endwhile
-
+    bool canTry = true
+    Actor lastTest
     RegisterForModEvent("HookAnimationEnd_TSSD_DefeatEndHook", "HookDefeatEnd")
-    While Sexlab.StartScene(targets, "aggressive, -bound, -stimulation, -sextoy, -furniture", akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
-        Ntargets = PapyrusUtil.PushActor(Ntargets, targets[-1])
+    While canTry && Sexlab.StartScene(targets, "aggressive, -bound, -stimulation, -sextoy, -furniture", akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
+        Ntargets = PapyrusUtil.PushActor(Ntargets, targets[targets.Length - 1])
+        lastTest = targets[targets.Length - 1]
         targets = PapyrusUtil.ResizeActorArray(targets, targets.Length - 1)
         if targets.Length == 1
+            canTry = false
+        endif
+    endwhile
+    if !canTry
+        if Sexlab.StartSceneQuick(PlayerRef, lastTest, akSubmissive=PlayerRef,asHook="TSSD_DefeatEndHook" ) == none
             Acheron.RescueActor(PlayerRef)
             Stop()
             return
-        endif
-    endwhile
+        EndIf
+    EndIf
+
+
+
     Actor[] allFolls = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
     int indexInFol = 0
     while indexInFol < allFolls.Length

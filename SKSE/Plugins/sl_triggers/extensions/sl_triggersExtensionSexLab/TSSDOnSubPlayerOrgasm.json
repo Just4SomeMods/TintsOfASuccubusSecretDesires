@@ -1,0 +1,14 @@
+{
+	"int" : 
+	{
+		"__slt_mod_version__" : 973,
+		"event" : 4,
+		"partner_gender" : 0,
+		"partner_race" : 0,
+		"partner_role" : 0,
+		"player" : 1,
+		"race" : 0,
+		"role" : 2
+	},
+	"string" : {}
+}

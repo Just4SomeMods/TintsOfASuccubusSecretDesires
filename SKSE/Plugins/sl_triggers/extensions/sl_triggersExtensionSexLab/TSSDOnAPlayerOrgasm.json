@@ -1,0 +1,19 @@
+{
+	"float" : 
+	{
+		"chance" : 100.0
+	},
+	"int" : 
+	{
+		"__slt_mod_version__" : 973,
+		"daytime" : 0,
+		"deeplocation" : 0,
+		"event" : 4,
+		"is_clothed" : 0,
+		"partner_gender" : 0,
+		"player" : 0,
+		"role" : 0,
+		"tag" : 0
+	},
+	"string" : {}
+}

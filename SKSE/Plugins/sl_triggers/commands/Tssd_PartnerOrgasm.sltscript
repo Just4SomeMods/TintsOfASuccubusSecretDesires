@@ -1,24 +1,59 @@
-if sl_hastag aircum $system.self || sl_hastag cumonchest $system.self || sl_hastag cumonbody $system.self
+deb_msg "PartnerOrgasm"
+actor_race $system.self ""
+
+if $$ == "Netch" 
+    set $hasTentacles = 1
+elseif $$ == "Lurker" 
+    set $hasTentacles = 1
+elseif $$ == "Seeker"
+    set $hasTentacles = 1
+endif
+if $hasTentacles > 0
+    TSSD_ModTint mulberry 1
+endif
+
+sl_hasstagetags        "~aircum, ~cumonchest, ~cumonbody" $system.self
+if $$ == true
     TSSD_ModTint razzmatazz 1
 endif
 
-if sl_hastag cuminmouth $system.self || sl_hastag blowjob $system.self
+sl_hasstagetags "~cuminmouth, ~blowjob" $system.self
+if $$ > 0
     TSSD_ModTint cupid 0.2
     TSSD_ModTint mystic 1
 endif
 
-if !sl_hastag lesbian $system.self && (sl_hastag vaginal $system.self || sl_hastag anal $system.self)
+sl_hasstagetags "-lesbian, ~vaginal, ~anal, ~creampie" $system.self
+
+if $$ == true
     TSSD_ModTint cupid 1
 endif
 
-if actor_haskeyword $system.self Vampire
+sl_hasstagetags "femdom" $system.self
+
+if $$ == true
+    TSSD_ModTint monza 1
+endif
+
+actor_haskeyword $system.self Vampire
+
+if  $$ == true
     TSSD_ModTint blood 1
 endif
 
-if sl_hastag love $system.self || sl_hastag loving $system.self || sl_hastag romance $system.self
-    TSSD_ModTint carnation 1
+actor_getrelation $system.self $system.player
+if  $$ > 0
+    TSSD_ModTint scarlet 1
 endif
 
-if sltsamp actor_getrelation $system.self $system.player > 0
-    TSSD_ModTint scarlet 1
+
+actor_dogetter $system.self GetHighestRelationshipRank
+; Should be replaced by isSingle later
+if $$ > 3
+    TSSD_ModTint lavenderblush 1
+endif
+
+actor_dogetter $system.self GetLevel
+if $$ >= 30
+    TSSD_ModTint bordeaux 1
 endif

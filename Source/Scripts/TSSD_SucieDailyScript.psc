@@ -61,9 +61,7 @@ Event OnUpdateGameTime()
     endif
     
     if tProps.isCumVisible
-	    SexLab.AddCumFxLayers(self, 2, 1)
-	    SexLab.AddCumFxLayers(self, 1, 1)
-	    SexLab.AddCumFxLayers(self, 0, 1)
+	    SexLab.AddCumFxLayers(self, -1, 2)
     endif
     RegisterForModEvent("TSSD_SeduceMerchant", "trySeduceMerchant")
 EndEvent

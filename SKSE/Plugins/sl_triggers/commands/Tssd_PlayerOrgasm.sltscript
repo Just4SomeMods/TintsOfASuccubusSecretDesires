@@ -1,15 +1,15 @@
-if sl_hastag rough $system.self
+deb_msg "PlayerOrgasm"
+sl_hasstagetags "rough" $system.self
+if $$ == true
     TSSD_ModTint tamarind 1
 endif
 
-if sl_hastag femdom $system.self
-    TSSD_ModTint monze 1
-endif
-
-if sl_hastag spanking $system.self
+sl_hasstagetags "spanking" $system.self
+if $$ == true
     TSSD_ModTint geraldine 1
 endif
 
-if sl_hastag love $system.self || sl_hastag loving $system.self || sl_hastag romance $system.self
+sl_hasstagetags "~love, ~loving, ~romance" $system.self
+if $$ == true
     TSSD_ModTint carnation 1
 endif

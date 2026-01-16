@@ -64,8 +64,9 @@ Spell Property TSSD_InLoveBuff Auto
 Spell Property TSSD_CompelledSpell Auto
 Spell Property TSSD_SoulTrap Auto
 Spell Property TSSD_StilettoBuffsNNerfs Auto
+Spell Property TSSD_WorstGirl Auto
 
-Actor[] currentFollowers
+Actor[] Property currentFollowers Auto Hidden
 
 float lastNeedsAnnouncement
 
@@ -334,7 +335,7 @@ EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
 	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
-		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 10 )
+		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 5 )
 		if PlayerRef.HasPerk(TSSD_Drain_SouldrainNew)
 			TSSD_SoulTrap.Cast(PlayerRef, akTarget)
 		endif
@@ -600,6 +601,7 @@ Event OnUpdateGameTime()
 		while follIndex < currentFollowers.Length
 			Actor cA = currentFollowers[follIndex]
 			cA.SetAv("Confidence", 0)
+			cA.AddSpell(TSSD_WorstGirl)
 			if cA.GetActorBase().GetSex() == 1
 				int modHandle = ModEvent.Create("CC_modActorCorruption")
 				ModEvent.PushForm(modHandle, cA as Form)
@@ -614,7 +616,7 @@ Event OnUpdateGameTime()
 EndEvent
 
 Event GetSlutFame(string locName, string cateG, int reqFame)
-	if locName == "Current" && cateG == "Slut"
+	if cateG == "Slut"
 		float prevVal = currentVals[26] 
 		currentVals[26] = 0
 		tOrgasmLogic.incrValAndCheck(26, reqFame)

@@ -58,10 +58,6 @@ String Function GenerateFullPath(String filename) Global
     Return "Data/Tssd/" + filename + ".json"
 EndFunction
 
-String [] Function GetSuccubusTypesAll() Global
-    return JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusKinds"))
-Endfunction
-
 String [] Function GetSuccubusStartPerksAll() Global
     return JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusSPerks"))
 Endfunction
@@ -176,8 +172,6 @@ Function Maintenance() Global
     JDB.SetObj("tssdtints",  jval  )
     jval = JValue.readFromFile("Data/Tssd/succubusEnergyPerks.json")
     JDB.SetObj("tssdperks", jval)
-    jval = JValue.readFromFile("Data/Tssd/succubuskinds.json")
-    JDB.SetObj("tssdkinds", jval)
     jval = JValue.readFromFile("Data/Tssd/overviews.json")
     JDB.SetObj("tssdoverviews", jval)
     jval = JValue.readFromFile("Data/Tssd/settings.json")
@@ -293,3 +287,96 @@ Function TSSD_ModTint(Actor CmdTargetActor, ActiveMagicEffect _CmdPrimary, strin
     CmdPrimary.CompleteOperationOnActor()
 EndFunction
 
+import sl_triggersStatics
+
+sl_triggersExtensionSexLab Function GetExtension() global
+    return GetForm_SLT_ExtensionSexLab() as sl_triggersExtensionSexLab
+EndFunction
+
+; sltname sl_hasstagetags
+; sltgrup SexLab P+
+; sltdesc Returns: bool: true iff the SexLab scene has the specified tag, false otherwise
+; sltargs string: tag: tag name e.g. "Oral", "Anal", "Vaginal"
+; sltargs Form: actor: target Actor
+; sltsamp sl_hasstagetags "Oral" $system.self
+;  
+function sl_hasstagetags(Actor CmdTargetActor, ActiveMagicEffect _CmdPrimary, string[] param) global
+	sl_triggersCmd CmdPrimary = _CmdPrimary as sl_triggersCmd
+
+    sl_triggersExtensionSexLab slExtension = GetExtension()
+    
+    bool nextResult = false
+	
+	if slExtension.IsEnabled && ParamLengthLT(CmdPrimary, param.Length, 4)
+        Actor _targetActor = CmdTargetActor
+        if param.Length > 2
+            _targetActor = CmdPrimary.ResolveActor(param[2])
+        endif
+        SexLabThread slthread = (slExtension.SexLabForm as SexLabFramework).GetThreadByActor(_targetActor)
+        if slthread
+            String[] toCheck = StringUtil.Split(CmdPrimary.ResolveString(param[1]), ", ")
+            int toCheckIndex = 0
+            bool hasAbortedOrAnyOr = false
+            while toCheckIndex < toCheck.Length
+                String cTag = toCheck[toCheckIndex]
+                bool isPositive = StringUtil.GetNthChar(cTag, 0) != "-"
+                bool isOr = StringUtil.GetNthChar(cTag, 0) == "~"
+                if isOr
+                    hasAbortedOrAnyOr = true
+                EndIf
+                if !isPositive || isOr
+                    cTag = StringUtil.Substring(cTag, 1)
+                EndIf
+                bool stageHasTag = slthread.HasStageTag(cTag)
+                if isOr
+                    nextResult = nextResult || stageHasTag
+                elseif isPositive != stageHasTag
+                    toCheckIndex = toCheck.Length
+                    nextResult = false
+                    hasAbortedOrAnyOr = true
+                endif
+                toCheckIndex += 1
+            EndWhile
+            if !hasAbortedOrAnyOr
+                nextResult = true
+            EndIf
+        endIf
+    endif
+    CmdPrimary.MostRecentBoolResult = nextResult
+
+    CmdPrimary.CompleteOperationOnActor()
+endFunction
+
+
+bool function hasTagsInternal(SexLabThread slthread, string tagsAsString) global
+    bool nextResult = false
+    if slthread
+        String[] toCheck = StringUtil.Split(tagsAsString, ", ")
+        int toCheckIndex = 0
+        bool hasAbortedOrAnyOr = false
+        while toCheckIndex < toCheck.Length
+            String cTag = toCheck[toCheckIndex]
+            bool isPositive = StringUtil.GetNthChar(cTag, 0) != "-"
+            bool isOr = StringUtil.GetNthChar(cTag, 0) == "~"
+            if isOr
+                hasAbortedOrAnyOr = true
+            EndIf
+            if !isPositive || isOr
+                cTag = StringUtil.Substring(cTag, 1)
+            EndIf
+            bool stageHasTag = slthread.HasStageTag(cTag)
+            if isOr
+                nextResult = nextResult || stageHasTag
+            elseif isPositive != stageHasTag
+                toCheckIndex = toCheck.Length
+                nextResult = false
+                hasAbortedOrAnyOr = true
+            endif
+            toCheckIndex += 1
+        EndWhile
+        if !hasAbortedOrAnyOr
+            nextResult = true
+        EndIf
+    endIf
+    return nextResult
+endFunction

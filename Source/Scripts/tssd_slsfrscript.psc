@@ -21,6 +21,7 @@ Function CheckFlagsSLSF()
 Endfunction
 
 Function SetFlagsSLSF(string modName, bool isActive)
+    ;/
     if modName == "TintsOfASuccubusSecretDesires.esp" 
         UnregisterForModEvent("SLSF_Reloaded_ReturnModRegisteredState")
         if !isActive

@@ -828,6 +828,11 @@
             "content": [
                 {
                     "type": "text",
+                    "text": "Shared Doom",
+                    "help": "You lose <mag> health per second."
+                },
+                {
+                    "type": "text",
                     "text": "Damage Magicka",
                     "help": ""
                 },
@@ -1647,6 +1652,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "343"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "The Wall",
+                    "help": "Blocking gets more effective the higher your body rating is.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "455"
                         ]
                     }
                 },
@@ -2661,7 +2680,7 @@
                 {
                     "type": "text",
                     "text": "Neon",
-                    "help": "Your alteration spells are 20% stronger. If your fame increased recently, your armor weighs nothing, otherwise its weight doubles.\n",
+                    "help": "Your alteration spells are 20% stronger. If you have been in a city that sees you as a slut recently, you deal double sneak attack damage, otherwise you halve it.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3995,6 +4014,24 @@
                             "{b}0",
                             "54",
                             "{i}1",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_WorstGirlMag0:Spells",
+                    "type": "input",
+                    "text": "Bad Girl Effect 0 Mag",
+                    "help": "Shared Doom 50",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}1",
+                            "446",
+                            "{i}0",
                             "{value}"
                         ]
                     }

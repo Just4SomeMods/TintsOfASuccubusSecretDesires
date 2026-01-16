@@ -193,7 +193,7 @@ Function updateHeartMeter(bool forceShow = false)
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
     if ((nxtPerc != lastPerc) || forceShow) && !Sexlab.IsActorActive(PlayerRef)
-        T_Show("", "menus/TSSD/" + nxtPerc + "H.dds" )
+        T_Show(lastVal, "menus/TSSD/" + nxtPerc + "H.dds" )
         lastPerc = nxtPerc
     endif
 EndFunction
@@ -436,7 +436,7 @@ Function AddToStatistics(float amount_of_hours)
     isaggressive = PlayerRef.HasPerk(getPerkNumber(20)), Males = 1 + 1 - genderPlayer , Females = 1 - maleSexPartner + genderPlayer, Creatures =  0)
         index += 1
     endwhile
-    slsfListener.onWaitPassive(amount_of_hours)
+    ; slsfListener.onWaitPassive(amount_of_hours)
 Endfunction
 
 Function gainAllPerks()    
@@ -672,7 +672,7 @@ Event OnCrosshairRefChange(ObjectReference ref)
     Elseif !(ref as Actor)
         
         myBinding.Remove("tssd_getTargetCross")
-    Elseif tEvents.isLilac && playerInSafeHaven() && !Sexlab.IsActorActive(PlayerRef) &&  (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
+    Elseif ref && tEvents.isLilac && playerInSafeHaven() && !Sexlab.IsActorActive(PlayerRef) &&  (ref as Actor) && isDoggie(ref as Actor) && !(Ref as Actor).HasMagicEffect(TSSD_DrainedDownSide)
         myBinding.Add("tssd_getTargetCross", "Beg", allInOneKey)
 
     EndIf
