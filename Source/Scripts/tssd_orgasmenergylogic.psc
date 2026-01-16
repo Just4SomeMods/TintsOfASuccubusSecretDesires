@@ -28,7 +28,9 @@ Keyword Property LocTypeClearable Auto
 Keyword Property LocTypeHabitation Auto
 Keyword Property LocTypeHabitationHasInn Auto
 Keyword Property LocTypeStore Auto
+Keyword Property LocTypeCastle Auto
 Keyword Property ActorTypeCreature Auto
+Keyword Property Vampire Auto
 
 Actor Property PlayerRef Auto
 
@@ -36,6 +38,7 @@ Faction Property TSSD_MarkedForDeathFaction Auto
 Faction Property TSSD_EnthralledFaction Auto
 Faction Property sla_Arousal Auto
 Faction Property CurrentFollowerFaction Auto
+Faction Property GovRuling Auto
 
 SexLabFramework Property SexLab Auto
 
@@ -66,7 +69,21 @@ Perk Property TSSD_DeityMaraPerk Auto
 Perk Property TSSD_Tint_Scarlet Auto
 Perk Property TSSD_Together_Lightning Auto
 
+
 ;;;; BEGIN TINTS
+
+; BEGIN MULBERRY
+
+bool hasTentacles
+Race Property DLC2LurkerRace Auto
+Race Property DLC2NetchRace Auto
+Race Property DLC2SeekerRace Auto
+
+; END MULBERRY
+
+; BEGIN Bordeaux
+bool hasStrongPerson
+; END Bordeaux
 
 ; Begin Blush
 
@@ -145,29 +162,28 @@ Function incrValAndCheck(int numOf, float incrBy)
     if numOf >= tEvents.currentVals.Length
         tEvents.currentVals = Utility.ResizeFloatArray(tEvents.currentVals, numOf + 1, 0.0)
     endif
-	tEvents.currentVals[numOf] = tEvents.currentVals[numOf] + incrBy
+	tEvents.currentVals[numOf] = max(0,tEvents.currentVals[numOf] + incrBy)
 	tEvents.checkValOf(numOf)
 	if numOf == 0 
 		tVals.lastCumOnTime = 0.1 
-	endif
-	if numOf == 1 
+	elseif numOf == 1 
 		tVals.lastCumInMe = 0.1 
-	endif
-	if numOf == 3 
+	elseif numOf == 3 
 		tVals.lastRomanticTime = 0.1 
-	endif	
-	if numOf == 13 
+	elseif numOf == 13 
 		tVals.lastSpankedTime = 0.1 
-	endif
-	if numOf == 15 
+	elseif numOf == 15 
 		tVals.lastPraiseTime = 0.1 
-	endif
-	if numOf == 22 
+	elseif numOf == 22 
 		tVals.lastRoughTime = 0.1 
-	endif
-	if numOf == 23 
+	elseif numOf == 23 
 		tVals.lastDragon = 0.1 
+	elseif numOf == 26 && incrBy >= 50
+		tVals.lastSlutCity = 0.1
+	elseif numOf == 32
+		tVals.lastTentacle = 0.1
 	endif
+    
 	if playerRef.HasPerk(getPerkNumber(numOf))
 		if numOf != 19 && numOf != 18 && numOf != 8 && numOf != 10
 			possibleAnnouncements = PapyrusUtil.PushInt(possibleAnnouncements, numOf)
@@ -188,25 +204,16 @@ Function onGameReload()
     RegisterForModEvent("PlayerTrack_Start", "PlayerSceneStart")
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
-
-
-	RegisterForModEvent("SLSF_Reloaded_SendFameGainRoll", "OnExternalFameGainRoll")
-	RegisterForModEvent("SLSF_Reloaded_SendFameGain", "OnExternalFameGain")
-	
-	RegisterForModEvent("SLSF_Reloaded_SendManualFameGain", "OnExternalManualFameGain")
-	RegisterForModEvent("SLSF_Reloaded_SendManualFameGainAllInLocation", "OnExternalManualFameGainAllInLocation")
-	RegisterForModEvent("SLSF_Reloaded_SendManualFameGainAll", "OnExternalManualFameGainAll")
+    RegisterForModEvent("TSSD_ModTint", "TintMod")
 
 EndFunction
 
-Event OnExternalManualFameGain(String Category, String EventLocation, Int MinIncrease, Int MaxIncrease)
+Event TintMod(string eventName, string strArg, float numArg, Form sender)
+    int tintNum = JDB.solveInt(".tssdtraits." + strArg + ".index")
+    IncrValAndCheck(tintNum, numArg)
+    DBGTrace(strArg + numArg)
 EndEvent
 
-Event OnExternalManualFameGainAllInLocation(String EventLocation, Int MinIncrease, Int MaxIncrease)
-EndEvent
-
-Event OnExternalManualFameGainAll(Int MinIncrease, Int MaxIncrease)
-EndEvent
 
 Event PlayerSceneStart(Form FormRef, int tid)
     tActions.UnregisterForCrosshairRef()
@@ -219,6 +226,9 @@ Event PlayerSceneStart(Form FormRef, int tid)
     endif
     int indexIn = 0
     bool aggressiveY = false
+    hasStrongPerson = false
+    hasTentacles = false
+    bool hasNobility = false
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
         if consentingActor != PlayerRef
@@ -234,6 +244,19 @@ Event PlayerSceneStart(Form FormRef, int tid)
             if PlayerRef.HasPerk(getPerkNumber(19))  && consentingActor.GetFactionRank(TSSD_EnthralledFaction) == 1
                 T_Show("My sweeheart " + consentingActor.GetDisplayName() , "menus/TSSD/ScarletHearts.dds", aiDelay = 2.0)
             endif
+            if consentingActor.GetLevel() >= 30
+                hasStrongPerson = true
+            EndIf
+            Race aRace = consentingActor.GetRace()
+            if aRace == DLC2LurkerRace || aRace == DLC2NetchRace || aRace == DLC2SeekerRace
+                hasTentacles = true
+                if playerref.hasPerk(getPerkNumber(32))
+		            _thread.SetEnjoyment(PlayerRef, 200)
+                EndIf
+            EndIf
+            if consentingActor.GetFactionRank(GovRuling) >= 0
+                hasNobility = true
+            EndIf
         endif
         indexIn += 1
     endwhile
@@ -313,6 +336,9 @@ Event PlayerSceneStart(Form FormRef, int tid)
 			tActions.RefreshEnergy(100)
     		TSSD_Satiated.Cast(PlayerRef, PlayerRef)
 		endif
+        if (curLoc.HasKeyword(LocTypeHabitationHasInn)  || curLoc.HasKeyword(LocTypeCastle)) && hasNobility
+            IncrValAndCheck(37,1)
+        EndIf
 	endif
 	indexIn = 0
 	
@@ -328,6 +354,19 @@ Event PlayerSceneStart(Form FormRef, int tid)
 		endif
 		indexIn += 1
 	endwhile
+    String[] brTags = StringUtil.Split("boobsuck,breastfeed,breastfeeding,milk,milking", ",")
+    int bIndex = 0
+    bool isBr = false
+    while bIndex < brTags.Length
+        if _thread.HasSceneTag(brTags[bIndex])
+            isBr = true
+        EndIf
+        bIndex += 1
+    EndWhile
+    if isBr
+        incrValAndCheck(30,1)
+    EndIf
+        
 
 EndEvent
 
@@ -393,18 +432,22 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
 
 		if WhoCums.GetFactionRank(tEvents.SOS_SchlongifiedFaction) >= 0
-			if _thread.HasSceneTag("cuminmouth") || _thread.HasSceneTag("blowjob")
+			if _thread.HasStageTag("cuminmouth") || _thread.HasStageTag("blowjob")
 				incrValAndCheck(12,1)
 				incrValAndCheck(1,0.2)
-			elseif (_thread.HasSceneTag("vaginal") || _thread.HasSceneTag("anal")) &&  !_thread.HasSceneTag("lesbian")
+			elseif (_thread.HasStageTag("vaginal") || _thread.HasStageTag("anal")) &&  !_thread.HasStageTag("lesbian")
 				incrValAndCheck(1,1)
-			elseif _thread.HasSceneTag("aircum") || _thread.HasSceneTag("cumonchest") || _thread.HasSceneTag("cumonbody")
+			elseif _thread.HasStageTag("aircum") || _thread.HasStageTag("cumonchest") || _thread.HasStageTag("cumonbody")
 				incrValAndCheck(0,1)
 			endif
 		endif
 		if !issingle( WhoCums)
 			incrValAndCheck(2,1)
 		endif
+        if WhoCums.HasKeyWord(Vampire)
+			incrValAndCheck(34,1)
+        EndIf
+
 		if tActions.deathModeActivated
 			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
 			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
@@ -435,9 +478,12 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
 			EndWhile
         endif
-
+        
+		if _thread.HasStageTag("femdom")
+			incrValAndCheck(31,1)
+        EndIf
 	else
-		if _thread.HasSceneTag("spanking")
+		if _thread.HasStageTag("spanking")
 			incrValAndCheck(13,1)
 		endif
 		if _thread.GetSubmissive(PlayerRef)
@@ -451,15 +497,25 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		elseif !tssd_dealwithcurseQuest.isobjectivefailed(24)
 			tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft")  / 20,1000)
 		endif
-		if _thread.HasSceneTag("rough")
+		if _thread.HasStageTag("rough")
 			incrValAndCheck(22,1)
 		endif
+        if _thread.CrtMaleHugePP()
+            incrValAndCheck(36,1)
+        EndIf
+        if hasStrongPerson
+            incrValAndCheck(38, 1)
+        EndIf
+        if hasTentacles
+            incrValAndCheck(32, 1)
+        EndIf
+
         tVals.lastOrgasm = 0.1
 	endif
 	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
 		incrValAndCheck(4,1)
 	endif
-	if _thread.HasSceneTag("love") || _thread.HasSceneTag("loving") || _thread.HasSceneTag("romance")
+	if _thread.HasStageTag("love") || _thread.HasStageTag("loving") || _thread.HasStageTag("romance")
 		incrValAndCheck(3,1)
 	endif
 
@@ -474,112 +530,3 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 EndFunction
 
 
-;/ 
-Actor Property PlayerRef Auto
-SexLabFramework Property SexLab Auto
-Faction Property sla_Arousal Auto
-GlobalVariable Property TSSD_SuccubusTraits Auto
-
-
-Function queueStringForAnnouncement(string inputStr)
-    nextAnnouncement += inputStr
-EndFunction
-
-
-string Property nextAnnouncement Auto
-
-float[] Function OrgasmEnergyValue(sslThreadController _thread, Actor WhoCums = none)    
-    ; announceLogic -- 0 no announcement -- 1 announce self -- 2 add to next announcement
-    float dateCheck = TimeOfDayGlobalProperty.GetValue()
-    ; TODO
-    string[] succubusTraits = GetSuccubusTraitsAll()
-    int[] SUCCUBUSTRAITSVALUESBONUS = Utility.CreateIntArray(succubusTraits.Length, 20)
-    SUCCUBUSTRAITSVALUESBONUS[2] = 100
-    SUCCUBUSTRAITSVALUESBONUS[5] =  0
-    float lastMet = 1
-    bool[] tActions.cosmeticSettings = ReadInCosmeticSetting()
-    bool[] chosenTraits = GetSuccubusTraitsChosen(TSSD_SuccubusTraits, succubusTraits.Length)
-    float largestTime = 0
-    float[] retVals = Utility.CreateFloatArray(3, 0)
-    int nextAnnouncementLineLength = 0
-    float energyLosses = 0
-    float retval = 0
-
-    if isEnabledAndNotPlayer(WhoCums)
-        lastMet = GetLastTimeSuccd(WhoCums, TimeOfDayGlobalProperty)
-        if (lastmet  < 0.0) || (lastmet > 1.0)
-            lastmet = 1
-            retval += 20
-        endif
-        int index = 0
-        while index < SUCCUBUSTRAITSVALUESBONUS.Length
-            bool traitYes = false
-            if chosenTraits[index]
-                traitYes = traitLogic(index, _thread, WhoCums)
-                if index == 5
-                    nextAnnouncement += WhoCums.GetDisplayName()
-                endif
-                if traitYes 
-                    retval += SUCCUBUSTRAITSVALUESBONUS[index]
-                else
-                    retVals[2] = retVals[2] + SUCCUBUSTRAITSVALUESBONUS[index] 
-                endif
-                string announceDial = " " + GetTypeDial(succubusTraits[index], traitYes, true)
-                nextAnnouncementLineLength += StringUtil.GetLength(announceDial)
-                if nextAnnouncementLineLength > 100
-                    nextAnnouncement += "\n"
-                    nextAnnouncementLineLength = 0
-                endif
-                nextAnnouncement += announceDial
-            endif
-            index += 1
-        EndWhile
-    endif
-    String output = ""
-    retVal += energyLosses
-    if output != ""
-        nextAnnouncement += output +""
-    endif
-    retVals[0] = retVal 
-    return retVals
-
-Endfunction
-
-bool Function traitLogic(int index, sslThreadController _thread, Actor WhoCums)
-    float ar_norm = WhoCums.GetFactionRank(sla_Arousal) - 50
-
-    if index == 0
-        if _thread.HasSceneTag("Aircum")
-            return true
-        endif
-    elseif index == 1
-        if !_thread.HasSceneTag("Aircum")
-            if _thread.HasSceneTag("Oral")
-                return true
-            elseif _thread.HasSceneTag("Anal")
-                return true
-            elseif _thread.HasSceneTag("Vaginal")
-                return true
-            endif
-        endif
-    elseif index == 2
-        if !isSingle(WhoCums) && SexlabStatistics.GetTimesMet(WhoCums,PlayerRef) == 0
-            return true
-        endif
-    elseif index == 3
-        if _thread.HasSceneTag("love")
-            return true
-        elseif _thread.HasSceneTag("loving")
-            return true
-        endif
-    elseif index == 4
-        if _thread.sameSexThread()
-            return true
-        endif
-    elseif index == 5
-        if ar_norm > 0
-            return true
-        endif
-    endif
-    return  false
-Endfunction /;

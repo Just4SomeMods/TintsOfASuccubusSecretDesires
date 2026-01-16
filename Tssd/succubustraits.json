@@ -330,7 +330,7 @@
         "needyText": [],
         "description": "Maroon is the new black! You start each week with a new tattoo, these make you more durable increasing your armor by 10.",
         "famecat": null,
-        "unlockMethod": "Get raped 5 times.",
+        "unlockMethod": "Have 10 tats.",
         "color": [
             128,
             0,
@@ -339,7 +339,7 @@
         "colorHex": "800000",
         "kink": "tattoos",
         "perk": 283,
-        "targetNum": 0,
+        "targetNum": 10,
         "firstDes": "Control",
         "secondDes": "Image",
         "index": 8
@@ -418,7 +418,7 @@
             10
         ],
         "colorHex": "92000A",
-        "unlockMethod": "Accept 3 other colors.",
+        "unlockMethod": "Accept 5 other colors.",
         "kink": "-",
         "perk": 286,
         "targetNum": 3,
@@ -931,7 +931,7 @@
     "Neon": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You attract attention as if you were glowing neon! Your alteration spells are 20% stronger. If you have been in a city that sees you as a slut recently, you deal double sneak attack damage, otherwise you halve it.",
         "color": [
             255,
             49,
@@ -939,10 +939,10 @@
         ],
         "famecat": [],
         "colorHex": "FF3131",
-        "unlockMethod": "Gain 100 fame points.",
-        "kink": "",
-        "perk": 52,
-        "targetNum": 5,
+        "unlockMethod": "Reach 50 Slut Fame anywhere.",
+        "kink": "humiliation?",
+        "perk": 426,
+        "targetNum": 50,
         "firstDes": "Image",
         "secondDes": "Image",
         "index": 26
@@ -950,7 +950,7 @@
     "Ruby": {
         "positive": [],
         "needyText": [],
-        "description": ". All your followers turn into cowards. Female non-succubus followers slowly turn into bimbos. You deal double physical and elemental damage. Your carryweight increases by 300.",
+        "description": "Your favourite bimbo is called ruby. All your followers turn into cowards. Female non-succubus followers slowly turn into bimbos. You deal double physical and elemental damage. Your carryweight increases by 300.",
         "color": [
             224,
             17,
@@ -958,10 +958,10 @@
         ],
         "famecat": [],
         "colorHex": "E0115F",
-        "unlockMethod": "Let your followers down 10 times.",
-        "kink": "",
-        "perk": 52,
-        "targetNum": 5,
+        "unlockMethod": "Have things be killed while having followers.",
+        "kink": "Harem Monarch",
+        "perk": 433,
+        "targetNum": 100,
         "firstDes": "Taboo",
         "secondDes": "Fight",
         "index": 27
@@ -969,7 +969,7 @@
     "Oblivion": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You are connected to Oblivion. While aroused you can summon twice the amount of daedra. If you aren't aroused, your summoning spells cost twice as much.",
         "color": [
             99,
             3,
@@ -988,7 +988,7 @@
     "Carmine": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "Your carmine corset changed you forever. Your waist implodes, reducing the effectiveness of armor. If you are wearing a corset, you have increased stamina and stamina regen.",
         "color": [
             215,
             0,
@@ -998,7 +998,7 @@
         "colorHex": "D70040",
         "unlockMethod": "Wear a corset for 5 hours.",
         "kink": "",
-        "perk": 52,
+        "perk": 434,
         "targetNum": 5,
         "firstDes": "Taboo",
         "secondDes": "Control",
@@ -1007,7 +1007,7 @@
     "Pastel": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "Your milk is pastel. Milking refreshes your energy. If you haven't breastfed someone in a while you get sad, increasing incoming damage.",
         "color": [
             250,
             160,
@@ -1015,8 +1015,8 @@
         ],
         "famecat": [],
         "colorHex": "FAA0A0",
-        "unlockMethod": "Become a milk maid.",
-        "kink": "",
+        "unlockMethod": "Breastfeed 5 times.",
+        "kink": "Moo",
         "perk": 421,
         "targetNum": 5,
         "firstDes": "Image",
@@ -1026,7 +1026,7 @@
     "Monza": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You enjoy monza. You are more intimidating. You deal more damage to males and take more damage from females.",
         "color": [
             210,
             43,
@@ -1034,8 +1034,8 @@
         ],
         "famecat": [],
         "colorHex": "D22B2B",
-        "unlockMethod": "Have a partner cum from you dominating them 10 times.",
-        "kink": "",
+        "unlockMethod": "Have a partner cum from femdom 10 times.",
+        "kink": "femdom",
         "perk": 413,
         "targetNum": 5,
         "firstDes": "Drive",
@@ -1045,7 +1045,7 @@
     "Mulberry": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "The mulberry slitherings are so fasciniating. You learn 50% faster. If you haven't had a tentacle inside you for a long time, you lose the ability to be understood by people.",
         "color": [
             119,
             7,
@@ -1054,7 +1054,7 @@
         "famecat": [],
         "colorHex": "770737",
         "unlockMethod": "Cum from partners that have tentacles 10 times.",
-        "kink": "",
+        "kink": "tentacles",
         "perk": 419,
         "targetNum": 5,
         "firstDes": "Taboo",
@@ -1064,7 +1064,7 @@
     "Paco": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You turn a bit paco. Your non-influence illusion spells last twice as long. You also appear harmless, reducing your intimidation chance.",
         "color": [
             72,
             33,
@@ -1073,7 +1073,7 @@
         "famecat": [],
         "colorHex": "482114",
         "unlockMethod": "Fall victim to Mimics 10 times.",
-        "kink": "",
+        "kink": "tentacles/vore",
         "perk": 416,
         "targetNum": 5,
         "firstDes": "Control",
@@ -1083,7 +1083,7 @@
     "Blood": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You love blood. If you are a vampire, you refresh your energy when you drink blood and you drink blood when you refresh your energy. You can only refresh your energy if you are not under the sun.",
         "color": [
             136,
             8,
@@ -1091,8 +1091,8 @@
         ],
         "famecat": [],
         "colorHex": "880808",
-        "unlockMethod": "Cum from sex with a vampire.",
-        "kink": "",
+        "unlockMethod": "Make vampires cum.",
+        "kink": "vampires",
         "perk": 418,
         "targetNum": 5,
         "firstDes": "Fight",
@@ -1102,7 +1102,7 @@
     "Silver": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You love decorating your body in silver. If you are wearing nipple piercings you can bribe people for half the amount and your smithing increases faster. If you aren't your sell prices plummet.",
         "color": [
             136,
             8,
@@ -1121,7 +1121,7 @@
     "Carissma": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You find large endowments from monsters carissmic. You are immune to stagger. If you have not had a big dick inside you for quite some time, you get confused and gain a random chance to miss attacks.",
         "color": [
             136,
             8,
@@ -1129,8 +1129,8 @@
         ],
         "famecat": [],
         "colorHex": "880808",
-        "unlockMethod": "Cum from sex with huge penises.",
-        "kink": "",
+        "unlockMethod": "Cum from sex with monsters with huge penises.",
+        "kink": "Bestiality",
         "perk": 431,
         "targetNum": 5,
         "firstDes": "Taboo",
@@ -1140,7 +1140,7 @@
     "Temptress": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You are a temptress. Learning from the best, you poison hold for twice the amount of hits. If you hadn't had sex with nobility in a while, your power attacks cost twice the amount of stamina.",
         "color": [
             136,
             8,
@@ -1148,10 +1148,10 @@
         ],
         "famecat": [],
         "colorHex": "880808",
-        "unlockMethod": "Make rich people cum in public.",
-        "kink": "",
+        "unlockMethod": "Fuck with nobility in public.",
+        "kink": "Social Capital",
         "perk": 429,
-        "targetNum": 5,
+        "targetNum": 1,
         "firstDes": "Fight",
         "secondDes": "Image",
         "index": 37
@@ -1159,7 +1159,7 @@
     "Bordeaux": {
         "positive": [],
         "needyText": [],
-        "description": "",
+        "description": "You are as strong as bordeaux. You gain increased carrywight and attack damage. If you haven't had sex with a strong person in a while, you get bored, reducing increasing your spell cost.",
         "color": [
             136,
             8,
@@ -1168,7 +1168,7 @@
         "famecat": [],
         "colorHex": "880808",
         "unlockMethod": "Cum from sex with strong people.",
-        "kink": "",
+        "kink": "Strength",
         "perk": 432,
         "targetNum": 5,
         "firstDes": "Fight",

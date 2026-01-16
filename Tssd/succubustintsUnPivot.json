@@ -353,7 +353,7 @@
         ],
         "description":"Maroon is the new black! You start each week with a new tattoo, these make you more durable increasing your armor by 10.",
         "famecat":null,
-        "unlockMethod":"Get raped 5 times.",
+        "unlockMethod":"Have 10 tats.",
         "color":[
             128,
             0,
@@ -362,7 +362,7 @@
         "colorHex":"800000",
         "kink":"tattoos",
         "perk":283,
-        "targetNum":0,
+        "targetNum":10,
         "firstDes":"Control",
         "secondDes":"Image",
         "index":8
@@ -1030,11 +1030,11 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You attract attention as if you were glowing neon! Your alteration spells are 20% stronger. If you have been in a city that sees you as a slut recently, you deal double sneak attack damage, otherwise you halve it.",
         "famecat":[
 
         ],
-        "unlockMethod":"Gain 100 fame points.",
+        "unlockMethod":"Reach 50 Slut Fame anywhere.",
         "color":[
             255,
             49,
@@ -1042,8 +1042,8 @@
         ],
         "colorHex":"FF3131",
         "kink":"",
-        "perk":52,
-        "targetNum":5,
+        "perk":426,
+        "targetNum":50,
         "firstDes":"Image",
         "secondDes":"Image",
         "index":26
@@ -1056,11 +1056,11 @@
         "needyText":[
 
         ],
-        "description":". All your followers turn into cowards. Female non-succubus followers slowly turn into bimbos. You deal double physical and elemental damage. Your carryweight increases by 300.",
+        "description":"Your favourite bimbo is called ruby. All your followers turn into cowards. Female non-succubus followers slowly turn into bimbos. You deal double physical and elemental damage. Your carryweight increases by 300.",
         "famecat":[
 
         ],
-        "unlockMethod":"Let your followers down 10 times.",
+        "unlockMethod":"Have things be killed while having followers.",
         "color":[
             224,
             17,
@@ -1068,8 +1068,8 @@
         ],
         "colorHex":"E0115F",
         "kink":"",
-        "perk":52,
-        "targetNum":5,
+        "perk":433,
+        "targetNum":100,
         "firstDes":"Taboo",
         "secondDes":"Fight",
         "index":27
@@ -1082,7 +1082,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You are connected to Oblivion. While aroused you can summon twice the amount of daedra. If you aren't aroused, your summoning spells cost twice as much.",
         "famecat":[
 
         ],
@@ -1108,7 +1108,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"Your carmine corset changed you forever. Your waist implodes, reducing the effectiveness of armor. If you are wearing a corset, you have increased stamina and stamina regen.",
         "famecat":[
 
         ],
@@ -1120,7 +1120,7 @@
         ],
         "colorHex":"D70040",
         "kink":"",
-        "perk":52,
+        "perk":434,
         "targetNum":5,
         "firstDes":"Taboo",
         "secondDes":"Control",
@@ -1134,7 +1134,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"Your milk is pastel. Milking refreshes your energy. If you haven't breastfed someone in a while you get sad, increasing incoming damage.",
         "famecat":[
 
         ],
@@ -1160,11 +1160,11 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You enjoy monza. You are more intimidating. You deal more damage to males and take more damage from females.",
         "famecat":[
 
         ],
-        "unlockMethod":"Have a partner cum from you dominating them 10 times.",
+        "unlockMethod":"Have a partner cum from femdom 10 times.",
         "color":[
             210,
             43,
@@ -1186,7 +1186,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"The mulberry slitherings are so fasciniating. You learn 50% faster. If you haven't had a tentacle inside you for a long time, you lose the ability to be understood by people.",
         "famecat":[
 
         ],
@@ -1212,7 +1212,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You turn a bit paco. Your non-influence illusion spells last twice as long. You also appear harmless, reducing your intimidation chance.",
         "famecat":[
 
         ],
@@ -1238,11 +1238,11 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You love blood. If you are a vampire, you refresh your energy when you drink blood and you drink blood when you refresh your energy. You can only refresh your energy if you are not under the sun.",
         "famecat":[
 
         ],
-        "unlockMethod":"Cum from sex with a vampire.",
+        "unlockMethod":"Make vampires cum.",
         "color":[
             136,
             8,
@@ -1264,7 +1264,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You love decorating your body in silver. If you are wearing nipple piercings you can bribe people for half the amount and your smithing increases faster. If you aren't your sell prices plummet.",
         "famecat":[
 
         ],
@@ -1290,7 +1290,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You find large endowments carissmic. You are immune to stagger. If you have not had a big dick inside you for quite some time, you get confused and gain a random chance to miss attacks.",
         "famecat":[
 
         ],
@@ -1316,11 +1316,11 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You are a temptress. Learning from the best, you poison hold for twice the amount of hits. You can ask any nobility to make you their concubine. If you hadn't had sex with nobility in a while, your power attacks cost twice the amount of stamina.",
         "famecat":[
 
         ],
-        "unlockMethod":"Make rich people cum in public.",
+        "unlockMethod":"Fuck with nobility in public.",
         "color":[
             136,
             8,
@@ -1329,7 +1329,7 @@
         "colorHex":"880808",
         "kink":"",
         "perk":429,
-        "targetNum":5,
+        "targetNum":1,
         "firstDes":"Fight",
         "secondDes":"Image",
         "index":37
@@ -1342,7 +1342,7 @@
         "needyText":[
 
         ],
-        "description":"",
+        "description":"You are as strong as bordeaux. You gain increased carrywight and attack damage. If you haven't had sex with a strong person in a while, you get bored, reducing increasing your spell cost.",
         "famecat":[
 
         ],

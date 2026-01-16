@@ -42,12 +42,11 @@ Spell Property TSSD_Satiated Auto
 
 FormList Property TSSD_ShrinesWithQuests Auto
 
-bool lookedAtExplanationsOnce = false
 bool modifierKeyIsDown = false
 
 bool [] cosmeticSettings
 
-string currentVersion = "1.03.000b"
+string currentVersion = "1.04.000"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -105,9 +104,16 @@ bool Function toggleQuestCurses(String deityName)
     return false
 endfunction
 
-
-
 Function OpenGrandeMenu()
+    if !SafeProcess()
+        return
+    endif
+    if SuccubusDesireLevel.GetValue() <= -101
+        int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
+        startSuccubusLife()
+        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
+        return
+    endif
     if tEvents.canCelebrate
         Sexlab.StartSceneQuick(PlayerRef)
         tEvents.canCelebrate = false
@@ -120,15 +126,6 @@ Function OpenGrandeMenu()
         return
     endif
     modifierKeyIsDown = false;Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
-    if !SafeProcess()
-        return
-    endif
-    if SuccubusDesireLevel.GetValue() <= -101
-        int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
-        startSuccubusLife()
-        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
-        return
-    endif
     ObjectReference ref = Game.GetCurrentCrosshairRef()
     if ref
         if !Sexlab.IsActorActive(PlayerRef) && tActions.playerInSafeHaven() && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
@@ -176,9 +173,6 @@ Function OpenGrandeMenu()
 EndFunction 
 
 Function OpenExpansionMenu()
-    ;if MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","bSkipExplanations:Main") < 0
-        lookedAtExplanationsOnce = true
-    ;endif
     b612_SelectList mySelectList = GetSelectList()
     String[] myItems = StringUtil.Split("Perk Trees;Body;Drain;Seduction",";")
     Int result
@@ -211,23 +205,6 @@ Function OpenSkillTrainingsMenu(int index_of)
     (trainingThing).show()
 
 Endfunction
-
-Function GainFreePerk()
-    b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-    int index = 0
-    string[] succTraits = GetSuccubusStartPerksAll()
-    while index < succTraits.Length
-        string succDesc =  JDB.solveStr(".tssdperks." + succTraits[index] + ".Desc")
-        string succName =   JDB.solveStr(".tssdperks." + succTraits[index] + ".Name")
-        TraitsMenu.AddItem( "Free Perk: " + succName, succDesc, "");"menus/tssd/"+succTraits[index]+".dds")
-        index += 1
-    EndWhile
-    String[] resultW = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 1)
-    if resultW.Length > 0
-        int PerkID =  JDB.solveInt(".tssdperks." + succTraits[resultW[0] as int] + ".id")
-        PlayerRef.AddPerk(Game.GetFormFromFile(PerkID, "TintsOfASuccubusSecretDesires.esp") as Perk)
-    endif
-EndFunction
 
 Function startSuccubusLife()
     PlayerRef.AddPerk(TSSD_Base_Explanations)
@@ -432,7 +409,6 @@ Function ShowSuccubusTrait(int num)
 
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     string nameOf = JDB.solveStr(".tssdtints." + num + ".Name")
-    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
     TraitsMenu.AddItem("Perk + " + nameOf, JDB.solveStr(".tssdtints." + num + ".description"),"menus/tssd/"+nameOf+".dds")
     String ResText = "Resist "
@@ -461,7 +437,6 @@ EndFunction
 Function viewTintProgress()
     b612_TraitsMenu TraitsMenu = GetTraitsMenu()
     int jjM = JDB.solveObj(".tssdtints")
-    string[] succKinds = JArray.asStringArray(JDB.solveObj(".tssdoverviews.SuccubusTraits"))
     
     int indexIn = 0
 
@@ -470,7 +445,7 @@ Function viewTintProgress()
         int innerJJ = JMap.getObj(jjM, "" + indexIN)
         if getTargetNumber(indexIN) >= 0
             string nameOf = JMap.GetStr(innerJJ, "Name")
-            TraitsMenu.AddItem((tEvents.currentVals[indexIn] as int + toAdd) + "/" + JMap.GetInt(innerJJ, "targetNum") + " " + nameOf, JMap.GetStr(innerJJ, "description"), "menus/tssd/"+nameOf+".dds")
+            TraitsMenu.AddItem((tEvents.currentVals[indexIn] as int + toAdd) + "/" + JMap.GetInt(innerJJ, "targetNum") + " " + nameOf, "Unlock Method: " + JMap.GetStr(innerJJ, "unlockMethod") +"|" +  JMap.GetStr(innerJJ, "description"), "menus/tssd/"+nameOf+".dds")
         endif
         indexIn += 1
     endwhile

@@ -48,6 +48,12 @@ bool crimsonDone = false
 Keyword Property ActorTypeCreature Auto
 Keyword Property TSSD_AbsorbSpellKeyword Auto
 Keyword Property MagicInfluence Auto
+
+
+Keyword Property MagicSummonFire Auto
+Keyword Property MagicSummonFrost Auto
+Keyword Property MagicSummonShock Auto
+
 Perk Property TSSD_DeityArkayPerk Auto
 Perk Property TSSD_Body_CelebratoryMasturbation Auto
 Perk Property TSSD_Drain_SouldrainNew Auto
@@ -58,6 +64,8 @@ Spell Property TSSD_InLoveBuff Auto
 Spell Property TSSD_CompelledSpell Auto
 Spell Property TSSD_SoulTrap Auto
 Spell Property TSSD_StilettoBuffsNNerfs Auto
+
+Actor[] currentFollowers
 
 float lastNeedsAnnouncement
 
@@ -123,6 +131,20 @@ bool bimboFound
 Quest Property CC_BimbofyPlayer Auto Hidden
 
 ; END BIMBO
+
+; BEGIN SILVER
+
+Keyword Property zbfWornPiercingNipple Auto Hidden 
+Keyword Property zad_DeviousPiercingsNipple Auto Hidden 
+
+; END SILVER
+
+
+; BEGIN CARMINE
+
+Keyword Property zad_DeviousCorset Auto Hidden 
+
+; END CARMINE
 
 
 ; BEGIN CUPID
@@ -203,6 +225,7 @@ Event OnPlayerLoadGame()
 endEvent
 
 Function onGameReload()
+    Maintenance()
 	isActingDefeated = false
 	crimsonDone = false
 	lastGameHour = Utility.GetCurrentGameTime() * 24
@@ -235,6 +258,7 @@ Function onGameReload()
 	If (Game.GetModByName(FILE_ZAZ_ANIMATION_PACK) != 255)
 		ZaZAnimationPackFound = True
 		zbfWornCollar = Game.GetFormFromFile(0x8A4E, FILE_ZAZ_ANIMATION_PACK) as Keyword
+		zbfWornPiercingNipple = Game.GetFormFromFile(0x263D2, FILE_ZAZ_ANIMATION_PACK) as Keyword
 		PO3_Events_Alias.RegisterForShoutAttack(self)
 	Else
 		ZaZAnimationPackFound = False
@@ -246,6 +270,8 @@ Function onGameReload()
 		zad_DeviousCollar = Game.GetFormFromFile(0x3DF7, FILE_DD_ASSETS) as Keyword
 		zad_DeviousGag = Game.GetFormFromFile(0x7EB8, FILE_DD_ASSETS) as Keyword
 		zad_DeviousGagPanel = Game.GetFormFromFile(0x1F306, FILE_DD_ASSETS) as Keyword
+		zad_DeviousCorset = Game.GetFormFromFile(0x27F28, FILE_DD_ASSETS) as Keyword
+		zad_DeviousPiercingsNipple = Game.GetFormFromFile(0xCA39, FILE_DD_ASSETS) as Keyword
 		PO3_Events_Alias.RegisterForShoutAttack(self)
 	Else
 		DDAssetsFound = False
@@ -275,10 +301,23 @@ Function onGameReload()
 	RegisterForMenu("Dialogue Menu")
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
+	RegisterForModEvent("Mimic_VoreEnd", "OnVoreEnd")
 	PO3_Events_Alias.RegisterForLevelIncrease(self)
 	PO3_Events_Alias.RegisterForActorKilled(self)
 	PO3_Events_Alias.RegisterForMagicHit(self)
+	
+	int cSize =  JMap.Count(JDB.solveObj(".tssdtints"))
+	if currentVals.Length < cSize
+		currentVals = Utility.ResizeFloatArray(currentVals, cSize, 0.0)
+	EndIf
+	PlayerRef.SendModEvent("TSSD_Inflate", "carmine", PlayerRef.HasPerk(getPerkNumber(29)) as float)
+
+
 EndFunction
+
+Event OnVoreEnd(string eventName, string strArg, float numArg, form mimic)
+	tOrgasmLogic.incrValAndCheck(33,1)
+EndEvent
 
 Event OnActorKilled(Actor akVictim, Actor akKiller)
 	if CustomSkills.GetAPIVersion() >= 3
@@ -286,8 +325,11 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
 		if distanceTo < 350
 			CustomSkills.AdvanceSkill("SuccubusBodySkill", max(20, (akVictim.GetBaseActorValue("health") - distanceTo) / 4 ))
 		endif
-        PlayerRef.SendModEvent("TSSD_Inflate", "BodySkill", tMenus.SkillSuccubusBodyLevel.GetValue())
-    endif
+		PlayerRef.SendModEvent("TSSD_Inflate", "body", (tMenus.SkillSuccubusBodyLevel.GetValue() - 15) / 200 )
+	endif
+	if currentFollowers.Length > 0
+		tOrgasmLogic.incrValAndCheck(27,1)
+	endif
 EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
@@ -321,6 +363,9 @@ Event OnSpellCast(Form akSpell)
 	endif 
 	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
 		CustomSkills.AdvanceSkill("SuccubusDrainSkill", sp.GetMagickaCost() )
+	endif
+	if PlayerRef.GetFactionRank(sla_arousal) >= 50 && (akSpell.HasKeyword( MagicSummonFire) || akSpell.HasKeyword( MagicSummonFrost) || akSpell.HasKeyword( MagicSummonShock))
+		tOrgasmLogic.incrValAndCheck(28, 1)
 	endif
 endevent
 
@@ -426,6 +471,32 @@ Event OnUpdateGameTime()
 		currentVals[17] = 0
 	endif
 
+	if tVals.isWearingCS
+		tOrgasmLogic.incrValAndCheck(29,1)
+	else
+		currentVals[29] = 0
+	EndIf
+	if tVals.isWearingNP
+		tOrgasmLogic.incrValAndCheck(35,1)
+	else
+		currentVals[35] = 0
+	EndIf
+
+	RegisterForModEvent("SLSF_Reloaded_ReturnRequestedFame", "GetSlutFame")
+	int slFame = ModEvent.Create("SLSF_Reloaded_RequestFame")
+	ModEvent.PushString(slFame,"Current")
+	ModEvent.PushString(slFame,"Slut")
+	ModEvent.Send(slFame)
+
+	
+    int appliedMatches = JValue.retain(JArray.object(), "ets_tagAll")
+    slavetats.query_applied_tattoos(PlayerRef, 0, appliedMatches)
+    int aIndex = 0
+	currentVals[8] = 0
+	tOrgasmLogic.incrValAndCheck(8,Jvalue.Count(appliedMatches))
+
+
+
 	int indexIn = 0
 	string outPut = ""
 	while indexIN < currentVals.Length
@@ -450,6 +521,8 @@ Event OnUpdateGameTime()
 	tVals.lastOrgasm += gameTimeDiff
 	tVals.lastFadeTat += gameTimeDiff
 	tVals.lastDragon += gameTimeDiff
+	tVals.lastTentacle += gameTimeDiff
+	tVals.lastSlutCity += gameTimeDiff
 	lastNeedsAnnouncement += gameTimeDiff
 	
 	int[] tN = new int[1]
@@ -520,6 +593,34 @@ Event OnUpdateGameTime()
 	if isLilac && !isCollared && !PlayerRef.isInCombat() && !Sexlab.IsActorActive(PlayerRef)
 		T_Show("I miss my collar...", "menus/TSSD/small/lilac.dds")
 	endif
+
+	currentFollowers = PO3_SKSEFunctions.GetAllActorsInFaction(CurrentFollowerFaction)
+	int follIndex = 0
+	if PlayerRef.HasPerk(getPerkNumber(27))
+		while follIndex < currentFollowers.Length
+			Actor cA = currentFollowers[follIndex]
+			cA.SetAv("Confidence", 0)
+			if cA.GetActorBase().GetSex() == 1
+				int modHandle = ModEvent.Create("CC_modActorCorruption")
+				ModEvent.PushForm(modHandle, cA as Form)
+				ModEvent.PushInt(modHandle, 999)
+				ModEvent.Send(modHandle)
+			EndIf
+
+			follIndex += 1
+		EndWhile
+	EndIf
+
+EndEvent
+
+Event GetSlutFame(string locName, string cateG, int reqFame)
+	if locName == "Current" && cateG == "Slut"
+		float prevVal = currentVals[26] 
+		currentVals[26] = 0
+		tOrgasmLogic.incrValAndCheck(26, reqFame)
+		currentVals[26] = max(prevVal, currentVals[26])
+		UnRegisterForModEvent("SLSF_Reloaded_ReturnRequestedFame")
+	EndIf
 EndEvent
 
 Event OnInit()	
@@ -562,6 +663,8 @@ Event OnANDUpdate()
 		tVals.isGagged = PlayerRef.WornHasKeyword(zad_DeviousGag) || PlayerRef.WornHasKeyword(zad_DeviousGagPanel)
 		tVals.isHeeled = StorageUtil.GetIntValue(None, "ypsHeelsWorn")
 		tVals.isNude = IsTopless && IsBottomless
+		tVals.isWearingCS = PlayerRef.WornHasKeyword(zad_DeviousCorset)
+		tVals.isWearingNP = PlayerRef.WornHasKeyword(zad_DeviousPiercingsNipple) || PlayerRef.WornHasKeyword(zbfWornPiercingNipple)
 	endif
 EndEvent
 

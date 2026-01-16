@@ -1,0 +1,24 @@
+if sl_hastag aircum $system.self || sl_hastag cumonchest $system.self || sl_hastag cumonbody $system.self
+    TSSD_ModTint razzmatazz 1
+endif
+
+if sl_hastag cuminmouth $system.self || sl_hastag blowjob $system.self
+    TSSD_ModTint cupid 0.2
+    TSSD_ModTint mystic 1
+endif
+
+if !sl_hastag lesbian $system.self && (sl_hastag vaginal $system.self || sl_hastag anal $system.self)
+    TSSD_ModTint cupid 1
+endif
+
+if actor_haskeyword $system.self Vampire
+    TSSD_ModTint blood 1
+endif
+
+if sl_hastag love $system.self || sl_hastag loving $system.self || sl_hastag romance $system.self
+    TSSD_ModTint carnation 1
+endif
+
+if sltsamp actor_getrelation $system.self $system.player > 0
+    TSSD_ModTint scarlet 1
+endif

@@ -2367,7 +2367,7 @@
                 {
                     "type": "text",
                     "text": "Blood",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "If you are a vampire, you refresh your energy when you drink blood and you drink blood when you refresh your energy. You can only refresh your energy if you are not under the sun.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2395,7 +2395,7 @@
                 {
                     "type": "text",
                     "text": "Bordeaux",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "You gain increased carrywight and attack damage. If you haven't had sex with a strong person in a while, you get bored, reducing increasing your spell cost.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2409,7 +2409,7 @@
                 {
                     "type": "text",
                     "text": "Carissma",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "You are immune to stagger. If you have not had a big dick inside you for quite some time, you get confused and gain a random chance to miss attacks.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2417,6 +2417,20 @@
                         "function": "addTSSDPerk",
                         "params": [
                             "431"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Carmine",
+                    "help": "Your waist implodes, reducing the effectiveness of armor. If you are wearing a corset, you have increased stamina and stamina regen.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "434"
                         ]
                     }
                 },
@@ -2605,7 +2619,7 @@
                 {
                     "type": "text",
                     "text": "Monza",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "You are more intimidating. You deal more damage to males and take more damage from females.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2619,7 +2633,7 @@
                 {
                     "type": "text",
                     "text": "Mulberry",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "You learn 50% faster. If you haven't had a tentacle inside you for a long time, you lose the ability to be understood by people.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2646,8 +2660,22 @@
                 },
                 {
                     "type": "text",
+                    "text": "Neon",
+                    "help": "Your alteration spells are 20% stronger. If your fame increased recently, your armor weighs nothing, otherwise its weight doubles.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "426"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Oblivion",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "While aroused you can summon twice the amount of daedra. If you aren't aroused, your summoning spells cost twice as much.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2661,7 +2689,7 @@
                 {
                     "type": "text",
                     "text": "Paco",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "Your non-influence illusion spells last twice as long. You also appear harmless, reducing your intimidation chance.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2675,7 +2703,7 @@
                 {
                     "type": "text",
                     "text": "Pastel",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "Milking refreshes your energy. If you haven't breastfed someone in a while you get sad, increasing incoming damage.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2772,6 +2800,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Ruby",
+                    "help": "All your followers turn into cowards. Female non-succubus followers slowly turn into bimbos. You deal double physical and elemental damage. Your carryweight increases by 300.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "433"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Sangria",
                     "help": "You like most reds anyway. When you get offered a tint you have to take it, but you gain twice the succubus xp from now on. This tint can not be taken later.\n",
                     "action": {
@@ -2801,7 +2843,7 @@
                 {
                     "type": "text",
                     "text": "Silver",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "If you are wearing nipple piercings you can bribe people for half the amount and your smithing increases faster. If you aren't your sell prices plummet.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2843,7 +2885,7 @@
                 {
                     "type": "text",
                     "text": "Temptress",
-                    "help": "NO FUNCTIONALITY YET\n",
+                    "help": "Learning from the best, you poison hold for twice the amount of hits. You can ask any nobility to make you their concubine. If you hadn't had sex with nobility in a while, your power attacks cost twice the amount of stamina.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

@@ -75,7 +75,9 @@ Function trySeduceMerchant(string eventName, string strArg, float numArg, Form s
         Actor[] tempArr = new Actor[2]
         tempArr[0] = tempActor
         tempArr[1] = self
-        SexLab.StartScene(tempArr, asTags ="-aggressive, standing", akCenter=sender as ObjectReference)
+        if SexLab.StartScene(tempArr, asTags ="-aggressive, standing", akCenter=sender as ObjectReference) == none
+            SexLab.StartScene(tempArr, asTags ="", akCenter=sender as ObjectReference)
+        EndIf
         TSSD_DrainedMarker.Cast(self,tempActor)
     endif
 

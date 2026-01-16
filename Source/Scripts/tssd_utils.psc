@@ -189,7 +189,7 @@ Function Maintenance() Global
     jval = JValue.readFromFile("Data/Tssd/oldNorseGods.json")
     JDB.SetObj("oldNorseGods", jval)
     jval = JValue.readFromFile("Data/Tssd/bodyMorphs.json")
-    JDB.SetObj("tssd_morphs", jval)
+    JDB.SetObj("tssdmorphs", jval)
     ReadInCosmeticSetting()
 Endfunction
 
@@ -285,3 +285,11 @@ Function shortFade() Global
     Utility.Wait(1.4)
     DoFadeIn(1)
 Endfunction
+
+
+Function TSSD_ModTint(Actor CmdTargetActor, ActiveMagicEffect _CmdPrimary, string[] param) global
+    sl_triggersCmd CmdPrimary = _CmdPrimary as sl_triggersCmd
+    Game.GetPlayer().SendModEvent("TSSD_ModTint", param[1], param[2] as float)
+    CmdPrimary.CompleteOperationOnActor()
+EndFunction
+

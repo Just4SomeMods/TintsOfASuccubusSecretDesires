@@ -483,7 +483,6 @@ Function onGameReload()
     endif
     
     myBinding = SkyInteract_Util.GetSkyInteract()
-    Maintenance()
     cosmeticSettings = ReadInCosmeticSetting()
     gainSuccubusXP(0)
     setAllInOneKeyAction(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iAllInOneKey:Main"))
@@ -504,7 +503,7 @@ Function onGameReload()
     tInflation.onGameReload()
     updateHeartMeter(true)
     (TSSD_CursedWoman as TSSD_SucieDailyScript).onGameReload()
-    PlayerRef.SendModEvent("TSSD_Inflate", "BodySkill", (tMenus.SkillSuccubusBodyLevel.GetValue() - 15))
+    PlayerRef.SendModEvent("TSSD_Inflate", "body", (tMenus.SkillSuccubusBodyLevel.GetValue() - 15) / 200)
 Endfunction
 
 

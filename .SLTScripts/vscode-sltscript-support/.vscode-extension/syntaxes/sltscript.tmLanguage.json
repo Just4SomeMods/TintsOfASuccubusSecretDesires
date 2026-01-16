@@ -1,0 +1,249 @@
+{
+  "name": "SLTScript",
+  "scopeName": "source.sltscript",
+  "fileTypes": ["sltscript"],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#interpolated-strings"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#labels"
+    },
+    {
+      "include": "#variable-scopes"
+    },
+    {
+      "include": "#result-variable"
+    },
+    {
+      "include": "#variables"
+    },
+    {
+      "include": "#control-keywords"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#numbers"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "name": "comment.line.semicolon.sltscript",
+      "match": ";.*$"
+    },
+    "strings": {
+      "name": "string.quoted.double.sltscript",
+      "begin": "(?<!\\$)\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.sltscript",
+          "match": "\"\""
+        }
+      ]
+    },
+    "interpolated-strings": {
+      "name": "string.quoted.double.interpolated.sltscript",
+      "begin": "\\$\"",
+      "end": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "string.quoted.double.interpolated.begin.sltscript"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "string.quoted.double.interpolated.end.sltscript"
+        }
+      },
+      "patterns": [
+        {
+          "name": "variable.other.interpolated.sltscript",
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.variable.begin.sltscript"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.variable.end.sltscript"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#variable-scopes"
+            },
+            {
+              "include": "#variables"
+            }
+          ]
+        },
+        {
+          "name": "constant.character.escape.sltscript",
+          "match": "\"\""
+        }
+      ]
+    },
+    "labels": {
+      "name": "entity.name.label.sltscript",
+      "match": "\\[[^\\]]*\\]"
+    },
+    "variable-scopes": {
+      "patterns": [
+        {
+          "name": "variable.other.global.sltscript",
+          "match": "\\$(?i:global)\\.[a-zA-Z0-9_][a-zA-Z0-9_.]*",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "name": "support.type.scope.sltscript",
+                  "match": "\\$(?i:global)\\."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "variable.other.target.sltscript",
+          "match": "\\$(?i:target)\\.(<[a-zA-Z0-9_][a-zA-Z0-9_.]*>)?[a-zA-Z0-9_][a-zA-Z0-9_.]*",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "name": "support.type.scope.sltscript",
+                  "match": "\\$(?i:target)\\."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "variable.other.thread.sltscript",
+          "match": "\\$(?i:thread)\\.[a-zA-Z0-9_][a-zA-Z0-9_.]*",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "name": "support.type.scope.sltscript",
+                  "match": "\\$(?i:thread)\\."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "variable.other.system.sltscript",
+          "match": "\\$(?i:system)\\.[a-zA-Z0-9_][a-zA-Z0-9_.]*",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "name": "support.type.scope.sltscript",
+                  "match": "\\$(?i:system)\\."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "variable.other.system.sltscript",
+          "match": "\\$(?i:system)\\.[a-zA-Z0-9_][a-zA-Z0-9_.]*",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "name": "support.type.scope.sltscript",
+                  "match": "\\$(?i:request)\\."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "variable.other.local.sltscript",
+          "match": "\\$(?i:local)\\.[a-zA-Z0-9_][a-zA-Z0-9_.]*",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "name": "support.type.scope.sltscript",
+                  "match": "\\$(?i:local)\\."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "result-variable": {
+      "name": "variable.language.result.sltscript",
+      "match": "\\$\\$"
+    },
+    "variables": {
+      "name": "variable.other.sltscript",
+      "match": "\\$[a-zA-Z0-9_][a-zA-Z0-9_.]*"
+    },
+    "control-keywords": {
+      "name": "keyword.control.sltscript",
+      "match": "\\b(?i:if|elseif|else|endif|while|endwhile|goto|gosub|call|set|inc|return|beginsub|endsub|callarg|cat|resultfrom|true|false|none|mapunset|mapcopy|mapclear|maphaskey|mapkeys|listadd|listcount|listclear|listresize|listslice|string|bool|int|float|Form|label|listjoin|typeid|typename)\\b"
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "support.function.sltscript",
+          "match": "\\b(?i:actor_race_type|actor_advskill|actor_body|actor_display_name|actor_doaction|actor_doconsumer|actor_dofunction|actor_dogetter|actorbase_doconsumer|actorbase_dogetter|actorbase_dofunction|actor_getfactionrank|actor_getgender|actor_getrelation|actor_getscale|actor_haskeyword|actor_haslos|actor_incskill|actor_infaction|actor_isaffectedby|actor_isguard|actor_isplayer|actor_isvalid|actor_iswearing|actor_lochaskeyword|actor_modcrimegold|actor_name|actor_playanim|actor_qnnu|actor_race|actor_removefaction|actor_say|actor_sendmodevent|actor_setalpha|actor_setfactionrank|actor_setrelation|actor_setscale|actor_state|actor_wornhaskeyword|actor_worninslot|av_damage|av_get|av_getbase|av_getmax|av_getpercentage|av_mod|av_restore|av_set|console|dd_unlockall|dd_unlockslot|deb_msg|df_resetall|df_setdebt|form_consumer|form_doaction|form_dofunction|form_dogetter|form_getbyid|ism_applyfade|ism_removefade|item_add|item_addex|item_adduse|item_equip|item_equipex|item_getcount|item_remove|item_unequipex|json_getvalue|json_save|json_setvalue|jsonutil|math|mfg_getphonememodifier|mfg_reset|mfg_setphonememodifier|msg_console|msg_notify|objectreference_doaction|objectreference_doconsumer|objectreference_dofunction|objectreference_dogetter|osla_get_actor_days_since_last_orgasm|osla_get_arousal|osla_get_arousal_multiplier|osla_get_exposure|osla_modify_arousal|osla_modify_arousal_multiplier|osla_set_arousal|osla_set_arousal_multiplier|perk_add|perk_addpoints|perk_remove|rnd_float|rnd_int|rnd_list|sl_advance|sl_animname|sl_disableorgasm|sl_getprop|sl_getrndactor|sl_hastag|sl_isin|sl_isinslot|sl_orgasm|slso_bonus_enjoyment|snd_play|snd_setvolume|snd_stop|spell_add|spell_cast|spell_dcsa|spell_dispel|spell_remove|storageutil|toh_elapsed_time|topicinfo_getresponsetext|util_game|util_getgametime|util_getrandomactor|util_getrealtime|util_sendevent|util_sendmodevent|util_wait|util_waitforend|util_waitforkbd|util_getrndactor|weather_state|sla_get_version|sla_get_arousal|sla_get_exposure|sla_set_exposure|sla_update_exposure|sla_send_exposure_event|sla_get_actor_days_since_last_orgasm|global_getvalue|global_setvalue|sl_adjustenjoyment|sl_waitforkbd|ostim_waitforend|ostim_getrndactor|ostim_waitforkbd|ostim_getexcitement|ostim_setexcitement|ostim_getexcitementmultiplier|ostim_setexcitementmultiplier|ostim_modifyexcitement|ostim_isin|ostim_findaction|ostim_hasaction|ostim_stallclimax|ostim_permitclimax|ostim_isclimaxstalled|ostim_getthreadid|ostim_getsceneid|ostim_animname|ostim_actorcount|ostim_isinslot|ostim_climax|sl_sexstart|sl_allow_actor|sl_find_available_partners|sl_forbid_actor|sl_get_skill|sl_get_statistic|sl_getapi|sl_getversion|sl_getversionstring|sl_is_forbidden|sl_is_valid_actor|sl_isactive|sl_isready|sl_validate_actor|nff_getfollowers|slif_get_version|slif_get_versionstring|slif_is_installed|slif_is_updating|slif_is_working|slif_is_inmaintenance|slif_inflate|slif_register_actor|slif_unregister_actor|slif_update_actor|slif_reset_actor|slif_hide_node|slif_show_node|slif_is_node_hidden|slif_get_gender|slif_set_default_values|slif_get_value|slif_get_minvalue|slif_get_maxvalue|slif_get_multvalue|slif_get_incrvalue|nio_hasnodeoverride|nio_getnodeoverride_float|nio_getnodeoverride_int|nio_getnodeoverride_bool|nio_getnodeoverride_string|nio_getnodeoverride_textureset|nio_addnodeoverride_float|nio_addnodeoverride_int|nio_addnodeoverride_bool|nio_addnodeoverride_string|nio_addnodeoverride_textureset|nio_hasbodymorph|nio_setbodymorph|nio_getbodymorph|nio_clearbodymorph|nio_updatemodelweight|nio_get_morphnames|nio_get_morphkeys|armor_getmaskforslot|game_doaction|game_dogetter|game_doconsumer|game_dofunction|weapon_doaction|weapon_dogetter|weapon_doconsumer|weapon_dofunction|actor_submerged_level|sls_block_license_purchase|sls_revoke_license|sls_send_to_kennel|sls_evict_from_home|sls_unevict_from_home|sls_increase_ground_time|sls_remove_magic_curse|sls_add_magic_curse|sls_swallow_cum|sls_get_creature_corruption|sls_is_enjoying_cum|sls_get_load_tier|sls_get_load_size|sls_get_load_size_actual|sls_get_load_fullness|sls_get_cum_stuffed_factor|sls_is_drugged|sls_is_high_on_skooma|sls_is_high_on_skooma_whore_drugs|sls_is_high_on_lactacid|sls_get_skooma_junkie_level|sls_do_female_pain_sound|sls_do_hit_sound|sls_do_trauma_hit_sound|sl_count_cum|sl_clear_cum|sl_add_cum|ostim_quickstart)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.comparison.sltscript",
+          "match": "(==|!=|>=|<=|>|<|&&|\\|\\|)"
+        },
+        {
+          "name": "keyword.operator.assignment.sltscript",
+          "match": "="
+        },
+        {
+          "name": "keyword.operator.arithmetic.sltscript",
+          "match": "(\\+|-|\\*|/)"
+        },
+        {
+          "name": "keyword.operator.string.sltscript",
+          "match": "(&=|&!=|&)"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.sltscript",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.float.sltscript",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.sltscript",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    }
+  }
+}

@@ -15,15 +15,14 @@ Event InflatePlayer(string eventName, string strArg, float numArg, Form sender)
 		return
 	endif
     float divStep = 2
-	float baseBody = (SkillSuccubusBodyLevel.GetValue() - 15) / 200
     int j = 0
-    String path = ".tssd_morphs.body"
+    String path = ".tssdmorphs." + strArg
     int jMa = JDB.solveObj(path)
     String[] nodes = JMap.allKeysPArray(jMa)
     while j < nodes.length
         String morphFile = nodes[j]
         float nodeMod = JMap.getFlt(jMa, nodes[j])
-        SLIF_Morph.morph(PlayerRef, "TSSDBodyMorph", nodes[j], nodeMod * baseBody , "")
+        SLIF_Morph.morph(sender as Actor, "TSSD_" + strArg, nodes[j], nodeMod * numArg , "")
         j += 1
     endWhile
 EndEvent

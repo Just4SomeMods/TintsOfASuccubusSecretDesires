@@ -14,11 +14,16 @@ float Property lastHypnoSession Auto Conditional hidden
 float Property lastFadeTat Auto Conditional hidden
 float Property lastMasturbated Auto Conditional hidden
 float Property lastDragon Auto Conditional hidden
+float Property lastTentacle Auto Conditional hidden
 float Property lastOrgasm Auto Conditional hidden
+float Property lastSlutCity Auto Conditional hidden
+float Property lastBreastFed Auto Conditional hidden
 float Property hasEggs Auto Conditional hidden
 bool Property isGagged Auto Conditional hidden
 bool Property isNude Auto Conditional hidden
 bool Property isHeeled Auto Conditional hidden
+bool Property isWearingCS Auto Conditional hidden
+bool Property isWearingNP Auto Conditional hidden
 bool Property beingOrdered Auto Conditional hidden
 
 bool Property talkingWithNonWolf Auto Conditional hidden
