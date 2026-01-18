@@ -44,7 +44,7 @@ FormList Property TSSD_ShrinesWithQuests Auto
 
 bool modifierKeyIsDown = false
 
-bool [] cosmeticSettings
+bool [] Property cosmeticSettings Auto Hidden
 
 string currentVersion = "1.04.000"
 
@@ -125,7 +125,11 @@ Function OpenGrandeMenu()
         endif
         return
     endif
-    modifierKeyIsDown = false;Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
+    modifierKeyIsDown =  Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
+    if modifierKeyIsDown
+        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
+        return
+    EndIf
     ObjectReference ref = Game.GetCurrentCrosshairRef()
     if ref
         if !Sexlab.IsActorActive(PlayerRef) && tActions.playerInSafeHaven() && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
@@ -142,7 +146,7 @@ Function OpenGrandeMenu()
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
-    string toSplit = "Abilities;Upgrades;Settings;View Tint Progress"
+    string toSplit = "Abilities;Upgrades;Settings [OUTDATED];View Tint Progress"
     if true
         toSplit += ";Increase Slut Fame"
     EndIf
@@ -166,7 +170,7 @@ Function OpenGrandeMenu()
         OpenSuccubusAbilities()
     elseif resOf == "Upgrades"
         OpenExpansionMenu()    
-    elseif resOf == "Settings"
+    elseif resOf == "Settings [OUTDATED]"
         OpenSuccubusCosmetics()
     elseif resOf == "TraitsLel"
         GetTraitsLel()
@@ -278,6 +282,21 @@ Function OpenSuccubusCosmetics()
         bool in_it = resultW.find(index as string) >= 0
         if in_it
             cosmeticSettings[index] = !cosmeticSettings[index]
+            if index == 5
+                Actor[] myThralls = PO3_SKSEFunctions.GetAllActorsInFaction(tActions.TSSD_EnthralledFaction)
+                int tIndex = 0
+                int tTLengths = myThralls.Length
+                while tIndex < tTLengths
+                    Actor cA = myThralls[tIndex]
+                    DBGTrace(cA.GetDisplayName())
+                    if cosmeticSettings[index]
+                        slavetats.simple_add_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1   )
+                    else
+                        slavetats.simple_remove_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1  )
+                    endif
+                    tIndex += 1
+                EndWhile
+            endif
         endif
         if index != 0
             output += ";"

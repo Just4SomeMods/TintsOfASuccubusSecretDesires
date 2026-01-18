@@ -155,8 +155,7 @@ Event OnMenuClose(String MenuName)
                 T_Show("I don't think " + outMessage + " loves me anymore!", "", 0)
             endif
             if lastDialogue == "TSSD_000A2"
-                lastDialoguePartner.SetFactionRank(TSSD_ThrallDominant, 1)
-                
+                lastDialoguePartner.SetFactionRank(TSSD_ThrallDominant, 1)                
             elseif lastDialogue == "TSSD_000A3"
                 lastDialoguePartner.SetFactionRank(TSSD_ThrallSubmissive, 1)
             endif
@@ -164,6 +163,10 @@ Event OnMenuClose(String MenuName)
             lastDialoguePartner.SetRelationshipRank(PlayerRef, 4)
             tssd_tints_tracker.SetObjectiveCompleted(19, true)
             tssd_tints_tracker.SetObjectiveDisplayed(19, true)
+            if tMenus.cosmeticsettings[5] && lastDialoguePartner.GetActorBase().GetSex() == 1
+                slavetats.simple_add_tattoo(lastDialoguePartner, "TSSD_Tats", "Mara's Gift", last = true   )
+            EndIf
+
         elseif lastDialogue == "TSSD_00109"
             lastDialoguePartner.SetFactionRank(TSSD_EnthralledFaction, -1)
         elseif lastDialogue == "TSSD_000B2"

@@ -269,7 +269,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
         PlayerRef.DispelSpell(TSSD_SuccubusDetectJuice)
     endif
     
-   if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(getPerkNumber(19)) || tActions.cosmeticSettings[1] ) && tActions.cosmeticSettings[0]
+   if Game.GetModByName("Tullius Eyes.esp") != 255 && (PlayerRef.HasPerk(getPerkNumber(19)) || tMenus.cosmeticSettings[1] ) && tMenus.cosmeticSettings[0]
         HeadPart tEyes = currentEyes()
         if tEyes
             PlayerEyes = tEyes
@@ -360,16 +360,8 @@ Event PlayerSceneStart(Form FormRef, int tid)
         endif
 		indexIn += 1
 	endwhile
-    String[] brTags = StringUtil.Split("boobsuck,breastfeed,breastfeeding,milk,milking", ",")
-    int bIndex = 0
-    bool isBr = false
-    while bIndex < brTags.Length
-        if _thread.HasSceneTag(brTags[bIndex])
-            isBr = true
-        EndIf
-        bIndex += 1
-    EndWhile
-    if isBr
+    
+    if  hasTagsInternal(_thread, "~boobsuck, ~breastfeed, ~breastfeeding, ~milk, ~milking, ~boobs, ~nipplesuck, ~lactation, -titfuck, -boobjob, -tittyfuck")
         incrValAndCheck(30,1)
     EndIf
         
@@ -431,6 +423,40 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 				tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft"),10000)
 			endif
 		endif
+        
+        if hasTagsInternal(_thread, "~aircum, ~cumonchest, ~cumonbody")
+            incrValAndCheck(0,1)
+        EndIf
+        
+        if hasTagsInternal(_thread, "~cuminmouth, ~blowjob")
+            incrValAndCheck(1,0.2)
+            incrValAndCheck(12,1)
+        EndIf
+        
+        if hasTagsInternal(_thread, "-lesbian, ~vaginal, ~anal, ~creampie")
+            incrValAndCheck(1, 1)
+        EndIf
+        
+        if hasTagsInternal(_thread, "femdom")
+            incrValAndCheck(31, 1)
+        EndIf
+
+        if WhoCums.HasKeyword(Vampire)
+            incrValAndCheck(34, 1)
+        EndIf
+        
+
+        if !isSingle(WhoCums)
+            incrValAndCheck(2, 1)
+        EndIf
+
+        if whoCums.GetLevel() >= 30
+            incrValAndCheck(38, 1)
+        EndIf
+
+        if WhoCums.GetRelationshipRank(PlayerRef) >= 1
+            incrValAndCheck(19, 1)
+        EndIf
 			
 		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
 				WhoCums.GetFactionRank(WolfFaction) > 0 || WhoCums.GetRace() == WolfRace || WhoCums.GetRace() == WereWolfBeastRace 

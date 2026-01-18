@@ -17,35 +17,35 @@
           },
           {
           "id": "Theri",
-          "perk": "TintsOfASuccubusSecretDesires.esp|08B",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
           "x": -0.5,
           "y": -0.5,
           "links": [ "All" ]
           },
           {
           "id": "Akatosh",
-          "perk": "TintsOfASuccubusSecretDesires.esp|194",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
           "x": 1.5,
           "y": 0.5,
           "links": [ "All" ]
           },
           {
           "id": "Jhunal",
-          "perk": "TintsOfASuccubusSecretDesires.esp|194",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
           "x": -1.5,
           "y": 0.5,
           "links": [ "All" ]
           },
           {
           "id": "Kyne",
-          "perk": "TintsOfASuccubusSecretDesires.esp|194",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
           "x": 0,
           "y": 1,
           "links": [ "All" ]
           },
           {
           "id": "All",
-          "perk": "TintsOfASuccubusSecretDesires.esp|194",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
           "x": 0,
           "y": 0.5,
           "links": [ ]

@@ -312,6 +312,15 @@ Function onGameReload()
 		currentVals = Utility.ResizeFloatArray(currentVals, cSize, 0.0)
 	EndIf
 	PlayerRef.SendModEvent("TSSD_Inflate", "carmine", PlayerRef.HasPerk(getPerkNumber(29)) as float)
+	;/
+	PlayerRef.SendModEvent("TSSD_Inflate", "motherMaker", Utility.RandomFloat())
+	int follIndex = 0
+	while follIndex < currentFollowers.Length
+		Actor cA = currentFollowers[follIndex]
+		cA.SendModEvent("TSSD_Inflate", "motherMaker", Utility.RandomFloat())
+		follIndex += 1
+	EndWhile
+	/;
 
 
 EndFunction
@@ -495,8 +504,6 @@ Event OnUpdateGameTime()
     int aIndex = 0
 	currentVals[8] = 0
 	tOrgasmLogic.incrValAndCheck(8,Jvalue.Count(appliedMatches))
-
-
 
 	int indexIn = 0
 	string outPut = ""

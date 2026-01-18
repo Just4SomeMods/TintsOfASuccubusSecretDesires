@@ -1,4 +1,8 @@
 {
+	"float" : 
+	{
+		"chance" : 0.0
+	},
 	"int" : 
 	{
 		"__slt_mod_version__" : 973,

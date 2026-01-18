@@ -24,6 +24,12 @@
         1
     ],
     [
+        "sTSSD_AbsorbHealthSpellDaggerMag0:Spells",
+        true,
+        "468",
+        0
+    ],
+    [
         "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
         true,
         "89",
@@ -100,6 +106,42 @@
         true,
         "95",
         0
+    ],
+    [
+        "sTSSD_DrainStormSpellMag0:Spells",
+        true,
+        "469",
+        0
+    ],
+    [
+        "sTSSD_DrainStormSpellDur0:Spells",
+        true,
+        "469",
+        0
+    ],
+    [
+        "sTSSD_DrainStormSpellRealMag0:Spells",
+        true,
+        "470",
+        0
+    ],
+    [
+        "sTSSD_DrainStormSpellRealDur0:Spells",
+        true,
+        "470",
+        0
+    ],
+    [
+        "sTSSD_DrainStormSpellRealMag1:Spells",
+        true,
+        "470",
+        1
+    ],
+    [
+        "sTSSD_DrainStormSpellRealDur1:Spells",
+        true,
+        "470",
+        1
     ],
     [
         "sTSSD_DrainedMarkerMag0:Spells",

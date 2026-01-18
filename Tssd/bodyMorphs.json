@@ -35,5 +35,11 @@
     },
     "carmine":{
 		"waist" : -6.1
+    },
+    "motherMaker":{
+		"breastsnewsh" : 1.3,
+		"breastsnewshsymmetry" : 1.3,		
+		"Hips" : 1.5,
+		"PregnancyBelly": 0.9
     }
 }

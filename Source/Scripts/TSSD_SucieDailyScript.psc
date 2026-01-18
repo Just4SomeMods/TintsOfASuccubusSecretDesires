@@ -41,6 +41,15 @@ Function initPania()
         SLIF_Morph.morph(self, "TSSDBodyMorph", nodes[j], nodeMod/ divStep , "")
         j += 1
     endWhile
+
+    int selTatIndex = 0
+    if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextreme", last = false   )
+        slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonster", last = false   )
+    EndIf
+    if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextremeface", last = true   )
+        slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterface", last = true   )
+    EndIf
+
     DBGTrace("Pania ready!")
 EndFunction
 
@@ -60,9 +69,6 @@ Event OnUpdateGameTime()
         lastTime = Utility.GetCurrentGameTime()
     endif
     
-    if tProps.isCumVisible
-	    SexLab.AddCumFxLayers(self, -1, 2)
-    endif
     RegisterForModEvent("TSSD_SeduceMerchant", "trySeduceMerchant")
 EndEvent
 

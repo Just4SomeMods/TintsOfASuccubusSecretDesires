@@ -1,3 +1,6 @@
+# 1.04.000
+13 new tints (It's gonna stop for now)
+1.05 will be about some succubus transformation visuals and some small quests, nothing to fancy
 # 1.03.000b
 small perk fixes
 pania no longer level 99

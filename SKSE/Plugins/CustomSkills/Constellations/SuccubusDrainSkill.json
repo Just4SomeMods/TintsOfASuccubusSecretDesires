@@ -63,13 +63,27 @@
                "perk": "TintsOfASuccubusSecretDesires.esp|061",
                "x": -0.5,
                "y": 2.3,
-               "links": [ "DrainCons", "SoulDrainNew"
+               "links": [ "DrainCons", "SoulDrainNew", "DrainStorm", "BleedEm"
                ]
           },{
                "id": "SoulDrainNew",
                "perk": "TintsOfASuccubusSecretDesires.esp|171",
                "x": -1.0,
                "y": 2.7,
+               "links": [  
+               ]
+          },{
+               "id": "DrainStorm",
+               "perk": "TintsOfASuccubusSecretDesires.esp|1C9",
+               "x": -1.5,
+               "y": 2.7,
+               "links": [  
+               ]
+          },{
+               "id": "BleedEm",
+               "perk": "TintsOfASuccubusSecretDesires.esp|1CF",
+               "x": -1.5,
+               "y": 1.5,
                "links": [  
                ]
           },{

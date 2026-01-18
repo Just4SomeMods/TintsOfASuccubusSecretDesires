@@ -98,7 +98,6 @@ Spell Property TSSD_SuccubusDetectJuice Auto
 ;String Property CUM_VAGINAL Auto
 
 
-bool[] Property cosmeticSettings Auto Hidden
 bool Property deathModeActivated Auto Hidden
 
 
@@ -483,7 +482,7 @@ Function onGameReload()
     endif
     
     myBinding = SkyInteract_Util.GetSkyInteract()
-    cosmeticSettings = ReadInCosmeticSetting()
+    tMenus.cosmeticSettings = ReadInCosmeticSetting()
     gainSuccubusXP(0)
     setAllInOneKeyAction(MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iAllInOneKey:Main"))
 

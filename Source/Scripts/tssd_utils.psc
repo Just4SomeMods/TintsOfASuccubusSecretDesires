@@ -287,6 +287,7 @@ Function TSSD_ModTint(Actor CmdTargetActor, ActiveMagicEffect _CmdPrimary, strin
     CmdPrimary.CompleteOperationOnActor()
 EndFunction
 
+;/
 import sl_triggersStatics
 
 sl_triggersExtensionSexLab Function GetExtension() global
@@ -346,7 +347,7 @@ function sl_hasstagetags(Actor CmdTargetActor, ActiveMagicEffect _CmdPrimary, st
 
     CmdPrimary.CompleteOperationOnActor()
 endFunction
-
+/;
 
 bool function hasTagsInternal(SexLabThread slthread, string tagsAsString) global
     bool nextResult = false
