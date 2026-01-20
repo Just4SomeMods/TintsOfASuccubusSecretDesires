@@ -1,0 +1,51 @@
+# Warning, this file is madness
+scripts:
+- script: TSSD_Tasks.lua
+  type: 0
+
+
+topics:
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_01
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 1 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_02
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 2 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_03
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 3 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_04
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 4 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_05
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 5 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_06
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 6 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_07
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 7 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_08
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 8 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_09
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 9 AND

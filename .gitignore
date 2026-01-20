@@ -76,3 +76,7 @@ SSE*
 *BACK
 *.kra
 *.xcf
+*.blend
+example-skse-plugin*
+PrismaUI*
+BCK*

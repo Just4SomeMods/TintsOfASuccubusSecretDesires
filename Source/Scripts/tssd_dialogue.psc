@@ -44,6 +44,13 @@ Faction Property TSSD_HypnoMaster Auto
 Faction Property TSSD_PotentialHypnoMaster Auto
 Faction Property TSSD_IsInCourtingFaction Auto
 
+tssd_SuccubusBrands Property tBrand Auto 
+
+
+PlayerVampireQuestScript Property PlayerVampireQuest  Auto  
+idle Property IdleVampireStandingFront Auto
+Keyword Property Vampire Auto
+
 ; Functions
 Function onGameReload()
     RegisterForModEvent("TSSD_HumiliationDoneEvent","HumiDone") 
@@ -53,6 +60,8 @@ Function onGameReload()
 Endfunction
 
 ; Events
+
+
 
 Event TrainingAsked(string eventName, string strArg, float numArg, Form sender)
     RegisterForMenu("Training Menu")
@@ -74,6 +83,7 @@ Event DialogueFinished(string eventName, string strArg, float numArg, Form sende
         lastDialoguePartner = sender as Actor
         RegisterForMenu("Dialogue Menu")
     endif
+    DBGTrace(strArg)
 EndEvent
 
 Event OnMenuOpen(String MenuName)
@@ -101,8 +111,11 @@ Event OnMenuClose(String MenuName)
         if lastDialogue != "TSSD_000C7" && lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
             tOrgasmLogic.incrValAndCheck(19,1)
         endif
+        DBGTrace(lastDialogue + " CLOSED" + StringUtil.Find( lastDialogue, "TSSD_Tasks_"))
         if lastDialogue == "TSSD_000C7"
             lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
+        elseif StringUtil.Find(lastDialogue, "TSSD_Tasks_") >= 0
+            tBrand.TasksTold(lastDialogue, lastDialoguePartner )
         elseif lastDialogue == "TSSD_000C6"
             tOrgasmLogic.incrValAndCheck(20,1)
             GenericRefreshPSex(lastDialoguePartner, true, "aggressive")
@@ -117,14 +130,16 @@ Event OnMenuClose(String MenuName)
             GenericRefreshPSex(lastDialoguePartner, false)
         elseif lastDialogue == "TSSD_00098"
             tOrgasmLogic.incrValAndCheck(3,1)
-            GenericRefreshPSex(lastDialoguePartner, true, "love")
+            playAnimationWithIdle(lastDialoguePartner, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4")
+            GenericRefreshPSex(lastDialoguePartner, false, "")
         elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
             tOrgasmLogic.incrValAndCheck(3,1)
-            GenericRefreshPSex(lastDialoguePartner, true, "kissing, -sex")
+        GenericRefreshPSex(lastDialoguePartner, false, "")
         elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
-            GenericRefreshPSex(lastDialoguePartner, false, "")
             if lastDialogue == "TSSD_000EE"
                 tOrgasmLogic.incrValAndCheck(15,1)
+                playAnimationWithIdle(lastDialoguePartner, "5a3fB_SHeadpats1_A1_S1", "5a3fB_SHeadpats1_A2_S1")
+            GenericRefreshPSex(lastDialoguePartner, false, "")
                 if PlayerRef.HasPerk(getPerkNumber(15))
                     T_Needs(15, "", false)
                 endif
@@ -219,6 +234,12 @@ Event OnMenuClose(String MenuName)
             else
                 GenericRefreshPSex(lastDialoguePartner, true, "aggressive", lastDialoguePartner.GetFactionRank(tPEvents.SOS_SchlongifiedFaction) < 1 )
             endif
+        elseif lastDialogue == "TSSD_001E8"        
+            PlayerRef.PlayIdleWithTarget(IdleVampireStandingFront, lastDialoguePartner)
+            if playerRef.hasKeyword(Vampire)
+                PlayerVampireQuest.VampireFeed()
+            EndIf
+            GenericRefreshPSex(lastDialoguePartner, false, "")
         endif
         lastDialogue = ""
         lastDialoguePartner = none
@@ -282,3 +303,4 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
     Utility.Wait(1)
     DoFadeIn(5)
 EndFunction
+

@@ -1,7 +1,4 @@
-
-# Roadmap
-Very Outdated
-
+## Unlock hints
 <details><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -337,6 +334,9 @@ Very Outdated
   </tbody>
 </table>
 </details>
+
+
+# Roadmap (Very Outdated)
 
 ## Succubus Abilities
 

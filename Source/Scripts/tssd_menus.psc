@@ -62,6 +62,7 @@ Quest Property tssd_enthrallDialogue Auto
 Quest Property tssd_queststart Auto
 
 
+
 ; Faction Property sla_Arousal Auto
 ; Faction Property TSSD_ThrallDominant Auto
 ; Faction Property CrimeFactionWhiterun Auto
@@ -125,12 +126,34 @@ Function OpenGrandeMenu()
         endif
         return
     endif
+    ObjectReference ref = Game.GetCurrentCrosshairRef()
     modifierKeyIsDown =  Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if modifierKeyIsDown
+        if ref as Actor
+            Actor akTarget = ref as Actor
+            bool[] unstrips = new bool[33]
+            unstrips[0] = true
+            unstrips[7] = true
+            unstrips[23] = true
+            unstrips[19] = true
+            unstrips[22] = true
+            unstrips[26] = true
+            Form[] equips = Sexlab.StripSlots(PlayerRef, unstrips, true)
+            bool[] unstripsShields = new bool[33]
+            unstripsShields[9] = true
+            unstripsShields[32] = true
+            Sexlab.StripSlots(akTarget, unstripsShields, false)
+            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S1", "5a3fB_Beh2_A2_S1" )
+            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S2", "5a3fB_Beh2_A2_S2" )
+            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S3", "5a3fB_Beh2_A2_S3" )
+            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S4", "5a3fB_Beh2_A2_S4" )
+            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S5", "5a3fB_Beh2_A2_S5" )
+            Sexlab.UnstripActor(PlayerRef,equips)
+            return
+        endif
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
         return
     EndIf
-    ObjectReference ref = Game.GetCurrentCrosshairRef()
     if ref
         if !Sexlab.IsActorActive(PlayerRef) && tActions.playerInSafeHaven() && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
             tActions.tDialogue.lilacBeg(ref as Actor)

@@ -1,0 +1,16 @@
+{
+     "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
+     "id": "SuccubusBaseSkill",
+     "name": "Brands",
+     "description": "Only downsides.",
+     "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+     "nodes": [
+          {
+          "id": "Tasks",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1F2",
+          "x": 0.0,
+          "y": -0.5,
+          "links": [   ]
+     }
+     ]
+}

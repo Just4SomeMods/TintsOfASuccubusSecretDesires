@@ -1249,6 +1249,19 @@ local pools = {
       "Yes, work that cock like a pro, make me lose my mind!",
       "Suck hard, take me deeper, make me come so hard!",
       "Fuck yes, your mouth seems magical!"
+    }},
+  TSSD_001E8 = {
+    { -- Npc In Love with Succubus
+      "Yes."
+    },
+    { -- Npc Submissive
+      "Yes."
+    },
+    { -- Npc Dominant
+      "Yes."
+    },
+    { -- Npc Positive
+      "Yes."
     } }
 
 

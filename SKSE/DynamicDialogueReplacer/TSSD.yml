@@ -228,3 +228,19 @@ topics:
       - 0xF4|TintsOfASuccubusSecretDesires.esp
     conditions:
       - GetFactionRank CC_NPCCurrentBimboStage >= 15 AND
+      
+  # BloodBite
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x1E7|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - player <> HasPerk TSSD_Tint_Blood >= 1 AND
+
+  # Blood Block
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    hide: true
+    conditions:
+      - player <> HasPerk TSSD_Tint_Blood >= 1 AND
+      - GetCurrentTime > 5 AND
+      - GetCurrentTime < 19 AND
