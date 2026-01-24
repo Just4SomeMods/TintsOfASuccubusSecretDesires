@@ -1,0 +1,11 @@
+{
+  "FormKey": "0001F6:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_BrandquestsTasksTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Stranger I need your help."
+  },
+  "Branch": "0001F5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0001F3:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

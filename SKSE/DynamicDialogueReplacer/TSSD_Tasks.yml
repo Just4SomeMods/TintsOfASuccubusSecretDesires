@@ -3,49 +3,183 @@ scripts:
 - script: TSSD_Tasks.lua
   type: 0
 
-
 topics:
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_01
+    text: TSSD_Tasks_001
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 1 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_02
+    text: TSSD_Tasks_002
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 2 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_03
+    text: TSSD_Tasks_003
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 3 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_04
+    text: TSSD_Tasks_004
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 4 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_05
+    text: TSSD_Tasks_005
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 5 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_06
+    text: TSSD_Tasks_006
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 6 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_07
+    text: TSSD_Tasks_007
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 7 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_08
+    text: TSSD_Tasks_008
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 8 AND
 
   - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
-    text: TSSD_Tasks_09
+    text: TSSD_Tasks_009
     conditions:
       - GetGlobalValue TSSD_BrandQuestActive == 9 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_101
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 101 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_102
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 102 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_103
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 103 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_104
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 104 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_105
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 105 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_106
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 106 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_107
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 107 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_108
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 108 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_109
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 109 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_110
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 110 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_111
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 111 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_201
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 201 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_202
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 202 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_203
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 203 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_204
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 204 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_205
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 205 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_206
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 206 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_207
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 207 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_208
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 208 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_301
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 301 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_302
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 302 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_303
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 303 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_304
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 304 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_305
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 305 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_306
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 306 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_307
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 307 AND
+
+  - id: 0x1F9|TintsOfASuccubusSecretDesires.esp
+    text: TSSD_Tasks_308
+    conditions:
+      - GetGlobalValue TSSD_BrandQuestActive == 308 AND

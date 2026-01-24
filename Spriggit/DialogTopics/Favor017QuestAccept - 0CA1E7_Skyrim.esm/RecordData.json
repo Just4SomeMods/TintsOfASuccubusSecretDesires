@@ -1,0 +1,12 @@
+{
+  "FormKey": "0CA1E7:Skyrim.esm",
+  "EditorID": "Favor017QuestAccept",
+  "Version2": 9,
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "You're on. (Brawl - 100 gold)"
+  },
+  "Branch": "0CA212:Skyrim.esm",
+  "Quest": "0CA210:Skyrim.esm",
+  "SubtypeName": "CUST"
+}

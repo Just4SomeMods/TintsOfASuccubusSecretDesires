@@ -80,3 +80,6 @@ SSE*
 example-skse-plugin*
 PrismaUI*
 BCK*
+*.kra
+*~
+*.webp

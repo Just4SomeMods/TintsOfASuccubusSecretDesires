@@ -422,6 +422,18 @@
                 },
                 {
                     "type": "slider",
+                    "text": "TSSD_BrandQuestActive",
+                    "help": "$globalSettingHelp",
+                    "valueOptions": {
+                        "min": -1,
+                        "max": 999999,
+                        "step": 1,
+                        "sourceType": "GlobalValue",
+                        "sourceForm": "TintsOfASuccubusSecretDesires.esp|1FD"
+                    }
+                },
+                {
+                    "type": "slider",
                     "text": "TSSD_CumAmountAV",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
@@ -854,7 +866,7 @@
                 {
                     "type": "text",
                     "text": "Damage Magicka",
-                    "help": ""
+                    "help": "I can't concentrate..."
                 },
                 {
                     "type": "text",
@@ -1140,6 +1152,62 @@
         {
             "pageDisplayName": "DEBUG: Perks",
             "content": [
+                {
+                    "type": "text",
+                    "text": "Cumchained",
+                    "help": "You can only rest if you have cum inside you.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "496"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Sway",
+                    "help": "If someone fantasizes about groping our petting you in public, you feel their fantasies come true.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "491"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Task",
+                    "help": "In a settlement, there is a chance for you to feel a strange need to do humiliating tasks, the higher your succubus rank the more humiliating the tasks. If you take longer than a day to complete the task you gain a huge headache.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "498"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Vibrancy",
+                    "help": "The higher your arousal and body rank the lewder your body gets and the more people talk about you. \n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "494"
+                        ]
+                    }
+                },
                 {
                     "type": "text",
                     "text": "Overflow1",

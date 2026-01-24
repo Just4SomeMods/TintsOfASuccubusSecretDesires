@@ -2,7 +2,7 @@
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
      "id": "SuccubusBaseSkill",
      "name": "Brands",
-     "description": "Only downsides.",
+     "description": "For every brand, you gain 33% more succubus xp.",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
      "nodes": [
           {
@@ -10,6 +10,24 @@
           "perk": "TintsOfASuccubusSecretDesires.esp|1F2",
           "x": 0.0,
           "y": -0.5,
+          "links": [   ]
+     },{
+          "id": "Vibrancy",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1EE",
+          "x": -0.5,
+          "y": 0.0,
+          "links": [   ]
+     },{
+          "id": "Sway",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1EB",
+          "x": 0.5,
+          "y": 0.0,
+          "links": [   ]
+     },{
+          "id": "CumChained",
+          "perk": "TintsOfASuccubusSecretDesires.esp|1F0",
+          "x": 0.0,
+          "y": 0.5,
           "links": [   ]
      }
      ]

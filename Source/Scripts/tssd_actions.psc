@@ -111,6 +111,7 @@ tssd_slsfrscript Property slsfListener Auto
 TSSD_InflationHandler Property tInflation Auto
 tssd_curequestvariables Property tCVals Auto
 TSSD_SucieDailyScript Property tSucieThings Auto
+tssd_SuccubusBrands Property tBrand Auto 
 
 FormList Property TSSD_ShrinesWithQuests Auto
 
@@ -254,6 +255,7 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
         RefreshEnergy( succNeedVal * -1 )
     endif
     if CustomSkills.GetAPIVersion() >= 3
+        byValue *= 1 + ( (tBrand.amountOfBrands - 1) / 3.0)
         CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
     endif
 EndFunction
@@ -502,7 +504,6 @@ Function onGameReload()
     tInflation.onGameReload()
     updateHeartMeter(true)
     (TSSD_CursedWoman as TSSD_SucieDailyScript).onGameReload()
-    PlayerRef.SendModEvent("TSSD_Inflate", "body", (tMenus.SkillSuccubusBodyLevel.GetValue() - 15) / 200)
 Endfunction
 
 

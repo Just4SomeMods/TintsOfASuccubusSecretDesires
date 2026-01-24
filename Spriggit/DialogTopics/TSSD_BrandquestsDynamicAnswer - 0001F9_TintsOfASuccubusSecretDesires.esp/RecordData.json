@@ -1,0 +1,11 @@
+{
+  "FormKey": "0001F9:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_BrandquestsDynamicAnswer",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "TSSD_001F9"
+  },
+  "Branch": "0001F5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0001F3:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

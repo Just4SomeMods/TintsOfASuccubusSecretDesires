@@ -1,0 +1,11 @@
+{
+  "FormKey": "0001E7:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_queststartRefreshBloodSelf",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Can I bite you?"
+  },
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "000001:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

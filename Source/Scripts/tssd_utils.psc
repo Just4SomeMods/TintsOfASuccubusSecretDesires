@@ -384,33 +384,37 @@ endFunction
 
 
 
-Function playAnimationWithIdle(Actor akTarget, string firstAnim, string secondAnim) Global
+Function playAnimationWithIdle(Actor akTarget = none, string firstAnim = "", string secondAnim = "", float timeOfWait = 5.0) Global
     Actor PlayerRef = Game.GetPlayer()
-    DbSkseFunctions.ToggleCollision(akTarget)
+    if akTarget
+        DbSkseFunctions.ToggleCollision(akTarget)
+        Utility.SetIniBool("bDisablePlayerCollision:Havok", True)
+        ; aktarget.ForceRefTo(playerRef)
+        ActorUtil.AddPackageOverride(aktarget as Actor, Game.GetFormFromFile(0x654E2, "skyrim.esm") as Package  , 1)
+        (aktarget as Actor).EvaluatePackage()
+        aktarget.SetAnimationVariableInt("IsNPC", 1) ; disable head tracking
+        aktarget.SetAnimationVariableBool("bHumanoidFootIKDisable", True) ; disable inverse kinematics
+        aktarget.MoveTo(playerref)
+        aktarget.SetDontMove()
+        Game.DisablePlayerControls(true, false, false, false, false, false, false)
+    EndIf
     game.forcethirdperson()
-    Game.DisablePlayerControls(true, false, false, false, false, false, false)
-    Utility.SetIniBool("bDisablePlayerCollision:Havok", True)
-    ; aktarget.ForceRefTo(playerRef)
-    ActorUtil.AddPackageOverride(aktarget as Actor, Game.GetFormFromFile(0x654E2, "skyrim.esm") as Package  , 1)
-    (aktarget as Actor).EvaluatePackage()
-    aktarget.SetAnimationVariableInt("IsNPC", 1) ; disable head tracking
-    aktarget.SetAnimationVariableBool("bHumanoidFootIKDisable", True) ; disable inverse kinematics
-    aktarget.MoveTo(playerref)
-    aktarget.SetDontMove()
     debug.sendanimationevent(PlayerRef, firstAnim)
     debug.sendanimationevent(akTarget, secondAnim)
-    Utility.Wait(5)
+    Utility.Wait(timeOfWait)
     Utility.SetIniBool("bDisablePlayerCollision:Havok",false)
     Game.EnablePlayerControls()
-    debug.sendanimationevent(aktarget, "idleforcedefaultstate")
     debug.sendanimationevent(playerref, "idleforcedefaultstate")
+    if akTarget
+        debug.sendanimationevent(aktarget, "idleforcedefaultstate")
 
-    ActorUtil.RemovePackageOverride(aktarget, Game.GetFormFromFile(0x654E2, "skyrim.esm") as Package)
-    (aktarget as Actor).EvaluatePackage()
-    aktarget.SetAnimationVariableInt("IsNPC", 1) ; enable head tracking
-    aktarget.SetAnimationVariableBool("bHumanoidFootIKDisable", False) ; enable inverse kinematics
+        ActorUtil.RemovePackageOverride(aktarget, Game.GetFormFromFile(0x654E2, "skyrim.esm") as Package)
+        (aktarget as Actor).EvaluatePackage()
+        aktarget.SetAnimationVariableInt("IsNPC", 1) ; enable head tracking
+        aktarget.SetAnimationVariableBool("bHumanoidFootIKDisable", False) ; enable inverse kinematics
 
+        DbSkseFunctions.ToggleCollision(akTarget)
+        aktarget.SetDontMove(false)
+    EndIf
     debug.sendanimationevent(PlayerRef, "idleforcedefaultstate")
-    DbSkseFunctions.ToggleCollision(akTarget)
-    aktarget.SetDontMove(false)
 EndFunction

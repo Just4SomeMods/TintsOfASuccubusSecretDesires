@@ -2,6 +2,7 @@ Scriptname tssd_tints_variables extends Quest  Conditional
 
 tssd_PlayerEventsScript Property tEvents Auto conditional
 
+
 float Property cupidFilledUpAmount Auto Conditional hidden
 float Property lastCumOnTime Auto Conditional hidden
 float Property lastPraiseTime Auto Conditional hidden

@@ -5,13 +5,16 @@ import tssd_utils
 
 float lastGameHour = 999.0
 
-tssd_actions Property tActions Auto
-tssd_menus Property tMenus Auto
 Quest Property tssd_tints_tracker Auto
 Quest Property TSSD_ZAcheronConsequences Auto
 Quest Property tssd_StartCurse Auto
+
+tssd_actions Property tActions Auto
+tssd_menus Property tMenus Auto
+tssd_SuccubusBrands Property tBrand Auto 
 tssd_tints_variables Property tVals Auto
 tssd_orgasmenergylogic Property tOrgasmLogic Auto
+
 Actor Property PlayerRef Auto
 
 
@@ -294,7 +297,7 @@ Function onGameReload()
 	if PlayerRef.HasPerk(getPerkNumber(6))
 		addToLilac()
 	endif
-
+	tBrand.isSLSFInstalled = Game.GetModByName("SexLab - Sexual Fame [SLSF].esm") != 255
 	RegisterForUpdateGameTime(1.0)
 	RegisterForTrackedStatsEvent()
 	UnregisterForAllMenus()

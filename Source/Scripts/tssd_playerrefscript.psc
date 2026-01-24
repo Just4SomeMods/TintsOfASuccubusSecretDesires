@@ -23,8 +23,6 @@ Quest Property RelationshipMarriage Auto
 Quest Property dunHunterQST Auto
 
 Event OnInit()
-
-    ; AddInventoryEventFilter(Game.GetFormFromFile(0xf,"skyrim.esm"))
     RegisterForTrackedStatsEvent()
     if RelationshipMarriage.GetStage() >= 100
         GetOwningQuest().SetObjectiveCompleted(22, true)

@@ -7,6 +7,7 @@ import tssd_utils
 Actor Property PlayerRef Auto
 Quest Property tssd_tints_tracker Auto
 tssd_slsfrscript Property slsfListener Auto
+tssd_SuccubusBrands Property tBrand Auto 
 
 SexLabFramework Property SexLab Auto
 ; sslActorStats Property sslStats Auto
@@ -30,6 +31,7 @@ tssd_tints_variables Property tVals Auto
 Quest Property tssd_dealwithcurseQuest Auto
 
 Perk Property TSSD_Base_Explanations Auto
+Perk Property TSSD_AddictingBrand_Task Auto
 ;Perk Property TSSD_Drain_GentleDrain1 Auto
 ;Perk Property TSSD_Seduction_Kiss1 Auto
 ;Perk Property TSSD_Seduction_OfferSex Auto
@@ -130,25 +132,36 @@ Function OpenGrandeMenu()
     modifierKeyIsDown =  Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if modifierKeyIsDown
         if ref as Actor
-            Actor akTarget = ref as Actor
-            bool[] unstrips = new bool[33]
-            unstrips[0] = true
-            unstrips[7] = true
-            unstrips[23] = true
-            unstrips[19] = true
-            unstrips[22] = true
-            unstrips[26] = true
-            Form[] equips = Sexlab.StripSlots(PlayerRef, unstrips, true)
-            bool[] unstripsShields = new bool[33]
-            unstripsShields[9] = true
-            unstripsShields[32] = true
-            Sexlab.StripSlots(akTarget, unstripsShields, false)
-            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S1", "5a3fB_Beh2_A2_S1" )
-            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S2", "5a3fB_Beh2_A2_S2" )
-            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S3", "5a3fB_Beh2_A2_S3" )
-            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S4", "5a3fB_Beh2_A2_S4" )
-            playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S5", "5a3fB_Beh2_A2_S5" )
-            Sexlab.UnstripActor(PlayerRef,equips)
+
+            int[] lengsOf = JArray.asIntArray(JDB.solveObj(".tssdoverviews.TasksLengths"))
+
+            b612_TraitsMenu TraitsMenu = GetTraitsMenu()
+            int index = 0
+            string[] taskNames = new string[99]
+            int complIndex = 0
+            while index < lengsOf.Length
+                int jndex = 0
+                while jndex < lengsOf[index] + 1
+                    string addiTional = ""
+                    if jndex < 10
+                        addiTional = "0"
+                    EndIf
+                    String text = "TSSD_Tasks_" + index + addiTional + jndex
+                    TraitsMenu.AddItem( text, "", "")
+                    taskNames[complIndex] = text
+                    jndex += 1
+                    complIndex += 1
+                EndWhile
+                index += 1
+            EndWhile
+
+            string[] resultW = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
+            index = 0
+            if resultW.Length > 0
+                string cTaskIn = taskNames[resultW[0] as int]
+                tBrand.TSSD_BrandQuestActive.SetValue( StringUtil.Split(cTaskIn,"_")[2] as int )
+                tBrand.TasksTold(taskNames[resultW[0] as int], ref as Actor)
+            EndIf
             return
         endif
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
@@ -269,6 +282,8 @@ Function startSuccubusLife()
     tActions.onGameReload()
     ; tActions.RefreshEnergy(0)
     TSSD_Satiated.Cast(PlayerRef,PlayerRef)
+    Utility.Wait(0.1)
+    PlayerRef.AddPerk(TSSD_AddictingBrand_Task)
     slsfListener.CheckFlagsSLSF()    
     int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
     ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
