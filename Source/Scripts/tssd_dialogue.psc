@@ -107,16 +107,13 @@ Event OnMenuClose(String MenuName)
         elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) < 0
             TSSD_DrainedMarker.Cast(PlayerRef, lastDialoguePartner)
         endif
-        if lastDialogue != "TSSD_000C7" && lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
-            tOrgasmLogic.incrValAndCheck(19,1)
-        endif
         if lastDialogue == "TSSD_000C7"
             lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
         elseif StringUtil.Find(lastDialogue, "TSSD_Tasks_") >= 0
             tBrand.TasksTold(lastDialogue, lastDialoguePartner )
         elseif lastDialogue == "TSSD_000C6"
-            tOrgasmLogic.incrValAndCheck(20,1)
             GenericRefreshPSex(lastDialoguePartner, true, "aggressive")
+            tOrgasmLogic.incrValAndCheck(20,1)
         elseif lastDialogue == "TSSD_000D2"
             PlayerRef.AddItem(Gold001, 50)
             GenericRefreshPSex(lastDialoguePartner, true)
@@ -127,20 +124,20 @@ Event OnMenuClose(String MenuName)
             PlayerRef.AddItem(Gold001, 50)
             GenericRefreshPSex(lastDialoguePartner, false)
         elseif lastDialogue == "TSSD_00098"
-            tOrgasmLogic.incrValAndCheck(3,1)
-            playAnimationWithIdle(lastDialoguePartner, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4")
             GenericRefreshPSex(lastDialoguePartner, false, "")
-        elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
+            playAnimationWithIdle(lastDialoguePartner, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4")
             tOrgasmLogic.incrValAndCheck(3,1)
-        GenericRefreshPSex(lastDialoguePartner, false, "")
+        elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
+            GenericRefreshPSex(lastDialoguePartner, false, "")
+            tOrgasmLogic.incrValAndCheck(3,1)
         elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
             if lastDialogue == "TSSD_000EE"
-                tOrgasmLogic.incrValAndCheck(15,1)
+                GenericRefreshPSex(lastDialoguePartner, false, "")
                 playAnimationWithIdle(lastDialoguePartner, "5a3fB_SHeadpats1_A1_S1", "5a3fB_SHeadpats1_A2_S1")
-            GenericRefreshPSex(lastDialoguePartner, false, "")
                 if PlayerRef.HasPerk(getPerkNumber(15))
                     T_Needs(15, "", false)
                 endif
+                tOrgasmLogic.incrValAndCheck(15,1)
             endif
         elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
             int mxAmount = 2
@@ -239,6 +236,9 @@ Event OnMenuClose(String MenuName)
             EndIf
             GenericRefreshPSex(lastDialoguePartner, false, "")
         endif
+        if lastDialogue != "TSSD_000C7" && lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
+            tOrgasmLogic.incrValAndCheck(19,1)
+        endif
         lastDialogue = ""
         lastDialoguePartner = none
     endif
@@ -276,11 +276,11 @@ endevent
 
 Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTags = "", bool playerActive = false )
     Actor akSpeaker = target as Actor
-    DoFadeOut(1)
     TSSD_Satiated.Cast(akSpeaker, PlayerRef)
+    DoFadeOut(0.1)
     GameHour.Mod(1) 
+    DoFadeIn(0.1)
     tActions.gainSuccubusXP(1000)
-    ImageSpaceModifier.RemoveCrossFade(3)
     int upTo = 100
     ;/ if tssd_dealwithcurseQuest.isRunning() &&  !tssd_dealwithcurseQuest.isobjectivefailed(24)
         upTo = 35
@@ -298,7 +298,6 @@ Function GenericRefreshPSex( Actor target, bool startsSex = false, String sexTag
         playDefaultIfNotAvailable(Pos, sexTags, none )
     endif
     TSSD_Satiated.Cast(akSpeaker, PlayerRef)
-    Utility.Wait(1)
-    DoFadeIn(5)
+    Utility.Wait(0.2)
 EndFunction
 
