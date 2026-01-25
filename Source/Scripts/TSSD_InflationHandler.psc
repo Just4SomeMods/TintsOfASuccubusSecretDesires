@@ -15,7 +15,7 @@ Event InflatePlayer(string eventName, string strArg, float numArg, Form sender)
 		return
 	endif
     float divStep = 2
-    int j = 0
+    int j = 0 
     String path = ".tssdmorphs." + strArg
     int jMa = JDB.solveObj(path)
     String[] nodes = JMap.allKeysPArray(jMa)

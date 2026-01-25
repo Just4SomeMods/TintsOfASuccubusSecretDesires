@@ -5,6 +5,7 @@ import tssd_utils
 FavorDialogueScript Property DialogueFavorGeneric  Auto  
 GlobalVariable Property SkillSuccubusBaseLevel Auto
 GlobalVariable Property SkillSuccubusBodyLevel Auto
+GlobalVariable Property TSSD_SuccubusPerkPoints Auto
 GlobalVariable Property TSSD_BrandQuestActive Auto
 SexLabFramework Property SexLab Auto
 Actor Property PlayerRef Auto
@@ -20,10 +21,13 @@ bool Property isSLSFInstalled Auto Conditional Hidden
 float lastTimeActive = -1.0
 float timeInSafeLocation
 float lastCheckAt = -1.0
+int dailyGrind = -1
+int Property currentTat Auto Conditional Hidden
 float Property hasToBeDoneBy = 99999.0  Auto Conditional Hidden
 
 
 int Property amountOfBrands = 0  Auto Conditional Hidden
+int Property brandTat = 0  Auto Hidden
 
 faction Property sla_arousal Auto
 
@@ -38,9 +42,34 @@ tssd_tints_variables Property tVals Auto
 Function activateStuff()
     RegisterForUpdateGameTime(1)
     lastTimeActive = Utility.GetCurrentGameTime() * 24
+    dailyGrind = (Utility.GetCurrentGameTime() as int)
     lastCheckAt = lastTimeActive
     RegisterForMenu("Sleep/Wait Menu")
     RegisterForMenu("Dialogue Menu")
+    TSSD_SuccubusPerkPoints.Mod(1)
+    DBGTrace("SHOULD ONLY APPEAR ONCE")
+    
+
+    int template = JMap.object()
+    int matches = JArray.object()
+    int tattoo = 0
+
+    JMap.setStr(template, "section", "TSSD_Tats")
+    JMap.setStr(template, "name", "Task")
+
+    slavetats.query_available_tattoos(template, matches)
+    
+    tattoo = JArray.getObj(matches, 0)
+    JMap.setInt(tattoo, "color", 16711680)
+    JMap.setFlt(tattoo, "invertedAlpha", 0.0)
+    JMap.setInt(tattoo, "lock", 1)
+    
+    slavetats.query_applied_tattoos(PlayerRef, template, matches)
+    
+    brandTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
+    JValue.addToPool(brandTat, "TSSD_Tats")
+    JMap.setInt(brandTat, "glow", 0)
+    slavetats.synchronize_tattoos(PlayerRef, false)
 EndFunction
 
 Event OnMenuOpen(string MenuName)
@@ -78,6 +107,9 @@ Event OnUpdateGameTime()
         while timeBetween > 1
             timeInSafeLocation += 1
             if lastTimeActive > 24 && Utility.RandomFloat() < (timeInSafeLocation / 24) && TSSD_BrandQuestActive.GetValue() == -1
+                JMap.setInt(brandTat, "glow", 16777215)
+                slavetats.mark_actor(PlayerRef)
+                slavetats.synchronize_tattoos(PlayerRef, false)
                 lastTimeActive = 0
                 timeInSafeLocation = 0
                 hasToBeDoneBy = Utility.GetCurrentGameTime() + 1
@@ -90,7 +122,35 @@ Event OnUpdateGameTime()
         timeInSafeLocation = 0
     EndIf
     lastCheckAt = Utility.GetCurrentGameTime() * 24
+    int nwGrind = Utility.GetCurrentGameTime() as Int
+    if dailyGrind < nwGrind
+        swapTat()
+        dailyGrind = nwGrind
+    EndIf
 EndEvent
+
+Function swapTat()
+    Return
+    String[] allBrands = StringUtil.Split("Task;CumDiction;Gaze;Sway", ";")
+    int indexIn = 0
+    int randomToday = 0
+    ;/while indexIn < allBrands.Length
+        slavetats.simple_remove_tattoo(PlayerRef, "TSSD_Tats", allBrands[indexIn], last = false, silent = true)
+        if randomToday == 0
+            if indexIn == 1 && PlayerRef.HasPerk(TSSD_AddictingBrand_CumChained) && Utility.RandomFloat() > 0.8
+                randomToday = 1
+            ElseIf indexIn == 2 && PlayerRef.HasPerk(TSSD_AddictingBrand_Vibrancy) && Utility.RandomFloat() > 0.8
+                randomToday = 2
+            ElseIf indexIn == 3 && PlayerRef.HasPerk(TSSD_AddictingBrand_Sway) && Utility.RandomFloat() > 0.8
+                randomToday = 3
+            EndIf
+        EndIf
+        indexIn +=1
+    EndWhile/;
+    slavetats.simple_add_tattoo(PlayerRef, "TSSD_Tats", allBrands[randomToday], last = true, silent = false, color = 0 )
+    currentTat = randomToday
+    
+EndFunction
 
 Function setTaskActive(int setTo = -1)
     int[] lengsOf = JArray.asIntArray(JDB.solveObj(".tssdoverviews.TasksLengths"))
@@ -166,6 +226,7 @@ Function TasksTold(string taskTold, Actor talkerLel)
         playAnimationWithIdle(none, "5a3fB_LayProne_A1_S1", "", 3)
     Elseif cTask == 6
         increaseFame("Airhead")
+        playAnimationWithIdle(talkerLel, "5a3fB_SHeadpats1_A1_S1", "5a3fB_SHeadpats1_A2_S1")
     Elseif cTask == 7
         PlayerRef.PlayIdle(IdleChildCryingStart)
         increaseFame("Submissive")
@@ -219,9 +280,9 @@ Function TasksTold(string taskTold, Actor talkerLel)
     Elseif cTask == 106
         increaseFame("Submissive")
         increaseFame("Airhead")
-        playAnimationWithIdle(talkerLel, "5a3fB_StandFace_A1_S1", "5a3fB_StandFace_A2_S1", 1.0)
     Elseif cTask == 107
         increaseFame("Submissive", 2)
+        playAnimationWithIdle(talkerLel, "5a3fB_StandFace_A1_S1", "5a3fB_StandFace_A2_S1", 1.0)
     Elseif cTask == 108
         increaseFame("Airhead",2)
         playAnimationWithIdle(talkerLel, "5a3fB_CGLay_A1_S1", "5a3fB_CGLay_A2_S1", 1.0)
@@ -334,6 +395,9 @@ Function TasksTold(string taskTold, Actor talkerLel)
     taskNeglected = false
     Game.EnablePlayerControls()
     hasToBeDoneBy = 9000000
+    JMap.setInt(brandTat, "glow", 0)
+    slavetats.mark_actor(PlayerRef)
+    slavetats.synchronize_tattoos(PlayerRef, false)
 EndFunction
 
 Function increaseFame(string NameOf, float stage = 1.0)

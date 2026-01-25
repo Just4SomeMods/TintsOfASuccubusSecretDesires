@@ -2,6 +2,9 @@ Scriptname tssd_tints_variables extends Quest  Conditional
 
 tssd_PlayerEventsScript Property tEvents Auto conditional
 
+import tssd_utils
+tssd_menus Property tMenus Auto
+Actor Property PlayerRef Auto
 
 float Property cupidFilledUpAmount Auto Conditional hidden
 float Property lastCumOnTime Auto Conditional hidden
@@ -68,3 +71,34 @@ bool Property canTake36Carissma Auto Conditional hidden
 bool Property canTake37Temptress Auto Conditional hidden
 bool Property canTake38Bordeaux Auto Conditional hidden
 Bool[] Property canTakeBools  Auto  
+
+function set_color()
+
+	
+    JValue.cleanPool("SlaveTatsHighLevel")
+    int jjM = JDB.solveObj(".tssdtints")
+    
+    int indexIn = 0
+    int numOfTints = 1
+    int mashedCol = 16711680
+	int[] combinedCols = new int[3]
+    while indexIn < JMap.Count(jjM)
+        int toAdd = 0
+        int innerJJ = JMap.getObj(jjM, "" + indexIN)
+
+        if PlayerRef.HasPerk(getPerkNumber(indexIn))
+            numOfTints += 1
+			int[] colrArr = JArray.AsIntArray(JMap.GetObj(innerJJ, "color"))
+			combinedCols[0] = combinedCols[0] + colrArr[0]
+			combinedCols[1] = combinedCols[1] + colrArr[1]
+			combinedCols[2] = combinedCols[2] + colrArr[2]
+        endif
+        indexIn += 1
+    endwhile
+	mashedCol = ( ( combinedCols[2] + combinedCols[1] * 256 + combinedCols[0] * 256 * 256 + 16711680 )  / numOfTints  as int)
+    JMap.setInt(tMenus.neckTattoo, "color", mashedCol as int)
+	; DBGTrace(tMenus.neckTattoo + " "+ mashedCol)
+    slavetats.mark_actor(PlayerRef)
+	slavetats.synchronize_tattoos(PlayerRef, false)
+
+EndFunction

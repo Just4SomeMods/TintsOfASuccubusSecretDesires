@@ -83,7 +83,6 @@ Event DialogueFinished(string eventName, string strArg, float numArg, Form sende
         lastDialoguePartner = sender as Actor
         RegisterForMenu("Dialogue Menu")
     endif
-    DBGTrace(strArg)
 EndEvent
 
 Event OnMenuOpen(String MenuName)
@@ -111,7 +110,6 @@ Event OnMenuClose(String MenuName)
         if lastDialogue != "TSSD_000C7" && lastDialoguePartner.GetRelationshipRank(PlayerRef) >= 1
             tOrgasmLogic.incrValAndCheck(19,1)
         endif
-        DBGTrace(lastDialogue + " CLOSED" + StringUtil.Find( lastDialogue, "TSSD_Tasks_"))
         if lastDialogue == "TSSD_000C7"
             lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
         elseif StringUtil.Find(lastDialogue, "TSSD_Tasks_") >= 0

@@ -48,7 +48,7 @@ bool modifierKeyIsDown = false
 
 bool [] Property cosmeticSettings Auto Hidden
 
-string currentVersion = "1.04.000"
+string currentVersion = "1.04.00"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -59,6 +59,8 @@ int lastUsedSub = -1
 int spellToggle
 
 int colorToAdd = -1
+
+int Property neckTattoo Auto Hidden
 
 Quest Property tssd_enthrallDialogue Auto
 Quest Property tssd_queststart Auto
@@ -107,6 +109,40 @@ bool Function toggleQuestCurses(String deityName)
     return false
 endfunction
 
+Function openDebugTaskMenu(Actor ref)
+
+    int[] lengsOf = JArray.asIntArray(JDB.solveObj(".tssdoverviews.TasksLengths"))
+
+    b612_TraitsMenu TraitsMenu = GetTraitsMenu()
+    int index = 0
+    string[] taskNames = new string[99]
+    int complIndex = 0
+    while index < lengsOf.Length
+        int jndex = 0
+        while jndex < lengsOf[index] + 1
+            string addiTional = ""
+            if jndex < 10
+                addiTional = "0"
+            EndIf
+            String text = "TSSD_Tasks_" + index + addiTional + jndex
+            TraitsMenu.AddItem( text, "", "")
+            taskNames[complIndex] = text
+            jndex += 1
+            complIndex += 1
+        EndWhile
+        index += 1
+    EndWhile
+
+    string[] resultW = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
+    index = 0
+    if resultW.Length > 0
+        string cTaskIn = taskNames[resultW[0] as int]
+        tBrand.TSSD_BrandQuestActive.SetValue( StringUtil.Split(cTaskIn,"_")[2] as int )
+        tBrand.TasksTold(taskNames[resultW[0] as int], ref)
+    EndIf
+            
+EndFunction
+
 Function OpenGrandeMenu()
     if !SafeProcess()
         return
@@ -114,7 +150,6 @@ Function OpenGrandeMenu()
     if SuccubusDesireLevel.GetValue() <= -101
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         startSuccubusLife()
-        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
         return
     endif
     if tEvents.canCelebrate
@@ -128,45 +163,12 @@ Function OpenGrandeMenu()
         endif
         return
     endif
-    ObjectReference ref = Game.GetCurrentCrosshairRef()
     modifierKeyIsDown =  Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
     if modifierKeyIsDown
-        if ref as Actor
-
-            int[] lengsOf = JArray.asIntArray(JDB.solveObj(".tssdoverviews.TasksLengths"))
-
-            b612_TraitsMenu TraitsMenu = GetTraitsMenu()
-            int index = 0
-            string[] taskNames = new string[99]
-            int complIndex = 0
-            while index < lengsOf.Length
-                int jndex = 0
-                while jndex < lengsOf[index] + 1
-                    string addiTional = ""
-                    if jndex < 10
-                        addiTional = "0"
-                    EndIf
-                    String text = "TSSD_Tasks_" + index + addiTional + jndex
-                    TraitsMenu.AddItem( text, "", "")
-                    taskNames[complIndex] = text
-                    jndex += 1
-                    complIndex += 1
-                EndWhile
-                index += 1
-            EndWhile
-
-            string[] resultW = TraitsMenu.Show(aiMaxSelection = 1, aiMinSelection = 0)
-            index = 0
-            if resultW.Length > 0
-                string cTaskIn = taskNames[resultW[0] as int]
-                tBrand.TSSD_BrandQuestActive.SetValue( StringUtil.Split(cTaskIn,"_")[2] as int )
-                tBrand.TasksTold(taskNames[resultW[0] as int], ref as Actor)
-            EndIf
-            return
-        endif
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
         return
     EndIf
+    ObjectReference ref = Game.GetCurrentCrosshairRef()
     if ref
         if !Sexlab.IsActorActive(PlayerRef) && tActions.playerInSafeHaven() && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
             tActions.tDialogue.lilacBeg(ref as Actor)
@@ -183,11 +185,12 @@ Function OpenGrandeMenu()
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
     string toSplit = "Abilities;Upgrades;Settings [OUTDATED];View Tint Progress"
-    if true
-        toSplit += ";Increase Slut Fame"
-    EndIf
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
-        toSplit += ";TraitsLel"
+        toSplit += ";Cheat Tint"
+        ; toSplit += ";Increase Slut Fame"
+        if ref
+            toSplit += ";Debug Task"
+        EndIf
     endif
     String[] myItems = StringUtil.Split(toSplit,";")
     Int result
@@ -208,12 +211,14 @@ Function OpenGrandeMenu()
         OpenExpansionMenu()    
     elseif resOf == "Settings [OUTDATED]"
         OpenSuccubusCosmetics()
-    elseif resOf == "TraitsLel"
+    elseif resOf == "Cheat Tint"
         GetTraitsLel()
     elseif resOf == "View Tint Progress"
         viewTintProgress()
     elseif resOf == "Increase Slut Fame"
         incrSlutFame()
+    elseif resOf == "Debug Task"
+        openDebugTaskMenu(ref as Actor)
     endif
 EndFunction 
 
@@ -283,7 +288,7 @@ Function startSuccubusLife()
     ; tActions.RefreshEnergy(0)
     TSSD_Satiated.Cast(PlayerRef,PlayerRef)
     Utility.Wait(0.1)
-    PlayerRef.AddPerk(TSSD_AddictingBrand_Task)
+    CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
     slsfListener.CheckFlagsSLSF()    
     int EventHandle = ModEvent.Create("SLSF_Reloaded_RegisterMod")
     ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
@@ -295,6 +300,28 @@ Function startSuccubusLife()
     if startLevel > 0
         SuccubusXpAmount.SetValue( startLevel * 10000 )
     endif
+
+    int template = JMap.object()
+    int matches = JArray.object()
+    int tattoo = 0
+
+    JMap.setStr(template, "section", "TSSD_Tats")
+    JMap.setStr(template, "name", "NeckRunes")
+
+    slavetats.query_available_tattoos(template, matches)
+    
+    tattoo = JArray.getObj(matches, 0)
+    JMap.setInt(tattoo, "color", 16711680)
+    JMap.setFlt(tattoo, "invertedAlpha", 0.0)
+    
+    slavetats.query_applied_tattoos(PlayerRef, template, matches)
+    int nwTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
+    JValue.addToPool(nwTat, "TSSD_Tats")
+    JMap.setInt(nwTat, "glow", 16777215)
+    JMap.setInt(nwTat, "lock", 1)
+    slavetats.synchronize_tattoos(PlayerRef, false)
+    neckTattoo = nwTat
+
 EndFunction
 
 Function OpenSuccubusCosmetics()
@@ -326,11 +353,10 @@ Function OpenSuccubusCosmetics()
                 int tTLengths = myThralls.Length
                 while tIndex < tTLengths
                     Actor cA = myThralls[tIndex]
-                    DBGTrace(cA.GetDisplayName())
                     if cosmeticSettings[index]
-                        slavetats.simple_add_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1   )
+                        slavetats.simple_add_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1 , silent = true  )
                     else
-                        slavetats.simple_remove_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1  )
+                        slavetats.simple_remove_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1, silent = true  )
                     endif
                     tIndex += 1
                 EndWhile

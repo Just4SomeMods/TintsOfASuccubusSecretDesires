@@ -502,7 +502,7 @@ Event OnUpdateGameTime()
 	ModEvent.Send(slFame)
 
 	
-    int appliedMatches = JValue.retain(JArray.object(), "ets_tagAll")
+    int appliedMatches = JValue.retain(JArray.object(), "TSSD")
     slavetats.query_applied_tattoos(PlayerRef, 0, appliedMatches)
     int aIndex = 0
 	currentVals[8] = 0
@@ -624,6 +624,9 @@ Event OnUpdateGameTime()
 	EndIf
 
 EndEvent
+
+
+
 
 Event GetSlutFame(string locName, string cateG, int reqFame)
 	if cateG == "Slut"

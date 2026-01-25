@@ -43,11 +43,11 @@ Function initPania()
     endWhile
 
     int selTatIndex = 0
-    if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextreme", last = false   )
-        slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonster", last = false   )
+    if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextreme", last = false , silent = true )
+        slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonster", last = false , silent = true  )
     EndIf
-    if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextremeface", last = true   )
-        slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterface", last = true   )
+    if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextremeface", last = true , silent = true  )
+        slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterface", last = true , silent = true  )
     EndIf
 
     DBGTrace("Pania ready!")

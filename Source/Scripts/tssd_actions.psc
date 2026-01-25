@@ -220,9 +220,34 @@ Function toggleDeathMode(bool makeAnnouncement = true, bool overWriteOn = false)
         if makeAnnouncement
             T_Show("SOMEONE NEEDS TO DIE NOW!", "icon.dds", aiDelay = 2.0)
         endif
+        
+        if tMenus.cosmeticSettings[4]
+            int jjM = JDB.solveObj(".tssdtints")
+            
+            int indexIn = 0
+            int numOfTints = 1
+            int mashedCol = 16711680
+            while indexIn < JMap.Count(jjM)
+                int toAdd = 0
+                int innerJJ = JMap.getObj(jjM, "" + indexIN)
+
+                if PlayerRef.HasPerk(getPerkNumber(indexIn))
+                    numOfTints += 1
+                    mashedCol += DbMiscFunctions.ConvertHexToInt(JMap.GetStr(innerJJ, "colorHex"))
+                endif
+                indexIn += 1
+            endwhile
+            ColorForm nwForm = DbSkseFunctions.CreateColorForm( (mashedCol / numOfTints) as int )
+            PO3_SKSEFunctions.SetSkinColor(PlayerRef, nwForm)
+        EndIf
+        Utility.Wait(3)
+        BerserkerMainImod.Remove()
     else
         BerserkerMainImod.Remove()
+        PO3_SKSEFunctions.ResetActor3D(PlayerRef, "PO3_TINT")
     endif
+    slavetats.mark_actor(PlayerRef)
+	slavetats.synchronize_tattoos(PlayerRef, false)
 EndFunction
 
 
@@ -599,7 +624,10 @@ Event OnUpdateGameTime()
     Utility.Wait(0.1)
     PlayerRef.AddPerk(TSSD_Base_ChangesPerk)
     updateHeartMeter(timeBetween > 6)
+    
+
     RegisterForSingleUpdateGameTime(0.4)
+
 endEvent
 
 

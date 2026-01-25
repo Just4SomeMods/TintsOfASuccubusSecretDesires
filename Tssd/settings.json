@@ -1,16 +1,16 @@
 [
     ["Heart Pupils for Scarlet",  "Toggle if Scarlet Succubi have heart shaped pupils during Sex"],
     ["Heart Pupils for all", "Heart shaped pupils for all!"],
-    ["Sex-Notifications" , "Toggles notifications on ograsm and scene start. Manually evaluating the scene still works."],
+    ["(NA) Sex-Notifications" , "Toggles notifications on ograsm and scene start. Manually evaluating the scene still works."],
     ["Non variating notifications" , "Only allows the first line of each notifications type to be displayed to avoid confusion."],
-    ["Random Tattoos" , "[Adds fitting tattoos for your colour each morning. Amount increases with your succubus base skill]."],
+    ["True form" , "If Death mode is active your skin is a mix of all your tints."],
     ["Thrall Tat" , "Female Thralls get a heart womb tattoo."],
-    ["NOT IMPLEMENTED YET Corruption grey skin" , "Enables the grey skin."],
-    ["NOT IMPLEMENTED YET Corruption cracked skin" , "Enables the cracked skin."],
-    ["NOT IMPLEMENTED YET Corruption wrecker mark" , "Enables the wrecker mark."],
-    ["NOT IMPLEMENTED YET Corruption cracked skin face" , "Enables the cracked skin face."],
-    ["NOT IMPLEMENTED YET Corruption cracked hands" , "Enables the cracked hands."],
-    ["NOT IMPLEMENTED YET Corruption Horns" , "Enables the horns."],
-    ["NOT IMPLEMENTED YET Corruption Tail" , "Enables the tail."],
-    ["NOT IMPLEMENTED YET Corruption Wings" , "Enables the wings."]
+    ["(NA) Corruption grey skin" , "Enables the grey skin."],
+    ["(NA) Corruption cracked skin" , "Enables the cracked skin."],
+    ["(NA) Corruption wrecker mark" , "Enables the wrecker mark."],
+    ["(NA) Corruption cracked skin face" , "Enables the cracked skin face."],
+    ["(NA) Corruption cracked hands" , "Enables the cracked hands."],
+    ["(NA) Corruption Horns" , "Enables the horns."],
+    ["(NA) Corruption Tail" , "Enables the tail."],
+    ["(NA) Corruption Wings" , "Enables the wings."]
 ]

@@ -238,6 +238,8 @@ Function T_Show(String asText, String asImagePath = "", Float aiDelay = 2.0, Str
 EndFunction
 
 Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global
+    String getInput = MCM.GetModSettingString("TintsOfASuccubusSecretDesires","sCosmeticSettings:Main")
+    bool nonVar = StringUtil.split(getInput,";")[2] == "1"
     string txtSource = ".needyText"
     if !isBad
         txtSource = ".positive"
@@ -245,7 +247,11 @@ Function T_Needs(int succTrait, string replacement="", bool isBad=true) Global
     string[] succNeedy = JArray.asStringArray(JDB.solveObj(".tssdtints." + succTrait + txtSource))
     String nxText = ""
     if succNeedy.Length > 0
-        nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length - 1)]
+        if nonVar
+            nxText = succNeedy[0]
+        else
+            nxText = succNeedy[Utility.RandomInt(0, succNeedy.Length - 1)]
+        EndIf
         if replacement != "" && StringUtil.Find(nxText, ";") > 0
             String[] texts = StringUtil.Split(nxText, ";")
             nxText = texts[0] + replacement + texts[1]

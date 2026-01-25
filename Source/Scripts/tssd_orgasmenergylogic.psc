@@ -364,7 +364,6 @@ Event PlayerSceneStart(Form FormRef, int tid)
     if  hasTagsInternal(_thread, "~boobsuck, ~breastfeed, ~breastfeeding, ~milk, ~milking, ~boobs, ~nipplesuck, ~lactation, -titfuck, -boobjob, -tittyfuck")
         incrValAndCheck(30,1)
     EndIf
-        
 
 EndEvent
 
@@ -376,7 +375,6 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     if Game.GetModByName("Tullius Eyes.esp") != 255
         setHeartEyes(PlayerEyes, false)
     endif
-
     sslThreadController _thread =   Sexlab.GetController(tid)
     Actor[] ActorsIn = _thread.GetPositions()
     int indexIn = 0
@@ -497,10 +495,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
             if !PlayerRef.HasPerk(getPerkNumber(19))
 			    tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(getPerkNumber(20)) as int) * succdVal)
             endif
-			while  Stage_in < StageCount 
-				_thread.AdvanceStage()
-				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
-			EndWhile
         endif
 	else    
 		if _thread.GetSubmissive(PlayerRef)
