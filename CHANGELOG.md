@@ -1,3 +1,7 @@
+# 1.04.01
+Fixed some harsh bugs, sadly these need a new save
+Some Tint unlock methods have been made slightly less lame
+
 # 1.04.00
 13 new tints (It's gonna stop for now)
 Succubus Brand! (The others will be incorporated somehow later)
