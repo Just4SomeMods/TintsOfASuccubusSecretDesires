@@ -2653,7 +2653,7 @@
                 {
                     "type": "text",
                     "text": "Crimson",
-                    "help": "You double the bonus max health from the body skill and add your base skill level on top. If you are above 200 current health, you take double damage from all sources.\n",
+                    "help": "You gain 200 max health. If you are above 200 current health, you take double damage from all sources.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2681,7 +2681,7 @@
                 {
                     "type": "text",
                     "text": "Cupid",
-                    "help": "You gain immunity to diseases and poisons. Your spells costs get reduced to maximally 50% depending on how filled up you are. But if you have no cum inside you, you take double damage from ice and fire.\n",
+                    "help": "You gain immunity to diseases and poisons. Your spells costs get reduced to maximally 25% depending on how filled up you are. But if you have no cum inside you, you take double damage from ice and fire.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3288,10 +3288,10 @@
                     }
                 },
                 {
-                    "id": "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
+                    "id": "sTSSD_BaseHealthBodyBuffMag0:Spells",
                     "type": "input",
-                    "text": "Base Magicka Drain Buff Effect 0 Mag",
-                    "help": "Fortify Magicka 1",
+                    "text": "Crimson Effect 0 Mag",
+                    "help": "Fortify Health 200",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3299,25 +3299,7 @@
                         "function": "adjustSpell",
                         "params": [
                             "{b}1",
-                            "89",
-                            "{i}0",
-                            "{value}"
-                        ]
-                    }
-                },
-                {
-                    "id": "sTSSD_BaseStaminaSedBuffMag0:Spells",
-                    "type": "input",
-                    "text": "BHSS Effect 0 Mag",
-                    "help": "Fortify Sneak 1",
-                    "action": {
-                        "type": "CallFunction",
-                        "form": "TintsOfASuccubusSecretDesires.esp|001",
-                        "scriptName": "tssd_actions",
-                        "function": "adjustSpell",
-                        "params": [
-                            "{b}1",
-                            "118",
+                            "116",
                             "{i}0",
                             "{value}"
                         ]
@@ -4047,7 +4029,7 @@
                     "id": "sTSSD_PinkSlowMag0:Spells",
                     "type": "input",
                     "text": "Armor Effect 0 Mag",
-                    "help": "Damage Speech 50",
+                    "help": "Damage Speech 30",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

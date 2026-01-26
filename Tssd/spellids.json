@@ -30,15 +30,9 @@
         0
     ],
     [
-        "sTSSD_BaseMagickaDrainBuffNewMag0:Spells",
+        "sTSSD_BaseHealthBodyBuffMag0:Spells",
         true,
-        "89",
-        0
-    ],
-    [
-        "sTSSD_BaseStaminaSedBuffMag0:Spells",
-        true,
-        "118",
+        "116",
         0
     ],
     [
