@@ -2,7 +2,7 @@
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
      "id": "SuccubusSeductionSkill",
      "name": "Seduction",
-     "description": "Increasing your seduction skill also increases your speechcraft and sneak.",
+     "description": "Increasing your seduction increases the strength of your influence spells.",
      "legendary": "TintsOfASuccubusSecretDesires.esp|006",
      "level": "TintsOfASuccubusSecretDesires.esp|003",
      "ratio": "TintsOfASuccubusSecretDesires.esp|009",

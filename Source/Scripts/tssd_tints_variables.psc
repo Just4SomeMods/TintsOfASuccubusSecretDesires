@@ -22,12 +22,14 @@ float Property lastTentacle Auto Conditional hidden
 float Property lastOrgasm Auto Conditional hidden
 float Property lastSlutCity Auto Conditional hidden
 float Property lastBreastFed Auto Conditional hidden
+float Property lastBarter Auto Conditional hidden
 float Property hasEggs Auto Conditional hidden
 bool Property isGagged Auto Conditional hidden
 bool Property isNude Auto Conditional hidden
 bool Property isHeeled Auto Conditional hidden
 bool Property isWearingCS Auto Conditional hidden
 bool Property isWearingNP Auto Conditional hidden
+bool Property isWearingSkimpy Auto Conditional hidden
 bool Property beingOrdered Auto Conditional hidden
 
 bool Property talkingWithNonWolf Auto Conditional hidden
@@ -76,28 +78,9 @@ function set_color()
 
 	
     JValue.cleanPool("SlaveTatsHighLevel")
-    int jjM = JDB.solveObj(".tssdtints")
-    
-    int indexIn = 0
-    int numOfTints = 1
-    int mashedCol = 16711680
-	int[] combinedCols = new int[3]
-    while indexIn < JMap.Count(jjM)
-        int toAdd = 0
-        int innerJJ = JMap.getObj(jjM, "" + indexIN)
-
-        if PlayerRef.HasPerk(getPerkNumber(indexIn))
-            numOfTints += 1
-			int[] colrArr = JArray.AsIntArray(JMap.GetObj(innerJJ, "color"))
-			combinedCols[0] = combinedCols[0] + colrArr[0]
-			combinedCols[1] = combinedCols[1] + colrArr[1]
-			combinedCols[2] = combinedCols[2] + colrArr[2]
-        endif
-        indexIn += 1
-    endwhile
-	mashedCol = ( ( combinedCols[2] + combinedCols[1] * 256 + combinedCols[0] * 256 * 256 + 16711680 )  / numOfTints  as int)
-    JMap.setInt(tMenus.neckTattoo, "color", mashedCol as int)
-	; DBGTrace(tMenus.neckTattoo + " "+ mashedCol)
+    int mashedCol = getCombinedColor()
+    JMap.setInt(tMenus.neckTattoo, "color", mashedCol)
+	DBGTrace(tMenus.neckTattoo + " "+ mashedCol)
     slavetats.mark_actor(PlayerRef)
 	slavetats.synchronize_tattoos(PlayerRef, false)
 

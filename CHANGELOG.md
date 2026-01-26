@@ -1,4 +1,4 @@
-# 1.04.000
+# 1.04.00
 13 new tints (It's gonna stop for now)
 Succubus Brand! (The others will be incorporated somehow later)
 Task Brand: If you stay in safe areas, there is a chance that you have to complete humilating tasks to stranges. (Needs Billy-anims)

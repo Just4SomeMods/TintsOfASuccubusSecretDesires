@@ -29,7 +29,7 @@
         "famecat": [
             "Nasty"
         ],
-        "unlockMethod": "Let cum on your skin.",
+        "unlockMethod": "Defeat enemies while having had cum on your skin recently.",
         "color": [
             227,
             37,
@@ -59,13 +59,13 @@
             "Desperate for a refill.",
             "Please don't leave any behind."
         ],
-        "description": "You colour is cum-addiction cupid! If you embrace this color of your desire, you gain immunity to diseases and poisons. You also have increased max magicka based on how filled up you are. But if you have no cum inside you, you take double damage from ice and fire.",
+        "description": "You colour is cum-addiction cupid! If you embrace this color of your desire, you gain immunity to diseases and poisons. Your spells costs get reduced by up to 25% depending on how filled up you are. But if you have no cum inside you, you take double damage from ice and fire.",
         "famecat": [
             "Oral",
             "Anal",
             "Cum Dump"
         ],
-        "unlockMethod": "Get cum inflated.",
+        "unlockMethod": "Use spells while inflated.",
         "color": [
             227,
             37,
@@ -133,7 +133,7 @@
         "famecat": [
             "Gentle"
         ],
-        "unlockMethod": "Orgasm from romantic sex",
+        "unlockMethod": "Defeat enemies while having had a romantic interaction recently.",
         "color": [
             252,
             99,
@@ -311,7 +311,7 @@
             "Slut",
             "Group"
         ],
-        "unlockMethod": "Stay fully naked.",
+        "unlockMethod": "Defeat enemies while naked.",
         "color": [
             255,
             192,
@@ -320,7 +320,7 @@
         "colorHex": "FFC0CB",
         "kink": "exhibitionism",
         "perk": 282,
-        "targetNum": 5,
+        "targetNum": 10,
         "firstDes": "Image",
         "secondDes": "Fight",
         "index": 7
@@ -591,7 +591,7 @@
             99
         ],
         "colorHex": "DE3163",
-        "unlockMethod": "Get praised.",
+        "unlockMethod": "Use restoration magic while having been praised recently.",
         "kink": "praise",
         "perk": 290,
         "targetNum": 10,
@@ -610,10 +610,10 @@
             133
         ],
         "colorHex": "8E4585",
-        "unlockMethod": "Barter.",
+        "unlockMethod": "Do not barter for days.",
         "kink": "sugarbaby",
         "perk": 292,
-        "targetNum": 10,
+        "targetNum": 7,
         "firstDes": "Instinct",
         "secondDes": "Image",
         "index": 16
@@ -629,7 +629,7 @@
             68
         ],
         "colorHex": "6A1F44",
-        "unlockMethod": "Wear revealing clothing.",
+        "unlockMethod": "Cast illusion and destruction spells whilst wearing revealing clothing.",
         "kink": "",
         "perk": 296,
         "targetNum": 5,
@@ -652,7 +652,7 @@
             69
         ],
         "colorHex": "460245",
-        "unlockMethod": "Talk with Jobtrainers / Hypnomasters.",
+        "unlockMethod": "Have sex with Jobtrainers / Hypnomasters.",
         "kink": "Hypnotism",
         "perk": 297,
         "targetNum": 10,
@@ -699,7 +699,7 @@
             0
         ],
         "colorHex": "FF2400",
-        "unlockMethod": "get cursed",
+        "unlockMethod": "Don't be aromantic",
         "kink": "demi",
         "famecat": [],
         "perk": 298,
@@ -882,10 +882,10 @@
         ],
         "famecat": [],
         "colorHex": "71200D",
-        "unlockMethod": "Absorb a dragon.",
+        "unlockMethod": "Absorb two dragons in a week.",
         "kink": "scaly",
         "perk": 326,
-        "targetNum": 1,
+        "targetNum": 2,
         "firstDes": "Fight",
         "secondDes": "Control",
         "index": 23
@@ -901,7 +901,7 @@
         ],
         "famecat": [],
         "colorHex": "D9483C",
-        "unlockMethod": "Masturbate.",
+        "unlockMethod": "Defeat enemies near you whilst having masturbated recently.",
         "kink": "selflove",
         "perk": 327,
         "targetNum": 10,
@@ -1034,10 +1034,10 @@
         ],
         "famecat": [],
         "colorHex": "D22B2B",
-        "unlockMethod": "Have a partner cum from femdom.",
+        "unlockMethod": "Have a partner cum from femdom or defeat men.",
         "kink": "femdom",
         "perk": 413,
-        "targetNum": 5,
+        "targetNum": 50,
         "firstDes": "Drive",
         "secondDes": "Control",
         "index": 31

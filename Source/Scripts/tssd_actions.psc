@@ -222,22 +222,7 @@ Function toggleDeathMode(bool makeAnnouncement = true, bool overWriteOn = false)
         endif
         
         if tMenus.cosmeticSettings[4]
-            int jjM = JDB.solveObj(".tssdtints")
-            
-            int indexIn = 0
-            int numOfTints = 1
-            int mashedCol = 16711680
-            while indexIn < JMap.Count(jjM)
-                int toAdd = 0
-                int innerJJ = JMap.getObj(jjM, "" + indexIN)
-
-                if PlayerRef.HasPerk(getPerkNumber(indexIn))
-                    numOfTints += 1
-                    mashedCol += DbMiscFunctions.ConvertHexToInt(JMap.GetStr(innerJJ, "colorHex"))
-                endif
-                indexIn += 1
-            endwhile
-            ColorForm nwForm = DbSkseFunctions.CreateColorForm( (mashedCol / numOfTints) as int )
+            ColorForm nwForm = DbSkseFunctions.CreateColorForm( getCombinedColor() )
             PO3_SKSEFunctions.SetSkinColor(PlayerRef, nwForm)
         EndIf
         Utility.Wait(3)
@@ -567,6 +552,7 @@ Endfunction
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
+    DBGTrace(asStatFilter)
     if !PlayerRef.isInCombat() && PlayerRef.HasPerk(getPerkNumber(19)) && lastScarletTalk > 24 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
         int toIncrease = 2
         Actor[] myThralls = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)
@@ -683,6 +669,9 @@ EndFunction
 
 
 bool Function isDoggie(Actor cA)
+    if cA == none
+        return false
+    EndIf
     return cA.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || cA.GetFactionRank(WereWolfFaction) > 0 || 				cA.GetFactionRank(WolfFaction) > 0 || cA.GetRace() == WolfRace || cA.GetRace() == WereWolfBeastRace  || cA.IsInFaction(DogFaction)
 endfunction
     
@@ -718,4 +707,12 @@ Function toggleDebugFaction(bool turnOn)
     else
         PlayerRef.AddSpell(TSSD_DebugToFaction)
     endif
+EndFunction
+
+
+Form[] Function stripShoes(Actor akTarget)
+    bool[] unstrips = new bool[33]
+    unstrips[7] = true
+    Form[] equips = Sexlab.StripSlots(akTarget, unstrips, false)
+    return equips
 EndFunction

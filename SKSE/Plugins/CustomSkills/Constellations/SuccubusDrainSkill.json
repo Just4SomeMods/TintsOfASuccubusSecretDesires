@@ -2,7 +2,7 @@
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
      "id": "SuccubusDrainSkill",
      "name": "Drain",
-     "description": "Increasing your drain skill also increases your maximum magicka.",
+     "description": "Increasing your drain skill increases the damage of your drain spells.",
      "legendary": "TintsOfASuccubusSecretDesires.esp|008",
      "level": "TintsOfASuccubusSecretDesires.esp|002",
      "ratio": "TintsOfASuccubusSecretDesires.esp|007",

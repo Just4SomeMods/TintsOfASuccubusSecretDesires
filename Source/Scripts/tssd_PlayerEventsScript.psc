@@ -51,6 +51,10 @@ bool crimsonDone = false
 Keyword Property ActorTypeCreature Auto
 Keyword Property TSSD_AbsorbSpellKeyword Auto
 Keyword Property MagicInfluence Auto
+Keyword Property MagicRestoreHealth Auto
+Keyword Property MagicInfluenceCharm Auto
+Keyword Property MagicSchoolDestruction Auto
+
 
 
 Keyword Property MagicSummonFire Auto
@@ -163,7 +167,7 @@ GlobalVariable Property TSSD_CumAmountAV Auto
 
 Function calcCumAmountPlayer()
 	float infAmount = GetFloatValue(PlayerRef, INFLATION_AMOUNT) + GetFloatValue(PlayerRef, CUM_ORAL) + GetFloatValue(PlayerRef, CUM_ANAL) + GetFloatValue(PlayerRef, CUM_VAGINAL)
-	TSSD_CumAmountAV.SetValue( max(0.5, 1 / max(1,infAmount/ 3 )))
+	TSSD_CumAmountAV.SetValue( max(0.75, 1 / max(1,infAmount/ 3 )))
 	tVals.cupidFilledUpAmount = infAmount	
 EndFunction
 
@@ -333,8 +337,27 @@ Event OnVoreEnd(string eventName, string strArg, float numArg, form mimic)
 EndEvent
 
 Event OnActorKilled(Actor akVictim, Actor akKiller)
+
+
+	if IsTopless && IsBottomless
+		tOrgasmLogic.incrValAndCheck(7, 1)
+	EndIf
+	if tVals.lastCumOnTime < 24
+		tOrgasmLogic.incrValAndCheck(0, 1)
+	EndIf
+	if akVictim.GetActorBase().GetSex() == 0
+        tOrgasmLogic.incrValAndCheck(31,1)
+	EndIf
+	if tVals.lastRomanticTime < 24
+		tOrgasmLogic.incrValAndCheck(3,1)
+	EndIf
+
+	float distanceTo = akVictim.GetDistance(PlayerRef)
+	if tVals.lastMasturbated < 24 &&  distanceTo < 200
+        tOrgasmLogic.incrValAndCheck(24,1)
+	EndIf
+
 	if CustomSkills.GetAPIVersion() >= 3
-		float distanceTo = akVictim.GetDistance(PlayerRef)
 		if distanceTo < 350
 			CustomSkills.AdvanceSkill("SuccubusBodySkill", max(20, (akVictim.GetBaseActorValue("health") - distanceTo) / 4 ))
 		endif
@@ -362,16 +385,23 @@ Event OnSpellCast(Form akSpell)
 	if sp == none
 		return
 	endif
-	MagicEffect costliesEffect = Sp.GetNthEffectMagicEffect( Sp.GetCostliestEffectIndex())
-	if costliesEffect.GetCastingType() == 2
-		return
+	if tVals.cupidFilledUpAmount > 0
+		tOrgasmLogic.incrValAndCheck(1, tVals.cupidFilledUpAmount * sp.GetMagickaCost() / 1000 )
 	endif
-	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(Game.GetFormFromFile(0x424ee, "skyrim.esm") as Keyword)
+	
+	if tVals.lastPraiseTime < 24 && sp.HasKeyword(MagicRestoreHealth)
+		tOrgasmLogic.incrValAndCheck(15, tVals.cupidFilledUpAmount * sp.GetMagickaCost() / 1000 )
+	endif
+
+	if tVals.isWearingSkimpy && (akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(MagicSchoolDestruction))
+		tOrgasmLogic.incrValAndCheck(17, sp.GetMagickaCost() / 100)
+	EndIf
+	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(MagicInfluenceCharm)
 		CustomSkills.AdvanceSkill("SuccubusSeductionSkill", sp.GetMagickaCost() )		
 		if PlayerRef.HasPerk(getPerkNumber(25))
 			PlayerRef.RemoveSpell(TSSD_StilettoBuffsNNerfs)
 			Utility.Wait(0.1)
-			PlayerRef.AddSpell(TSSD_StilettoBuffsNNerfs, true)
+			PlayerRef.AddSpell(TSSD_StilettoBuffsNNerfs, false)
 		endif
 	endif 
 	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
@@ -379,6 +409,10 @@ Event OnSpellCast(Form akSpell)
 	endif
 	if PlayerRef.GetFactionRank(sla_arousal) >= 50 && (akSpell.HasKeyword( MagicSummonFire) || akSpell.HasKeyword( MagicSummonFrost) || akSpell.HasKeyword( MagicSummonShock))
 		tOrgasmLogic.incrValAndCheck(28, 1)
+	endif
+	MagicEffect costliesEffect = Sp.GetNthEffectMagicEffect( Sp.GetCostliestEffectIndex())
+	if costliesEffect.GetCastingType() == 2
+		return
 	endif
 endevent
 
@@ -430,13 +464,11 @@ Event OnMenuOpen(String MenuName)
 	if MenuName == "Dialogue Menu"
         Actor tempActor = SPE_Actor.GetPlayerSpeechTarget()
 		tVals.talkingWithNonWolf = !tActions.isDoggie(tempActor)
-        if tempActor.GetFactionRank(JobTrainerFaction) >= 0 || tempActor.GetFactionRank(TSSD_PotentialHypnoMaster) >= 0
-            tOrgasmLogic.incrValAndCheck(18, 1)
-        endif
 	endif
 	if MenuName == "BarterMenu"
-		tOrgasmLogic.incrValAndCheck(16,1)
+		tVals.lastBarter = 0
 		tActions.trySeduceMerchant(SPE_Actor.GetPlayerSpeechTarget())
+		currentVals[16] = 0
 	endif
 EndEvent
 
@@ -478,12 +510,6 @@ Event OnUpdateGameTime()
 		currentVals[25] = 0
 	endif
 
-	if IsSkimpilyClothed
-		tOrgasmLogic.incrValAndCheck(17, 1)
-	else
-		currentVals[17] = 0
-	endif
-
 	if tVals.isWearingCS
 		tOrgasmLogic.incrValAndCheck(29,1)
 	else
@@ -519,8 +545,9 @@ Event OnUpdateGameTime()
 		indexIN += 1
 	endwhile
 	calcCumAmountPlayer()
-	float gameTimeDiff = max(0.5, Utility.GetCurrentGameTime() * 24 - lastGameHour)
-	lastGameHour = Utility.GetCurrentGameTime() * 24
+	float cGameTime = Utility.GetCurrentGameTime()
+	float gameTimeDiff = max(0.5, cGameTime * 24 - lastGameHour)
+	lastGameHour = cGameTime * 24
 	tVals.lastCumOnTime += gameTimeDiff
 	tVals.lastPraiseTime += gameTimeDiff
 	tVals.lastRoughTime += gameTimeDiff
@@ -534,6 +561,11 @@ Event OnUpdateGameTime()
 	tVals.lastDragon += gameTimeDiff
 	tVals.lastTentacle += gameTimeDiff
 	tVals.lastSlutCity += gameTimeDiff
+	tVals.lastBarter += gameTimeDiff / 24
+	if tVals.lastDragon / 24 > 7  
+		currentVals[23] = 0
+	endif
+	tOrgasmLogic.incrValAndCheck(16, gameTimeDiff / 24)
 	lastNeedsAnnouncement += gameTimeDiff
 	
 	int[] tN = new int[1]
@@ -673,6 +705,7 @@ Event OnANDUpdate()
 		IsBottomless =      IsActorBottomless(PlayerRef)
 		IsSkimpilyClothed = IsPlayerSkimpy()
 		isCollared = IsActorCollared(PlayerRef)
+		tVals.isWearingSkimpy = IsPlayerRevealing() as int
 		PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
 		PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
 		tVals.isGagged = PlayerRef.WornHasKeyword(zad_DeviousGag) || PlayerRef.WornHasKeyword(zad_DeviousGagPanel)

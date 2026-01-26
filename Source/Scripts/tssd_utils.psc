@@ -424,3 +424,35 @@ Function playAnimationWithIdle(Actor akTarget = none, string firstAnim = "", str
     EndIf
     debug.sendanimationevent(PlayerRef, "idleforcedefaultstate")
 EndFunction
+
+int Function getCombinedColor() Global
+    
+    int jjM = JDB.solveObj(".tssdtints")
+    
+    int indexIn = 0
+    int numOfTints = 1
+    int mashedCol = 0
+	int[] combinedCols = new int[3]
+    combinedCols[0] = 255
+    while indexIn < JMap.Count(jjM)
+        int toAdd = 0
+        int innerJJ = JMap.getObj(jjM, "" + indexIN)
+
+        if Game.GetPlayer().HasPerk(getPerkNumber(indexIn))
+            numOfTints += 1
+			int[] colrArr = JArray.AsIntArray(JMap.GetObj(innerJJ, "color"))
+			combinedCols[0] = combinedCols[0] + colrArr[0]
+			combinedCols[1] = combinedCols[1] + colrArr[1]
+			combinedCols[2] = combinedCols[2] + colrArr[2]
+        endif
+        indexIn += 1
+    endwhile
+    if numOfTints > 1
+        combinedCols[0] = combinedCols[0] -255
+        numOfTints -= 1
+    EndIf
+	mashedCol += combinedCols[2]  / numOfTints
+    mashedCol += (((combinedCols[1]  / numOfTints) as int) * 256)
+    mashedCol += (((combinedCols[0] / numOfTints) as int) * 256 * 256)
+    return mashedCol
+EndFunction

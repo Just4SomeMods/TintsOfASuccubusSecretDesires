@@ -129,11 +129,6 @@ String Property INFLATION_AMOUNT = "sr.inflater.amount" autoreadonly hidden
 
 GlobalVariable Property TSSD_CumAmountAV Auto
 
-Function calcCumAmountPlayer()
-	float infAmount = GetFloatValue(PlayerRef, INFLATION_AMOUNT) + GetFloatValue(PlayerRef, CUM_ORAL) + GetFloatValue(PlayerRef, CUM_ANAL) + GetFloatValue(PlayerRef, CUM_VAGINAL)
-	TSSD_CumAmountAV.SetValue( max(0.5, 1 / max(1,infAmount/ 3 )))
-	tVals.cupidFilledUpAmount = infAmount	
-EndFunction
 
 ; END CUPID
 
@@ -223,7 +218,6 @@ Event PlayerSceneStart(Form FormRef, int tid)
     sslThreadController _thread =  Sexlab.GetController(tid)
     Actor[] ActorsIn = Sexlab.GetController(tid).GetPositions()
     if ActorsIn.Length == 1
-        incrValAndCheck(24,1)
         tVals.beingOrdered = true
     endif
     int indexIn = 0
@@ -347,6 +341,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
 	Actor[] aIn = _thread.GetPositions()
 	if aIn.Length == 1
 		_thread.SetEnjoyment(PlayerRef, 100)
+        incrValAndCheck(24, 0)
 	endif
  	while indexIn < aIn.Length
         Actor cA = aIn[indexIN]
@@ -423,20 +418,16 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		endif
         
         if hasTagsInternal(_thread, "~aircum, ~cumonchest, ~cumonbody")
-            incrValAndCheck(0,1)
+            incrValAndCheck(0,0)
         EndIf
         
         if hasTagsInternal(_thread, "~cuminmouth, ~blowjob")
-            incrValAndCheck(1,0.2)
-            incrValAndCheck(12,1)
-        EndIf
-        
-        if hasTagsInternal(_thread, "-lesbian, ~vaginal, ~anal, ~creampie")
-            incrValAndCheck(1, 1)
+            incrValAndCheck(1,0)
+            incrValAndCheck(12,5)
         EndIf
         
         if hasTagsInternal(_thread, "femdom")
-            incrValAndCheck(31, 1)
+            incrValAndCheck(31, 5)
         EndIf
 
         if WhoCums.HasKeyword(Vampire)
@@ -453,7 +444,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
         EndIf
 
         if WhoCums.GetRelationshipRank(PlayerRef) >= 1
-            incrValAndCheck(19, 1)
+            incrValAndCheck(19, 0)
         EndIf
 			
 		if WhoCums.GetFactionRank(CompanionsCirclePlusKodlak) >=0 || WhoCums.GetFactionRank(WereWolfFaction) > 0 || \
@@ -496,6 +487,10 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 			    tActions.gainSuccubusXP(succdVal, reduction + (PlayerRef.HasPerk(getPerkNumber(20)) as int) * succdVal)
             endif
         endif
+        
+        if WhoCums.GetFactionRank(tEvents.JobTrainerFaction) >= 0 || WhoCums.GetFactionRank(tEvents.TSSD_PotentialHypnoMaster) >= 0
+            incrValAndCheck(18, 1)
+        endif
 	else    
 		if _thread.GetSubmissive(PlayerRef)
 			incrValAndCheck(20,1)
@@ -530,7 +525,7 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 		incrValAndCheck(4,1)
 	endif
 	if hasTagsInternal(_thread, "~love, ~loving, ~romance")
-		incrValAndCheck(3,1)
+		incrValAndCheck(3,0)
 	endif
 
 	if !hadAnnouncement  && possibleAnnouncements.Length > 1

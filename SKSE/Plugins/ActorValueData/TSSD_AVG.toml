@@ -18,6 +18,11 @@ type = "Functional"
 alias = "TwoHandedSkillAdvance"
 get = "GetGlobalValueParam(sBodyL)"
 
+[SuccubusRBodySkill]
+type = "Functional"
+alias = "MarksManSkillAdvance"
+get = "GetGlobalValueParam(sBodyL) * -0.5"
+
 [SuccubusDrainSkill]
 type = "Functional"
 alias = "RestorationSkillAdvance"
@@ -54,4 +59,4 @@ alias = "LightArmorSkillAdvance"
 get = "1 / GetGlobalValueParam(tScale)"
 
 [Include]
-"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain", "SuccubusReverseDrainSkill", "TimeScaleOf"]
+"TintsOfASuccubusSecretDesires.esp" = ["SuccubusBaseSkill", "SuccubusBodySkill", "SuccubusRBodySkill", "SuccubusDrainSkill", "SuccubusSeductionSkill", "TSSD_CumAmountAV", "TSSD_DragonsSlain", "SuccubusReverseDrainSkill", "TimeScaleOf"]

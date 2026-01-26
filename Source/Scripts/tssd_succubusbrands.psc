@@ -39,37 +39,42 @@ Perk Property TSSD_AddictingBrand_Task Auto
 tssd_Actions Property tActions Auto
 tssd_tints_variables Property tVals Auto
 
+bool didStartUpAlready = false
+
 Function activateStuff()
+    if !didStartUpAlready
+        lastTimeActive = Utility.GetCurrentGameTime() * 24
+        dailyGrind = (Utility.GetCurrentGameTime() as int)
+        TSSD_SuccubusPerkPoints.Mod(1)
+        lastCheckAt = lastTimeActive
+        DBGTrace("SHOULD ONLY APPEAR ONCE")
+        
+
+        int template = JMap.object()
+        int matches = JArray.object()
+        int tattoo = 0
+
+        JMap.setStr(template, "section", "TSSD_Tats")
+        JMap.setStr(template, "name", "Task")
+
+        slavetats.query_available_tattoos(template, matches)
+        
+        tattoo = JArray.getObj(matches, 0)
+        JMap.setInt(tattoo, "color", 16711680)
+        JMap.setFlt(tattoo, "invertedAlpha", 0.0)
+        JMap.setInt(tattoo, "lock", 1)
+        
+        slavetats.query_applied_tattoos(PlayerRef, template, matches)
+        
+        brandTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
+        JValue.addToPool(brandTat, "TSSD_Tats")
+        JMap.setInt(brandTat, "glow", 0)
+        slavetats.synchronize_tattoos(PlayerRef, false)
+        didStartUpAlready = true
+    endif
     RegisterForUpdateGameTime(1)
-    lastTimeActive = Utility.GetCurrentGameTime() * 24
-    dailyGrind = (Utility.GetCurrentGameTime() as int)
-    lastCheckAt = lastTimeActive
     RegisterForMenu("Sleep/Wait Menu")
     RegisterForMenu("Dialogue Menu")
-    TSSD_SuccubusPerkPoints.Mod(1)
-    DBGTrace("SHOULD ONLY APPEAR ONCE")
-    
-
-    int template = JMap.object()
-    int matches = JArray.object()
-    int tattoo = 0
-
-    JMap.setStr(template, "section", "TSSD_Tats")
-    JMap.setStr(template, "name", "Task")
-
-    slavetats.query_available_tattoos(template, matches)
-    
-    tattoo = JArray.getObj(matches, 0)
-    JMap.setInt(tattoo, "color", 16711680)
-    JMap.setFlt(tattoo, "invertedAlpha", 0.0)
-    JMap.setInt(tattoo, "lock", 1)
-    
-    slavetats.query_applied_tattoos(PlayerRef, template, matches)
-    
-    brandTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
-    JValue.addToPool(brandTat, "TSSD_Tats")
-    JMap.setInt(brandTat, "glow", 0)
-    slavetats.synchronize_tattoos(PlayerRef, false)
 EndFunction
 
 Event OnMenuOpen(string MenuName)
@@ -91,6 +96,7 @@ Event OnMenuClose(string MenuName)
 EndEvent
 
 Event OnUpdateGameTime()
+    DBGTrace("Once Per Hour")
     bool hasVibrancy = PlayerRef.HasPerk(TSSD_AddictingBrand_Vibrancy)
     amountOfBrands =  ( (PlayerRef.HasPerk(TSSD_AddictingBrand_Task) as int) +  (hasVibrancy as int)+(PlayerRef.HasPerk(TSSD_AddictingBrand_CumChained) as int)+(PlayerRef.HasPerk(TSSD_AddictingBrand_Sway) as int))
     if hasVibrancy
@@ -288,7 +294,11 @@ Function TasksTold(string taskTold, Actor talkerLel)
         playAnimationWithIdle(talkerLel, "5a3fB_CGLay_A1_S1", "5a3fB_CGLay_A2_S1", 1.0)
     Elseif cTask == 109
         increaseFame("Slut", 2)
-        playAnimationWithIdle(talkerLel, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4")
+            Form[] plShoes = tActions.stripShoes(PlayerRef)
+            Form[] tShoes = tActions.stripShoes(talkerLel)
+            playAnimationWithIdle(talkerLel, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4", 3)
+            Sexlab.UnstripActor(PlayerRef,plShoes)
+            Sexlab.UnstripActor(talkerLel,tShoes)
     Elseif cTask == 110
         increaseFame("Gentle", 2)
     Elseif cTask == 111

@@ -30,7 +30,7 @@
         "famecat":[
             "Nasty"
         ],
-        "unlockMethod":"Let cum on your skin.",
+        "unlockMethod":"Defeat enemies while having had cum on your skin recently.",
         "color":[
             227,
             37,
@@ -67,7 +67,7 @@
             "Anal",
             "Cum Dump"
         ],
-        "unlockMethod":"Get cum inflated.",
+        "unlockMethod":"Use spells while inflated.",
         "color":[
             227,
             37,
@@ -329,7 +329,7 @@
             "Slut",
             "Group"
         ],
-        "unlockMethod":"Stay fully naked.",
+        "unlockMethod":"Defeat enemies while naked.",
         "color":[
             255,
             192,
@@ -338,7 +338,7 @@
         "colorHex":"FFC0CB",
         "kink":"exhibitionism",
         "perk":282,
-        "targetNum":5,
+        "targetNum":10,
         "firstDes":"Image",
         "secondDes":"Fight",
         "index":7
@@ -631,7 +631,7 @@
         ],
         "description":"When you get praised you blush cerise! You restoration skill increases 20% faster. They also cost twice as much. If you have been praised recently, they also heal twice as much.",
         "famecat":null,
-        "unlockMethod":"Get praised.",
+        "unlockMethod":"Use restoration magic while having been praised recently.",
         "color":[
             222,
             49,
@@ -655,7 +655,7 @@
         ],
         "description":"You are bad with money like a plum. Selling prices are reduced to a quarter. This has made you more aware of the world around you, increasing your learning rate by 100%. If you recently had sex with a shopkeep, you reduce their prices by half of your seduction level.",
         "famecat":null,
-        "unlockMethod":"Barter.",
+        "unlockMethod":"Do not barter for days.",
         "color":[
             142,
             69,
@@ -664,7 +664,7 @@
         "colorHex":"8E4585",
         "kink":"sugarbaby",
         "perk":292,
-        "targetNum":10,
+        "targetNum":7,
         "firstDes":"Instinct",
         "secondDes":"Image",
         "index":16
@@ -679,7 +679,7 @@
         ],
         "description":"Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. You are so used to enemies being distracted by your choice of clothes, that these spells get weaker if you wear less revealing clothin.",
         "famecat":null,
-        "unlockMethod":"Wear revealing clothing.",
+        "unlockMethod":"Cast illusion and destruction spells whilst wearing revealing clothing.",
         "color":[
             106,
             31,
@@ -705,7 +705,7 @@
         ],
         "description":"Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
         "famecat":null,
-        "unlockMethod":"Talk with Jobtrainers \/ Hypnomasters.",
+        "unlockMethod":"Have sex with Jobtrainers \/ Hypnomasters.",
         "color":[
             70,
             2,
@@ -758,7 +758,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"get cursed",
+        "unlockMethod":"Don't be aromantic",
         "color":[
             255,
             36,
@@ -956,7 +956,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Absorb a dragon.",
+        "unlockMethod":"Absorb two dragons in a week.",
         "color":[
             113,
             32,
@@ -965,7 +965,7 @@
         "colorHex":"71200D",
         "kink":"scaly",
         "perk":326,
-        "targetNum":1,
+        "targetNum":2,
         "firstDes":"Fight",
         "secondDes":"Control",
         "index":23
@@ -982,7 +982,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Masturbate.",
+        "unlockMethod":"Defeat enemies near you whilst having masturbated recently.",
         "color":[
             217,
             72,
@@ -1164,7 +1164,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Have a partner cum from femdom.",
+        "unlockMethod":"Have a partner cum from femdom or defeat men.",
         "color":[
             210,
             43,
@@ -1173,7 +1173,7 @@
         "colorHex":"D22B2B",
         "kink":"femdom",
         "perk":413,
-        "targetNum":5,
+        "targetNum":50,
         "firstDes":"Drive",
         "secondDes":"Control",
         "index":31

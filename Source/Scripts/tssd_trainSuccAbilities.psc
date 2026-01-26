@@ -15,7 +15,6 @@ GlobalVariable Property TSSD_ReverseDrainSkill Auto
 GlobalVariable Property TSSD_ReverseSeductionSkill Auto
 Actor Property PlayerRef Auto
 Perk Property TSSD_Base_Explanations Auto
-Spell Property TSSD_BaseHealthBodyBuff Auto
 Spell Property TSSD_StilettoBuffsNNerfs Auto
 Tssd_Menus Property tMenus Auto
 
@@ -76,9 +75,6 @@ Function Train()
     SkillVal.Mod(1)
     CustomSkills.ShowSkillIncreaseMessage(skillId, SkillVal.GetValue() as int)
     if SkillName == "Body"
-        PlayerRef.RemoveSpell(TSSD_BaseHealthBodyBuff)
-        Utility.Wait(0.1)
-        PlayerRef.AddSpell(TSSD_BaseHealthBodyBuff, false)
         TSSD_ReverseBodySkill.SetValue( max(0, 100 - skillVal.GetValue()) )
     elseif SkillName == "Drain"            
         TSSD_ReverseDrainSkill.SetValue( max(0, 100 - skillVal.GetValue()) )

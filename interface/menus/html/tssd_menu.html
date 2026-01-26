@@ -20,7 +20,7 @@
   <tbody>
     <tr>
       <th><font color ="#E3256B">Razzmatazz</font></th>
-      <td>Let cum on your skin.</td>
+      <td>Defeat enemies while having had cum on your skin recently.</td>
       <td>cumplay</td>
       <td>Taboo</td>
       <td>Image</td>
@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <th><font color ="#F5B2C5">Cupid</font></th>
-      <td>Get cum inflated.</td>
+      <td>Use spells while inflated.</td>
       <td>cumplay</td>
       <td>Taboo</td>
       <td>Drive</td>
@@ -76,7 +76,7 @@
     </tr>
     <tr>
       <th><font color ="#FFC0CB">Pink</font></th>
-      <td>Stay fully naked.</td>
+      <td>Defeat enemies while naked.</td>
       <td>exhibitionism</td>
       <td>Image</td>
       <td>Fight</td>
@@ -140,7 +140,7 @@
     </tr>
     <tr>
       <th><font color ="#DE3163">Cerise</font></th>
-      <td>Get praised.</td>
+      <td>Use restoration magic while having been praised recently.</td>
       <td>praise</td>
       <td>Drive</td>
       <td>Image</td>
@@ -148,7 +148,7 @@
     </tr>
     <tr>
       <th><font color ="#8E4585">Plum</font></th>
-      <td>Barter.</td>
+      <td>Do not barter for days.</td>
       <td>sugarbaby</td>
       <td>Instinct</td>
       <td>Image</td>
@@ -156,7 +156,7 @@
     </tr>
     <tr>
       <th><font color ="#6A1F44">Pompadour</font></th>
-      <td>Wear revealing clothing.</td>
+      <td>Cast illusion and destruction spells whilst wearing revealing clothing.</td>
       <td></td>
       <td>Image</td>
       <td>Drive</td>
@@ -164,7 +164,7 @@
     </tr>
     <tr>
       <th><font color ="#460245">Tolopea</font></th>
-      <td>Talk with Jobtrainers / Hypnomasters.</td>
+      <td>Have sex with Jobtrainers / Hypnomasters.</td>
       <td>Hypnotism</td>
       <td>Control</td>
       <td>Drive</td>
@@ -172,7 +172,7 @@
     </tr>
     <tr>
       <th><font color ="#FF2400">Scarlet</font></th>
-      <td>get cursed</td>
+      <td>Don't be aromantic</td>
       <td>demi</td>
       <td>Instinct</td>
       <td>Fight</td>
@@ -204,7 +204,7 @@
     </tr>
     <tr>
       <th><font color ="#71200D">Pueblo</font></th>
-      <td>Absorb a dragon.</td>
+      <td>Absorb two dragons in a week.</td>
       <td>scaly</td>
       <td>Fight</td>
       <td>Control</td>
@@ -212,7 +212,7 @@
     </tr>
     <tr>
       <th><font color ="#D9483C">Valencia</font></th>
-      <td>Masturbate.</td>
+      <td>Defeat enemies near you whilst having masturbated recently.</td>
       <td>selflove</td>
       <td>Drive</td>
       <td>Fight</td>
@@ -268,7 +268,7 @@
     </tr>
     <tr>
       <th><font color ="#D22B2B">Monza</font></th>
-      <td>Have a partner cum from femdom.</td>
+      <td>Have a partner cum from femdom or defeat men.</td>
       <td>femdom</td>
       <td>Drive</td>
       <td>Control</td>

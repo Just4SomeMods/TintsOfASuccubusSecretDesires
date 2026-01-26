@@ -2,7 +2,7 @@
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
      "id": "SuccubusBodySkill",
      "name": "Body",
-     "description": "Increasing your body skill also increases your maximum health and stamina.",
+     "description": "Increasing your body skill reduces the stagger you receive.",
      "level": "TintsOfASuccubusSecretDesires.esp|004",
      "legendary": "TintsOfASuccubusSecretDesires.esp|006",
      "ratio": "TintsOfASuccubusSecretDesires.esp|005",
