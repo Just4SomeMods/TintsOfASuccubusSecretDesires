@@ -48,7 +48,7 @@ bool modifierKeyIsDown = false
 
 bool [] Property cosmeticSettings Auto Hidden
 
-string currentVersion = "1.04.01"
+string currentVersion = "1.04.01a"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -318,7 +318,7 @@ Function startSuccubusLife()
     int nwTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
     JValue.addToPool(nwTat, "TSSD_Tats")
     JMap.setInt(nwTat, "glow", 16777215)
-    JMap.setInt(nwTat, "lock", 1)
+    JMap.setInt(nwTat, "locked", 1)
     slavetats.synchronize_tattoos(PlayerRef, false)
     neckTattoo = nwTat
 

@@ -1,3 +1,8 @@
+# 1.04.01a
+Fixed some startup bugs,
+made the quest start on first sleep
+
+
 # 1.04.01
 Fixed some harsh bugs, sadly these need a new save
 Some Tint unlock methods have been made slightly less lame

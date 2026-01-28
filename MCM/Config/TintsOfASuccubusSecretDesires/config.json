@@ -1020,6 +1020,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "ReflectingEffect",
+                    "help": ""
+                },
+                {
+                    "type": "text",
                     "text": "Rejection Poison",
                     "help": ""
                 },

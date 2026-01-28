@@ -62,7 +62,7 @@ Function activateStuff()
         tattoo = JArray.getObj(matches, 0)
         JMap.setInt(tattoo, "color", 16711680)
         JMap.setFlt(tattoo, "invertedAlpha", 0.0)
-        JMap.setInt(tattoo, "lock", 1)
+        JMap.setInt(tattoo, "locked", 1)
         
         slavetats.query_applied_tattoos(PlayerRef, template, matches)
         

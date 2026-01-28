@@ -6,72 +6,72 @@ import tssd_utils
 tssd_menus Property tMenus Auto
 Actor Property PlayerRef Auto
 
-float Property cupidFilledUpAmount Auto Conditional hidden
-float Property lastCumOnTime Auto Conditional hidden
-float Property lastPraiseTime Auto Conditional hidden
-float Property lastRoughTime Auto Conditional hidden
-float Property lastSpankedTime Auto Conditional hidden
-float Property lastRomanticTime Auto Conditional hidden
-float Property lastCumInMe Auto Conditional hidden
-float Property lastWolfSex Auto Conditional hidden
-float Property lastHypnoSession Auto Conditional hidden
-float Property lastFadeTat Auto Conditional hidden
-float Property lastMasturbated Auto Conditional hidden
-float Property lastDragon Auto Conditional hidden
-float Property lastTentacle Auto Conditional hidden
-float Property lastOrgasm Auto Conditional hidden
-float Property lastSlutCity Auto Conditional hidden
-float Property lastBreastFed Auto Conditional hidden
-float Property lastBarter Auto Conditional hidden
-float Property hasEggs Auto Conditional hidden
-bool Property isGagged Auto Conditional hidden
-bool Property isNude Auto Conditional hidden
-bool Property isHeeled Auto Conditional hidden
-bool Property isWearingCS Auto Conditional hidden
-bool Property isWearingNP Auto Conditional hidden
-bool Property isWearingSkimpy Auto Conditional hidden
-bool Property beingOrdered Auto Conditional hidden
+float Property cupidFilledUpAmount = 0.0 Auto Conditional hidden
+float Property lastCumOnTime = 164.0 Auto Conditional hidden
+float Property lastPraiseTime = 164.0 Auto Conditional hidden
+float Property lastRoughTime = 164.0 Auto Conditional hidden
+float Property lastSpankedTime = 164.0 Auto Conditional hidden
+float Property lastRomanticTime = 164.0 Auto Conditional hidden
+float Property lastCumInMe = 164.0 Auto Conditional hidden
+float Property lastWolfSex = 164.0 Auto Conditional hidden
+float Property lastHypnoSession = 164.0 Auto Conditional hidden
+float Property lastFadeTat = 164.0 Auto Conditional hidden
+float Property lastMasturbated = 164.0 Auto Conditional hidden
+float Property lastDragon = 164.0 Auto Conditional hidden
+float Property lastTentacle = 164.0 Auto Conditional hidden
+float Property lastOrgasm = 164.0 Auto Conditional hidden
+float Property lastSlutCity = 164.0 Auto Conditional hidden
+float Property lastBreastFed = 164.0 Auto Conditional hidden
+float Property lastBarter = 0.0 Auto Conditional hidden
+float Property hasEggs = 0.0 Auto Conditional hidden
+bool Property isGagged = false Auto Conditional hidden
+bool Property isNude = false Auto Conditional hidden
+bool Property isHeeled = false Auto Conditional hidden
+bool Property isWearingCS = false Auto Conditional hidden
+bool Property isWearingNP = false Auto Conditional hidden
+bool Property isWearingSkimpy = false Auto Conditional hidden
+bool Property beingOrdered = false Auto Conditional hidden
 
-bool Property talkingWithNonWolf Auto Conditional hidden
-bool Property canTake00Razzmatazz Auto Conditional hidden
-bool Property canTake01Cupid Auto Conditional hidden
-bool Property canTake02Lavenderblush Auto Conditional hidden
-bool Property canTake03Carnation Auto Conditional hidden
-bool Property canTake04Tosca Auto Conditional hidden
-bool Property canTake05Blush Auto Conditional hidden
-bool Property canTake06Lilac Auto Conditional hidden
-bool Property canTake07Pink Auto Conditional hidden
-bool Property canTake08Maroon Auto Conditional hidden
-bool Property canTake09Pink2 Auto Conditional hidden
-bool Property canTake10Crusta Auto Conditional hidden
-bool Property canTake11Sangria Auto Conditional hidden
-bool Property canTake12Mystic Auto Conditional hidden
-bool Property canTake13Geraldine Auto Conditional hidden
-bool Property canTake14Crimson Auto Conditional hidden
-bool Property canTake15Cerise Auto Conditional hidden
-bool Property canTake16Plum Auto Conditional hidden
-bool Property canTake17Pompadour Auto Conditional hidden
-bool Property canTake18Tolopea Auto Conditional hidden
-bool Property canTake19Scarlet Auto Conditional hidden
-bool Property canTake20Mahogany Auto Conditional hidden
-bool Property canTake21Tutu Auto Conditional hidden
-bool Property canTake22Tamrind Auto Conditional hidden
-bool Property canTake23Pueblo Auto Conditional hidden
-bool Property canTake24Valencia Auto Conditional hidden
-bool Property canTake25Stiletto Auto Conditional hidden
-bool Property canTake26Neon Auto Conditional hidden
-bool Property canTake27Ruby Auto Conditional hidden
-bool Property canTake28Oblivion Auto Conditional hidden
-bool Property canTake29Carmine Auto Conditional hidden
-bool Property canTake30Pastel Auto Conditional hidden
-bool Property canTake31Monza Auto Conditional hidden
-bool Property canTake32Mulberry Auto Conditional hidden
-bool Property canTake33Paco Auto Conditional hidden
-bool Property canTake34Blood Auto Conditional hidden
-bool Property canTake35Silver Auto Conditional hidden
-bool Property canTake36Carissma Auto Conditional hidden
-bool Property canTake37Temptress Auto Conditional hidden
-bool Property canTake38Bordeaux Auto Conditional hidden
+bool Property talkingWithNonWolf = false Auto Conditional hidden
+bool Property canTake00Razzmatazz = false Auto Conditional hidden
+bool Property canTake01Cupid = false Auto Conditional hidden
+bool Property canTake02Lavenderblush = false Auto Conditional hidden
+bool Property canTake03Carnation = false Auto Conditional hidden
+bool Property canTake04Tosca = false Auto Conditional hidden
+bool Property canTake05Blush = false Auto Conditional hidden
+bool Property canTake06Lilac = false Auto Conditional hidden
+bool Property canTake07Pink = false Auto Conditional hidden
+bool Property canTake08Maroon = false Auto Conditional hidden
+bool Property canTake09Pink2 = false Auto Conditional hidden
+bool Property canTake10Crusta = false Auto Conditional hidden
+bool Property canTake11Sangria = false Auto Conditional hidden
+bool Property canTake12Mystic = false Auto Conditional hidden
+bool Property canTake13Geraldine = false Auto Conditional hidden
+bool Property canTake14Crimson = false Auto Conditional hidden
+bool Property canTake15Cerise = false Auto Conditional hidden
+bool Property canTake16Plum = false Auto Conditional hidden
+bool Property canTake17Pompadour = false Auto Conditional hidden
+bool Property canTake18Tolopea = false Auto Conditional hidden
+bool Property canTake19Scarlet = false Auto Conditional hidden
+bool Property canTake20Mahogany = false Auto Conditional hidden
+bool Property canTake21Tutu = false Auto Conditional hidden
+bool Property canTake22Tamrind = false Auto Conditional hidden
+bool Property canTake23Pueblo = false Auto Conditional hidden
+bool Property canTake24Valencia = false Auto Conditional hidden
+bool Property canTake25Stiletto = false Auto Conditional hidden
+bool Property canTake26Neon = false Auto Conditional hidden
+bool Property canTake27Ruby = false Auto Conditional hidden
+bool Property canTake28Oblivion = false Auto Conditional hidden
+bool Property canTake29Carmine = false Auto Conditional hidden
+bool Property canTake30Pastel = false Auto Conditional hidden
+bool Property canTake31Monza = false Auto Conditional hidden
+bool Property canTake32Mulberry = false Auto Conditional hidden
+bool Property canTake33Paco = false Auto Conditional hidden
+bool Property canTake34Blood = false Auto Conditional hidden
+bool Property canTake35Silver = false Auto Conditional hidden
+bool Property canTake36Carissma = false Auto Conditional hidden
+bool Property canTake37Temptress = false Auto Conditional hidden
+bool Property canTake38Bordeaux = false Auto Conditional hidden
 Bool[] Property canTakeBools  Auto  
 
 function set_color()
@@ -80,7 +80,6 @@ function set_color()
     JValue.cleanPool("SlaveTatsHighLevel")
     int mashedCol = getCombinedColor()
     JMap.setInt(tMenus.neckTattoo, "color", mashedCol)
-	DBGTrace(tMenus.neckTattoo + " "+ mashedCol)
     slavetats.mark_actor(PlayerRef)
 	slavetats.synchronize_tattoos(PlayerRef, false)
 
