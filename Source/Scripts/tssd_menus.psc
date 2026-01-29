@@ -45,6 +45,7 @@ Spell Property TSSD_Satiated Auto
 FormList Property TSSD_ShrinesWithQuests Auto
 
 bool modifierKeyIsDown = false
+bool traitMenuOpen = false
 
 bool [] Property cosmeticSettings Auto Hidden
 
@@ -505,12 +506,12 @@ Function ShowSuccubusTrait(int num)
     if tVals.canTakeBools[num] || PlayerRef.HasPerk( getPerkNumber(num))
         return
     endif
-    if PlayerRef.IsInCombat()
+    if PlayerRef.IsInCombat() || traitMenuOpen
         colorToAdd = num
         RegisterForSingleUpdateGameTime(0.1)
         return
     endif
-
+    traitMenuOpen = true
     tVals.canTakeBools[num] = true
     setNonArrBool(num)
 
@@ -528,7 +529,7 @@ Function ShowSuccubusTrait(int num)
 
     TraitsMenu.AddItem(ResText + nameOf, JDB.solveStr(".tssdtints." + num + ".description"), "menus/tssd/"+nameOf+".dds")
             
-    String[] resultW = TraitsMenu.Show()
+    String[] resultW = TraitsMenu.Show(1,1)
     if resultW[0] == "0" || num == 9 || PlayerRef.HasPerk(getPerkNumber(11))
         PlayerRef.AddPerk(getPerkNumber(num))
         TSSD_SuccubusPerkPoints.Mod(1)
@@ -539,6 +540,7 @@ Function ShowSuccubusTrait(int num)
     if PlayerRef.HasPerk(getPerkNumber(0)) && PlayerRef.HasPerk(getPerkNumber(1))
         ShowSuccubusTrait(21)
     endif
+    traitMenuOpen = false
 EndFunction
 
 Function viewTintProgress()

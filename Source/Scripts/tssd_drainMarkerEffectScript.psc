@@ -11,6 +11,7 @@ ImageSpaceModifier Property AzuraFadeToBlack  Auto
 Spell Property TSSD_DrainedMarker Auto
 
 int lastChecked
+Spell Property TSSD_CharmToPlace Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
     
@@ -18,6 +19,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
     RegisterForModEvent("TSSD_DrainedTargetHovered", "OnHoveredMe")
     RegisterForModEvent("TSSD_WaitReadyTime", "OnAskedWaitTime")    
     RegisterForSingleUpdateGameTime((getDuration() / 3600) * TimeScale.GetValue())
+    akTarget.DispelSpell(TSSD_CharmToPlace)
 endEvent
 
 Event OnHoveredMe(string eventName, string strArg, float numArg, Form sender)

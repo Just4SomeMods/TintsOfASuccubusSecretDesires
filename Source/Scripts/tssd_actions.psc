@@ -37,6 +37,12 @@ GlobalVariable[] Property tssd_deityTrackers Auto
 Idle Property BleedOutStart Auto
 
 
+
+Spell Property TSSD_CharmToPlace Auto
+MagicEffect Property TSSD_CharmForStuff Auto
+Actor Property currentSeduced Auto Conditional hidden
+ReferenceAlias Property TSSD_FollowsPlayer  Auto
+
 ImageSpaceModifier Property AzuraFadeToBlack Auto
 ImageSpaceModifier Property BerserkerMainImod Auto
 
@@ -715,4 +721,19 @@ Form[] Function stripShoes(Actor akTarget)
     unstrips[7] = true
     Form[] equips = Sexlab.StripSlots(akTarget, unstrips, false)
     return equips
+EndFunction
+
+
+
+Function setSeduced(Actor cActor)
+	if currentSeduced && currentSeduced != PlayerRef && currentSeduced.HasMagicEffect(TSSD_CharmForStuff)
+		currentSeduced.DispelSpell(TSSD_CharmToPlace)
+	EndIf
+    if cActor == PlayerRef
+        TSSD_FollowsPlayer.Clear()
+    Else
+        TSSD_FollowsPlayer.ForceRefTo(cActor)
+    EndIf
+    currentSeduced = cActor
+
 EndFunction
