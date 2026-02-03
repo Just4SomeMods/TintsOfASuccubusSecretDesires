@@ -44,7 +44,7 @@
     </tr>
     <tr>
       <th><font color ="#FC636B">Carnation</font></th>
-      <td>Orgasm from romantic sex</td>
+      <td>Defeat enemies while having had a romantic interaction recently.</td>
       <td>romantic</td>
       <td>Instinct</td>
       <td>Drive</td>

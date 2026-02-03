@@ -118,6 +118,7 @@ TSSD_InflationHandler Property tInflation Auto
 tssd_curequestvariables Property tCVals Auto
 TSSD_SucieDailyScript Property tSucieThings Auto
 tssd_SuccubusBrands Property tBrand Auto 
+ReferenceAlias Property ScarletTarget Auto
 
 FormList Property TSSD_ShrinesWithQuests Auto
 
@@ -188,9 +189,9 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
     If PlayerRef.HasPerk(TSSD_Base_CapIncrease1.GetNextPerk().GetNextPerk())
         upTo += 600
     endif
-    if (lastVal > -100 || isDeathModeActivated)
-        SuccubusDesireLevel.SetValue( min(upTo, max( lowerBound,  lastVal + adjustBy) ) )
-    endif
+    ;if (lastVal > -100 || isDeathModeActivated)
+    SuccubusDesireLevel.Mod( min(upTo - lastVal, max(lowerBound - lastVal, adjustBy)) )
+    ;endif
     updateHeartMeter()
 Endfunction
 
@@ -199,7 +200,7 @@ Function updateHeartMeter(bool forceShow = false)
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
     if ((nxtPerc != lastPerc) || forceShow) && !Sexlab.IsActorActive(PlayerRef)
-        T_Show(lastVal, "menus/TSSD/" + nxtPerc + "H.dds" )
+        T_Show(lastVal, "menus/TSSD/" + nxtPerc + "H.dds", 0.0 )
         lastPerc = nxtPerc
     endif
 EndFunction
@@ -490,15 +491,16 @@ bool Function GetHabitationCorrect(Location curLoc)
 EndFunction
 
 Function trySeduceMerchant(Actor tempActor)
-    
     tempActor.SendModEvent("TSSD_SeduceMerchant", "", 0.0 )
 EndFunction
 
 Function onGameReload()
+    RegisterForCrosshairRef()
     if SuccubusDesireLevel.GetValue() > -101
         RegisterSuccubusEvents()
     endif
-    
+    ;DBGTrace(TSSD_DeityAllPerk.GetName())
+    ;DBGTrace(TSSD_DeityAllPerk.SetName("GETDUNKEDON!"))
     myBinding = SkyInteract_Util.GetSkyInteract()
     tMenus.cosmeticSettings = ReadInCosmeticSetting()
     gainSuccubusXP(0)
@@ -518,7 +520,6 @@ Function onGameReload()
     last_checked = Utility.GetCurrentGameTime() * 24
     tOrgasmLogic.onGameReload()
     tInflation.onGameReload()
-    updateHeartMeter(true)
     (TSSD_CursedWoman as TSSD_SucieDailyScript).onGameReload()
 Endfunction
 
@@ -558,12 +559,20 @@ Endfunction
 ;Events ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-    DBGTrace(asStatFilter)
+    if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
+        DBGTrace(asStatFilter)
+    EndIf
     if !PlayerRef.isInCombat() && PlayerRef.HasPerk(getPerkNumber(19)) && lastScarletTalk > 24 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
         int toIncrease = 2
         Actor[] myThralls = PO3_SKSEFunctions.GetAllActorsInFaction(TSSD_EnthralledFaction)
         if myThralls.Length >= 1
-            T_Show("Oh I gotta talk with " + myThralls[Utility.RandomInt(0, myThralls.Length - 1)].GetDisplayName() +  " about that!", "menus/tssd/small/scarlet.dds")
+            Actor cThing = myThralls[Utility.RandomInt(0, myThralls.Length - 1)]
+            if !cThing.IsDead()
+                T_Show("Oh I gotta talk with " + cThing.GetDisplayName() +  " about that!", "menus/tssd/small/scarlet.dds")
+                ScarletTarget.ForceRefTo(cThing)
+                tMenus.tssd_tints_tracker.SetObjectiveCompleted(119, false)
+                tMenus.tssd_tints_tracker.SetObjectiveDisplayed(119)
+            endif
         else
             T_Show("I am so alone!")
             toIncrease += 2
@@ -618,6 +627,13 @@ Event OnUpdateGameTime()
     updateHeartMeter(timeBetween > 6)
     
 
+    if tMenus.neckTattoo
+        int intensity =( 255 * max(0.5, min(1,(1.0 - succNeedVal / 100.0)))) as int
+        int realColor = cArrToInt(intensity, intensity, intensity)
+        JMap.setInt(tMenus.neckTattoo, "glow", realColor)
+        slavetats.mark_actor(PlayerRef)
+        slavetats.synchronize_tattoos(PlayerRef, false)
+    endif
     RegisterForSingleUpdateGameTime(0.4)
 
 endEvent

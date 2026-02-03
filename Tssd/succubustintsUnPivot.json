@@ -61,7 +61,7 @@
             "Desperate for a refill.",
             "Please don't leave any behind."
         ],
-        "description":"You colour is cum-addiction cupid! If you embrace this color of your desire, you gain immunity to diseases and poisons. You also have increased max magicka based on how filled up you are. But if you have no cum inside you, you take double damage from ice and fire.",
+        "description":"You colour is cum-addiction cupid! If you embrace this color of your desire, you gain immunity to diseases and poisons. Your spells costs get reduced by up to 25% depending on how filled up you are. But if you have no cum inside you, you take double damage from ice and fire.",
         "famecat":[
             "Oral",
             "Anal",
@@ -101,7 +101,7 @@
         "needyText":[
             ""
         ],
-        "description":"You long for the destruction of trust, so your new tint is Lavenderblush! Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet.",
+        "description":"You long for the destruction of trust, so your new tint is Lavenderblush! Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet. If you have destroyed 20 relationships your new enchantments are 50% stronger.",
         "famecat":[
             "Unfaithful"
         ],
@@ -139,7 +139,7 @@
         "famecat":[
             "Gentle"
         ],
-        "unlockMethod":"Orgasm from romantic sex",
+        "unlockMethod":"Defeat enemies while having had a romantic interaction recently.",
         "color":[
             252,
             99,

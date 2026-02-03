@@ -268,6 +268,20 @@ bool Function isSingle(Actor ak) Global
     return !(ak.HasAssociation(akCourting) || ak.HasAssociation(akSpouse))
 Endfunction
 
+Actor Function getSpouseOrCourting(Actor ak) Global
+    if !ak
+        return none
+    EndIf
+    Actor getSps = TTRF_RelationsFinder.GetSpouse(ak)
+    if !getSps
+        getSps = TTRF_RelationsFinder.GetCourting(ak)
+        if !getSPS
+            return none
+        EndIf
+    endif
+    return getSps
+EndFunction
+
 Function DoFadeOut (Float Time) Global
 	(Game.GetFormFromFile(0xF756F, "skyrim.esm") as ImageSpaceModifier).ApplyCrossFade (Time)
   	Utility.Wait (Time)
@@ -455,4 +469,20 @@ int Function getCombinedColor() Global
     mashedCol += (((combinedCols[1]  / numOfTints) as int) * 256)
     mashedCol += (((combinedCols[0] / numOfTints) as int) * 256 * 256)
     return mashedCol
+EndFunction
+
+int Function cArrToInt(int R, int G, int B) Global
+    return R * 256 * 256 + G * 256 + B
+EndFunction
+
+
+
+Function increaseFame(string NameOf, float stage = 1.0) Global
+    Int EventHandle
+    EventHandle = ModEvent.Create("SLSF_Reloaded_SendManualFameGain")
+    ModEvent.PushString(EventHandle, NameOf)
+    ModEvent.PushString(EventHandle, "Current")
+    ModEvent.PushInt(EventHandle, 0) 
+    ModEvent.PushInt(EventHandle, (2  * stage) as int)
+    ModEvent.Send(EventHandle)
 EndFunction

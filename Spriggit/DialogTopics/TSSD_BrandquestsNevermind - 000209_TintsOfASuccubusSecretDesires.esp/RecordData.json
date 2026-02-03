@@ -1,0 +1,11 @@
+{
+  "FormKey": "000209:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "TSSD_BrandquestsNevermind",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Ehm, nevermind."
+  },
+  "Branch": "0001F5:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "0001F3:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

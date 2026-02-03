@@ -116,7 +116,6 @@ local pools = {
     "Spank me!"
   }
 
-
 }
 
 lastDialogue = ""

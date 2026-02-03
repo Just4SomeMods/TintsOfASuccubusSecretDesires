@@ -8,9 +8,13 @@ GlobalVariable Property TSSD_SuccubusTraits Auto
 
 sslActorStats Property sslStats Auto
 SexLabFramework Property SexLab Auto
+SLSF_Reloaded_VisibilityManager Property visManager Auto
 
 Event onInit()
     RegisterForModEvent("TSSD_SuccubusTypeSelected", "CheckFlagsSLSF")
+    if (Game.GetModByName("SLSF Reloaded.esp") != 255)
+        visManager = Game.GetFormFromFile(0x80a, "SLSF Reloaded.esp") as SLSF_Reloaded_VisibilityManager
+    EndIf
 EndEvent
 
 Function CheckFlagsSLSF()
@@ -18,6 +22,7 @@ Function CheckFlagsSLSF()
     int EventHandle = ModEvent.Create("SLSF_Reloaded_RequestModRegisterState")
     ModEvent.PushString(EventHandle, "TintsOfASuccubusSecretDesires.esp")
     ModEvent.Send(EventHandle)
+
 Endfunction
 
 Function SetFlagsSLSF(string modName, bool isActive)

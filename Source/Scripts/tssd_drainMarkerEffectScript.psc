@@ -12,21 +12,25 @@ Spell Property TSSD_DrainedMarker Auto
 
 int lastChecked
 Spell Property TSSD_CharmToPlace Auto
+Spell Property TSSD_CharmSelf Auto
+float myDuration
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
     
     cActor = akTarget
+    myDuration = getDuration()
     RegisterForModEvent("TSSD_DrainedTargetHovered", "OnHoveredMe")
     RegisterForModEvent("TSSD_WaitReadyTime", "OnAskedWaitTime")    
-    RegisterForSingleUpdateGameTime((getDuration() / 3600) * TimeScale.GetValue())
+    RegisterForSingleUpdateGameTime((myDuration / 3600) * TimeScale.GetValue())
     akTarget.DispelSpell(TSSD_CharmToPlace)
+    akTarget.DispelSpell(TSSD_CharmSelf)
 endEvent
 
 Event OnHoveredMe(string eventName, string strArg, float numArg, Form sender)
-    if self
-        SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-        int thisChecked = ( ((getDuration() - GetTimeElapsed()) / 3600 * (timescale.GetValue() )) as int)
+    if self && cActor
         if (sender as Actor) == cActor
+            SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+            int thisChecked = ( ((myDuration - GetTimeElapsed()) / 3600 * (timescale.GetValue() )) as int)
             myBinding.Add("tssd_getTargetCross", "                         ready in "+ thisChecked  + " h" , -1)
         endif
     endif
@@ -37,7 +41,7 @@ Event OnAskedWaitTime(string eventName, string strArg, float numArg, Form sender
         
         AzuraFadeToBlack.Apply()
         
-        GameHour.Mod((getDuration() - GetTimeElapsed()) / 3600 * (timescale.GetValue() ))
+        GameHour.Mod((myDuration - GetTimeElapsed()) / 3600 * (timescale.GetValue() ))
         if PlayerRef.HasPerk(TSSD_Tint_Scarlet)
             TSSD_Satiated.Cast(PlayerRef,PlayerRef)
         EndIf

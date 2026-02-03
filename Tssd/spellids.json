@@ -48,6 +48,18 @@
         0
     ],
     [
+        "sTSSD_CharmSelfDur0:Spells",
+        true,
+        "519",
+        0
+    ],
+    [
+        "sTSSD_CharmToPlaceDur0:Spells",
+        true,
+        "513",
+        0
+    ],
+    [
         "sTSSD_CompelledSpellMag0:Spells",
         true,
         "325",

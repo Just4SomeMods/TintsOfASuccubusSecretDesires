@@ -1,0 +1,12 @@
+{
+  "FormKey": "000203:TintsOfASuccubusSecretDesires.esp",
+  "EditorID": "tssd_queststartMoveLocation",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Can you follow me for a bit?"
+  },
+  "Priority": 2.0,
+  "Branch": "0000BD:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "000001:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

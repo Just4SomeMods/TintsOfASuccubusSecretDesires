@@ -194,6 +194,11 @@
                 },
                 {
                     "type": "text",
+                    "text": "TSSD_HasCuckedFaction",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
                     "text": "TSSD_HypnoMaster",
                     "help": "$showStuff"
                 },
@@ -521,7 +526,7 @@
                     "text": "TSSD_ReverseBodySkill",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 85,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -533,7 +538,7 @@
                     "text": "TSSD_ReverseDrainSkill",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 85,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -545,7 +550,7 @@
                     "text": "TSSD_ReverseSeductionSkill",
                     "help": "$globalSettingHelp",
                     "valueOptions": {
-                        "min": 0,
+                        "min": 85,
                         "max": 999999,
                         "step": 1,
                         "sourceType": "GlobalValue",
@@ -915,6 +920,16 @@
                 },
                 {
                     "type": "text",
+                    "text": "Charm for stuff",
+                    "help": "Get someone to follow you. If a combat starts this effect ends."
+                },
+                {
+                    "type": "text",
+                    "text": "Charm for stuff",
+                    "help": "Get someone to follow you. If a combat starts this effect ends."
+                },
+                {
+                    "type": "text",
                     "text": "Long Nails",
                     "help": "Your claw-like nails deal <mag> more damage."
                 },
@@ -1150,6 +1165,16 @@
                 {
                     "type": "text",
                     "text": "TSSD_CursedWoman",
+                    "help": "$showStuff"
+                }
+            ]
+        },
+        {
+            "pageDisplayName": "DEBUG: Packages",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "TSSD_QuickFollowPackage",
                     "help": "$showStuff"
                 }
             ]
@@ -1943,7 +1968,7 @@
                 },
                 {
                     "type": "text",
-                    "text": "Blee 'em dry",
+                    "text": "Bleed 'em dry",
                     "help": "Your dagger attacks drain a tiny bit of life from enemies.\n",
                     "action": {
                         "type": "CallFunction",
@@ -2728,7 +2753,7 @@
                 {
                     "type": "text",
                     "text": "Lavenderblush",
-                    "help": "Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet.\n",
+                    "help": "Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet. If you have destroyed 20 relationships your new enchantments are 50% stronger.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -2840,7 +2865,7 @@
                 {
                     "type": "text",
                     "text": "Mystic",
-                    "help": "Your potions and poisons are 10% stronger and while you are digesting something, you increase your chance of picking an additional ingredient by 10%. You also learn all effects from eating. Professional alchemists are disturbed by your tendency to swallow their merchandise and charge you 20% worse prices.\n",
+                    "help": "Your potions and poisons are 10% stronger and while you are digesting something, you increase your chance of picking an additional ingredient by 10%. You also learn all effects from eating. Alchemists are disturbed by your tendency to swallow their merchandise and charge you 20% worse prices.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3050,7 +3075,7 @@
                 {
                     "type": "text",
                     "text": "Stiletto",
-                    "help": "You have increased speech while wearing heels. You take more damage while sprinting. While walking in heels you resist half the damage from far away enemies.\n",
+                    "help": "You have increased speech while wearing heels. You take more damage while sprinting. While in heels and not sprinting you resist half the physical damage from far away enemies and 75% of all elemental damage while standing still in heels.\n",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",
@@ -3341,6 +3366,42 @@
                         "params": [
                             "{b}0",
                             "100",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_CharmSelfDur0:Spells",
+                    "type": "input",
+                    "text": "Charmed! Effect 0 Dur",
+                    "help": "Charm for stuff 600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "519",
+                            "{i}0",
+                            "{value}"
+                        ]
+                    }
+                },
+                {
+                    "id": "sTSSD_CharmToPlaceDur0:Spells",
+                    "type": "input",
+                    "text": "Follow me for... Effect 0 Dur",
+                    "help": "Charm for stuff 600",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "adjustSpell",
+                        "params": [
+                            "{b}0",
+                            "513",
                             "{i}0",
                             "{value}"
                         ]
@@ -4052,7 +4113,7 @@
                     "id": "sTSSD_PoisonForSuccubusMag0:Spells",
                     "type": "input",
                     "text": "RejectionPoison Effect 0 Mag",
-                    "help": "Rejection Poison 1",
+                    "help": "Rejection Poison 3",
                     "action": {
                         "type": "CallFunction",
                         "form": "TintsOfASuccubusSecretDesires.esp|001",

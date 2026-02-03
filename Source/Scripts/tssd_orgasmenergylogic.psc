@@ -69,6 +69,10 @@ Perk Property TSSD_DeityMaraPerk Auto
 Perk Property TSSD_Tint_Scarlet Auto
 Perk Property TSSD_Together_Lightning Auto
 
+ReferenceAlias Property LavenderTarget Auto
+ReferenceAlias Property LavenderCuckTarget Auto
+Faction Property TSSD_HasCuckedFaction Auto
+
 
 ;;;; BEGIN TINTS
 
@@ -227,6 +231,7 @@ Event PlayerSceneStart(Form FormRef, int tid)
     bool hasNobility = false
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
+        DBGTrace(consentingActor.GetDisplayName())
         if consentingActor != PlayerRef
             if consentingActor.GetFactionRank(TSSD_HypnoMaster) >= 1
                 tVals.beingOrdered = true
@@ -252,6 +257,24 @@ Event PlayerSceneStart(Form FormRef, int tid)
             EndIf
             if consentingActor.GetFactionRank(GovRuling) >= 0
                 hasNobility = true
+            EndIf
+            
+            if !_thread.GetSubmissive(PlayerRef) && !_thread.GetSubmissive(consentingActor)
+                DBGTrace(consentingActor.GetDisplayName())
+                Actor spouseIn = getSpouseOrCourting(consentingActor)
+                if spouseIn && consentingActor.GetFactionRank(TSSD_HasCuckedFaction) < 1
+                    incrValAndCheck(2, 1)
+                    consentingActor.SetFactionRank(TSSD_HasCuckedFaction, 1 )
+                    spouseIn.SetFactionRank(TSSD_HasCuckedFaction, 1 )
+                    tVals.ruinedRelationships += 1
+                    if (consentingActor == (LavenderTarget.GetReference() As Actor) || consentingActor == (LavenderCuckTarget.GetReference() As Actor))
+                        tssd_tints_tracker.setObjectiveCompleted(2)
+                        LavenderCuckTarget.Clear()
+                        LavenderTarget.Clear()
+                        tActions.gainSuccubusXP(1000)
+                        increaseFame("Slut", 5)
+                    endif
+                endif
             EndIf
         endif
         indexIn += 1
@@ -319,9 +342,6 @@ Event PlayerSceneStart(Form FormRef, int tid)
     if tActions.deathModeActivated
         BerserkerMainImod.ApplyCrossFade(1)
     endif
-
-    ; PEventScript 
-
     
 	hadAnnouncement = false
 	possibleAnnouncements = new int[1]	
@@ -343,15 +363,17 @@ Event PlayerSceneStart(Form FormRef, int tid)
 		_thread.SetEnjoyment(PlayerRef, 100)
         incrValAndCheck(24, 0)
 	endif
+
  	while indexIn < aIn.Length
-        Actor cA = aIn[indexIN]
-		if cA.GetRace().HasKeyword(ActorTypeCreature)
-			_thread.SetEnjoyment(cA, 100)
-		elseif cA != PlayerRef
-			_thread.ModEnjoymentMult(cA, (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 1000, true )
+        Actor consentingActor = aIn[indexIN] as Actor
+		if consentingActor.GetRace().HasKeyword(ActorTypeCreature)
+			_thread.SetEnjoyment(consentingActor, 100)
+		elseif consentingActor && consentingActor != PlayerRef
+            _thread.ModEnjoymentMult(consentingActor, (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 1000, true )
+            
 		endif
-        if cA.GetFactionRank(TSSD_EnthralledFaction) >= 1
-            _thread.ModEnjoymentMult(cA, 3)
+        if consentingActor.GetFactionRank(TSSD_EnthralledFaction) >= 1
+            _thread.ModEnjoymentMult(consentingActor, 3)
         endif
 		indexIn += 1
 	endwhile
@@ -383,8 +405,8 @@ Event PlayerSceneEnd(Form FormRef, int tid)
     if tActions.deathModeActivated
         int indexF = 0
         while indexF < tEvents.currentFollowers.Length
-            Actor cA = tEvents.currentFollowers[indexF]
-            SexlabThread SLThread = Sexlab.GetThreadByActor(cA)
+            Actor consentingActor = tEvents.currentFollowers[indexF]
+            SexlabThread SLThread = Sexlab.GetThreadByActor(consentingActor)
             sslThreadController _thread =  Sexlab.GetController(SLThread.GetThreadID())
 			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
 			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
@@ -397,6 +419,7 @@ Event PlayerSceneEnd(Form FormRef, int tid)
         tActions.toggleDeathMode(true)
     endif
     tVals.beingOrdered = false
+    tActions.RegisterForCrosshairRef()
 EndEvent
 
 
@@ -434,10 +457,6 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
             incrValAndCheck(34, 1)
         EndIf
         
-
-        if !isSingle(WhoCums)
-            incrValAndCheck(2, 1)
-        EndIf
 
         if whoCums.GetLevel() >= 30
             incrValAndCheck(38, 1)

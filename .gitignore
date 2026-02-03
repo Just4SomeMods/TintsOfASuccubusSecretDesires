@@ -85,3 +85,5 @@ BCK*
 *.webp
 .SLTScripts
 meta.ini
+*.obj
+*.mtl

@@ -2,15 +2,73 @@
 ;NEXT FRAGMENT INDEX 32
 Scriptname TSSD_QF_tssd_tints_tracker_06000113 Extends Quest Hidden
 
+;BEGIN ALIAS PROPERTY LavenderTarget
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_LavenderTarget Auto
+;END ALIAS PROPERTY
+
 ;BEGIN ALIAS PROPERTY PlayerAlias
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_PlayerAlias Auto
 ;END ALIAS PROPERTY
 
+;BEGIN ALIAS PROPERTY ScarletTarget
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_ScarletTarget Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY LavenderCuckTarget
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_LavenderCuckTarget Auto
+;END ALIAS PROPERTY
+
+;BEGIN FRAGMENT Fragment_8
+Function Fragment_8()
+;BEGIN CODE
+TSSD_SuccubusPerkPoints.Mod(1)
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;BEGIN FRAGMENT Fragment_30
 Function Fragment_30()
 ;BEGIN CODE
 Game.GetPlayer().SendModEvent("TSSD_Inflate", "carmine",  1)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_13
+Function Fragment_13()
+;BEGIN AUTOCAST TYPE tssd_tints_variables
+Quest __temp = self as Quest
+tssd_tints_variables kmyQuest = __temp as tssd_tints_variables
+;END AUTOCAST
+;BEGIN CODE
+tEvents.addToLilac()
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_31
+Function Fragment_31()
+;BEGIN AUTOCAST TYPE tssd_tints_variables
+Quest __temp = self as Quest
+tssd_tints_variables kmyQuest = __temp as tssd_tints_variables
+;END AUTOCAST
+;BEGIN CODE
+kmyQuest.set_color()
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_4
+Function Fragment_4()
+;BEGIN CODE
+PlayerRef.SetFactionRank(sla_arousal, 99)
+PlayerRef.SetFactionRank(sla_arousal_locked, 1)
+SetObjectiveCompleted(5, true)
+SetObjectiveDisplayed(5, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -36,49 +94,6 @@ EndFunction
 Function Fragment_24()
 ;BEGIN CODE
 SetObjectiveDisplayed(21, true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_8
-Function Fragment_8()
-;BEGIN CODE
-TSSD_SuccubusPerkPoints.Mod(1)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_31
-Function Fragment_31()
-;BEGIN AUTOCAST TYPE tssd_tints_variables
-Quest __temp = self as Quest
-tssd_tints_variables kmyQuest = __temp as tssd_tints_variables
-;END AUTOCAST
-;BEGIN CODE
-kmyQuest.set_color()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_13
-Function Fragment_13()
-;BEGIN AUTOCAST TYPE tssd_tints_variables
-Quest __temp = self as Quest
-tssd_tints_variables kmyQuest = __temp as tssd_tints_variables
-;END AUTOCAST
-;BEGIN CODE
-tEvents.addToLilac()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_4
-Function Fragment_4()
-;BEGIN CODE
-PlayerRef.SetFactionRank(sla_arousal, 99)
-PlayerRef.SetFactionRank(sla_arousal_locked, 1)
-SetObjectiveCompleted(5, true)
-SetObjectiveDisplayed(5, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT

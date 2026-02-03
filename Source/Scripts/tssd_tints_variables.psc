@@ -5,6 +5,9 @@ tssd_PlayerEventsScript Property tEvents Auto conditional
 import tssd_utils
 tssd_menus Property tMenus Auto
 Actor Property PlayerRef Auto
+ReferenceAlias Property LavenderTarget Auto
+ReferenceAlias Property LavenderCuckTarget Auto
+Faction Property TSSD_HasCuckedFaction Auto
 
 float Property cupidFilledUpAmount = 0.0 Auto Conditional hidden
 float Property lastCumOnTime = 164.0 Auto Conditional hidden
@@ -24,6 +27,7 @@ float Property lastSlutCity = 164.0 Auto Conditional hidden
 float Property lastBreastFed = 164.0 Auto Conditional hidden
 float Property lastBarter = 0.0 Auto Conditional hidden
 float Property hasEggs = 0.0 Auto Conditional hidden
+int Property ruinedRelationships = 1 Auto Conditional hidden
 bool Property isGagged = false Auto Conditional hidden
 bool Property isNude = false Auto Conditional hidden
 bool Property isHeeled = false Auto Conditional hidden
@@ -74,6 +78,7 @@ bool Property canTake37Temptress = false Auto Conditional hidden
 bool Property canTake38Bordeaux = false Auto Conditional hidden
 Bool[] Property canTakeBools  Auto  
 
+
 function set_color()
 
 	
@@ -82,5 +87,39 @@ function set_color()
     JMap.setInt(tMenus.neckTattoo, "color", mashedCol)
     slavetats.mark_actor(PlayerRef)
 	slavetats.synchronize_tattoos(PlayerRef, false)
+    RegisterForUpdateGameTime(1)
 
 EndFunction
+
+Event OnInit()
+    RegisterForUpdateGameTime(1)
+    RegisterForMenu("Dialogue Menu")
+EndEvent
+
+Event OnUpdateGameTime()
+    RegisterForMenu("Dialogue Menu")
+    ; DBGTrace("UPDATELEL")
+EndEvent
+
+Event OnMenuOpen(string MenuName)
+    if MenuName == "Dialogue Menu"
+        if playerref.hasperk(getPerkNumber(2)) && !LavenderTarget.GetReference()
+            Utility.Wait(0.5)
+            Actor tempActor = SPE_Actor.GetPlayerSpeechTarget()
+            if tempActor && !isSingle(tempActor) && tempActor.GetFactionRank(TSSD_HasCuckedFaction) < 1
+                LavenderTarget.ForceRefTo(tempActor)
+                Actor getSps = TTRF_RelationsFinder.GetSpouse(tempActor)
+                if !getSps
+                    getSps = TTRF_RelationsFinder.GetCourting(tempActor)
+                endif
+                DBGTrace(getSPS)
+                LavenderCuckTarget.ForceRefTo(getSps)
+                tempActor.SetFactionRank(TSSD_HasCuckedFaction, 0)
+                getSps.SetFactionRank(TSSD_HasCuckedFaction, 0)
+                SetObjectiveCompleted(2, false)
+                SetObjectiveDisplayed(2, false)
+                SetObjectiveDisplayed(2)
+            EndIf
+        EndIf
+    EndIf
+EndEvent

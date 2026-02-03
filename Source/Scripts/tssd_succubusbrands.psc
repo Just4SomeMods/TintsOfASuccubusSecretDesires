@@ -47,14 +47,12 @@ Function activateStuff()
         dailyGrind = (Utility.GetCurrentGameTime() as int)
         TSSD_SuccubusPerkPoints.Mod(1)
         lastCheckAt = lastTimeActive
-        DBGTrace("SHOULD ONLY APPEAR ONCE")
-        
 
         int template = JMap.object()
         int matches = JArray.object()
         int tattoo = 0
 
-        JMap.setStr(template, "section", "TSSD_Tats")
+        JMap.setStr(template, "section", "tssd_tats")
         JMap.setStr(template, "name", "Task")
 
         slavetats.query_available_tattoos(template, matches)
@@ -67,10 +65,13 @@ Function activateStuff()
         slavetats.query_applied_tattoos(PlayerRef, template, matches)
         
         brandTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
-        JValue.addToPool(brandTat, "TSSD_Tats")
+        JValue.addToPool(brandTat, "tssd_tats")
         JMap.setInt(brandTat, "glow", 0)
         slavetats.synchronize_tattoos(PlayerRef, false)
         didStartUpAlready = true
+        if tActions.tMenus.slsfListener.visManager
+            tActions.tMenus.slsfListener.visManager.BodyTattooExcluded[JMap.GetInt(brandTat, "slot")] = true
+    EndIf
     endif
     RegisterForUpdateGameTime(1)
     RegisterForMenu("Sleep/Wait Menu")
@@ -96,7 +97,6 @@ Event OnMenuClose(string MenuName)
 EndEvent
 
 Event OnUpdateGameTime()
-    DBGTrace("Once Per Hour")
     bool hasVibrancy = PlayerRef.HasPerk(TSSD_AddictingBrand_Vibrancy)
     amountOfBrands =  ( (PlayerRef.HasPerk(TSSD_AddictingBrand_Task) as int) +  (hasVibrancy as int)+(PlayerRef.HasPerk(TSSD_AddictingBrand_CumChained) as int)+(PlayerRef.HasPerk(TSSD_AddictingBrand_Sway) as int))
     if hasVibrancy
@@ -141,7 +141,7 @@ Function swapTat()
     int indexIn = 0
     int randomToday = 0
     ;/while indexIn < allBrands.Length
-        slavetats.simple_remove_tattoo(PlayerRef, "TSSD_Tats", allBrands[indexIn], last = false, silent = true)
+        slavetats.simple_remove_tattoo(PlayerRef, "tssd_tats", allBrands[indexIn], last = false, silent = true)
         if randomToday == 0
             if indexIn == 1 && PlayerRef.HasPerk(TSSD_AddictingBrand_CumChained) && Utility.RandomFloat() > 0.8
                 randomToday = 1
@@ -153,7 +153,7 @@ Function swapTat()
         EndIf
         indexIn +=1
     EndWhile/;
-    slavetats.simple_add_tattoo(PlayerRef, "TSSD_Tats", allBrands[randomToday], last = true, silent = false, color = 0 )
+    slavetats.simple_add_tattoo(PlayerRef, "tssd_tats", allBrands[randomToday], last = true, silent = false, color = 0 )
     currentTat = randomToday
     
 EndFunction
@@ -177,6 +177,7 @@ Function setTaskActive(int setTo = -1)
     if setTo < 1
         setTo = Utility.RandomInt(baseThing * 100 + 1, baseThing * 100 +  lengsOf[baseThing] - 1 )
     EndIf
+    SetStage(1)
     TSSD_BrandQuestActive.SetValue(setTo)
     SetObjectiveCompleted(setTo, false)
     SetObjectiveDisplayed(setTo, true)
@@ -408,14 +409,4 @@ Function TasksTold(string taskTold, Actor talkerLel)
     JMap.setInt(brandTat, "glow", 0)
     slavetats.mark_actor(PlayerRef)
     slavetats.synchronize_tattoos(PlayerRef, false)
-EndFunction
-
-Function increaseFame(string NameOf, float stage = 1.0)
-    Int EventHandle
-    EventHandle = ModEvent.Create("SLSF_Reloaded_SendManualFameGain")
-    ModEvent.PushString(EventHandle, NameOf)
-    ModEvent.PushString(EventHandle, "Current")
-    ModEvent.PushInt(EventHandle, 0) 
-    ModEvent.PushInt(EventHandle, (2  * stage) as int)
-    ModEvent.Send(EventHandle)
 EndFunction

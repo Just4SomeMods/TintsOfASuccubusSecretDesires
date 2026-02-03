@@ -46,6 +46,7 @@ Faction Property TSSD_IsInCourtingFaction Auto
 
 tssd_SuccubusBrands Property tBrand Auto 
 
+ReferenceAlias Property ScarletTarget Auto
 
 PlayerVampireQuestScript Property PlayerVampireQuest  Auto  
 idle Property IdleVampireStandingFront Auto
@@ -74,7 +75,7 @@ Event DialogueFinished(string eventName, string strArg, float numArg, Form sende
         endif
     elseif strArg == "TSSD_00155"
         return
-    elseif strArg == "TSSD_000DD"
+    elseif strArg == "TSSD_000DD" || strArg == "TSSD_Task_Nevermind"
         UnRegisterForMenu("Dialogue Menu")
         lastDialogue = ""
         lastDialoguePartner = none
@@ -108,6 +109,7 @@ Event OnMenuClose(String MenuName)
         endif
         if lastDialogue == "TSSD_000C7"
             lastDialoguePartner.SendModEvent("TSSD_RecejctedEvent", "", 0.0)
+            lastDialogue = ""
         elseif StringUtil.Find(lastDialogue, "TSSD_Tasks_") >= 0
             tBrand.TasksTold(lastDialogue, lastDialoguePartner )
         elseif lastDialogue == "TSSD_000C6"
@@ -119,6 +121,8 @@ Event OnMenuClose(String MenuName)
         elseif lastDialogue == "TSSD_000CD"
             PlayerRef.RemoveItem(Gold001, 20)
             GenericRefreshPSex(lastDialoguePartner, true)
+        elseif lastDialogue == "TSSD_0020E"
+            GenericRefreshPSex(lastDialoguePartner, true, "-aggressive, -bound")            
         elseif lastDialogue == "TSSD_000E1"
             PlayerRef.AddItem(Gold001, 50)
             GenericRefreshPSex(lastDialoguePartner, false)
@@ -140,6 +144,9 @@ Event OnMenuClose(String MenuName)
                 endif
                 tOrgasmLogic.incrValAndCheck(15,1)
             endif
+            tssd_tints_tracker.SetObjectiveCompleted(119, true)
+            ScarletTarget.Clear()
+            tActions.gainSuccubusXP(100)
         elseif StringUtil.Find( "TSSD_000A1 TSSD_000A2 TSSD_000A3", lastDialogue) >= 0
             int mxAmount = 2
             if PlayerRef.HasPerk(TSSD_Base_PolyThrall3)
@@ -175,7 +182,7 @@ Event OnMenuClose(String MenuName)
             tssd_tints_tracker.SetObjectiveCompleted(19, true)
             tssd_tints_tracker.SetObjectiveDisplayed(19, true)
             if tMenus.cosmeticsettings[5] && lastDialoguePartner.GetActorBase().GetSex() == 1
-                slavetats.simple_add_tattoo(lastDialoguePartner, "TSSD_Tats", "Mara's Gift", last = true   )
+                slavetats.simple_add_tattoo(lastDialoguePartner, "tssd_tats", "Mara's Gift", last = true   )
             EndIf
 
         elseif lastDialogue == "TSSD_00109"

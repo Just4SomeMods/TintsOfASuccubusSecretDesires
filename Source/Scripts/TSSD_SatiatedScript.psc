@@ -21,5 +21,7 @@ EndEvent
 
 
 Event OnUpdateGameTime()
-    Dispel()
+	if self
+	    Dispel()
+	EndIf
 endEvent

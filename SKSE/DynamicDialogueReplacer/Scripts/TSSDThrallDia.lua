@@ -1262,7 +1262,11 @@ local pools = {
     },
     { -- Npc Positive
       "Yes."
-    } }
+    } },
+  TSSD_0020E = {
+    {
+      "I shouldn't, but I can not resist you.", "May Mara forgive me."
+    }}
 
 
 }

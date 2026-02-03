@@ -49,7 +49,7 @@ bool traitMenuOpen = false
 
 bool [] Property cosmeticSettings Auto Hidden
 
-string currentVersion = "1.04.01a"
+string currentVersion = "1.04.02"
 
 
 ; ImageSpaceModifier Property AzuraFadeToBlack  Auto 
@@ -168,6 +168,9 @@ Function OpenGrandeMenu()
     if modifierKeyIsDown
         CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
         return
+    EndIf
+    if !PlayerRef.IsInCombat()
+        tActions.updateHeartMeter()
     EndIf
     ObjectReference ref = Game.GetCurrentCrosshairRef()
     if ref
@@ -317,11 +320,14 @@ Function startSuccubusLife()
     
     slavetats.query_applied_tattoos(PlayerRef, template, matches)
     int nwTat = slavetats.add_and_get_tattoo(PlayerRef, tattoo, -1, false, true)
-    JValue.addToPool(nwTat, "TSSD_Tats")
-    JMap.setInt(nwTat, "glow", 16777215)
+    JValue.addToPool(nwTat, "tssd_tats")
+    JMap.setInt(nwTat, "glow", 0)
     JMap.setInt(nwTat, "locked", 1)
     slavetats.synchronize_tattoos(PlayerRef, false)
     neckTattoo = nwTat
+    if tActions.slsfListener.visManager
+        tActions.slsfListener.visManager.FaceTattooExcluded[JMap.GetInt(nwTat, "slot")] = true
+    EndIf
 
 EndFunction
 
@@ -355,9 +361,9 @@ Function OpenSuccubusCosmetics()
                 while tIndex < tTLengths
                     Actor cA = myThralls[tIndex]
                     if cosmeticSettings[index]
-                        slavetats.simple_add_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1 , silent = true  )
+                        slavetats.simple_add_tattoo(cA, "tssd_tats", "Mara's Gift", last = tIndex ==  tTLengths - 1 , silent = true  )
                     else
-                        slavetats.simple_remove_tattoo(cA, "TSSD_Tats", "Mara's Gift", last = tIndex ==  tTLengths - 1, silent = true  )
+                        slavetats.simple_remove_tattoo(cA, "tssd_tats", "Mara's Gift", last = tIndex ==  tTLengths - 1, silent = true  )
                     endif
                     tIndex += 1
                 EndWhile
@@ -534,7 +540,13 @@ Function ShowSuccubusTrait(int num)
         PlayerRef.AddPerk(getPerkNumber(num))
         TSSD_SuccubusPerkPoints.Mod(1)
         tOrgasmLogic.incrValAndCheck(11,1)
-        tssd_tints_tracker.SetObjectiveDisplayed(num, true)
+        if tssd_tints_tracker.isRunning()
+            tssd_tints_tracker.start()
+        EndIf
+        tssd_tints_tracker.SetStage(0)
+        if num != 2
+            tssd_tints_tracker.SetObjectiveDisplayed(num, true)
+        EndIf
     endif
 
     if PlayerRef.HasPerk(getPerkNumber(0)) && PlayerRef.HasPerk(getPerkNumber(1))

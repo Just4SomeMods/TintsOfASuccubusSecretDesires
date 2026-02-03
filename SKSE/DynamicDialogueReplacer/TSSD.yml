@@ -244,3 +244,11 @@ topics:
       - player <> HasPerk TSSD_Tint_Blood >= 1 AND
       - GetCurrentTime > 5 AND
       - GetCurrentTime < 19 AND
+
+  # LavenderBlush
+  - id: 0xBE|TintsOfASuccubusSecretDesires.esp
+    affects: 0xBE|TintsOfASuccubusSecretDesires.esp
+    inject:
+      - 0x20D|TintsOfASuccubusSecretDesires.esp
+    conditions:
+      - player <> HasPerk TSSD_Tint_Lavenderblush >= 1 AND

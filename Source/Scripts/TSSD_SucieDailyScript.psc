@@ -49,8 +49,6 @@ Function initPania()
     if !slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterextremeface", last = true , silent = true  )
         slavetats.simple_add_tattoo(self, "TSSD_Tats", "cummonsterface", last = true , silent = true  )
     EndIf
-
-    DBGTrace("Pania ready!")
 EndFunction
 
 Event OnUpdateGameTime()
