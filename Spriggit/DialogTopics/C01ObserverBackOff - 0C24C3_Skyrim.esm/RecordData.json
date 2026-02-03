@@ -1,0 +1,12 @@
+{
+  "FormKey": "0C24C3:Skyrim.esm",
+  "EditorID": "C01ObserverBackOff",
+  "Version2": 1,
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "C01ObserverBackOff"
+  },
+  "Branch": "0A8200:Skyrim.esm",
+  "Quest": "06E803:Skyrim.esm",
+  "SubtypeName": "CUST"
+}

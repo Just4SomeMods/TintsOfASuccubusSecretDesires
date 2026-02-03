@@ -60,7 +60,7 @@
     </tr>
     <tr>
       <th><font color ="#DE5D83">Blush</font></th>
-      <td>Stay aroused.</td>
+      <td>Have sex with followers while very aroused.</td>
       <td>edging?</td>
       <td>Fight</td>
       <td>Drive</td>
@@ -100,7 +100,7 @@
     </tr>
     <tr>
       <th><font color ="#F38653">Crusta</font></th>
-      <td>Lay eggs.</td>
+      <td>Harvest ingredients while carrying eggs.</td>
       <td>oviposition</td>
       <td>Instinct</td>
       <td>Instinct</td>
@@ -220,7 +220,7 @@
     </tr>
     <tr>
       <th><font color ="#9C3336">Stiletto</font></th>
-      <td>Wear heels.</td>
+      <td>Get hit by far away enemies while heeled.</td>
       <td></td>
       <td>Image</td>
       <td>Control</td>
@@ -252,7 +252,7 @@
     </tr>
     <tr>
       <th><font color ="#D70040">Carmine</font></th>
-      <td>Wear a corset.</td>
+      <td>Clear a dungeon wearing a corset.</td>
       <td></td>
       <td>Taboo</td>
       <td>Control</td>
@@ -268,7 +268,7 @@
     </tr>
     <tr>
       <th><font color ="#D22B2B">Monza</font></th>
-      <td>Have a partner cum from femdom or defeat men.</td>
+      <td>Have a partner cum from femdom or defeat men while aroused.</td>
       <td>femdom</td>
       <td>Drive</td>
       <td>Control</td>
@@ -276,7 +276,7 @@
     </tr>
     <tr>
       <th><font color ="#770737">Mulberry</font></th>
-      <td>Cum from partners that have tentacles.</td>
+      <td>Fuck things with tentacles or become a champion of the tentacle god.</td>
       <td>tentacles</td>
       <td>Taboo</td>
       <td>Taboo</td>
@@ -300,7 +300,7 @@
     </tr>
     <tr>
       <th><font color ="#880808">Silver</font></th>
-      <td>Wear nipple piercings.</td>
+      <td>Smith while wearing nipple piercings.</td>
       <td></td>
       <td>Image</td>
       <td>Taboo</td>
@@ -308,7 +308,7 @@
     </tr>
     <tr>
       <th><font color ="#880808">Carissma</font></th>
-      <td>Cum from sex with monsters with huge penises.</td>
+      <td>Cum from sex with monsters with huge penises or compliment one.</td>
       <td>Bestiality</td>
       <td>Taboo</td>
       <td>Instinct</td>

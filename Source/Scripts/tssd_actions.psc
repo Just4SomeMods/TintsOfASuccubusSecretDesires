@@ -118,6 +118,7 @@ TSSD_InflationHandler Property tInflation Auto
 tssd_curequestvariables Property tCVals Auto
 TSSD_SucieDailyScript Property tSucieThings Auto
 tssd_SuccubusBrands Property tBrand Auto 
+tssd_tints_variables Property tVals Auto
 ReferenceAlias Property ScarletTarget Auto
 
 FormList Property TSSD_ShrinesWithQuests Auto
@@ -196,7 +197,6 @@ Function RefreshEnergy(float adjustBy, int upTo = 100, bool isDeathModeActivated
 Endfunction
 
 Function updateHeartMeter(bool forceShow = false)
-    
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
     if ((nxtPerc != lastPerc) || forceShow) && !Sexlab.IsActorActive(PlayerRef)
@@ -207,8 +207,7 @@ EndFunction
 
 float Function getDrainLevel(bool isGentle = false)
     float new_drain_level = (100 + SkillSuccubusDrainLevel.GetValue() * 4)
-
-        return new_drain_level
+    return new_drain_level
 Endfunction
 
 
@@ -382,18 +381,16 @@ Event CumAbsorb(form akTarget, int aiType)
     endif
 EndEvent
 
-Function toggleCActions(int index)
-    
-        if index == 0
-            tCVals.toggleCurse("Mara")
-        elseif index == 2
-            tCVals.toggleCurse("Julianos")
-        elseif index == 3
-            tCVals.toggleCurse("Dibella")
-        elseif index == 4
-            tCVals.toggleCurse("Akatosh")
-        endif
-
+Function toggleCActions(int index)    
+    if index == 0
+        tCVals.toggleCurse("Mara")
+    elseif index == 2
+        tCVals.toggleCurse("Julianos")
+    elseif index == 3
+        tCVals.toggleCurse("Dibella")
+    elseif index == 4
+        tCVals.toggleCurse("Akatosh")
+    endif
 EndFunction
 
 bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1)
@@ -602,7 +599,7 @@ Event OnUpdateGameTime()
     if PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
         energy_loss *= 0.1
     endif
-    if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1) && PlayerRef.GetFactionRank(tEvents.TSSD_Collared) >= 1
+    if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1) && tVals.isCollared >= 1
         energy_loss *= 0.5
     endif
     energy_loss *= -1

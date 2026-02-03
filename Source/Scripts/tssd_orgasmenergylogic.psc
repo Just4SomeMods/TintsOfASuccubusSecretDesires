@@ -229,6 +229,8 @@ Event PlayerSceneStart(Form FormRef, int tid)
     hasStrongPerson = false
     hasTentacles = false
     bool hasNobility = false
+    bool isVeryAroused = PlayerRef.GetFactionRank(sla_Arousal) > 90
+    
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
         DBGTrace(consentingActor.GetDisplayName())
@@ -260,7 +262,9 @@ Event PlayerSceneStart(Form FormRef, int tid)
             EndIf
             
             if !_thread.GetSubmissive(PlayerRef) && !_thread.GetSubmissive(consentingActor)
-                DBGTrace(consentingActor.GetDisplayName())
+                if isVeryAroused && consentingActor.GetFactionRank(CurrentFollowerFaction) >= 1
+                    incrValAndCheck(5,1)
+                endif
                 Actor spouseIn = getSpouseOrCourting(consentingActor)
                 if spouseIn && consentingActor.GetFactionRank(TSSD_HasCuckedFaction) < 1
                     incrValAndCheck(2, 1)

@@ -1,0 +1,8 @@
+
+topics:
+
+  # Masturbate
+  - id: 0xA81F6|Skyrim.esm
+    affects: 0xA81F6|Skyrim.esm
+    inject:
+      - 0x213|TintsOfASuccubusSecretDesires.esp

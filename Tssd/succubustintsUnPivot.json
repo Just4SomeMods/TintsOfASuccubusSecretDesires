@@ -193,7 +193,7 @@
         ],
         "description":"You love to the feel of arousal, you color is blush, on your face and your desire. You are permanently maximally aroused. Friendly people who get you off, gain a strong buff to all their stats.",
         "famecat":null,
-        "unlockMethod":"Stay aroused.",
+        "unlockMethod":"Have sex with followers while very aroused.",
         "color":[
             222,
             93,
@@ -424,7 +424,7 @@
         ],
         "description":"Your tint is crusta! If you have eggs in your belly, you create an additional potion to help feed your kids. If these kids are spiders or chaurus, your poisons deal more damage based on your drain level. If your belly is empty, all spells cost twice as much.",
         "famecat":null,
-        "unlockMethod":"Lay eggs.",
+        "unlockMethod":"Harvest ingredients while carrying eggs.",
         "color":[
             254,
             1,
@@ -433,7 +433,7 @@
         "colorHex":"F38653",
         "kink":"oviposition",
         "perk":285,
-        "targetNum":1,
+        "targetNum":20,
         "firstDes":"Instinct",
         "secondDes":"Instinct",
         "index":10
@@ -1008,7 +1008,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Wear heels.",
+        "unlockMethod":"Get hit by far away enemies while heeled.",
         "color":[
             156,
             51,
@@ -1017,7 +1017,7 @@
         "colorHex":"9C3336",
         "kink":"",
         "perk":379,
-        "targetNum":5,
+        "targetNum":50,
         "firstDes":"Image",
         "secondDes":"Control",
         "index":25
@@ -1082,7 +1082,7 @@
         "needyText":[
 
         ],
-        "description":"You are connected to Oblivion. While aroused you can summon twice the amount of daedra. If you aren't aroused, your summoning spells cost twice as much.",
+        "description":"You are connected to Oblivion. While aroused you can summon twice the amount of daedra. If you aren't your summoning spells have half the duration.",
         "famecat":[
 
         ],
@@ -1112,7 +1112,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Wear a corset.",
+        "unlockMethod":"Clear a dungeon wearing a corset.",
         "color":[
             215,
             0,
@@ -1121,7 +1121,7 @@
         "colorHex":"D70040",
         "kink":"",
         "perk":434,
-        "targetNum":5,
+        "targetNum":1,
         "firstDes":"Taboo",
         "secondDes":"Control",
         "index":29
@@ -1164,7 +1164,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Have a partner cum from femdom or defeat men.",
+        "unlockMethod":"Have a partner cum from femdom or defeat men while aroused.",
         "color":[
             210,
             43,
@@ -1190,7 +1190,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Cum from partners that have tentacles.",
+        "unlockMethod":"Fuck things with tentacles or become a champion of the tentacle god.",
         "color":[
             119,
             7,
@@ -1199,7 +1199,7 @@
         "colorHex":"770737",
         "kink":"tentacles",
         "perk":419,
-        "targetNum":5,
+        "targetNum":50,
         "firstDes":"Taboo",
         "secondDes":"Taboo",
         "index":32
@@ -1268,7 +1268,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Wear nipple piercings.",
+        "unlockMethod":"Smith while wearing nipple piercings.",
         "color":[
             136,
             8,
@@ -1294,7 +1294,7 @@
         "famecat":[
 
         ],
-        "unlockMethod":"Cum from sex with monsters with huge penises.",
+        "unlockMethod":"Cum from sex with monsters with huge penises or compliment one.",
         "color":[
             136,
             8,

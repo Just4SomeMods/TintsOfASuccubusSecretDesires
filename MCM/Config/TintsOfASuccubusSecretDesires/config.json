@@ -184,11 +184,6 @@
             "content": [
                 {
                     "type": "text",
-                    "text": "TSSD_Collared",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
                     "text": "TSSD_EnthralledFaction",
                     "help": "$showStuff"
                 },
@@ -215,11 +210,6 @@
                 {
                     "type": "text",
                     "text": "TSSD_PotentialHypnoMaster",
-                    "help": "$showStuff"
-                },
-                {
-                    "type": "text",
-                    "text": "TSSD_RevealingOutfit",
                     "help": "$showStuff"
                 },
                 {
@@ -846,6 +836,26 @@
                 {
                     "type": "text",
                     "text": "TSSD_SatiatedKeyword",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Tint_Collar",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Tint_Corset",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Tint_Gag",
+                    "help": "$showStuff"
+                },
+                {
+                    "type": "text",
+                    "text": "TSSD_Tint_Piercing",
                     "help": "$showStuff"
                 }
             ]

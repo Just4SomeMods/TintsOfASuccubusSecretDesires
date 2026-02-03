@@ -1,7 +1,5 @@
 Scriptname tssd_tints_variables extends Quest  Conditional
 
-tssd_PlayerEventsScript Property tEvents Auto conditional
-
 import tssd_utils
 tssd_menus Property tMenus Auto
 Actor Property PlayerRef Auto
@@ -33,6 +31,7 @@ bool Property isNude = false Auto Conditional hidden
 bool Property isHeeled = false Auto Conditional hidden
 bool Property isWearingCS = false Auto Conditional hidden
 bool Property isWearingNP = false Auto Conditional hidden
+bool Property isCollared = false Auto Conditional hidden
 bool Property isWearingSkimpy = false Auto Conditional hidden
 bool Property beingOrdered = false Auto Conditional hidden
 
@@ -78,17 +77,13 @@ bool Property canTake37Temptress = false Auto Conditional hidden
 bool Property canTake38Bordeaux = false Auto Conditional hidden
 Bool[] Property canTakeBools  Auto  
 
-
 function set_color()
-
-	
     JValue.cleanPool("SlaveTatsHighLevel")
     int mashedCol = getCombinedColor()
     JMap.setInt(tMenus.neckTattoo, "color", mashedCol)
     slavetats.mark_actor(PlayerRef)
 	slavetats.synchronize_tattoos(PlayerRef, false)
     RegisterForUpdateGameTime(1)
-
 EndFunction
 
 Event OnInit()

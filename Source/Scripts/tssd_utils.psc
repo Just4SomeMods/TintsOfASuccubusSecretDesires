@@ -462,7 +462,7 @@ int Function getCombinedColor() Global
         indexIn += 1
     endwhile
     if numOfTints > 1
-        combinedCols[0] = combinedCols[0] -255
+        combinedCols[0] = combinedCols[0] - 255
         numOfTints -= 1
     EndIf
 	mashedCol += combinedCols[2]  / numOfTints

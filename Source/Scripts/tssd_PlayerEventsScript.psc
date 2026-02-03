@@ -8,6 +8,9 @@ float lastGameHour = 999.0
 Quest Property tssd_tints_tracker Auto
 Quest Property TSSD_ZAcheronConsequences Auto
 Quest Property tssd_StartCurse Auto
+Quest Property DA04 Auto
+Quest Property DLC2MQ06 Auto
+Quest Property C01 Auto
 
 tssd_actions Property tActions Auto
 tssd_menus Property tMenus Auto
@@ -36,8 +39,6 @@ int[] colorsToAdd
 float[] Property targetNums Auto
 float[] Property currentVals Auto
 
-Faction Property TSSD_RevealingOutfit Auto
-Faction Property TSSD_Collared Auto
 Faction Property CurrentFollowerFaction Auto
 Faction Property JobTrainerFaction Auto
 Faction Property TSSD_PotentialHypnoMaster Auto
@@ -55,6 +56,15 @@ Keyword Property MagicRestoreHealth Auto
 Keyword Property MagicInfluenceCharm Auto
 Keyword Property MagicSchoolDestruction Auto
 
+
+Keyword Property TSSD_Tint_Collar Auto
+Keyword Property TSSD_Tint_Corset Auto
+Keyword Property TSSD_Tint_Gag Auto
+Keyword Property TSSD_Tint_Piercing Auto
+
+Keyword Property CraftingCookpot Auto
+Keyword Property CraftingSmithingForge Auto
+Keyword Property WICraftingAlchemy Auto
 
 
 Keyword Property MagicSummonFire Auto
@@ -208,17 +218,25 @@ Event OnHit(ObjectReference akAggressor, Form akSource, Projectile akProjectile,
 		endif
         tActions.gainSuccubusXP(akW.GetBaseDamage() * mult )
     endif
-	if ak && playerRef.HasPerk(TSSD_Body_ArousingBody) && ak.isHostileToActor(PlayerRef)
-		int eid = ModEvent.Create("slaUpdateExposure")
-		ModEvent.PushForm(eid, ak)
-		float arousalPush = 10.0
-		ModEvent.PushFloat(eid, arousalPush)
-		ModEvent.Send(eid)
-		if playerRef.HasPerk(TSSD_Body_StunningBody) && Utility.RandomInt(21, 200) < ak.GetFactionRank(sla_Arousal)
-			if ak.GetRace().HasKeyword(ActorTypeCreature)
-				ak.ModAV("Health", -100)
-			else
-				Sexlab.StartSceneQuick(ak)
+	if ak
+		if tVals.isHeeled
+			float distanceTo = ak.GetDistance(PlayerRef)
+			if distanceTo >= 600
+				tOrgasmLogic.incrValAndCheck(25,1)
+			endif
+		endif
+		if playerRef.HasPerk(TSSD_Body_ArousingBody) && ak.isHostileToActor(PlayerRef)
+			int eid = ModEvent.Create("slaUpdateExposure")
+			ModEvent.PushForm(eid, ak)
+			float arousalPush = 10.0
+			ModEvent.PushFloat(eid, arousalPush)
+			ModEvent.Send(eid)
+			if playerRef.HasPerk(TSSD_Body_StunningBody) && Utility.RandomInt(21, 200) < ak.GetFactionRank(sla_Arousal)
+				if ak.GetRace().HasKeyword(ActorTypeCreature)
+					ak.ModAV("Health", -100)
+				else
+					Sexlab.StartSceneQuick(ak)
+				endif
 			endif
 		endif
 	endif
@@ -313,6 +331,14 @@ Function onGameReload()
 	PO3_Events_Alias.RegisterForLevelIncrease(self)
 	PO3_Events_Alias.RegisterForActorKilled(self)
 	PO3_Events_Alias.RegisterForMagicHit(self)
+	PO3_Events_Alias.RegisterForItemHarvested(self)
+	PO3_Events_Alias.RegisterForItemCrafted(self)
+	PO3_Events_Alias.RegisterForQuestStage(self, DA04)
+	PO3_Events_Alias.RegisterForQuestStage(self, DLC2MQ06)
+	PO3_Events_Alias.RegisterForQuestStage(self, C01)
+	if CC_BimbofyPlayer
+		PO3_Events_Alias.RegisterForQuestStage(self, CC_BimbofyPlayer)
+	endif
 	
 	int cSize =  JMap.Count(JDB.solveObj(".tssdtints"))
 	if currentVals.Length < cSize
@@ -332,6 +358,30 @@ Function onGameReload()
 
 EndFunction
 
+
+Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
+	if akQuest == DLC2MQ06 && aiNewStage == 200
+		tOrgasmLogic.incrValAndCheck(32, 50)
+	elseif aiNewStage == 100 && akQuest == DA04
+		tOrgasmLogic.incrValAndCheck(32, 50)
+	elseif aiNewStage == 20 && akQuest == CC_BimbofyPlayer
+		tOrgasmLogic.incrValAndCheck(9, 1)
+	endif
+EndEvent
+
+
+Event OnItemCrafted(ObjectReference akBench, Location akLocation, Form akCreatedItem)
+	if tVals.isWearingNP && akBench.HasKeyword(CraftingSmithingForge)
+		tOrgasmLogic.incrValAndCheck(35,1)
+	endif
+EndEvent
+
+Event OnItemHarvested(Form akProduce)
+	if tVals.hasEggs > 0
+		tOrgasmLogic.incrValAndCheck(10, 1)
+	endif
+EndEvent
+
 Event OnVoreEnd(string eventName, string strArg, float numArg, form mimic)
 	tOrgasmLogic.incrValAndCheck(33,1)
 EndEvent
@@ -345,7 +395,7 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
 	if tVals.lastCumOnTime < 24
 		tOrgasmLogic.incrValAndCheck(0, 1)
 	EndIf
-	if akVictim.GetActorBase().GetSex() == 0
+	if akVictim.GetActorBase().GetSex() == 0 && PlayerRef.GetFactionRank(sla_arousal) >= 50
         tOrgasmLogic.incrValAndCheck(31,1)
 	EndIf
 	if tVals.lastRomanticTime < 24
@@ -477,50 +527,23 @@ Event OnMenuClose(String MenuName)
 endEvent
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
-	if asStatFilter == "Dungeons Cleared" && PlayerRef.HasPerk(TSSD_Body_CelebratoryMasturbation)
-		SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
-		canCelebrate = true
-		myBinding.Add("tssd_getCelebration", "Celebrate!", tActions.allInOneKey)
-		Utility.Wait(10)
-		canCelebrate = false
-		myBinding.Remove("tssd_getCelebration")
+	if asStatFilter == "Dungeons Cleared" 
+		if PlayerRef.HasPerk(TSSD_Body_CelebratoryMasturbation)
+			SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
+			canCelebrate = true
+			myBinding.Add("tssd_getCelebration", "Celebrate!", tActions.allInOneKey)
+			Utility.Wait(10)
+			canCelebrate = false
+			myBinding.Remove("tssd_getCelebration")
+		endif
+		if tVals.isWearingCS > 0
+			tOrgasmLogic.incrValAndCheck(29, 1)
+		endif
 	endif
 endEvent
 
 
 Event OnUpdateGameTime()
-	if !tssd_tints_tracker.IsStageDone(5) && PlayerRef.GetFactionRank(sla_Arousal) > 90
-		tOrgasmLogic.incrValAndCheck(5,1)
-	else
-		currentVals[5] = 0
-	endif
-
-	if bimboFound && CC_BimbofyPlayer.IsStageDone(20)
-		tMenus.ShowSuccubusTrait(9)
-	endif
-
-	if IsTopless && IsBottomless
-		tOrgasmLogic.incrValAndCheck(7, 1)
-	else
-		currentVals[7] = 0
-	endif
-	if tVals.isHeeled
-		tOrgasmLogic.incrValAndCheck(25, 1)
-	else
-		currentVals[25] = 0
-	endif
-
-	if tVals.isWearingCS
-		tOrgasmLogic.incrValAndCheck(29,1)
-	else
-		currentVals[29] = 0
-	EndIf
-	if tVals.isWearingNP
-		tOrgasmLogic.incrValAndCheck(35,1)
-	else
-		currentVals[35] = 0
-	EndIf
-
 	RegisterForModEvent("SLSF_Reloaded_ReturnRequestedFame", "GetSlutFame")
 	int slFame = ModEvent.Create("SLSF_Reloaded_RequestFame")
 	ModEvent.PushString(slFame,"Current")
@@ -654,7 +677,7 @@ Event OnUpdateGameTime()
 			follIndex += 1
 		EndWhile
 	EndIf
-
+	reloadTintVars()
 EndEvent
 
 
@@ -680,7 +703,7 @@ Event OnPlayerShoutAttack(Shout akShout)
 	if !PlayerRef.IsInCombat() && isLilac && lastBarkedTime < (Utility.GetCurrentGameTime() * 24) - 1
 		T_Show("Bark Bark!", "menus/TSSD/small/lilac.dds")
 		lastBarkedTime = Utility.GetCurrentGameTime() * 24
-	elseif !tVals.canTakeBools[6] && playerRef.GetFactionRank(TSSD_Collared) >= 1
+	elseif !tVals.canTakeBools[6] && tVals.isCollared >= 1
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
 		Utility.Wait(5)
 		tOrgasmLogic.incrValAndCheck(6, 1)
@@ -691,29 +714,27 @@ Bool Function IsPlayerSkimpy()
     return (!IsNaked && (IsShowingChest || IsShowingGenitals || IsShowingAss || IsTopless || IsBottomless || IsShowingBra || IsShowingUnderwear))
 EndFunction
 
+Function reloadTintVars()
+	tVals.isCollared = PlayerRef.WornHasKeyword(TSSD_Tint_Collar)
+	tVals.isHeeled = StorageUtil.GetIntValue(None, "ypsHeelsWorn")
+	tVals.isWearingNP = PlayerRef.WornHasKeyword(TSSD_Tint_Piercing)
+	tVals.isWearingCS = PlayerRef.WornHasKeyword(TSSD_Tint_Corset)
+	tVals.isGagged = PlayerRef.WornHasKeyword(TSSD_Tint_Gag)
+EndFunction
 
 Event OnANDUpdate()
-	if ANDFound
-		Actor Player = PlayerRef    
-		IsNaked = IsActorNude(PlayerRef)
-		IsShowingBra =      IsActorShowingBra(PlayerRef)
-		IsShowingChest =    IsActorShowingChest(PlayerRef)
-		IsShowingUnderwear =IsActorShowingUnderwear(PlayerRef)
-		IsShowingGenitals = IsActorShowingGenitals(PlayerRef)
-		IsShowingAss =      IsActorShowingAss(PlayerRef)
-		IsTopless =         IsActorTopless(PlayerRef)
-		IsBottomless =      IsActorBottomless(PlayerRef)
-		IsSkimpilyClothed = IsPlayerSkimpy()
-		isCollared = IsActorCollared(PlayerRef)
-		tVals.isWearingSkimpy = IsPlayerRevealing() as int
-		PlayerRef.SetFactionRank(TSSD_RevealingOutfit, IsPlayerRevealing() as int )
-		PlayerRef.SetFactionRank(TSSD_Collared, isCollared  as int )
-		tVals.isGagged = PlayerRef.WornHasKeyword(zad_DeviousGag) || PlayerRef.WornHasKeyword(zad_DeviousGagPanel)
-		tVals.isHeeled = StorageUtil.GetIntValue(None, "ypsHeelsWorn")
-		tVals.isNude = IsTopless && IsBottomless
-		tVals.isWearingCS = PlayerRef.WornHasKeyword(zad_DeviousCorset)
-		tVals.isWearingNP = PlayerRef.WornHasKeyword(zad_DeviousPiercingsNipple) || PlayerRef.WornHasKeyword(zbfWornPiercingNipple)
-	endif
+	Actor Player = PlayerRef
+	IsNaked = IsActorNude(PlayerRef)
+	IsShowingBra =      IsActorShowingBra(PlayerRef)
+	IsShowingChest =    IsActorShowingChest(PlayerRef)
+	IsShowingUnderwear =IsActorShowingUnderwear(PlayerRef)
+	IsShowingGenitals = IsActorShowingGenitals(PlayerRef)
+	IsShowingAss =      IsActorShowingAss(PlayerRef)
+	IsTopless =         IsActorTopless(PlayerRef)
+	IsBottomless =      IsActorBottomless(PlayerRef)
+	IsSkimpilyClothed = IsPlayerSkimpy()
+	tVals.isWearingSkimpy = IsPlayerRevealing() as int
+	tVals.isNude = IsTopless && IsBottomless
 EndEvent
 
 
@@ -752,17 +773,6 @@ EndFunction
 Bool Function IsPlayerRevealing()
 	return !IsNaked && (IsShowingBra || IsShowingUnderwear ||  IsShowingAss)
 EndFunction
-
-
-Bool Function IsActorCollared(Actor akActor)
-	If (akActor.WornHasKeyword(zad_DeviousCollar))
-		return True
-	ElseIf (ZaZAnimationPackFound && akActor.WornHasKeyword(zbfWornCollar))
-		return True
-	EndIf
-	return False
-EndFunction 
-
 
 Bool Property IsNaked = False Auto Conditional Hidden 
 Bool Property IsSkimpilyClothed = False Auto Conditional Hidden 

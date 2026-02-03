@@ -1,3 +1,10 @@
+# 1.04.02
+Bugfixes
+Remade some logic for detection of worn items
+Some Tint unlock methods have been made slightly less lame again
+Added radiant quests for LavenderBlush and Scarlet
+
+
 # 1.04.01a
 Fixed some startup bugs,
 made the quest start on first sleep

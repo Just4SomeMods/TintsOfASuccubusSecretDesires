@@ -12,28 +12,48 @@ ReferenceAlias Property Alias_LavenderTarget Auto
 ReferenceAlias Property Alias_PlayerAlias Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY ScarletTarget
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_ScarletTarget Auto
-;END ALIAS PROPERTY
-
 ;BEGIN ALIAS PROPERTY LavenderCuckTarget
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_LavenderCuckTarget Auto
 ;END ALIAS PROPERTY
 
-;BEGIN FRAGMENT Fragment_8
-Function Fragment_8()
+;BEGIN ALIAS PROPERTY ScarletTarget
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_ScarletTarget Auto
+;END ALIAS PROPERTY
+
+;BEGIN FRAGMENT Fragment_14
+Function Fragment_14()
 ;BEGIN CODE
-TSSD_SuccubusPerkPoints.Mod(1)
+SetObjectiveDisplayed(7, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_30
-Function Fragment_30()
+;BEGIN FRAGMENT Fragment_24
+Function Fragment_24()
 ;BEGIN CODE
-Game.GetPlayer().SendModEvent("TSSD_Inflate", "carmine",  1)
+SetObjectiveDisplayed(21, true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_27
+Function Fragment_27()
+;BEGIN CODE
+Game.TeachWord(TSSD_WordSuck)
+PlayerRef.AddShout(TSSD_DragonRendShout)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_4
+Function Fragment_4()
+;BEGIN CODE
+PlayerRef.SetFactionRank(sla_arousal, 99)
+PlayerRef.SetFactionRank(sla_arousal_locked, 1)
+SetObjectiveCompleted(5, true)
+SetObjectiveDisplayed(5, true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -62,38 +82,18 @@ kmyQuest.set_color()
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_4
-Function Fragment_4()
+;BEGIN FRAGMENT Fragment_8
+Function Fragment_8()
 ;BEGIN CODE
-PlayerRef.SetFactionRank(sla_arousal, 99)
-PlayerRef.SetFactionRank(sla_arousal_locked, 1)
-SetObjectiveCompleted(5, true)
-SetObjectiveDisplayed(5, true)
+TSSD_SuccubusPerkPoints.Mod(1)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_27
-Function Fragment_27()
+;BEGIN FRAGMENT Fragment_30
+Function Fragment_30()
 ;BEGIN CODE
-Game.TeachWord(TSSD_WordSuck)
-PlayerRef.AddShout(TSSD_DragonRendShout)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_14
-Function Fragment_14()
-;BEGIN CODE
-SetObjectiveDisplayed(7, true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_24
-Function Fragment_24()
-;BEGIN CODE
-SetObjectiveDisplayed(21, true)
+Game.GetPlayer().SendModEvent("TSSD_Inflate", "carmine",  1)
 ;END CODE
 EndFunction
 ;END FRAGMENT
