@@ -1,0 +1,281 @@
+{
+    "bgPath": "",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Seduction",
+    "experienceFormula": {
+        "enableXPPerRank": false,
+        "improveMult": 2,
+        "improveOffset": 0,
+        "useMult": 4.6,
+        "useOffset": 0
+    },
+    "iconPath": "",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusSeductionSkill",
+    "nodes": [
+        {
+            "description": "You can ask for a kiss to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|023",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|0F8"
+            ],
+            "name": "It started with a Kiss",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You can ask for a kiss to refresh your energy. While kissing someone, you can take what you want from their inventory.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|DB",
+                    "isUnlocked": false,
+                    "name": "It started with a Kiss",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|DB",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|023",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 30,
+            "y": 77.5
+        },
+        {
+            "description": "You gain a paralyze spell that costs energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0F8",
+            "links": [],
+            "name": "Paralyze",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0F8",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|23"
+                }
+            ],
+            "x": 47.5,
+            "y": 85
+        },
+        {
+            "description": "You can ask to for sex with someone in a safe location to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|043",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|185"
+            ],
+            "name": "DTF?",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|043",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 70,
+            "y": 77.5
+        },
+        {
+            "description": "Having sex with a follower grants them a buff to health and magicka for a day.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|185",
+            "links": [],
+            "name": "Leader",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|185",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|43"
+                }
+            ],
+            "x": 52.5,
+            "y": 85
+        },
+        {
+            "description": "You gain the ability to ask for a party.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|010",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|0E9",
+                "TintsOfASuccubusSecretDesires.esp|0ED",
+                "ENDUP"
+            ],
+            "name": "Seductress",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You always succeed on your attempts to party.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|F",
+                    "isUnlocked": false,
+                    "name": "Seductress",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|F",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|010",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 62.5,
+            "y": 60
+        },
+        {
+            "description": "",
+            "icon": "",
+            "id": "",
+            "links": [],
+            "name": "Unknown Perk",
+            "perk": "",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 58,
+            "y": 57.5
+        },
+        {
+            "description": "While wearing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0E9",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|0ED"
+            ],
+            "name": "Teasing Outift",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0E9",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|10"
+                }
+            ],
+            "x": 70,
+            "y": 65
+        },
+        {
+            "description": "",
+            "icon": "",
+            "id": "",
+            "links": [],
+            "name": "Unknown Perk",
+            "perk": "",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 50,
+            "y": 67.5
+        },
+        {
+            "description": "While talking to you, people have increased arousal.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0ED",
+            "links": [
+                "ENDSIDE"
+            ],
+            "name": "Hot Demon",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While talking to you, people have maximum arousal.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|F2",
+                    "isUnlocked": false,
+                    "name": "Hot Demon",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|F2",
+                    "perkCost": 1,
+                    "requirements": []
+                },
+                {
+                    "canUnlock": false,
+                    "description": "While talking to you, people have maximum arousal and they love you.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|F6",
+                    "isUnlocked": false,
+                    "name": "Hot Demon",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|F6",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0ED",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|10"
+                }
+            ],
+            "x": 55,
+            "y": 65
+        },
+        {
+            "description": "You can ask people to have sex without you to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|10B",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|166",
+                "TintsOfASuccubusSecretDesires.esp|184",
+                "ENDUP2"
+            ],
+            "name": "Voyeur",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|10B",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 37.5,
+            "y": 60
+        },
+        {
+            "description": "",
+            "icon": "",
+            "id": "",
+            "links": [],
+            "name": "Unknown Perk",
+            "perk": "",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 42,
+            "y": 57.5
+        },
+        {
+            "description": "Your influence illusions spell cost up to 50% less based on your seduction level.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|184",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|166",
+                "ENDSIDE"
+            ],
+            "name": "Illusionista",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|184",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|10B"
+                }
+            ],
+            "x": 45,
+            "y": 65
+        },
+        {
+            "description": "You can talk to charmed enemies to instantly drain them to death.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|166",
+            "links": [],
+            "name": "Charming Death",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|166",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|10B"
+                }
+            ],
+            "x": 30,
+            "y": 65
+        }
+    ],
+    "oldLevel": "TintsOfASuccubusSecretDesires.esp|003",
+    "selectionIconPath": ""
+}

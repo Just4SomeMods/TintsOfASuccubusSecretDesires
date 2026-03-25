@@ -233,7 +233,6 @@ Event PlayerSceneStart(Form FormRef, int tid)
     
     while indexIn < ActorsIn.length
         Actor consentingActor = ActorsIn[indexIn]
-        DBGTrace(consentingActor.GetDisplayName())
         if consentingActor != PlayerRef
             if consentingActor.GetFactionRank(TSSD_HypnoMaster) >= 1
                 tVals.beingOrdered = true
@@ -411,12 +410,12 @@ Event PlayerSceneEnd(Form FormRef, int tid)
         while indexF < tEvents.currentFollowers.Length
             Actor consentingActor = tEvents.currentFollowers[indexF]
             SexlabThread SLThread = Sexlab.GetThreadByActor(consentingActor)
-            sslThreadController _thread =  Sexlab.GetController(SLThread.GetThreadID())
-			int StageCount = SexLabRegistry.GetPathMax(   _Thread.getactivescene()  , "").Length
-			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+            sslThreadController _threadF =  Sexlab.GetController(SLThread.GetThreadID())
+			int StageCount = SexLabRegistry.GetPathMax(   _threadF.getactivescene()  , "").Length
+			int Stage_in = StageCount   - SexLabRegistry.GetPathMax(_threadF.getactivescene() ,_threadF.GetActiveStage()).Length + 1
 			while  Stage_in < StageCount 
-				_thread.AdvanceStage()
-				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_Thread.getactivescene() ,_Thread.GetActiveStage()).Length + 1
+				_threadF.AdvanceStage()
+				Stage_in = StageCount   - SexLabRegistry.GetPathMax(_threadF.getactivescene() ,_threadF.GetActiveStage()).Length + 1
 			EndWhile
             indexF += 1
         EndWhile
@@ -544,7 +543,9 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
 
         tVals.lastOrgasm = 0.1
 	endif
-	if _thread.SameSexThread() && _thread.GetPositions().Length > 1
+    bool[] _HomoTypes = _thread.CheckActiveHomoTypes()
+    bool sameSex = (_HomoTypes[1] || _HomoTypes[2] || _HomoTypes[3])
+	if sameSex && _thread.GetPositions().Length > 1
 		incrValAndCheck(4,1)
 	endif
 	if hasTagsInternal(_thread, "~love, ~loving, ~romance")

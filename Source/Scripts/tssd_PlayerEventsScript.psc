@@ -536,7 +536,7 @@ Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
 			canCelebrate = false
 			myBinding.Remove("tssd_getCelebration")
 		endif
-		if tVals.isWearingCS > 0
+		if tVals.isWearingCS
 			tOrgasmLogic.incrValAndCheck(29, 1)
 		endif
 	endif
@@ -703,7 +703,7 @@ Event OnPlayerShoutAttack(Shout akShout)
 	if !PlayerRef.IsInCombat() && isLilac && lastBarkedTime < (Utility.GetCurrentGameTime() * 24) - 1
 		T_Show("Bark Bark!", "menus/TSSD/small/lilac.dds")
 		lastBarkedTime = Utility.GetCurrentGameTime() * 24
-	elseif !tVals.canTakeBools[6] && tVals.isCollared >= 1
+	elseif !tVals.canTakeBools[6] && tVals.isCollared
 		PO3_Events_Alias.UnregisterForShoutAttack(self)
 		Utility.Wait(5)
 		tOrgasmLogic.incrValAndCheck(6, 1)

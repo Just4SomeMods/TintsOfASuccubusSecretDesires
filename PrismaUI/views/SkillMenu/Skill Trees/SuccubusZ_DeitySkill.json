@@ -1,0 +1,127 @@
+{
+    "bgPath": "",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Deities",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "iconPath": "",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusZ_DeitySkill",
+    "nodes": [
+        {
+            "description": "Asking to be watched while masturbating always succeeds and can be done in public as a devotion to the arts.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|075",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|038"
+            ],
+            "name": "Dibella's gift",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|075",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 55,
+            "y": 85
+        },
+        {
+            "description": "When you refresh energy with a loved one, you also gain \"lovers comfort\".",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|07B",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|038"
+            ],
+            "name": "Mara's gift",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|07B",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 45,
+            "y": 85
+        },
+        {
+            "description": "Your elemental effects scale with the amount of dragons you have slain. Your Intimidation attempts always succeed.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|07C",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|038"
+            ],
+            "name": "Alduin's Bane",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|07C",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 65,
+            "y": 75
+        },
+        {
+            "description": "Your spells cost 20% less.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0E6",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|038"
+            ],
+            "name": "Wise Succubus",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0E6",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 35,
+            "y": 75
+        },
+        {
+            "description": "The warrior widow helps you to overcome the worst odds, you gain increased frost and shock resist outdoors and you deal increased frost and shock damage indoors and on hit.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|091",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|038"
+            ],
+            "name": "Kyne's gift",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|091",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 50,
+            "y": 70
+        },
+        {
+            "description": "Through your devotion, your minimum energy level is now 0. Your shouts also last twice as long.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|038",
+            "links": [],
+            "name": "Ysmir's strength",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|038",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|7C"
+                },
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|75"
+                },
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|7B"
+                },
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|91"
+                },
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|E6"
+                }
+            ],
+            "x": 50,
+            "y": 75
+        }
+    ],
+    "selectionIconPath": ""
+}

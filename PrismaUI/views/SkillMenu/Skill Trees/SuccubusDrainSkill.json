@@ -1,0 +1,371 @@
+{
+    "bgPath": "./Assets/TSSD/TSSD_Drain.png",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Drain",
+    "experienceFormula": {
+        "enableXPPerRank": false,
+        "improveMult": 2,
+        "improveOffset": 0,
+        "useMult": 4.6,
+        "useOffset": 0
+    },
+    "iconPath": "",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusDrainSkill",
+    "nodes": [
+        {
+            "description": "When you refresh your energy, you also regenerate to full health.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0D0",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|094",
+                "TintsOfASuccubusSecretDesires.esp|10A",
+                "TintsOfASuccubusSecretDesires.esp|0F0"
+            ],
+            "name": "Healthy Drain",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You learn to limit your drain somewhat. Friendly targets can be drained again after only half of the time and the debuff is no longer as debilitating.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|15",
+                    "isUnlocked": false,
+                    "name": "Very Gentle Drain",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|15",
+                    "perkCost": 1,
+                    "requirements": []
+                },
+                {
+                    "canUnlock": false,
+                    "description": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and the debuff is no longer as debilitating.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|16",
+                    "isUnlocked": false,
+                    "name": "Gentle Drain",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|16",
+                    "perkCost": 1,
+                    "requirements": []
+                },
+                {
+                    "canUnlock": false,
+                    "description": "You learn to limit your drain somewhat. Friendly targets can be drained again after only a quarter of the time and receive no debuff.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|17",
+                    "isUnlocked": false,
+                    "name": "Stealth Drain",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|17",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0D0",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 56.25,
+            "y": 50.09259259259259
+        },
+        {
+            "description": "You can ask for some cum play.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0CF",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|0B3",
+                "TintsOfASuccubusSecretDesires.esp|027"
+            ],
+            "name": "Drain Balls",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0CF",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 49.791666666666664,
+            "y": 30.09259259259259
+        },
+        {
+            "description": "You gain the ability to drain energy from people in mundane conversations.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|094",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|165",
+                "TintsOfASuccubusSecretDesires.esp|012"
+            ],
+            "name": "Energy Vampire",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|094",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 51.24999999999999,
+            "y": 56.851851851851855
+        },
+        {
+            "description": "If you have cum on your chest, you gain a 20% discount from merchants.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|027",
+            "links": [],
+            "name": "Body Art Lover",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|027",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|CF"
+                }
+            ],
+            "x": 60.729166666666664,
+            "y": 31.203703703703706
+        },
+        {
+            "description": "You can ask to suck dick / suckle on some tits to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|10A",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|061",
+                "TintsOfASuccubusSecretDesires.esp|0FE"
+            ],
+            "name": "Sucking Champ",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|10A",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 45.520833333333336,
+            "y": 50.92592592592593
+        },
+        {
+            "description": "You move 20% faster.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|165",
+            "links": [],
+            "name": "Light Headed",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|165",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|94"
+                }
+            ],
+            "x": 53.02083333333333,
+            "y": 66.2962962962963
+        },
+        {
+            "description": "You gain a health absorb spell that scales with your drain level. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|061",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|174",
+                "TintsOfASuccubusSecretDesires.esp|171",
+                "TintsOfASuccubusSecretDesires.esp|1C9",
+                "TintsOfASuccubusSecretDesires.esp|1CF"
+            ],
+            "name": "Stronger Drain",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You gain a health absorb spell that scales with your drain level. Additionally drain spells cost less magicka the higher your drain skill is, up to 50% less and they deal up to twice the amount of damage.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|160",
+                    "isUnlocked": false,
+                    "name": "SFW Draining Powers",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|160",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|061",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 33.229166666666664,
+            "y": 49.351851851851855
+        },
+        {
+            "description": "All absorb spells cost only half as much magicka if you are at full health.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|171",
+            "links": [],
+            "name": "Drain Conservation",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|171",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 34.6875,
+            "y": 41.85185185185185
+        },
+        {
+            "description": "You gain a cloak spell that drains stamina and costs magicka over time. If the target is out of stamina this also drains their health.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1C9",
+            "links": [],
+            "name": "Drain Storm",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You gain a cloak spell that drains stamina + health and costs magicka over time.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|1CC",
+                    "isUnlocked": false,
+                    "name": "Drain Storm",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|1CC",
+                    "perkCost": 1,
+                    "requirements": [
+                        {
+                            "type": "perk",
+                            "value": "TintsOfASuccubusSecretDesires.esp|61"
+                        }
+                    ]
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1C9",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|61"
+                }
+            ],
+            "x": 28.125,
+            "y": 40.09259259259259
+        },
+        {
+            "description": "Your dagger attacks drain a tiny bit of life from enemies.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1CF",
+            "links": [],
+            "name": "Bleed 'em dry",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1CF",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|61"
+                }
+            ],
+            "x": 26.458333333333332,
+            "y": 56.018518518518526
+        },
+        {
+            "description": "Enemies you hit with any drain spell are also soul trapped.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|174",
+            "links": [],
+            "name": "Soul Drain",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|174",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|61"
+                }
+            ],
+            "x": 33.125,
+            "y": 60.92592592592593
+        },
+        {
+            "description": "You refresh twice as much energy from your drain.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|012",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|165"
+            ],
+            "name": "Greedy Drain",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You refresh three times as much energy from your drain.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|13",
+                    "isUnlocked": false,
+                    "name": "Greedy Drain",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|13",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|012",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|94"
+                }
+            ],
+            "x": 46.145833333333336,
+            "y": 65.74074074074075
+        },
+        {
+            "description": "If you let cum on your skin \"expire\" you gain a bit energy back.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0B3",
+            "links": [],
+            "name": "Extract Essence",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0B3",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|CF"
+                }
+            ],
+            "x": 38.958333333333336,
+            "y": 32.12962962962963
+        },
+        {
+            "description": "You lose less energy while wearing a collar. (You can only buy this perk if you are currently wearing one)",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0FE",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|061"
+            ],
+            "name": "Power Collar",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While wearing a collar you lose less energy, deal more physical damage to noble and immoral people and have a greater chance at intimidating those. ",
+                    "id": "TintsOfASuccubusSecretDesires.esp|FF",
+                    "isUnlocked": false,
+                    "name": "Power Collar",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|FF",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0FE",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|10A"
+                }
+            ],
+            "x": 45.520833333333336,
+            "y": 42.96296296296296
+        },
+        {
+            "description": "You can ask people to compliment you to regain energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0F0",
+            "links": [],
+            "name": "Praise Kink",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You can ask people to worship you to regain energy and a temporary buff.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|F1",
+                    "isUnlocked": false,
+                    "name": "Praise Kink",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|F1",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0F0",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 70.83333333333334,
+            "y": 55.925925925925924
+        }
+    ],
+    "oldLevel": "TintsOfASuccubusSecretDesires.esp|002",
+    "selectionIconPath": ""
+}

@@ -107,7 +107,6 @@ Event OnMenuOpen(string MenuName)
                 if !getSps
                     getSps = TTRF_RelationsFinder.GetCourting(tempActor)
                 endif
-                DBGTrace(getSPS)
                 LavenderCuckTarget.ForceRefTo(getSps)
                 tempActor.SetFactionRank(TSSD_HasCuckedFaction, 0)
                 getSps.SetFactionRank(TSSD_HasCuckedFaction, 0)

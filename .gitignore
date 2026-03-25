@@ -78,7 +78,6 @@ SSE*
 *.xcf
 *.blend
 example-skse-plugin*
-PrismaUI*
 BCK*
 *.kra
 *~
@@ -87,3 +86,6 @@ BCK*
 meta.ini
 *.obj
 *.mtl
+!PrismaUI/views/SkillMenu/Assets/TSSD/*.png
+Textures/KS Hairdo's
+Meshes/Actors/Hair

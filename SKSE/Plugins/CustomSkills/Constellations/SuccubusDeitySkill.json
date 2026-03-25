@@ -1,9 +1,10 @@
 {
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/CustomSkill.json",
-     "id": "SuccubusSeductionSkill",
+     "id": "SuccubusZ_DeitySkill",
      "name": "Deities",
      "description": "Will be expanded on later",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "perkPoints": "TintsOfASuccubusSecretDesires.esp|01B",
      "experienceFormula": {
           "enableXPPerRank": false
      },

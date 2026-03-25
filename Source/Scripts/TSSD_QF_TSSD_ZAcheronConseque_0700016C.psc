@@ -61,7 +61,7 @@ Function doFakeOut()
         Ntargets = PapyrusUtil.PushActor(Ntargets, targets[targets.Length - 1])
         lastTest = targets[targets.Length - 1]
         targets = PapyrusUtil.ResizeActorArray(targets, targets.Length - 1)
-        if targets.Length == 1
+        if targets.Length <= 1
             canTry = false
         endif
     endwhile

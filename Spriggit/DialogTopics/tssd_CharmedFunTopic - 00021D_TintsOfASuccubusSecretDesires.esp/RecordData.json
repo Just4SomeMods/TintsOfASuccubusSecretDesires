@@ -1,0 +1,12 @@
+{
+  "FormKey": "00021D:TintsOfASuccubusSecretDesires.esp",
+  "VersionControl": 13428,
+  "EditorID": "tssd_CharmedFunTopic",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Let's have some fun before you die."
+  },
+  "Branch": "000219:TintsOfASuccubusSecretDesires.esp",
+  "Quest": "000001:TintsOfASuccubusSecretDesires.esp",
+  "SubtypeName": "CUST"
+}

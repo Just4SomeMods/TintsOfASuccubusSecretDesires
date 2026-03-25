@@ -17,7 +17,7 @@ bool Property JhunalDone Auto       Conditional Hidden
 bool Property KynarethDone Auto     Conditional Hidden
 
 
-Function completeQuest(int index)
+Function completeQuestOf(int index)
     if index == 0
         MaraDone = true
     elseif index == 1

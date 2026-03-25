@@ -130,7 +130,7 @@ Event OnMenuClose(String MenuName)
             GenericRefreshPSex(lastDialoguePartner, false, "")
             Form[] plShoes = tActions.stripShoes(PlayerRef)
             Form[] tShoes = tActions.stripShoes(lastDialoguePartner)
-            playAnimationWithIdle(lastDialoguePartner, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4",3)
+            playAnimationWithIdle(lastDialoguePartner, "5a3fB_B_SKiss1_A1_S4", "5a3fB_B_SKiss1_A2_S4",3)
             Sexlab.UnstripActor(PlayerRef,plShoes)
             Sexlab.UnstripActor(lastDialoguePartner,tShoes)
         elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
@@ -138,7 +138,7 @@ Event OnMenuClose(String MenuName)
         elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
             if lastDialogue == "TSSD_000EE"
                 GenericRefreshPSex(lastDialoguePartner, false, "")
-                playAnimationWithIdle(lastDialoguePartner, "5a3fB_SHeadpats1_A1_S1", "5a3fB_SHeadpats1_A2_S1",2)
+                playAnimationWithIdle(lastDialoguePartner, "5a3fB_B_SHeadpats1_A1_S1", "5a3fB_B_SHeadpats1_A2_S1",2)
                 if PlayerRef.HasPerk(getPerkNumber(15))
                     T_Needs(15, "", false)
                 endif

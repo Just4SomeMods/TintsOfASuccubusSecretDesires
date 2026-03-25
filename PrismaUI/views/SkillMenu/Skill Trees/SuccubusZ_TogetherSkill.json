@@ -1,0 +1,161 @@
+{
+    "bgPath": "",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Follower Perks",
+    "experienceFormula": {
+        "enableXPPerRank": false
+    },
+    "iconPath": "",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusZ_TogetherSkill",
+    "nodes": [
+        {
+            "description": "While Pania is your follower all your illusion spells cost less. She seduces and drains merchants for you during batering to make your items seem more valuable.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|194",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|1E2"
+            ],
+            "name": "Cursed Woman",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|194",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 55,
+            "y": 85
+        },
+        {
+            "description": "This Perk is secret :P",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|1E2"
+            ],
+            "name": "Secret Perk",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "isUnlocked": false,
+                    "name": "Lightning Curse",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 45,
+            "y": 85
+        },
+        {
+            "description": "This Perk is secret :P",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|1E2"
+            ],
+            "name": "Secret Perk",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "isUnlocked": false,
+                    "name": "Lightning Curse",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 65,
+            "y": 75
+        },
+        {
+            "description": "This Perk is secret :P",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|1E2"
+            ],
+            "name": "Secret Perk",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "isUnlocked": false,
+                    "name": "Lightning Curse",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 35,
+            "y": 75
+        },
+        {
+            "description": "This Perk is secret :P",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|1E2"
+            ],
+            "name": "Secret Perk",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "isUnlocked": false,
+                    "name": "Lightning Curse",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 50,
+            "y": 70
+        },
+        {
+            "description": "This Perk is secret :P",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "links": [],
+            "name": "Secret Perk",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "isUnlocked": false,
+                    "name": "Lightning Curse",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 50,
+            "y": 75
+        }
+    ],
+    "selectionIconPath": ""
+}

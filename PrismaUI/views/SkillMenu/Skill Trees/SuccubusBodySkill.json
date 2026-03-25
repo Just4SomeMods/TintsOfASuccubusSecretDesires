@@ -1,0 +1,289 @@
+{
+    "bgPath": "./Assets/TSSD/TSSD_Body.png",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Body",
+    "experienceFormula": {
+        "enableXPPerRank": false,
+        "improveMult": 2,
+        "improveOffset": 0,
+        "useMult": 4.6,
+        "useOffset": 0
+    },
+    "iconPath": "",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusBodySkill",
+    "nodes": [
+        {
+            "description": "You can ask to be punished to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|095",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|041",
+                "LT"
+            ],
+            "name": "Subby",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You can asked to be punished and you can try to get taken advantage of.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|99",
+                    "isUnlocked": false,
+                    "name": "Very subby",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|99",
+                    "perkCost": 1,
+                    "requirements": []
+                },
+                {
+                    "canUnlock": false,
+                    "description": "You can asked to be punished and you can try to get taken advantage of and those always succeed.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|157",
+                    "isUnlocked": false,
+                    "name": "Very very subby",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|157",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|095",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 63.541666666666664,
+            "y": 56.666666666666664
+        },
+        {
+            "description": "When enemies attack you in melee, they gain a bit of arousal. You deal more melee damage to enemies based on your body skill level that are at least at 50 arousal.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|041",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|034"
+            ],
+            "name": "Arousing Body",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|041",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|95"
+                }
+            ],
+            "x": 72.5,
+            "y": 69.81481481481482
+        },
+        {
+            "description": "When enemies attack you in melee, they have a small chance  based on their arousal to start masturbating, or if it's a creature it takes massive damage instead.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|034",
+            "links": [],
+            "name": "Stunning Body",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|034",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|95"
+                }
+            ],
+            "x": 82.8125,
+            "y": 87.22222222222223
+        },
+        {
+            "description": "You can ask to be groped to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|10C",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|011",
+                "RT"
+            ],
+            "name": "Grabby",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|10C",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 36.5625,
+            "y": 57.03703703703704
+        },
+        {
+            "description": "Whilst you have more than 50 Energy, you deal increased damage with your claws.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|011",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|03D"
+            ],
+            "name": "Energy To Mass",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "Whilst you have more than 50 Energy, you deal increased damage with your claws.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|19",
+                    "isUnlocked": false,
+                    "name": "Energy To Mass",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|19",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|011",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|10C"
+                }
+            ],
+            "x": 25.937500000000004,
+            "y": 71.11111111111111
+        },
+        {
+            "description": "When you get overstuffed with energy, you gain a bonus to health equal to the points you are above 100 and 10% of that as a slow. (You need the base Cap Increase Perk to select this.)",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|03D",
+            "links": [],
+            "name": "Overstuffed",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|03D",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|11"
+                }
+            ],
+            "x": 16.5625,
+            "y": 87.5
+        },
+        {
+            "description": "Blocking gets more effective the higher your body rating is.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1C7",
+            "links": [],
+            "name": "The Wall",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1C7",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 49.375,
+            "y": 57.77777777777777
+        },
+        {
+            "description": "While you have semen in you, your power attacks cost 50% less stamina.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|026",
+            "links": [],
+            "name": "Creampie Lover",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|026",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 48.125,
+            "y": 79.53703703703704
+        },
+        {
+            "description": "You can try to get paid to be eyecandy and refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0E2",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|16A",
+                "RT"
+            ],
+            "name": "Findom",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|E3",
+                    "isUnlocked": false,
+                    "name": "Domdom",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|E3",
+                    "perkCost": 1,
+                    "requirements": []
+                },
+                {
+                    "canUnlock": false,
+                    "description": "You can try to get paid to be eyecandy and refresh your energy and you can try some dominant escorting. Those endeavours always succeed.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|E4",
+                    "isUnlocked": false,
+                    "name": "Dom of doom",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|E4",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0E2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 33.75,
+            "y": 41.75925925925926
+        },
+        {
+            "description": "Upon clearing a location you can masturbate to refresh your energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|16A",
+            "links": [],
+            "name": "Celebratory Masturbation",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|16A",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|E2"
+                }
+            ],
+            "x": 37.291666666666664,
+            "y": 37.03703703703704
+        },
+        {
+            "description": "You can ask to punish submissive people indoors.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0DE",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|16F",
+                "LT"
+            ],
+            "name": "Naughty Brat",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You can ask to punish submissive people in any safe location.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|E8",
+                    "isUnlocked": false,
+                    "name": "Naughty Brat",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|E8",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0DE",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 65.9375,
+            "y": 42.03703703703704
+        },
+        {
+            "description": "You gain increased carry weight based on your body level.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|16F",
+            "links": [],
+            "name": "Hidden Pockets",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|16F",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|DE"
+                }
+            ],
+            "x": 61.875,
+            "y": 38.98148148148148
+        }
+    ],
+    "oldLevel": "TintsOfASuccubusSecretDesires.esp|004",
+    "selectionIconPath": ""
+}

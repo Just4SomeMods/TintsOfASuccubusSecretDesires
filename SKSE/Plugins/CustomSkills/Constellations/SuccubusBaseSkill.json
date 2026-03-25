@@ -7,6 +7,7 @@
      "level": "TintsOfASuccubusSecretDesires.esp|01F",
      "ratio": "TintsOfASuccubusSecretDesires.esp|020",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
+    "perkPoints": "TintsOfASuccubusSecretDesires.esp|01B",
      "experienceFormula": {
           "useMult": 4.6,
           "useOffset": 0.0,
@@ -22,6 +23,12 @@
           "y": -0.5,
           "links": [ "StamRegen", "SneakAttack" , "MagRegen", "CapIncrease"
           ]
+     },{
+          "id": "EVIL",
+          "perk": "TintsOfASuccubusSecretDesires.esp|21E",
+          "x": -2.0,
+          "y": -1.5,
+          "links": [ "PowerGrowing"]
      },{
           "id": "PowerGrowing",
           "perk": "TintsOfASuccubusSecretDesires.esp|0E7",

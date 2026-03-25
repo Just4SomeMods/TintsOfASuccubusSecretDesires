@@ -164,11 +164,10 @@ Function OpenGrandeMenu()
         endif
         return
     endif
-    modifierKeyIsDown =  Input.IsKeyPressed( MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iModifierHotkey:Main") )
-    if modifierKeyIsDown
-        CustomSkills.OpenCustomSkillMenu("SuccubusBaseSkill")
-        return
-    EndIf
+    
+    b612_ItemSelect2 nwItems = Game.GetFormFromFile(0xD75, "b612.esp") as b612_ItemSelect2
+    nwItems.Show()
+    
     if !PlayerRef.IsInCombat()
         tActions.updateHeartMeter()
     EndIf
@@ -325,9 +324,9 @@ Function startSuccubusLife()
     JMap.setInt(nwTat, "locked", 1)
     slavetats.synchronize_tattoos(PlayerRef, false)
     neckTattoo = nwTat
-    if tActions.slsfListener.visManager
-        tActions.slsfListener.visManager.FaceTattooExcluded[JMap.GetInt(nwTat, "slot")] = true
-    EndIf
+    ; if tActions.slsfListener.visManager
+    ;     tActions.slsfListener.visManager.FaceTattooExcluded[JMap.GetInt(nwTat, "slot")] = true
+    ; EndIf
 
 EndFunction
 

@@ -302,9 +302,9 @@ Endfunction
 
 
 Function TSSD_ModTint(Actor CmdTargetActor, ActiveMagicEffect _CmdPrimary, string[] param) global
-    sl_triggersCmd CmdPrimary = _CmdPrimary as sl_triggersCmd
+    ; sl_triggersCmd CmdPrimary = _CmdPrimary as sl_triggersCmd
     Game.GetPlayer().SendModEvent("TSSD_ModTint", param[1], param[2] as float)
-    CmdPrimary.CompleteOperationOnActor()
+    ; CmdPrimary.CompleteOperationOnActor()
 EndFunction
 
 ;/

@@ -69,9 +69,9 @@ Function activateStuff()
         JMap.setInt(brandTat, "glow", 0)
         slavetats.synchronize_tattoos(PlayerRef, false)
         didStartUpAlready = true
-        if tActions.tMenus.slsfListener.visManager
-            tActions.tMenus.slsfListener.visManager.BodyTattooExcluded[JMap.GetInt(brandTat, "slot")] = true
-    EndIf
+        ; if tActions.tMenus.slsfListener.visManager
+        ;     tActions.tMenus.slsfListener.visManager.BodyTattooExcluded[JMap.GetInt(brandTat, "slot")] = true
+        ; EndIf
     endif
     RegisterForUpdateGameTime(1)
     RegisterForMenu("Sleep/Wait Menu")
@@ -193,7 +193,7 @@ Function doPetting(Actor akTarget)
     unstripsShields[32] = true
     Sexlab.StripSlots(akTarget, unstripsShields, false)
     int randI = Utility.RandomInt(2,4)
-    playAnimationWithIdle(akTarget, "5a3fB_StandA_A1_S" + randI, "5a3fB_StandA_A2_S" + randI )
+    playAnimationWithIdle(akTarget, "5a3fB_B_StandA_A1_S" + randI, "5a3fB_B_StandA_A2_S" + randI )
     
     ; playAnimationWithIdle(akTarget, "5a3fB_Beh2_A1_S1", "5a3fB_Beh2_A2_S1" )
     Sexlab.UnstripActor(PlayerRef,equips)
@@ -230,7 +230,7 @@ Function TasksTold(string taskTold, Actor talkerLel)
         increaseFame("Slut")
     Elseif cTask == 5
         increaseFame("Airhead")
-        playAnimationWithIdle(none, "5a3fB_LayProne_A1_S1", "", 3)
+        playAnimationWithIdle(none, "5a3fB_B_LayProne_A1_S1", "", 3)
     Elseif cTask == 6
         increaseFame("Airhead")
         playAnimationWithIdle(talkerLel, "5a3fB_SHeadpats1_A1_S1", "5a3fB_SHeadpats1_A2_S1")
@@ -289,15 +289,15 @@ Function TasksTold(string taskTold, Actor talkerLel)
         increaseFame("Airhead")
     Elseif cTask == 107
         increaseFame("Submissive", 2)
-        playAnimationWithIdle(talkerLel, "5a3fB_StandFace_A1_S1", "5a3fB_StandFace_A2_S1", 1.0)
+        playAnimationWithIdle(talkerLel, "5a3fB_B_StandFace_A1_S1", "5a3fB_B_StandFace_A2_S1", 1.0)
     Elseif cTask == 108
         increaseFame("Airhead",2)
-        playAnimationWithIdle(talkerLel, "5a3fB_CGLay_A1_S1", "5a3fB_CGLay_A2_S1", 1.0)
+        playAnimationWithIdle(talkerLel, "5a3fB_B_CGLay_A1_S1", "5a3fB_B_CGLay_A2_S1", 1.0)
     Elseif cTask == 109
         increaseFame("Slut", 2)
             Form[] plShoes = tActions.stripShoes(PlayerRef)
             Form[] tShoes = tActions.stripShoes(talkerLel)
-            playAnimationWithIdle(talkerLel, "5a3fB_SKiss1_A1_S4", "5a3fB_SKiss1_A2_S4", 3)
+            playAnimationWithIdle(talkerLel, "5a3fB_B_SKiss1_A1_S4", "5a3fB_B_SKiss1_A2_S4", 3)
             Sexlab.UnstripActor(PlayerRef,plShoes)
             Sexlab.UnstripActor(talkerLel,tShoes)
     Elseif cTask == 110
@@ -342,7 +342,7 @@ Function TasksTold(string taskTold, Actor talkerLel)
 
         Form[] equips = doSpankStrip(talkerLel)
         int randI = Utility.RandomInt(2,4)
-        playAnimationWithIdle(talkerLel, "5a3fB_SpankStand_A1_S" + randI, "5a3fB_SpankStand_A2_S" + randI)
+        playAnimationWithIdle(talkerLel, "5a3fB_B_SpankStand_A1_S" + randI, "5a3fB_B_SpankStand_A2_S" + randI)
         Sexlab.UnstripActor(PlayerRef,equips)
     Elseif cTask == 301
         increaseFame("Exhibitionist", 3)
@@ -357,7 +357,7 @@ Function TasksTold(string taskTold, Actor talkerLel)
         unstripsShields[32] = true
         Utility.Wait(1.5)
         Sexlab.UnstripActor(PlayerRef,equips)
-        playAnimationWithIdle(talkerLel, "5a3fB_Beh2_A1_S1", "5a3fB_Beh2_A2_S1" )
+        playAnimationWithIdle(talkerLel, "5a3fB_B_Beh2_A1_S1", "5a3fB_B_Beh2_A2_S1" )
     Elseif cTask == 302
         increaseFame("Airhead", 2)
         increaseFame("Exhibitionist", 2)
@@ -396,7 +396,7 @@ Function TasksTold(string taskTold, Actor talkerLel)
         increaseFame("Masochist", 2)        
         Form[] equips = doSpankStrip(talkerLel)
         int randI = Utility.RandomInt(2,4)
-        playAnimationWithIdle(talkerLel, "5a3fB_SpankDog_A1_S" + randI, "5a3fB_SpankDog_A2_S" + randI)
+        playAnimationWithIdle(talkerLel, "5a3fB_B_SpankDog_A1_S" + randI, "5a3fB_B_SpankDog_A2_S" + randI)
         Sexlab.UnstripActor(PlayerRef,equips)
     endif
     SetObjectiveCompleted(cTask, true)

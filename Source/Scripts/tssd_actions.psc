@@ -200,7 +200,7 @@ Function updateHeartMeter(bool forceShow = false)
     int lastVal = SuccubusDesireLevel.GetValue() as int
     int nxtPerc = Min(5, ((SuccubusDesireLevel.GetValue() / 20  ) + 0.5) as int) as int
     if ((nxtPerc != lastPerc) || forceShow) && !Sexlab.IsActorActive(PlayerRef)
-        T_Show(lastVal, "menus/TSSD/" + nxtPerc + "H.dds", 0.0 )
+        T_Show("", "menus/TSSD/" + nxtPerc + "H.dds", 0.0 )
         lastPerc = nxtPerc
     endif
 EndFunction
@@ -369,8 +369,14 @@ Function RegisterSuccubusEvents()
         ; PlayerRef.AddPerk(TSSD_Seduction_OfferSex)
     endif
     RegisterForTrackedStatsEvent()
-    RegisterForModEvent("SexLabClearCum", "CumAbsorb")    
+    RegisterForModEvent("SexLabClearCum", "CumAbsorb")
+    RegisterForModEvent("TSSD_ToggleDeathModeExtern", "TSSD_ToggleDeathModeOn")
 Endfunction
+
+
+Event TSSD_ToggleDeathModeOn(string eventName, string strArg, float numArg, Form sender)
+    toggleDeathMode(true, true)
+EndEvent
 
 Event CumAbsorb(form akTarget, int aiType)
     if !PlayerRef.IsSwimming() && (akTarget as Actor) == PlayerRef
@@ -393,9 +399,9 @@ Function toggleCActions(int index)
     endif
 EndFunction
 
-bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1)
-    if !tssd_dealwithcurseQuest.GetStage() >= 20
-        return
+bool Function increaseGlobalDeity(int index, float byVal = 1.0, int targetVal = -1)
+    if tssd_dealwithcurseQuest.GetStage() < 20
+        return false
     endif
     int additional = 0
     if index >= 5
@@ -409,7 +415,7 @@ bool Function increaseGlobalDeity(int index, float byVal = 1, int targetVal = -1
     advanceStageTwenty()
     if isCompleted
         toggleCActions(index)
-        tCVals.completeQuest(index)
+        tCVals.completeQuestOf(index)
     endif
     return isCompleted
 Endfunction
@@ -511,7 +517,6 @@ Function onGameReload()
         MCM.GetModSettingString("TintsOfASuccubusSecretDesires",jArray.getStr(innerJ, 0)))
         index += 1
     endwhile
-    
     tDialogue.onGameReload()
     HotDemonTarget = PlayerRef
     last_checked = Utility.GetCurrentGameTime() * 24
@@ -594,12 +599,12 @@ Event OnUpdateGameTime()
     lastScarletTalk += timeBetween
     float valBefore = SuccubusDesireLevel.GetValue()
     Location curLoc = Game.GetPlayer().GetCurrentLocation()
-    float chVal = 1
+    float chVal = 1.0
     float energy_loss = timeBetween * chVal
     if PlayerRef.HasMagicEffect(TSSD_SatiatedEffect)
         energy_loss *= 0.1
     endif
-    if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1) && tVals.isCollared >= 1
+    if PlayerRef.HasPerk(TSSD_Drain_CollaredEvil1) && tVals.isCollared
         energy_loss *= 0.5
     endif
     energy_loss *= -1

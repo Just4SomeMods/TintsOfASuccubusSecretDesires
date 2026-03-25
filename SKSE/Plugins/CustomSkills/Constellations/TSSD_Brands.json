@@ -1,8 +1,9 @@
 {
      "$schema": "https://raw.githubusercontent.com/Exit-9B/CustomSkills/main/docs/schema/skill.json",
-     "id": "SuccubusBaseSkill",
+     "id": "SuccubusZ_BrandSkill",
      "name": "Brands",
      "description": "For every brand, you gain 33% more succubus xp.",
+    "perkPoints": "TintsOfASuccubusSecretDesires.esp|01B",
      "showMenu": "TintsOfASuccubusSecretDesires.esp|047",
      "nodes": [
           {

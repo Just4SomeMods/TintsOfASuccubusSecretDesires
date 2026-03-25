@@ -2328,6 +2328,20 @@
                 },
                 {
                     "type": "text",
+                    "text": "Greedy Succubus",
+                    "help": "You can ask to refresh your energy even though you do not need to.\n",
+                    "action": {
+                        "type": "CallFunction",
+                        "form": "TintsOfASuccubusSecretDesires.esp|001",
+                        "scriptName": "tssd_actions",
+                        "function": "addTSSDPerk",
+                        "params": [
+                            "542"
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
                     "text": "Secret Perk1",
                     "help": "This Perk is secret :P\n",
                     "action": {

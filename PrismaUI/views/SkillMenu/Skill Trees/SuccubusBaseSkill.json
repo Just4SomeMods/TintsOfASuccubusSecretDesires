@@ -1,0 +1,249 @@
+{
+    "bgPath": "./Assets/TSSD/TSSD_SuccubusRank.png",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Succubus Rank",
+    "experienceFormula": {
+        "enableXPPerRank": false,
+        "improveMult": 2,
+        "improveOffset": 0,
+        "useMult": 4.6,
+        "useOffset": 0
+    },
+    "iconPath": "./Assets/TSSD/TSSD_SuccubusRankIcon.png",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusBaseSkill",
+    "nodes": [
+        {
+            "description": "You can no longer regenerate health and do not deal increased damage while sneaking. Your sex partners gain increased enjoyment based on all of your succubus skill levels. Below 0 Energy you learn all skills at half the normal rate and you no longer regenerate stamina and magicka. ",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|022",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|02B",
+                "TintsOfASuccubusSecretDesires.esp|086",
+                "TintsOfASuccubusSecretDesires.esp|02C",
+                "TintsOfASuccubusSecretDesires.esp|03E"
+            ],
+            "name": "Base Explanation",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|022",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 31.666666666666664,
+            "y": 69.16666666666667
+        },
+        {
+            "description": "You can ask to refresh your energy even though you do not need to.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|21E",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|0E7"
+            ],
+            "name": "Greedy Succubus",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|21E",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 60.72916666666667,
+            "y": 81.66666666666667
+        },
+        {
+            "description": "UNDERGOING CONSTRUCTION. At -100 Energy you enter a feeding frenzy, which increases damage taken by an insane amount and you force yourself onto the first person you can drain. You gain double the amount of xp.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|0E7",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|04E",
+                "TintsOfASuccubusSecretDesires.esp|056"
+            ],
+            "name": "Power Grows",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|0E7",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 60,
+            "y": 72.40740740740742
+        },
+        {
+            "description": "You can act exhausted and lure ne'er-do-wellers into having their way with you. This only works outside of combat and alerts their teammates after the deed.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|056",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|057"
+            ],
+            "name": "Invitation",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|056",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|E7"
+                }
+            ],
+            "x": 65,
+            "y": 56.75925925925926
+        },
+        {
+            "description": "You can overpower the last hostile target, if they have less health than you and drain them dry.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|04E",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|057"
+            ],
+            "name": "Aggressive Negotiation",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|04E",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|E7"
+                }
+            ],
+            "x": 49.791666666666664,
+            "y": 58.88888888888889
+        },
+        {
+            "description": "You increase your prey detection range by 10 meter.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|057",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|02D"
+            ],
+            "name": "Sharper Senses",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|057",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|E7"
+                }
+            ],
+            "x": 59.16666666666667,
+            "y": 40.648148148148145
+        },
+        {
+            "description": "You can regenerate Stamina again at low energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|02B",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|02A"
+            ],
+            "name": "Staminaregen",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|02B",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 27.500000000000004,
+            "y": 56.111111111111114
+        },
+        {
+            "description": "You deal your normal sneak attack damage again.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|086",
+            "links": [],
+            "name": "Restore Sneak attack",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|086",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 32.604166666666664,
+            "y": 96.48148148148148
+        },
+        {
+            "description": "You can regenerate Magicka again at low energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|02C",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|02A"
+            ],
+            "name": "Magickaregen",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|02C",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 43.22916666666667,
+            "y": 52.87037037037037
+        },
+        {
+            "description": "You can regenerate health again at 50 or more energy.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|02A",
+            "links": [],
+            "name": "Healthregen",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|02A",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|2C"
+                },
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|2B"
+                }
+            ],
+            "x": 33.125,
+            "y": 48.24074074074074
+        },
+        {
+            "description": "You increase your maximum energy level by 100. Getting above 100 does not strengthen most abilities.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|03E",
+            "links": [],
+            "name": "Overflow",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "You increase your maximum energy level by 200 more. Getting above 100 does not strengthen most abilities. (400 max)",
+                    "id": "TintsOfASuccubusSecretDesires.esp|3F",
+                    "isUnlocked": false,
+                    "name": "Overflow",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|3F",
+                    "perkCost": 1,
+                    "requirements": []
+                },
+                {
+                    "canUnlock": false,
+                    "description": "You increase your maximum energy level by 600 more. Getting above 100 does not strengthen most abilities. (1000 max)",
+                    "id": "TintsOfASuccubusSecretDesires.esp|40",
+                    "isUnlocked": false,
+                    "name": "Overflow",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|40",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|03E",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 17.916666666666668,
+            "y": 88.98148148148148
+        },
+        {
+            "description": "Draining someone to death seems like an accident to bystanders. NOT IMPLEMENTED YET.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|02D",
+            "links": [],
+            "name": "Innocent",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|02D",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|57"
+                }
+            ],
+            "x": 59.375,
+            "y": 29.259259259259256
+        }
+    ],
+    "oldLevel": "TintsOfASuccubusSecretDesires.esp|01F",
+    "selectionIconPath": ""
+}

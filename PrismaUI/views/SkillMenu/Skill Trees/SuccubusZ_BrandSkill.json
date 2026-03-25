@@ -1,0 +1,92 @@
+{
+    "bgPath": "",
+    "category": "Succubus",
+    "color": "#FFFFFF",
+    "displayName": "Brands",
+    "experienceFormula": {
+        "improveMult": 1,
+        "improveOffset": 0,
+        "useMult": 1,
+        "useOffset": 0
+    },
+    "iconPath": "",
+    "iconPerkPath": "",
+    "initialLevel": 15,
+    "isHidden": false,
+    "isVanilla": false,
+    "name": "SuccubusZ_BrandSkill",
+    "nodes": [
+        {
+            "description": "In a settlement, there is a chance for you to feel a strange need to do humiliating tasks, the higher your succubus rank the more humiliating the tasks. If you take longer than a day to complete the task you gain a huge headache.",
+            "icon": "./Assets/TSSD/TSSD_Brand_TaskNew.svg",
+            "id": "TintsOfASuccubusSecretDesires.esp|1F2",
+            "links": [],
+            "name": "Task",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1F2",
+            "perkCost": 1,
+            "requirements": [],
+            "x": 49.47916666666667,
+            "y": 73.33333333333333
+        },
+        {
+            "description": "The higher your arousal and body rank the lewder your body gets and the more people talk about you. ",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1EE",
+            "links": [],
+            "name": "Vibrancy",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1EE",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|1F2"
+                }
+            ],
+            "x": 27.055603780864203,
+            "y": 63.367948388203025
+        },
+        {
+            "description": "If someone fantasizes about groping our petting you in public, you feel their fantasies come true.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1EB",
+            "links": [],
+            "name": "Sway",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1EB",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|1F2"
+                }
+            ],
+            "x": 68.6181037808642,
+            "y": 64.38646690672155
+        },
+        {
+            "description": "You can only rest if you have cum inside you.",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1F0",
+            "links": [],
+            "name": "Cumchained",
+            "nextRanks": [],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1F0",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|1EB"
+                },
+                {
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|1EE"
+                }
+            ],
+            "x": 49.13893711419753,
+            "y": 44.47905949931413
+        }
+    ],
+    "selectionIconPath": ""
+}
