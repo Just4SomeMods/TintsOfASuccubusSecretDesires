@@ -10,7 +10,7 @@
         "useMult": 4.6,
         "useOffset": 0
     },
-    "iconPath": "",
+    "iconPath": "./Assets/TSSD/TSSD_BodyICON.png",
     "iconPerkPath": "",
     "initialLevel": 15,
     "isHidden": false,

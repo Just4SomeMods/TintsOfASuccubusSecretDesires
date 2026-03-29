@@ -328,6 +328,8 @@ Function onGameReload()
 	RegisterForModEvent("CurseOfLife_EggLaid","EggLaid")
 	RegisterForModEvent("CurseOfLife_Updated", "OnCOLUpdated")
 	RegisterForModEvent("Mimic_VoreEnd", "OnVoreEnd")
+	RegisterForModEvent("MAL_ReturnPlayerTotalMilkProduced", "UpdateMALMilked")
+	RegisterForModEvent("MAL_ReturnPlayerIsLactating", "UpdateMALLactating")
 	PO3_Events_Alias.RegisterForLevelIncrease(self)
 	PO3_Events_Alias.RegisterForActorKilled(self)
 	PO3_Events_Alias.RegisterForMagicHit(self)
@@ -357,6 +359,18 @@ Function onGameReload()
 
 
 EndFunction
+
+Event UpdateMALLactating(bool isLact)
+	tVals.isLactating = isLact
+EndEvent
+
+
+Event UpdateMALMilked(float milkAmount)
+	
+	currentVals[30] = 0
+	tOrgasmLogic.incrValAndCheck(30, milkAmount)
+	DBGTrace(currentVals[30])
+endEvent
 
 
 Event OnQuestStageChange(Quest akQuest, Int aiNewStage)
@@ -407,11 +421,9 @@ Event OnActorKilled(Actor akVictim, Actor akKiller)
         tOrgasmLogic.incrValAndCheck(24,1)
 	EndIf
 
-	if CustomSkills.GetAPIVersion() >= 3
-		if distanceTo < 350
-			CustomSkills.AdvanceSkill("SuccubusBodySkill", max(20, (akVictim.GetBaseActorValue("health") - distanceTo) / 4 ))
-		endif
-		PlayerRef.SendModEvent("TSSD_Inflate", "body", (tMenus.SkillSuccubusBodyLevel.GetValue() - 15) / 200 )
+	if distanceTo < 350
+		NewSkillMenu.AddCustomSkillXP("SuccubusBodySkill", max(20, (akVictim.GetBaseActorValue("health") - distanceTo) / 16 ))
+		PlayerRef.SendModEvent("TSSD_Inflate", "body", (NewSkillMenu.GetCustomSkillLevel("SuccubusBodySkill") - 15) / 200 )
 	endif
 	if currentFollowers.Length > 0
 		tOrgasmLogic.incrValAndCheck(27,1)
@@ -420,7 +432,7 @@ EndEvent
 
 Event OnMagicHit(ObjectReference akTarget, Form akSource, Projectile akProjectile)
 	if akTarget != PlayerRef && PO3_SKSEFunctions.HasMagicEffectWithArchetype((akTarget as actor), "absorb")
-		CustomSkills.AdvanceSkill("SuccubusDrainSkill", 5 )
+        NewSkillMenu.AddCustomSkillXP("SuccubusDrainSkill", 5)
 		if PlayerRef.HasPerk(TSSD_Drain_SouldrainNew)
 			TSSD_SoulTrap.Cast(PlayerRef, akTarget)
 		endif
@@ -446,8 +458,8 @@ Event OnSpellCast(Form akSpell)
 	if tVals.isWearingSkimpy && (akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(MagicSchoolDestruction))
 		tOrgasmLogic.incrValAndCheck(17, sp.GetMagickaCost() / 100)
 	EndIf
-	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(MagicInfluenceCharm)
-		CustomSkills.AdvanceSkill("SuccubusSeductionSkill", sp.GetMagickaCost() )		
+	if akSpell.HasKeyword(MagicInfluence) || akSpell.HasKeyword(MagicInfluenceCharm)		
+        NewSkillMenu.AddCustomSkillXP("SuccubusSeductionSkill", sp.GetMagickaCost() )
 		if PlayerRef.HasPerk(getPerkNumber(25))
 			PlayerRef.RemoveSpell(TSSD_StilettoBuffsNNerfs)
 			Utility.Wait(0.1)
@@ -455,7 +467,7 @@ Event OnSpellCast(Form akSpell)
 		endif
 	endif 
 	if akSpell.HasKeyword(TSSD_AbsorbSpellKeyword)
-		CustomSkills.AdvanceSkill("SuccubusDrainSkill", sp.GetMagickaCost() )
+        NewSkillMenu.AddCustomSkillXP("SuccubusDrainSkill", sp.GetMagickaCost() )
 	endif
 	if PlayerRef.GetFactionRank(sla_arousal) >= 50 && (akSpell.HasKeyword( MagicSummonFire) || akSpell.HasKeyword( MagicSummonFrost) || akSpell.HasKeyword( MagicSummonShock))
 		tOrgasmLogic.incrValAndCheck(28, 1)
@@ -549,6 +561,11 @@ Event OnUpdateGameTime()
 	ModEvent.PushString(slFame,"Current")
 	ModEvent.PushString(slFame,"Slut")
 	ModEvent.Send(slFame)
+	int malEventAsk
+	malEventAsk = ModEvent.Create("MAL_GetPlayerTotalMilkProduced")
+	ModEvent.Send(malEventAsk)
+	malEventAsk = ModEvent.Create("MAL_GetPlayerIsLactating")
+	ModEvent.Send(malEventAsk)
 
 	
     int appliedMatches = JValue.retain(JArray.object(), "TSSD")

@@ -63,6 +63,11 @@ HeadPart PlayerEyes
 bool hadAnnouncement = false
 int[] possibleAnnouncements
 
+float[] Property highScores Auto hidden
+Actor[] Property highScoresActors Auto hidden
+String[] Property highScoresNames Auto hidden
+
+
 
 Perk Property TSSD_DeityArkayPerk Auto
 Perk Property TSSD_DeityMaraPerk Auto
@@ -206,6 +211,11 @@ Function onGameReload()
     RegisterForModEvent("PlayerTrack_End", "PlayerSceneEnd")
 	RegisterForModEvent("SexLabOrgasmSeparate", "OnOrgasmAny")
     RegisterForModEvent("TSSD_ModTint", "TintMod")
+    if highScores.Length < 10
+        highScores = new float[10]
+        highScoresActors = new Actor[10]
+        highScoresNames = new String[10]
+    endif
 
 EndFunction
 
@@ -363,14 +373,14 @@ Event PlayerSceneStart(Form FormRef, int tid)
 	
 	Actor[] aIn = _thread.GetPositions()
 	if aIn.Length == 1
-		_thread.SetEnjoyment(PlayerRef, 100)
+		;_thread.SetEnjoyment(PlayerRef, 100)
         incrValAndCheck(24, 0)
 	endif
 
  	while indexIn < aIn.Length
         Actor consentingActor = aIn[indexIN] as Actor
 		if consentingActor.GetRace().HasKeyword(ActorTypeCreature)
-			_thread.SetEnjoyment(consentingActor, 100)
+			;_thread.SetEnjoyment(consentingActor, 100)
 		elseif consentingActor && consentingActor != PlayerRef
             _thread.ModEnjoymentMult(consentingActor, (SkillSuccubusBaseLevel.GetValue() + SkillSuccubusBodyLevel.GetValue() + SkillSuccubusDrainLevel.GetValue() + SkillSuccubusSeductionLevel.GetValue()) / 1000, true )
             
@@ -388,6 +398,47 @@ Event PlayerSceneStart(Form FormRef, int tid)
 EndEvent
 
 
+Function updateScoreBoard(Actor consentingActor, float getPoints)
+    int indexIn = 0
+    int indexAlready = -1
+    int indexLower = -1
+    String nameOf = consentingActor.GetDisplayName()
+    while indexIn < highScores.Length
+        if indexLower == -1 && getPoints > highScores[indexIN]
+            indexLower = indexIN
+        endif
+        if highScoresNames[indexIN] == nameOf
+            indexAlready = indexIN
+        endif
+        indexIn += 1
+    endwhile
+    if indexLower == indexIn
+        highScores[indexIn] = getPoints
+    elseif indexAlready < 0 && indexLower >= 0
+        String[] tempArrST
+        float[] tempArrFL
+        if indexLower == 0
+            tempArrST = new String[1]
+            tempArrST[0] = nameOf
+            tempArrFL = new float[1]
+            tempArrFL[0] = getPoints
+        else
+            tempArrST = PapyrusUtil.SliceStringArray(highScoresNames, 0, indexLower -1)
+            tempArrFL = PapyrusUtil.SliceFloatArray(highScores, 0, indexLower -1)
+            tempArrST = PapyrusUtil.PushString(tempArrST, nameOf)
+            tempArrFL = PapyrusUtil.PushFloat(tempArrFL, getPoints)
+        endif
+        highScoresNames = PapyrusUtil.MergeStringArray(tempArrST,  PapyrusUtil.SliceStringArray(highScoresNames, indexLower, -1 )  )
+        highScores = PapyrusUtil.MergeFloatArray(tempArrFL,  PapyrusUtil.SliceFloatArray(highScores, indexLower, -1 )  )
+        highScoresNames = PapyrusUtil.ResizeStringArray(highScoresNames, 10)
+        highScores = PapyrusUtil.ResizeFloatArray(highScores, 10)
+
+    elseif (indexAlready >= 0 && getPoints > highScores[indexAlready])
+
+    endif
+    DBGTrace(highScores)
+    DBGTrace(highScoresNames)
+EndFunction
 
 
 Event PlayerSceneEnd(Form FormRef, int tid)
@@ -402,6 +453,9 @@ Event PlayerSceneEnd(Form FormRef, int tid)
         Actor consentingActor = ActorsIn[indexIn]
         if consentingActor.GetFactionRank(TSSD_MarkedForDeathFaction) >= 1
             consentingActor.Kill(PlayerRef)
+        endif
+        if consentingActor != PlayerRef
+            updateScoreBoard(consentingActor, Utility.RandomFloat() * 100)
         endif
         indexIn += 1
     endwhile   
@@ -436,7 +490,9 @@ Function OnOrgasmAny(Form ActorRef_Form, int Thread)
         return
     endif	
 	if WhoCums != PlayerRef
-        TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
+        if tActions.playerInSafeHaven() || !WhoCums.IsInFaction(CurrentFollowerFaction)
+            TSSD_DrainedMarker.Cast(PlayerRef, WhoCums)
+        endif
 		if tssd_dealwithcurseQuest.isRunning() && !tssd_dealwithcurseQuest.isobjectivefailed(24) ; Dibella
 			if !_thread.GetSubmissive(PlayerRef)
 				tActions.increaseGlobalDeity(3,PlayerRef.GetAV("Speechcraft"),10000)

@@ -1265,7 +1265,7 @@ local pools = {
     } },
   TSSD_0020E = {
     {
-      "I shouldn't, but I can not resist you.", "May Mara forgive me."
+      "I shouldn't, but I can't resist you.", "May Mara forgive me."
     }}
 
 

@@ -134,7 +134,7 @@ Event OnMenuClose(String MenuName)
             Sexlab.UnstripActor(PlayerRef,plShoes)
             Sexlab.UnstripActor(lastDialoguePartner,tShoes)
         elseif StringUtil.Find( "TSSD_00096", lastDialogue) >= 0
-            GenericRefreshPSex(lastDialoguePartner, false, "")
+            GenericRefreshPSex(lastDialoguePartner, true, "~love, ~loving")
         elseif StringUtil.Find( "TSSD_000A6 TSSD_000B0 TSSD_000DA TSSD_000EE TSSD_000F5", lastDialogue) >= 0
             if lastDialogue == "TSSD_000EE"
                 GenericRefreshPSex(lastDialoguePartner, false, "")

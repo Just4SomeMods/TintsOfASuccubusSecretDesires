@@ -11,7 +11,7 @@
     },
     "iconPath": "",
     "iconPerkPath": "",
-    "initialLevel": 15,
+    "initialLevel": 100,
     "isHidden": false,
     "isVanilla": false,
     "name": "SuccubusZZ_TintsSkill",
@@ -27,7 +27,14 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|12A",
             "perkCost": 1,
-            "requirements": [],
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
             "x": 50,
             "y": 73
         },
@@ -42,9 +49,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|115",
             "perkCost": 1,
-            "requirements": [],
-            "x": 57.52761317232264,
-            "y": 70.11915140155324
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 57.549800524989244,
+            "y": 70.11321222635539
         },
         {
             "description": "You start each day with a new tattoo, these make you more durable increasing your armor by 10.",
@@ -57,9 +71,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|11B",
             "perkCost": 1,
-            "requirements": [],
-            "x": 42.47238682767736,
-            "y": 70.11915140155324
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 42.450199475010756,
+            "y": 70.11321222635539
         },
         {
             "description": "As love conquers all, you gain increased damage against creatures incapable of love such as monsters, but you lose damage against men and mer if you haven't had a romantic interaction in a while.",
@@ -72,9 +93,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|117",
             "perkCost": 1,
-            "requirements": [],
-            "x": 63.02959737023907,
-            "y": 68.70127365249373
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 63.11659963973588,
+            "y": 68.67913135943965
         },
         {
             "description": "Having sex for the first time with a person in a marriage that does not involve you increases your XP gained by a lot. As this upsets her greatly, Mara forbids you from wearing her amulet. If you have destroyed 20 relationships your new enchantments are 50% stronger.",
@@ -87,9 +115,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|116",
             "perkCost": 1,
-            "requirements": [],
-            "x": 36.97040262976093,
-            "y": 68.70127365249373
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 36.88340036026412,
+            "y": 68.67913135943965
         },
         {
             "description": "While you are collared, you halve the time between your barks and halve your effectiveness to intimidate people. Your shouts are 25% less effective.",
@@ -102,9 +137,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|123",
             "perkCost": 1,
-            "requirements": [],
-            "x": 69.77735687252022,
-            "y": 66.92407197094414
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 69.94554299446496,
+            "y": 66.87722682549325
         },
         {
             "description": "You gain 50 max health, and having cum on your skin increases your confidence which increases your two-handed damage. If you haven't had cum on your skin in a day, you can no longer talk to non-men.",
@@ -117,9 +159,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|114",
             "perkCost": 1,
-            "requirements": [],
-            "x": 30.22264312747978,
-            "y": 66.92407197094414
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 30.054457005535042,
+            "y": 66.87722682549325
         },
         {
             "description": "You restoration skill increases 20% faster. Restoration spells cost twice as much. If you have been praised recently, they also heal twice as much.",
@@ -132,9 +181,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|122",
             "perkCost": 1,
-            "requirements": [],
-            "x": 77.19269888845186,
-            "y": 64.64458492358135
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 77.43804188640541,
+            "y": 64.55963719287254
         },
         {
             "description": "Your love for being choked makes you light headed, increasing your carry weight by 100. If you have not been choked in a while, you can no longer shout.",
@@ -147,9 +203,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|12F",
             "perkCost": 1,
-            "requirements": [],
-            "x": 22.807301111548142,
-            "y": 64.64458492358135
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 22.561958113594585,
+            "y": 64.55963719287254
         },
         {
             "description": "You become exhibitionistic. While you are top- and bottomless your armor and vanilla enchantment strengths double. If you put on clothes again, your speed decreases.",
@@ -162,9 +225,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|11A",
             "perkCost": 1,
-            "requirements": [],
-            "x": 84.52300081133679,
-            "y": 61.69182172109172
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 84.81700199847236,
+            "y": 61.550621902166924
         },
         {
             "description": "Your enchantments are 10% stronger. If you had a hypnosis session or masturbated while fantasizing about it recently, you learn magic skills 20% faster. This buff refreshes automatically.",
@@ -177,9 +247,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|129",
             "perkCost": 1,
-            "requirements": [],
-            "x": 15.476999188663214,
-            "y": 61.69182172109172
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 15.182998001527636,
+            "y": 61.550621902166924
         },
         {
             "description": "Your two-handed damage doubles while cum is on you, stacking with Razzmatazz, your destruction damage doubles while cum is in you. You can only talk to non-cum producers and refresh energy if you have had cum on you recently and have currently cum in you.",
@@ -192,9 +269,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|12E",
             "perkCost": 1,
-            "requirements": [],
-            "x": 90.95330258796574,
-            "y": 57.92338058340807
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 91.24477397835558,
+            "y": 57.70633181700094
         },
         {
             "description": "You are maximally aroused. Friendly people who get you off, gain a strong buff to all their stats.",
@@ -207,9 +291,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|119",
             "perkCost": 1,
-            "requirements": [],
-            "x": 9.046697412034263,
-            "y": 57.92338058340807
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 8.755226021644418,
+            "y": 57.70633181700094
         },
         {
             "description": "You're gay, good for you! You gain triple xp from interactions with your gender, but half it in other cases.",
@@ -222,9 +313,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|118",
             "perkCost": 1,
-            "requirements": [],
-            "x": 95.72967329194907,
-            "y": 53.291616507521084
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 95.95235461579378,
+            "y": 52.98403890233852
         },
         {
             "description": "You gain 200 max health. If you are above 200 current health, you take double damage from all sources.",
@@ -237,9 +335,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|121",
             "perkCost": 1,
-            "requirements": [],
-            "x": 4.270326708050931,
-            "y": 53.291616507521084
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 4.047645384206213,
+            "y": 52.98403890233852
         },
         {
             "description": "Selling prices are reduced to a quarter. This has made you more aware of the world around you, increasing your learning rate by 100%. If you recently had sex with a shopkeep, you reduce their prices by a quarter.",
@@ -252,9 +357,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|124",
             "perkCost": 1,
-            "requirements": [],
-            "x": 98.27433835013679,
-            "y": 47.89985636683318
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 98.35902296015455,
+            "y": 47.49993400763179
         },
         {
             "description": "If you choose Mahogany, you can gain energy from hostile people, but you can no longer get energy from wholesome activities.",
@@ -267,9 +379,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|12B",
             "perkCost": 1,
-            "requirements": [],
-            "x": 1.7256616498632127,
-            "y": 47.89985636683318
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 1.6409770398454526,
+            "y": 47.49993400763179
         },
         {
             "description": "You like most reds anyway. When you get offered a tint you have to take it, but you gain twice the succubus xp from now on. This tint can not be taken later.",
@@ -282,9 +401,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|11E",
             "perkCost": 1,
-            "requirements": [],
-            "x": 98.27433835013679,
-            "y": 42.029227792057384
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 98.16311716487672,
+            "y": 41.55494975792804
         },
         {
             "description": "Your potions and poisons are 10% stronger and while you are digesting something, you increase your chance of picking an additional ingredient by 10%. You also learn all effects from eating. Alchemists are disturbed by your tendency to swallow their merchandise and charge you 20% worse prices.",
@@ -297,9 +423,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|11F",
             "perkCost": 1,
-            "requirements": [],
-            "x": 1.7256616498632127,
-            "y": 42.029227792057384
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 1.8368828351232835,
+            "y": 41.55494975792804
         },
         {
             "description": "Wearing revealing clothing make your illusion and destruction spells more potent based on your seduction level. You are so used to enemies being distracted by your choice of clothes, that these spells get weaker if you wear less revealing clothing.",
@@ -312,9 +445,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|128",
             "perkCost": 1,
-            "requirements": [],
-            "x": 95.72967329194907,
-            "y": 36.122655044557135
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 95.38930389372291,
+            "y": 35.614809900982955
         },
         {
             "description": "You take 10% less physical damage. When you get your ass spanked, you learn faster for a while. If your ass is unspanked for to long, your ass cheeks clap to loud and can alert enemies.",
@@ -327,9 +467,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|120",
             "perkCost": 1,
-            "requirements": [],
-            "x": 4.270326708050931,
-            "y": 36.122655044557135
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 4.610696106277089,
+            "y": 35.614809900982955
         },
         {
             "description": "If you have eggs in your belly, you find more ingredients to eat for your spawn. If these kids are spiders or chaurus, your poisons deal more damage based on your drain level. If your belly is empty, all spells cost twice as much.",
@@ -342,9 +489,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|11D",
             "perkCost": 1,
-            "requirements": [],
-            "x": 90.95330258796574,
-            "y": 30.723179522959327
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 90.38471052146724,
+            "y": 30.242129849285973
         },
         {
             "description": "Your melee attacks deal extra fire damage over time, but if you haven't masturbated in a while, you take double damage from fire.",
@@ -357,9 +511,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|147",
             "perkCost": 1,
-            "requirements": [],
-            "x": 9.046697412034263,
-            "y": 30.723179522959327
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 9.615289478532752,
+            "y": 30.242129849285973
         },
         {
             "description": "You have increased speech while wearing heels. You take more damage while sprinting. While in heels and not sprinting you resist half the physical damage from far away enemies and 75% of all elemental damage while standing still in heels.",
@@ -372,9 +533,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|17B",
             "perkCost": 1,
-            "requirements": [],
-            "x": 84.52300081133679,
-            "y": 26.376260136699457
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 83.76454448081262,
+            "y": 25.99183913949581
         },
         {
             "description": "You are more intimidating. You deal more damage to males and take more damage from females.",
@@ -387,9 +555,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|19D",
             "perkCost": 1,
-            "requirements": [],
-            "x": 15.476999188663214,
-            "y": 26.376260136699457
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 16.235455519187376,
+            "y": 25.99183913949581
         },
         {
             "description": "While aroused you can summon twice the amount of daedra. If you aren't aroused, your summoning spells cost twice as much.",
@@ -402,9 +577,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|19F",
             "perkCost": 1,
-            "requirements": [],
-            "x": 77.19269888845186,
-            "y": 23.516673168072955
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 76.31597710522595,
+            "y": 23.29269710840569
         },
         {
             "description": "Your non-influence illusion spells last twice as long. You also appear harmless, reducing your intimidation chance.",
@@ -417,9 +599,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1A0",
             "perkCost": 1,
-            "requirements": [],
-            "x": 22.807301111548142,
-            "y": 23.516673168072955
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 23.684022894774042,
+            "y": 23.29269710840569
         },
         {
             "description": "If you are a vampire, you refresh your energy when you drink blood and you drink blood when you refresh your energy. You can only refresh your energy if you are not under the sun.",
@@ -432,9 +621,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1A2",
             "perkCost": 1,
-            "requirements": [],
-            "x": 69.7773568725202,
-            "y": 22.366879921262424
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 68.87580073519221,
+            "y": 22.343810100916016
         },
         {
             "description": "You learn 50% faster. If you haven't had a tentacle inside you for a long time, you lose the ability to be understood by people.",
@@ -447,9 +643,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1A3",
             "perkCost": 1,
-            "requirements": [],
-            "x": 30.2226431274798,
-            "y": 22.366879921262424
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 31.124199264807782,
+            "y": 22.343810100916016
         },
         {
             "description": "Milking refreshes your energy. If you haven't breastfed someone in a while you get sad, increasing incoming damage.",
@@ -462,9 +665,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1A5",
             "perkCost": 1,
-            "requirements": [],
-            "x": 63.02959737023907,
-            "y": 22.873231707396577
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 62.20158756251975,
+            "y": 23.05375850876267
         },
         {
             "description": "If you are wearing nipple piercings you can bribe people for half the amount and your smithing increases faster. If you aren't your sell prices plummet.",
@@ -477,9 +687,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1A8",
             "perkCost": 1,
-            "requirements": [],
-            "x": 36.97040262976093,
-            "y": 22.873231707396577
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 37.79841243748025,
+            "y": 23.05375850876267
         },
         {
             "description": "Learning from the best, you poison hold for twice the amount of hits. You can ask any nobility to make you their concubine. If you hadn't had sex with nobility in a while, your power attacks cost twice the amount of stamina.",
@@ -492,9 +709,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1AD",
             "perkCost": 1,
-            "requirements": [],
-            "x": 57.527613172322624,
-            "y": 24.69886647735416
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 56.857103505618824,
+            "y": 25.041117651166658
         },
         {
             "description": "You are immune to stagger. If you have not had a big dick inside you for quite some time, you get confused and gain a random chance to miss attacks.",
@@ -507,9 +731,16 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|1AF",
             "perkCost": 1,
-            "requirements": [],
-            "x": 42.472386827677376,
-            "y": 24.69886647735416
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
+            "x": 43.142896494381176,
+            "y": 25.041117651166658
         },
         {
             "description": "You gain a shout to overpower low health dragons to end them. Your shouts are twice as strong and you gain a longer satiated time when you \"absorb\" dragons, but your other ways to become satiated only last half as long.",
@@ -520,7 +751,14 @@
             "nextRanks": [],
             "perk": "TintsOfASuccubusSecretDesires.esp|146",
             "perkCost": 1,
-            "requirements": [],
+            "requirements": [
+                {
+                    "isNot": true,
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|22"
+                }
+            ],
             "x": 50,
             "y": 33.9
         }

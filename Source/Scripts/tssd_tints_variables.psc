@@ -33,6 +33,7 @@ bool Property isWearingCS = false Auto Conditional hidden
 bool Property isWearingNP = false Auto Conditional hidden
 bool Property isCollared = false Auto Conditional hidden
 bool Property isWearingSkimpy = false Auto Conditional hidden
+bool Property isLactating = false Auto Conditional hidden
 bool Property beingOrdered = false Auto Conditional hidden
 
 bool Property talkingWithNonWolf = false Auto Conditional hidden

@@ -151,28 +151,25 @@ Function OpenGrandeMenu()
     if SuccubusDesireLevel.GetValue() <= -101
         int dbgSuccy = MCM.GetModSettingInt("TintsOfASuccubusSecretDesires","iSkipExplanations:Main")
         startSuccubusLife()
-        return
     endif
     if tEvents.canCelebrate
         Sexlab.StartSceneQuick(PlayerRef)
         tEvents.canCelebrate = false
         SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
         myBinding.Remove("tssd_getCelebration")
-        if CustomSkills.GetAPIVersion() >= 3
-            tActions.gainSuccubusXP(100 * Game.QueryStat("Dungeons Cleared"))
-            CustomSkills.AdvanceSkill("SuccubusBodySkill", 100 * Game.QueryStat("Dungeons Cleared"))
-        endif
+        NewSkillMenu.AddCustomSkillXP("SuccubusBodySkill", 100 * Game.QueryStat("Dungeons Cleared"))
+        tActions.gainSuccubusXP(100 * Game.QueryStat("Dungeons Cleared"))
         return
     endif
-    
-    b612_ItemSelect2 nwItems = Game.GetFormFromFile(0xD75, "b612.esp") as b612_ItemSelect2
-    nwItems.Show()
     
     if !PlayerRef.IsInCombat()
         tActions.updateHeartMeter()
     EndIf
     ObjectReference ref = Game.GetCurrentCrosshairRef()
     if ref
+        if ref as actor
+            tOrgasmLogic.updateScoreBoard(ref as Actor, Utility.RandomFloat() * 100)
+        endif
         if !Sexlab.IsActorActive(PlayerRef) && tActions.playerInSafeHaven() && tEvents.isLilac && (ref as Actor) && tActions.isDoggie(ref as Actor) && !(ref as Actor).HasMagicEffect(tActions.TSSD_DrainedDownSide)
             tActions.tDialogue.lilacBeg(ref as Actor)
             SkyInteract myBinding = SkyInteract_Util.GetSkyInteract()
@@ -187,7 +184,7 @@ Function OpenGrandeMenu()
     endif
     sslThreadController _thread =  Sexlab.GetPlayerController()
     b612_SelectList mySelectList = GetSelectList()
-    string toSplit = "Abilities;Upgrades;Settings [OUTDATED];View Tint Progress"
+    string toSplit = "Abilities;Upgrades;Settings [OUTDATED];View Tint Progress;Show Scoreboard"
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
         toSplit += ";Cheat Tint"
         ; toSplit += ";Increase Slut Fame"
@@ -222,8 +219,24 @@ Function OpenGrandeMenu()
         incrSlutFame()
     elseif resOf == "Debug Task"
         openDebugTaskMenu(ref as Actor)
+    elseif resOf == "Show Scoreboard"
+        openScoreBoard()
     endif
 EndFunction 
+
+Function openScoreBoard()
+    b612_LeaderBoardMenu lB = GetLeaderBoard()
+    lB.SetHeader("Highscore")
+    int indexIn = 0
+    while indexIn < 10
+        if tOrgasmLogic.highScores[indexIn] > 0
+            lB.addItem(tOrgasmLogic.highScoresNames[indexIn], "" + tOrgasmLogic.highScores[indexIn] )
+        endif
+        indexIn +=1
+    endwhile
+    lB.init()
+    lB.Show()
+EndFunction
 
 bool slsrActive = false
 

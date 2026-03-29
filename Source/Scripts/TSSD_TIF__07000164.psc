@@ -6,9 +6,7 @@ Scriptname TSSD_TIF__07000164 Extends TopicInfo Hidden
 Function Fragment_0(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-if CustomSkills.GetAPIVersion() >= 3
-  CustomSkills.AdvanceSkill("SuccubusDrainSkill",  akSpeaker.GetAv("Health"))
-endif
+NewSkillMenu.AddCustomSkillXP("SuccubusDrainSkill", akSpeaker.GetAv("Health"))
 TSSD_DrainHealth.SetNthEffectMagnitude(0,  akSpeaker.GetAv("Health") + 10 )
 TSSD_DrainHealth.Cast( Game.GetPlayer(), akSpeaker)
 
@@ -23,3 +21,4 @@ EndFunction
 Spell Property TSSD_DrainHealth Auto
  
 import CustomSkills
+

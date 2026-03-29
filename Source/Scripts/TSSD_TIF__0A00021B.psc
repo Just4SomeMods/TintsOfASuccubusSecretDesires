@@ -34,9 +34,7 @@ Event CharmDefeatEnd(int aiThreadID, bool abHasPlayer)
     while indexIn < nTargets.Length
         Actor isPlayer = nTargets[indexIn]
         if isPlayer != PlayerRef
-            if CustomSkills.GetAPIVersion() >= 3
-                CustomSkills.AdvanceSkill("SuccubusDrainSkill",  isPlayer.GetAv("Health"))
-            endif
+            NewSkillMenu.AddCustomSkillXP("SuccubusDrainSkill", isPlayer.GetAv("Health"))
             TSSD_DrainHealth.SetNthEffectMagnitude(0,  isPlayer.GetAv("Health") + 10 )
             TSSD_DrainHealth.Cast( Game.GetPlayer(), isPlayer)
 

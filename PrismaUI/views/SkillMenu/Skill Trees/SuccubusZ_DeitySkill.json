@@ -8,7 +8,7 @@
     },
     "iconPath": "",
     "iconPerkPath": "",
-    "initialLevel": 15,
+    "initialLevel": 100,
     "isHidden": false,
     "isVanilla": false,
     "name": "SuccubusZ_DeitySkill",
@@ -25,8 +25,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|075",
             "perkCost": 1,
             "requirements": [],
-            "x": 55,
-            "y": 85
+            "x": 54.895833333333336,
+            "y": 71.20370370370371
         },
         {
             "description": "When you refresh energy with a loved one, you also gain \"lovers comfort\".",
@@ -40,8 +40,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|07B",
             "perkCost": 1,
             "requirements": [],
-            "x": 45,
-            "y": 85
+            "x": 44.895833333333336,
+            "y": 71.20370370370371
         },
         {
             "description": "Your elemental effects scale with the amount of dragons you have slain. Your Intimidation attempts always succeed.",
@@ -55,8 +55,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|07C",
             "perkCost": 1,
             "requirements": [],
-            "x": 65,
-            "y": 75
+            "x": 64.89583333333333,
+            "y": 61.2037037037037
         },
         {
             "description": "Your spells cost 20% less.",
@@ -70,8 +70,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|0E6",
             "perkCost": 1,
             "requirements": [],
-            "x": 35,
-            "y": 75
+            "x": 34.895833333333336,
+            "y": 61.2037037037037
         },
         {
             "description": "The warrior widow helps you to overcome the worst odds, you gain increased frost and shock resist outdoors and you deal increased frost and shock damage indoors and on hit.",
@@ -85,8 +85,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|091",
             "perkCost": 1,
             "requirements": [],
-            "x": 50,
-            "y": 70
+            "x": 49.895833333333336,
+            "y": 56.2037037037037
         },
         {
             "description": "Through your devotion, your minimum energy level is now 0. Your shouts also last twice as long.",
@@ -119,8 +119,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|E6"
                 }
             ],
-            "x": 50,
-            "y": 75
+            "x": 49.895833333333336,
+            "y": 61.2037037037037
         }
     ],
     "selectionIconPath": ""

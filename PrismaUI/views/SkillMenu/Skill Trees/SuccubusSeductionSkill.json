@@ -1,5 +1,5 @@
 {
-    "bgPath": "",
+    "bgPath": "./Assets/TSSD/TSSD_Seduction.png",
     "category": "Succubus",
     "color": "#FFFFFF",
     "displayName": "Seduction",
@@ -10,7 +10,7 @@
         "useMult": 4.6,
         "useOffset": 0
     },
-    "iconPath": "",
+    "iconPath": "./Assets/TSSD/TSSD_SeductionICON.png",
     "iconPerkPath": "",
     "initialLevel": 15,
     "isHidden": false,
@@ -40,8 +40,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|023",
             "perkCost": 1,
             "requirements": [],
-            "x": 30,
-            "y": 77.5
+            "x": 39.791666666666664,
+            "y": 62.5
         },
         {
             "description": "You gain a paralyze spell that costs energy.",
@@ -58,8 +58,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|23"
                 }
             ],
-            "x": 47.5,
-            "y": 85
+            "x": 45.729166666666664,
+            "y": 76.20370370370371
         },
         {
             "description": "You can ask to for sex with someone in a safe location to refresh your energy.",
@@ -73,8 +73,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|043",
             "perkCost": 1,
             "requirements": [],
-            "x": 70,
-            "y": 77.5
+            "x": 63.74999999999999,
+            "y": 63.05555555555556
         },
         {
             "description": "Having sex with a follower grants them a buff to health and magicka for a day.",
@@ -91,8 +91,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|43"
                 }
             ],
-            "x": 52.5,
-            "y": 85
+            "x": 55.3125,
+            "y": 77.31481481481481
         },
         {
             "description": "You gain the ability to ask for a party.",
@@ -119,20 +119,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|010",
             "perkCost": 1,
             "requirements": [],
-            "x": 62.5,
-            "y": 60
-        },
-        {
-            "description": "",
-            "icon": "",
-            "id": "",
-            "links": [],
-            "name": "Unknown Perk",
-            "perk": "",
-            "perkCost": 1,
-            "requirements": [],
-            "x": 58,
-            "y": 57.5
+            "x": 63.125,
+            "y": 40.27777777777778
         },
         {
             "description": "While wearing revealing clothing, you have a chance to dodge attacks. (You need to wear revealing clothing to buy this perk)",
@@ -151,20 +139,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|10"
                 }
             ],
-            "x": 70,
-            "y": 65
-        },
-        {
-            "description": "",
-            "icon": "",
-            "id": "",
-            "links": [],
-            "name": "Unknown Perk",
-            "perk": "",
-            "perkCost": 1,
-            "requirements": [],
-            "x": 50,
-            "y": 67.5
+            "x": 66.97916666666667,
+            "y": 48.7037037037037
         },
         {
             "description": "While talking to you, people have increased arousal.",
@@ -204,8 +180,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|10"
                 }
             ],
-            "x": 55,
-            "y": 65
+            "x": 58.12500000000001,
+            "y": 46.2037037037037
         },
         {
             "description": "You can ask people to have sex without you to refresh your energy.",
@@ -221,20 +197,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|10B",
             "perkCost": 1,
             "requirements": [],
-            "x": 37.5,
-            "y": 60
-        },
-        {
-            "description": "",
-            "icon": "",
-            "id": "",
-            "links": [],
-            "name": "Unknown Perk",
-            "perk": "",
-            "perkCost": 1,
-            "requirements": [],
-            "x": 42,
-            "y": 57.5
+            "x": 39.0625,
+            "y": 40.833333333333336
         },
         {
             "description": "Your influence illusions spell cost up to 50% less based on your seduction level.",
@@ -254,8 +218,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|10B"
                 }
             ],
-            "x": 45,
-            "y": 65
+            "x": 44.479166666666664,
+            "y": 47.5
         },
         {
             "description": "You can talk to charmed enemies to instantly drain them to death.",
@@ -272,8 +236,8 @@
                     "value": "TintsOfASuccubusSecretDesires.esp|10B"
                 }
             ],
-            "x": 30,
-            "y": 65
+            "x": 35.9375,
+            "y": 50.92592592592593
         }
     ],
     "oldLevel": "TintsOfASuccubusSecretDesires.esp|003",

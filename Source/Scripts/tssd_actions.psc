@@ -270,9 +270,9 @@ Function gainSuccubusXP(float byValue, float enegryLossReduction = 0.0)
         SuccubusXpAmount.Mod(succNeedVal * -1)
         RefreshEnergy( succNeedVal * -1 )
     endif
-    if CustomSkills.GetAPIVersion() >= 3
-        byValue *= 1 + ( (tBrand.amountOfBrands - 1) / 3.0)
-        CustomSkills.AdvanceSkill("SuccubusBaseSkill",byValue)
+    byValue *= 1 + ( (tBrand.amountOfBrands - 1) / 3.0)
+    if byValue > 0
+        NewSkillMenu.AddCustomSkillXP("SuccubusBaseSkill", byValue)
     endif
 EndFunction
 
@@ -562,7 +562,7 @@ Endfunction
 
 Event OnTrackedStatsEvent(string asStatFilter, int aiStatValue)
     if MCM.GetModSettingBool("TintsOfASuccubusSecretDesires","bDebugCheats:Main")
-        DBGTrace(asStatFilter)
+        DBGTrace( "tracked_stats_" + asStatFilter)
     EndIf
     if !PlayerRef.isInCombat() && PlayerRef.HasPerk(getPerkNumber(19)) && lastScarletTalk > 24 && ((asStatFilter == "Books Read") || asStatFilter == "Skill Increases" || asStatFilter == "Locations Discovered")
         int toIncrease = 2

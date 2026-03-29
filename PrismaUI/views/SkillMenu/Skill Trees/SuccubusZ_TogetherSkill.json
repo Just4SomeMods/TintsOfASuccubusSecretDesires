@@ -8,7 +8,7 @@
     },
     "iconPath": "",
     "iconPerkPath": "",
-    "initialLevel": 15,
+    "initialLevel": 100,
     "isHidden": false,
     "isVanilla": false,
     "name": "SuccubusZ_TogetherSkill",
@@ -25,8 +25,40 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|194",
             "perkCost": 1,
             "requirements": [],
-            "x": 55,
-            "y": 85
+            "x": 55.833333333333336,
+            "y": 70.83333333333333
+        },
+        {
+            "description": "This Perk is secret :P",
+            "icon": "",
+            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "links": [
+                "TintsOfASuccubusSecretDesires.esp|1E2"
+            ],
+            "name": "Secret Perk",
+            "nextRanks": [
+                {
+                    "canUnlock": false,
+                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
+                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "isUnlocked": false,
+                    "name": "Lightning Curse",
+                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
+                    "perkCost": 1,
+                    "requirements": []
+                }
+            ],
+            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
+            "perkCost": 1,
+            "requirements": [
+                {
+                    "target": "",
+                    "type": "perk",
+                    "value": "TintsOfASuccubusSecretDesires.esp|8B"
+                }
+            ],
+            "x": 45.833333333333336,
+            "y": 70.83333333333333
         },
         {
             "description": "This Perk is secret :P",
@@ -51,8 +83,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
             "perkCost": 1,
             "requirements": [],
-            "x": 45,
-            "y": 85
+            "x": 65.83333333333333,
+            "y": 60.83333333333333
         },
         {
             "description": "This Perk is secret :P",
@@ -77,8 +109,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
             "perkCost": 1,
             "requirements": [],
-            "x": 65,
-            "y": 75
+            "x": 35.833333333333336,
+            "y": 60.83333333333333
         },
         {
             "description": "This Perk is secret :P",
@@ -103,34 +135,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
             "perkCost": 1,
             "requirements": [],
-            "x": 35,
-            "y": 75
-        },
-        {
-            "description": "This Perk is secret :P",
-            "icon": "",
-            "id": "TintsOfASuccubusSecretDesires.esp|1E2",
-            "links": [
-                "TintsOfASuccubusSecretDesires.esp|1E2"
-            ],
-            "name": "Secret Perk",
-            "nextRanks": [
-                {
-                    "canUnlock": false,
-                    "description": "While Theri is your follower you draw bows 50% faster and apply schock damage on hit if you are heavily aroused. If you cum while heavily aroused, you deal shock damage to enemies around you for a short duration.",
-                    "id": "TintsOfASuccubusSecretDesires.esp|8B",
-                    "isUnlocked": false,
-                    "name": "Lightning Curse",
-                    "perk": "TintsOfASuccubusSecretDesires.esp|8B",
-                    "perkCost": 1,
-                    "requirements": []
-                }
-            ],
-            "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
-            "perkCost": 1,
-            "requirements": [],
-            "x": 50,
-            "y": 70
+            "x": 50.833333333333336,
+            "y": 55.83333333333333
         },
         {
             "description": "This Perk is secret :P",
@@ -153,8 +159,8 @@
             "perk": "TintsOfASuccubusSecretDesires.esp|1E2",
             "perkCost": 1,
             "requirements": [],
-            "x": 50,
-            "y": 75
+            "x": 50.833333333333336,
+            "y": 60.83333333333333
         }
     ],
     "selectionIconPath": ""
